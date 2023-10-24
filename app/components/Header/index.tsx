@@ -1,7 +1,7 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { Button, Container } from './styled';
-import Link from 'next/link';
+"use client";
+import { useRouter } from "next/navigation";
+import { Button, Container } from "./styled";
+import Link from "next/link";
 
 const Header = () => {
   const router = useRouter();
@@ -9,9 +9,9 @@ const Header = () => {
   return (
     <Container>
       <h1>
-        <Link href='/'>Logo</Link>
+        <Link href="/">Logo</Link>
       </h1>
-      <Button onClick={() => router.push('/account')}>회원가입</Button>
+      <Button onClick={() => router.push("/account")}>회원가입</Button>
     </Container>
   );
 };
