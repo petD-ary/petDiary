@@ -42,6 +42,7 @@ const AccountPage = () => {
 
       {step === 0 && <UserForm />}
       {step === 1 && <UserForm />}
+      {step === 2 && <UserForm />}
 
       <button type='submit' onClick={() => setStep((prev) => prev + 1)}>
         {step === 0 ? '다음 단계로' : ''}
