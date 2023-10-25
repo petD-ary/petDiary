@@ -30,6 +30,9 @@ yarn-error.log*
 # Environment variables
 .env
 
+# styled-components error files
+.bebelrc
+
 # vercel
 .vercel
 
