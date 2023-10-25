@@ -38,7 +38,6 @@ const UserForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     correctPassword(password, passwordCheck);
   };
 
