@@ -11,13 +11,16 @@ const Heading = ({ title }: { title: string }) => {
   return (
     <TitleWrapper>
       <IconWrapper onClick={() => router.back()}>
-        <Image
-          src={backBtn}
-          alt='뒤로 가기'
-          fill
-          style={{ objectFit: 'contain' }}
-          priority
-        />
+        <div>
+          <Image
+            src={backBtn}
+            alt='뒤로 가기'
+            fill
+            sizes='100%'
+            style={{ objectFit: 'contain' }}
+            priority
+          />
+        </div>
       </IconWrapper>
       <h2>{title}</h2>
     </TitleWrapper>
