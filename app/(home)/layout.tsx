@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -38,13 +37,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = null;
   return (
     <html lang='ko'>
-      <body className={pretendard.className}>
-        {user ? <Header /> : null}
-        {children}
-      </body>
+      <body className={pretendard.className}>{children}</body>
     </html>
   );
 }
