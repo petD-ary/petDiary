@@ -28,6 +28,11 @@ export const IconWrapper = styled.div`
   bottom: 20px;
   cursor: pointer;
 
+  & > div {
+    position: relative;
+    height: 100%;
+  }
+
   img {
     padding: 6px;
   }
