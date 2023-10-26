@@ -3,12 +3,14 @@
 
 import Breadcrumb from '@/components/Account/Breadcrumb';
 import UserForm from '@/components/Account/UserForm';
-import { useState } from 'react';
+
+import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
 import { Container } from './styled';
+import { stepState } from '@/recoil/atoms';
 
 const AccountPage = () => {
-  const [step, setStep] = useState(0);
+  const step = useRecoilValue(stepState);
 
   return (
     <Container>

@@ -8,6 +8,7 @@ export const TitleWrapper = styled.div`
   align-items: center;
   border-bottom: 1px solid #f0f0f0;
   padding: 0 48px;
+
   & h2 {
     font-size: 2rem;
     font-weight: 600;
@@ -26,10 +27,12 @@ export const IconWrapper = styled.div`
   left: 48px;
   bottom: 20px;
   cursor: pointer;
+
   & > div {
     position: relative;
     height: 100%;
   }
+
   img {
     padding: 6px;
   }
