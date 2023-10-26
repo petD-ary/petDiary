@@ -1,31 +1,22 @@
 'use client';
 import Input from '@/components/Input';
+import { stepState } from '@/recoil/atoms';
 import { FormEvent, useState } from 'react';
-import styled from 'styled-components';
-
-const AccountForm = styled.form`
-  width: 100%;
-  padding: 48px 0 64px;
-
-  & button[type='submit'] {
-    width: 100%;
-    background: #000;
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 20px 0;
-    margin-top: 60px;
-  }
-`;
+import { useSetRecoilState } from 'recoil';
+import { AccountForm } from './styled';
 
 const UserForm = () => {
+  const setStep = useSetRecoilState(stepState);
+
   const [userId, setUserId] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
   const [err, setErr] = useState<boolean>(false);
   const [errMsg, setErrMsg] = useState<string>();
+
+  const confirm =
+    userId === '' || email === '' || password === '' || passwordCheck === '';
 
   const correctPassword = (pw: string, pwCheck: string) => {
     if (pw.length > 6)
@@ -78,7 +69,13 @@ const UserForm = () => {
         placeholder='비밀번호를 한번 더 입력해 주세요'
         required
       />
-      <button type='submit'>다음 단계로</button>
+      <button
+        type='submit'
+        disabled={confirm ? true : false}
+        onClick={() => setStep((prev) => prev + 1)}
+      >
+        다음 단계로
+      </button>
     </AccountForm>
   );
 };
