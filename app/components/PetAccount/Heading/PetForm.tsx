@@ -1,8 +1,5 @@
 "use client";
 
-import GenderTypeButton from "@/components/Login/Heading/GenderTypeButton";
-
-import PetTypeButton from "@/components/Login/Heading/PetTypeButton copy";
 import TypeButton from "@/components/Login/Heading/TypeButton";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -17,15 +14,21 @@ const FormContainer = styled.div`
 
 const SelectBox = styled.div`
   display: flex;
-  flex: 1;
+  gap: 12px;
+  > * {
+    flex: 1;
+    height: 60px;
+    border-radius: 8px;
+  }
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 
   label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 13px;
+    font-size: 14px;
   }
 
   select,
@@ -82,7 +85,7 @@ export const PetForm = () => {
     <FormContainer>
       <form onSubmit={handleSubmit}>
         <FormGroup>
-          <label>반려동물</label>
+          <label>반려동물*</label>
           <SelectBox>
             <TypeButton type="강아지" selectedType={petType} setType={setPetType} />
             <TypeButton type="고양이" selectedType={petType} setType={setPetType} />
@@ -90,7 +93,7 @@ export const PetForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>품종</label>
+          <label>품종*</label>
           <select value={breed} onChange={(e) => setBreed(e.target.value)}>
             <option value="">선택</option>
             <option value="푸들">푸들</option>
@@ -100,25 +103,11 @@ export const PetForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>성별</label>
-          <div>
+          <label>성별*</label>
+          <SelectBox>
             <TypeButton type="남자" selectedType={gender} setType={setGender} />
             <TypeButton type="여자" selectedType={gender} setType={setGender} />
-            {/* <button
-              type="button"
-              onClick={() => setGender("수컷")}
-              className={gender === "수컷" ? "active" : ""}
-            >
-              남자
-            </button>
-            <button
-              type="button"
-              onClick={() => setGender("암컷")}
-              className={gender === "암컷" ? "active" : ""}
-            >
-              여자
-            </button> */}
-          </div>
+          </SelectBox>
         </FormGroup>
 
         <FormGroup>
@@ -127,7 +116,7 @@ export const PetForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>생일</label>
+          <label>생일*</label>
           <input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
         </FormGroup>
 
