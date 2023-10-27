@@ -1,8 +1,8 @@
 "use client";
 
-import TypeButton from "@/components/Login/Heading/TypeButton";
 import React, { useState } from "react";
 import styled from "styled-components";
+import TypeButton from "../TypeButton";
 
 const FormContainer = styled.div`
   max-width: 400px;
