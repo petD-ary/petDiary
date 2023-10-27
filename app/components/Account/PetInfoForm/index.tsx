@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import TypeButton from "../TypeButton";
+import TypeButton from "../../Input/PetInfoInput";
 
 const FormContainer = styled.div`
   max-width: 400px;
@@ -71,7 +71,7 @@ const FormGroup = styled.div`
   }
 `;
 
-export const index = () => {
+export const PetInForm = () => {
   const [petType, setPetType] = useState("");
   const [breed, setBreed] = useState("");
   const [name, setName] = useState("");
