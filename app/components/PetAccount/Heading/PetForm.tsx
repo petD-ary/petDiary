@@ -22,6 +22,15 @@ const SelectBox = styled.div`
   }
 `;
 
+const CheckBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input[type="checkbox"] {
+  }
+`;
+
 const FormGroup = styled.div`
   margin-bottom: 25px;
 
@@ -50,10 +59,6 @@ const FormGroup = styled.div`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-
-  input[type="checkbox"] {
-    margin-left: 5px;
   }
 
   button[type="submit"] {
@@ -111,8 +116,10 @@ export const PetForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>중성화를 했어요</label>
-          <input type="checkbox" checked={neutered} onChange={(e) => setNeutered(e.target.checked)} />
+          <CheckBox>
+            <input type="checkbox" checked={neutered} onChange={(e) => setNeutered(e.target.checked)} />
+            <label>중성화를 했어요</label>{" "}
+          </CheckBox>
         </FormGroup>
 
         <FormGroup>
