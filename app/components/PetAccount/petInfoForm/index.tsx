@@ -71,7 +71,7 @@ const FormGroup = styled.div`
   }
 `;
 
-export const PetForm = () => {
+export const index = () => {
   const [petType, setPetType] = useState("");
   const [breed, setBreed] = useState("");
   const [name, setName] = useState("");
@@ -108,7 +108,7 @@ export const PetForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>성별*</label>
+          <label>성별 *</label>
           <SelectBox>
             <TypeButton type="남자" selectedType={gender} setType={setGender} />
             <TypeButton type="여자" selectedType={gender} setType={setGender} />
