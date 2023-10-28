@@ -11,6 +11,7 @@ const FormContainer = styled.div`
   width: 100%;
   padding: 48px 0 64px;
   margin: 0 auto;
+  font-size: 1.4rem;
 `;
 
 const SelectBox = styled.div`
@@ -18,8 +19,7 @@ const SelectBox = styled.div`
   gap: 12px;
   > * {
     flex: 1;
-    height: 60px;
-    border-radius: 8px;
+    height: 56px;
   }
 `;
 
@@ -27,7 +27,7 @@ const CheckBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  margin-left: 8px;
   /* 숨겨진 기본 체크박스 숨기기 */
   input[type="checkbox"] {
     display: none;
@@ -36,6 +36,7 @@ const CheckBox = styled.div`
   /* 커스텀 체크박스 스타일링 */
   label[for="customCheckbox"] {
     display: inline-block;
+    padding: 0;
     width: 22px;
     height: 22px;
     margin-right: 8px;
@@ -45,7 +46,6 @@ const CheckBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
     font-weight: 900;
   }
 `;
@@ -55,8 +55,8 @@ const FormGroup = styled.div`
 
   label {
     display: block;
-    margin-bottom: 13px;
-    font-size: 14px;
+    padding: 10px 8px;
+    margin-top: 20px;
   }
 
   select {
@@ -66,7 +66,6 @@ const FormGroup = styled.div`
     background: #f0f0f0;
     border-radius: 8px;
     outline: none;
-    border-radius: 5px;
     -webkit-appearance: none;
     appearance: none;
 
@@ -102,7 +101,7 @@ const FormGroup = styled.div`
     display: inline-block;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
   }
 `;
@@ -117,10 +116,12 @@ export const PetInForm = () => {
   const [adoptionDate, setAdoptionDate] = useState("");
   const [weight, setWeight] = useState("");
 
-  const confirm = petType === "" || name === "" || breed === "" || birthday === "";
+  const confirm = petType === "" || breed === "" || name === "" || gender === "" || birthday === "";
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    console.log(petType, name, breed, gender, birthday);
     // 여기에서 폼 데이터를 처리하거나 서버로 전송합니다.
   };
 
@@ -137,13 +138,22 @@ export const PetInForm = () => {
 
         <FormGroup>
           <label>품종*</label>
-          <select value={breed} onChange={(e) => setBreed(e.target.value)}>
-            <option value="">선택</option>
+          <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+            <option value="">품종을 선택해주세요</option>
             <option value="푸들">푸들</option>
             <option value="불독">불독</option>
             <option value="리트리버">리트리버</option>
           </select>
         </FormGroup>
+
+        <Input
+          label="이름*"
+          type="text"
+          value={name}
+          setValue={(value: string) => setName(value)}
+          required
+          placeholder="이름을 입력해 주세요"
+        />
 
         <FormGroup>
           <label>성별*</label>
@@ -151,9 +161,6 @@ export const PetInForm = () => {
             <TypeButton type="남아" selectedType={gender} setType={setGender} />
             <TypeButton type="여아" selectedType={gender} setType={setGender} />
           </SelectBox>
-        </FormGroup>
-
-        <FormGroup>
           <CheckBox>
             <input
               type="checkbox"
@@ -171,6 +178,7 @@ export const PetInForm = () => {
           type="date"
           value={birthday}
           setValue={(value: string) => setBirthday(value)}
+          required
         />
 
         <Input
@@ -188,7 +196,7 @@ export const PetInForm = () => {
           placeholder="몸무게를 입력해 주세요"
         />
 
-        <AuthButton type="submit" content="가입하기" disabled={confirm ? true : false} />
+        <AuthButton type="submit" content="가입하기" disabled={confirm} />
       </form>
     </FormContainer>
   );
