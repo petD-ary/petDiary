@@ -42,10 +42,11 @@ const CheckBox = styled.div`
     background-color: #f0f0f0;
     border-radius: 4px;
     cursor: pointer;
-  }
-
-  /* 체크된 경우 스타일 변경 */
-  input[type="checkbox"]:checked + label[for="customCheckbox"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 900;
   }
 `;
 
@@ -160,10 +161,7 @@ export const PetInForm = () => {
               checked={neutered}
               onChange={(e) => setNeutered(e.target.checked)}
             />
-            <label htmlFor="customCheckbox">
-              {/* 아이콘이 체크된 경우 표시 */}
-              {neutered ? <BsCheckLg /> : null}
-            </label>
+            <label htmlFor="customCheckbox">{neutered ? <BsCheckLg /> : null}</label>
             <label>중성화를 했어요</label>
           </CheckBox>
         </FormGroup>
