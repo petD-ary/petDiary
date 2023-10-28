@@ -44,8 +44,7 @@ const InputWrapper = styled.div`
     display: none;
   }
 
-  & input[type="text"],
-  input[type="password"] {
+  & input[type="text"] input[type="password"] {
     cursor: text;
   }
 

@@ -5,6 +5,7 @@ import TypeButton from "@/components/Input/\bTypeButton";
 import AuthButton from "@/components/Input/AuthButton";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { BsCheckLg } from "react-icons/bs";
 
 const FormContainer = styled.div`
   width: 100%;
@@ -27,7 +28,24 @@ const CheckBox = styled.div`
   flex-direction: row;
   align-items: center;
 
+  /* 숨겨진 기본 체크박스 숨기기 */
   input[type="checkbox"] {
+    display: none;
+  }
+
+  /* 커스텀 체크박스 스타일링 */
+  label[for="customCheckbox"] {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* 체크된 경우 스타일 변경 */
+  input[type="checkbox"]:checked + label[for="customCheckbox"] {
   }
 `;
 
@@ -40,12 +58,38 @@ const FormGroup = styled.div`
     font-size: 14px;
   }
 
-  select,
-  input {
+  select {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 20px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    outline: none;
     border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      width: 20px;
+      height: 20px;
+      background: #ff0000; /* checkbox 비활성화 배경색 */
+      border: 1px solid #000;
+      border-radius: 4px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* 선택된 경우 checkbox 스타일 변경 */
+    &:checked::before {
+      background: #000; /* checkbox 활성화 배경색 */
+      border: 1px solid #000; /* checkbox 활성화 테두리 색상 */
+    }
   }
 
   button.active {
@@ -103,15 +147,24 @@ export const PetInForm = () => {
         <FormGroup>
           <label>성별*</label>
           <SelectBox>
-            <TypeButton type="남자" selectedType={gender} setType={setGender} />
-            <TypeButton type="여자" selectedType={gender} setType={setGender} />
+            <TypeButton type="남아" selectedType={gender} setType={setGender} />
+            <TypeButton type="여아" selectedType={gender} setType={setGender} />
           </SelectBox>
         </FormGroup>
 
         <FormGroup>
           <CheckBox>
-            <input type="checkbox" checked={neutered} onChange={(e) => setNeutered(e.target.checked)} />
-            <label>중성화를 했어요</label>{" "}
+            <input
+              type="checkbox"
+              id="customCheckbox"
+              checked={neutered}
+              onChange={(e) => setNeutered(e.target.checked)}
+            />
+            <label htmlFor="customCheckbox">
+              {/* 아이콘이 체크된 경우 표시 */}
+              {neutered ? <BsCheckLg /> : null}
+            </label>
+            <label>중성화를 했어요</label>
           </CheckBox>
         </FormGroup>
 
@@ -122,10 +175,12 @@ export const PetInForm = () => {
           setValue={(value: string) => setBirthday(value)}
         />
 
-        <FormGroup>
-          <label>가족이 된 날</label>
-          <input type="date" value={adoptionDate} onChange={(e) => setAdoptionDate(e.target.value)} />
-        </FormGroup>
+        <Input
+          label="가족이 된 날"
+          type="date"
+          value={adoptionDate}
+          setValue={(value: string) => setAdoptionDate(value)}
+        />
 
         <Input
           label="몸무게"
