@@ -1,15 +1,15 @@
 "use client";
 
+import Input from "@/components/Input";
+import TypeButton from "@/components/Input/\bTypeButton";
+import AuthButton from "@/components/Input/AuthButton";
 import React, { useState } from "react";
 import styled from "styled-components";
-import TypeButton from "../../Input/PetInfoInput";
 
 const FormContainer = styled.div`
-  max-width: 400px;
+  width: 100%;
+  padding: 48px 0 64px;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 `;
 
 const SelectBox = styled.div`
@@ -132,12 +132,15 @@ export const PetInForm = () => {
           <input type="date" value={adoptionDate} onChange={(e) => setAdoptionDate(e.target.value)} />
         </FormGroup>
 
-        <FormGroup>
-          <label>몸무게를 입력해 주세요</label>
-          <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
-        </FormGroup>
+        <Input
+          label="몸무게"
+          type="text"
+          value={weight}
+          setValue={(value: string) => setWeight(value)}
+          placeholder="몸무게를 입력해 주세요"
+        />
 
-        <button type="submit">가입하기</button>
+        <AuthButton type="submit" content="가입하기" />
       </form>
     </FormContainer>
   );
