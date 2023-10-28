@@ -49,21 +49,12 @@ const FormGroup = styled.div`
   }
 
   button.active {
-    background-color: #007bff;
+    background-color: #000;
     color: white;
   }
 
   button {
     display: inline-block;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  button[type="submit"] {
-    background-color: #007bff;
-    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -80,6 +71,8 @@ export const PetInForm = () => {
   const [birthday, setBirthday] = useState("");
   const [adoptionDate, setAdoptionDate] = useState("");
   const [weight, setWeight] = useState("");
+
+  const confirm = petType === "" || name === "" || breed === "" || birthday === "";
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -108,7 +101,7 @@ export const PetInForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <label>성별 *</label>
+          <label>성별*</label>
           <SelectBox>
             <TypeButton type="남자" selectedType={gender} setType={setGender} />
             <TypeButton type="여자" selectedType={gender} setType={setGender} />
@@ -122,10 +115,12 @@ export const PetInForm = () => {
           </CheckBox>
         </FormGroup>
 
-        <FormGroup>
-          <label>생일*</label>
-          <input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-        </FormGroup>
+        <Input
+          label="생일*"
+          type="date"
+          value={birthday}
+          setValue={(value: string) => setBirthday(value)}
+        />
 
         <FormGroup>
           <label>가족이 된 날</label>
@@ -140,7 +135,7 @@ export const PetInForm = () => {
           placeholder="몸무게를 입력해 주세요"
         />
 
-        <AuthButton type="submit" content="가입하기" />
+        <AuthButton type="submit" content="가입하기" disabled={confirm ? true : false} />
       </form>
     </FormContainer>
   );

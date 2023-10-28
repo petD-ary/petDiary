@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const InputWrapper = styled.div`
+
   position: relative;
   width: 100%;
   padding-top: 36px;

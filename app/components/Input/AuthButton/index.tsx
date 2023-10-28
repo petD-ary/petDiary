@@ -5,6 +5,7 @@ interface AuthButtonProps {
   type: "button" | "submit" | "reset";
   content: string;
   onClick?: () => void;
+  disabled: boolean;
 }
 
 const StyledButton = styled.button`
@@ -13,11 +14,16 @@ const StyledButton = styled.button`
   color: #fff;
   background-color: #000;
   border-radius: 8px;
+  margin-top: 60px;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 `;
 
-function AuthButton({ type, content, onClick }: AuthButtonProps) {
+function AuthButton({ type, content, onClick, disabled }: AuthButtonProps) {
   return (
-    <StyledButton type={type} onClick={onClick}>
+    <StyledButton type={type} onClick={onClick} disabled={disabled}>
       {content}
     </StyledButton>
   );
