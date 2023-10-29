@@ -1,5 +1,5 @@
 "use client";
-import { Login } from "@/components/Login/Heading/Login";
+import { Login } from "@/components/Login/Login";
 
 const LoginPage = () => {
   return (
