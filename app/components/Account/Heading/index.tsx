@@ -19,7 +19,7 @@ const Heading = ({ title }: { title: string }) => {
             sizes="100%"
             style={{ objectFit: "contain" }}
             priority
-          />{" "}
+          />
         </IconWrapper>
       ) : null}
 

@@ -80,7 +80,7 @@ export const Login = () => {
       </SocialIcons>
       <RegisterLink>
         <p>
-          아직 회원이 아니신가요? <a href="회원가입 페이지 URL">회원가입</a>
+          아직 회원이 아니신가요? <a href="/account">회원가입</a>
         </p>
       </RegisterLink>
     </LoginContainer>
