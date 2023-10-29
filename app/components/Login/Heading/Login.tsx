@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
-import { RiKakaoTalkFill } from "react-icons/ri";
-import { SiNaver } from "react-icons/si";
 
 const LoginContainer = styled.div`
   position: absolute;
@@ -122,10 +119,10 @@ export const Login = () => {
         <SubmitButton type="submit">로그인</SubmitButton>
       </form>
       <SocialIcons>
-        <SiNaver className="icon" />
+        {/* <SiNaver className="icon" />
         <RiKakaoTalkFill className="icon" />
         <FaFacebook className="icon" />
-        <FaGoogle className="icon" />
+        <FaGoogle className="icon" /> */}
       </SocialIcons>
       <RegisterLink>
         <p>

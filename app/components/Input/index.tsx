@@ -1,4 +1,4 @@
-import { InputWrapper } from './styled';
+import { InputWrapper } from "./styled";
 
 interface InputProps {
   label: string;
@@ -11,16 +11,7 @@ interface InputProps {
   desc?: string;
 }
 
-const Input = ({
-  label,
-  type,
-  value,
-  setValue,
-  required,
-  placeholder,
-  button,
-  desc,
-}: InputProps) => {
+const Input = ({ label, type, value, setValue, required, placeholder, button, desc }: InputProps) => {
   return (
     <InputWrapper>
       <label>{label}</label>

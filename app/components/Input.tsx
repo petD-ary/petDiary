@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ const InputWrapper = styled.div`
     }
 
     &::before {
-      content: '';
+      content: "";
       display: block;
       width: 24px;
       height: 24px;
@@ -40,9 +40,11 @@ const InputWrapper = styled.div`
       z-index: 10;
     }
   }
+  & input[type="date"]::before {
+    display: none;
+  }
 
-  & input[type='text'],
-  input[type='password'] {
+  & input[type="text"] input[type="password"] {
     cursor: text;
   }
 
@@ -75,16 +77,7 @@ interface InputProps {
   desc?: string;
 }
 
-const Input = ({
-  label,
-  type,
-  value,
-  setValue,
-  required,
-  placeholder,
-  button,
-  desc,
-}: InputProps) => {
+const Input = ({ label, type, value, setValue, required, placeholder, button, desc }: InputProps) => {
   return (
     <InputWrapper>
       <label>{label}</label>
