@@ -6,6 +6,8 @@ import AuthButton from "@/components/Input/AuthButton";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { BsCheckLg } from "react-icons/bs";
+import { dogBreeds } from "../../../data/BreedList.js";
+import { catBreeds } from "../../../data/BreedList.js";
 
 const FormContainer = styled.div`
   width: 100%;
@@ -108,6 +110,7 @@ const FormGroup = styled.div`
 
 export const PetInForm = () => {
   const [petType, setPetType] = useState("");
+  const [breeds, setBreeds] = useState();
   const [breed, setBreed] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -120,9 +123,36 @@ export const PetInForm = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+  };
 
-    console.log(petType, name, breed, gender, birthday);
-    // 여기에서 폼 데이터를 처리하거나 서버로 전송합니다.
+  const DogSelect = () => {
+    return (
+      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+        <option value="">품종을 선택해주세요</option>
+        {dogBreeds.map((dog, i) => {
+          return (
+            <option value={dog} key={i}>
+              {dog}
+            </option>
+          );
+        })}
+      </select>
+    );
+  };
+
+  const CatSelect = () => {
+    return (
+      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+        <option value="">품종을 선택해주세요</option>
+        {catBreeds.map((cat, i) => {
+          return (
+            <option value={cat} key={i}>
+              {cat}
+            </option>
+          );
+        })}
+      </select>
+    );
   };
 
   return (
@@ -138,12 +168,7 @@ export const PetInForm = () => {
 
         <FormGroup>
           <label>품종*</label>
-          <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
-            <option value="">품종을 선택해주세요</option>
-            <option value="푸들">푸들</option>
-            <option value="불독">불독</option>
-            <option value="리트리버">리트리버</option>
-          </select>
+          {petType === "강아지" ? <DogSelect /> : <CatSelect />}
         </FormGroup>
 
         <Input
