@@ -9,21 +9,20 @@ const Heading = ({ title }: { title: string }) => {
   const router = useRouter();
 
   return (
-    <TitleWrapper>
-      <IconWrapper onClick={() => router.back()}>
-        <div>
-          {title === "회원가입" ? (
-            <Image
-              src={backBtn}
-              alt="뒤로 가기"
-              fill
-              sizes="100%"
-              style={{ objectFit: "contain" }}
-              priority
-            />
-          ) : null}
-        </div>
-      </IconWrapper>
+    <TitleWrapper title={title}>
+      {title === "회원가입" ? (
+        <IconWrapper onClick={() => router.back()}>
+          <Image
+            src={backBtn}
+            alt="뒤로 가기"
+            fill
+            sizes="100%"
+            style={{ objectFit: "contain" }}
+            priority
+          />{" "}
+        </IconWrapper>
+      ) : null}
+
       <h2>{title}</h2>
     </TitleWrapper>
   );

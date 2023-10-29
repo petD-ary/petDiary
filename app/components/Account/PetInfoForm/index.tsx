@@ -1,8 +1,10 @@
 "use client";
 
 import Input from "@/components/Input";
-import TypeButton from "@/components/Input/\bTypeButton";
+import TypeButton from "@/components/Input/TypeButton";
 import AuthButton from "@/components/Input/AuthButton";
+import CheckButton from "@/components/Input/CheckButton";
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { BsCheckLg } from "react-icons/bs";
@@ -114,7 +116,7 @@ export const PetInForm = () => {
   const [breed, setBreed] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
-  const [neutered, setNeutered] = useState(false);
+  const [neutered, setNeutered] = useState<boolean>(false);
   const [birthday, setBirthday] = useState("");
   const [adoptionDate, setAdoptionDate] = useState("");
   const [weight, setWeight] = useState("");
@@ -186,16 +188,7 @@ export const PetInForm = () => {
             <TypeButton type="남아" selectedType={gender} setType={setGender} />
             <TypeButton type="여아" selectedType={gender} setType={setGender} />
           </SelectBox>
-          <CheckBox>
-            <input
-              type="checkbox"
-              id="customCheckbox"
-              checked={neutered}
-              onChange={(e) => setNeutered(e.target.checked)}
-            />
-            <label htmlFor="customCheckbox">{neutered ? <BsCheckLg /> : null}</label>
-            <label>중성화를 했어요</label>
-          </CheckBox>
+          <CheckButton label="중성화를 했어요" checked={neutered} setState={setNeutered} />
         </FormGroup>
 
         <Input
