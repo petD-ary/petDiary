@@ -1,44 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import styled from "styled-components";
-import Input from "../Input";
-import CheckButton from "../Input/CheckButton";
-import AuthButton from "../Input/AuthButton";
+
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaFacebook } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
+
+import Input from "../Input";
+import CheckButton from "../Input/CheckButton";
+import AuthButton from "../Input/AuthButton";
 import SocialButton from "../Input/SocialButton";
 
-const LoginContainer = styled.div`
-  width: 100%;
-  padding: 48px 0 64px;
-  margin: 0 auto;
-  font-size: 1.4rem;
-  max-width: 500px;
-`;
-
-const AccoutGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const SocialIcons = styled.div`
-  width: 80%;
-  margin: 50px auto;
-  display: flex;
-  justify-content: space-between;
-  font-size: 30px;
-`;
-
-const RegisterLink = styled.div`
-  text-align: center;
-  a {
-    font-weight: 500;
-    text-decoration: underline;
-  }
-`;
+import { LoginContainer, AccoutGroup, SocialIcons, RegisterLink } from "./styled";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
