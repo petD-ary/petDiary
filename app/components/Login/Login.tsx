@@ -2,8 +2,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Input";
-import { BsCheckLg } from "react-icons/bs";
 import CheckButton from "../Input/CheckButton";
+import AuthButton from "../Input/AuthButton";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
+import { FaFacebook } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import SocialButton from "../Input/SocialButton";
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -16,38 +21,22 @@ const LoginContainer = styled.div`
 const AccoutGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0 70px;
+  margin-top: 20px;
 `;
 
 const SocialIcons = styled.div`
   width: 80%;
-  margin: 0 auto 50px auto;
+  margin: 50px auto;
   display: flex;
   justify-content: space-between;
   font-size: 30px;
 `;
 
-const SubmitButton = styled.button`
-  width: 100%;
-  padding: 20px 0;
-  margin-bottom: 50px;
-  background-color: #000;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 500;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 const RegisterLink = styled.div`
   text-align: center;
   a {
-    font-weight: 700;
+    font-weight: 500;
+    text-decoration: underline;
   }
 `;
 
@@ -55,6 +44,8 @@ export const Login = () => {
   const [userId, setUserId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [automaticLogin, setAutomaticLogin] = useState<boolean>(false);
+
+  const confirm = userId === "" || password === "";
 
   return (
     <LoginContainer>
@@ -77,17 +68,15 @@ export const Login = () => {
         />
         <AccoutGroup>
           <CheckButton label="로그인 유지" checked={automaticLogin} setState={setAutomaticLogin} />
-
           <p>아이디/비밀번호 찾기</p>
         </AccoutGroup>
-
-        <SubmitButton type="submit">로그인</SubmitButton>
+        <AuthButton type="submit" content="로그인" disabled={confirm} />
       </form>
       <SocialIcons>
-        {/* <SiNaver className="icon" />
-        <RiKakaoTalkFill className="icon" />
-        <FaFacebook className="icon" />
-        <FaGoogle className="icon" /> */}
+        <SocialButton type={"button"} content={""} />
+        <SocialButton type={"button"} content={""} />
+        <SocialButton type={"button"} content={""} />
+        <SocialButton type={"button"} content={""} />
       </SocialIcons>
       <RegisterLink>
         <p>
