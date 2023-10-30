@@ -2,12 +2,17 @@ import styled from "styled-components";
 
 export const TitleWrapper = styled.div`
   height: 100px;
+  padding: 0 48px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 0 48px;
+
+  ${(props) =>
+    props.title === "회원가입" &&
+    `
+    border-bottom: 1px solid #f0f0f0;
+  `}
 
   & h2 {
     font-size: 2rem;
