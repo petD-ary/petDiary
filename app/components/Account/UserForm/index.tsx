@@ -31,6 +31,8 @@ const UserForm = () => {
     e.preventDefault();
 
     correctPassword(password, passwordCheck);
+
+    setStep((prev) => prev + 1);
   };
 
   return (
@@ -69,11 +71,7 @@ const UserForm = () => {
         placeholder='비밀번호를 한번 더 입력해 주세요'
         required
       />
-      <button
-        type='submit'
-        disabled={confirm ? true : false}
-        onClick={() => setStep((prev) => prev + 1)}
-      >
+      <button type='submit' disabled={confirm ? true : false}>
         다음 단계로
       </button>
     </AccountForm>
