@@ -34,7 +34,7 @@ export const PetInForm = () => {
         value={breed}
         onChange={(e) => setBreed(e.target.value)}
         required
-        className="relative w-full p-5 bg-gray-200 rounded-lg focus:outline-none appearance-none"
+        className="relative w-full p-5 py-9 px-8  bg-grayColor-100 rounded-xl focus:outline-none appearance-none"
       >
         <option value="">품종을 선택해주세요</option>
         {dogBreeds.map((dog, i) => {
@@ -54,7 +54,7 @@ export const PetInForm = () => {
         value={breed}
         onChange={(e) => setBreed(e.target.value)}
         required
-        className="relative w-full p-5 bg-gray-200 rounded-lg focus:outline-none appearance-none"
+        className="relative w-full p-5 py-9 px-8  bg-grayColor-100 rounded-xl focus:outline-none appearance-none"
       >
         <option value="">품종을 선택해주세요</option>
         {catBreeds.map((cat, i) => {
@@ -69,18 +69,18 @@ export const PetInForm = () => {
   };
 
   return (
-    <div className="w-full px-0 py-48 pb-64 mx-auto text-1.4rem">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-25">
-          <label className="block py-10 px-8 mt-20">반려동물*</label>
-          <div className="flex-1 flex-wrap">
+    <div className="w-full pt-12 pb-16  text-1.4rem">
+      <form className="mt-12" onSubmit={handleSubmit}>
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">반려동물*</label>
+          <div className="flex gap-5 flex-wrap">
             <TypeButton type="강아지" selectedType={petType} setType={setPetType} />
             <TypeButton type="고양이" selectedType={petType} setType={setPetType} />
           </div>
         </div>
 
-        <div className="mb-25">
-          <label className="block py-10 px-8 mt-20">품종*</label>
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">품종*</label>
           {petType === "강아지" ? <DogSelect /> : <CatSelect />}
         </div>
 
@@ -93,9 +93,9 @@ export const PetInForm = () => {
           placeholder="이름을 입력해 주세요"
         />
 
-        <div className="mb-25">
-          <label className="block py-10 px-8 mt-20">성별*</label>
-          <div className="space-x-12">
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">성별*</label>
+          <div className="flex gap-5 flex-wrap mb-7">
             <TypeButton type="남아" selectedType={gender} setType={setGender} />
             <TypeButton type="여아" selectedType={gender} setType={setGender} />
           </div>
