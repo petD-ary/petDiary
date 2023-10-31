@@ -11,11 +11,11 @@ export const SelectBox = styled.div`
   display: flex;
   gap: 12px;
   > * {
+    background: #f0f0f0; 
     flex: 1;
     height: 56px;
   }
 `;
-
 
 export const FormGroup = styled.div`
   margin-bottom: 25px;

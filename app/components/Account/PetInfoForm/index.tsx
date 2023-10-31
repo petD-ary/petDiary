@@ -9,8 +9,7 @@ import CheckButton from "@/components/Input/CheckButton";
 
 import { dogBreeds } from "../../../data/BreedList.js";
 import { catBreeds } from "../../../data/BreedList.js";
-
-import { FormContainer, FormGroup, SelectBox } from "./styled.js";
+import { FormContainer, FormGroup, SelectBox } from "./styled";
 
 export const PetInForm = () => {
   const [petType, setPetType] = useState("");
@@ -31,7 +30,12 @@ export const PetInForm = () => {
 
   const DogSelect = () => {
     return (
-      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+      <select
+        value={breed}
+        onChange={(e) => setBreed(e.target.value)}
+        required
+        className="relative w-full p-5 bg-gray-200 rounded-lg focus:outline-none appearance-none"
+      >
         <option value="">품종을 선택해주세요</option>
         {dogBreeds.map((dog, i) => {
           return (
@@ -46,7 +50,12 @@ export const PetInForm = () => {
 
   const CatSelect = () => {
     return (
-      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+      <select
+        value={breed}
+        onChange={(e) => setBreed(e.target.value)}
+        required
+        className="relative w-full p-5 bg-gray-200 rounded-lg focus:outline-none appearance-none"
+      >
         <option value="">품종을 선택해주세요</option>
         {catBreeds.map((cat, i) => {
           return (
@@ -60,20 +69,20 @@ export const PetInForm = () => {
   };
 
   return (
-    <FormContainer>
+    <div className="w-full px-0 py-48 pb-64 mx-auto text-1.4rem">
       <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <label>반려동물*</label>
-          <SelectBox>
+        <div className="mb-25">
+          <label className="block py-10 px-8 mt-20">반려동물*</label>
+          <div className="flex-1 flex-wrap">
             <TypeButton type="강아지" selectedType={petType} setType={setPetType} />
             <TypeButton type="고양이" selectedType={petType} setType={setPetType} />
-          </SelectBox>
-        </FormGroup>
+          </div>
+        </div>
 
-        <FormGroup>
-          <label>품종*</label>
+        <div className="mb-25">
+          <label className="block py-10 px-8 mt-20">품종*</label>
           {petType === "강아지" ? <DogSelect /> : <CatSelect />}
-        </FormGroup>
+        </div>
 
         <Input
           label="이름*"
@@ -84,14 +93,14 @@ export const PetInForm = () => {
           placeholder="이름을 입력해 주세요"
         />
 
-        <FormGroup>
-          <label>성별*</label>
-          <SelectBox>
+        <div className="mb-25">
+          <label className="block py-10 px-8 mt-20">성별*</label>
+          <div className="space-x-12">
             <TypeButton type="남아" selectedType={gender} setType={setGender} />
             <TypeButton type="여아" selectedType={gender} setType={setGender} />
-          </SelectBox>
+          </div>
           <CheckButton label="중성화를 했어요" checked={neutered} setState={setNeutered} />
-        </FormGroup>
+        </div>
 
         <Input
           label="생일*"
@@ -118,6 +127,6 @@ export const PetInForm = () => {
 
         <AuthButton type="submit" content="가입하기" disabled={confirm} />
       </form>
-    </FormContainer>
+    </div>
   );
 };
