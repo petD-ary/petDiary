@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface TypeButtonProps {
   type: string;
@@ -13,13 +13,14 @@ function TypeButton({ type, selectedType, setType }: TypeButtonProps) {
 
   return (
     <button
-      type="button"
+      type='button'
       onClick={handleClick}
-      className={
-        selectedType === type
-          ? "  flex-grow bg-black text-white py-9 px-8 rounded-xl"
-          : " flex-grow bg-grayColor-100 py-9 px-8 rounded-xl"
-      }
+      className={`
+      flex-grow
+      rounded-lg
+      h-[60px]
+        ${selectedType === type ? 'bg-black text-white' : 'bg-grayColor-100'}
+      `}
     >
       {type}
     </button>
