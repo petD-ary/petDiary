@@ -27,7 +27,7 @@ function AuthButton({
       mt-20
       ${
         disabled
-          ? 'disabled:opacity-50 disabled:cursor-not-allowed'
+          ? 'disabled:opacity-50 disabled:cursor-default'
           : 'hover:bg-grayColor-300 active:bg-grayColor-400'
       }
       transition-colors
