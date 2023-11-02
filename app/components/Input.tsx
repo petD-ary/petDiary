@@ -36,6 +36,7 @@ const Input = ({
         />
         {button ? (
           <button
+            type='button'
             className='px-6
             bg-grayColor-200 transition-colors
           hover:bg-grayColor-300 hover:text-white
