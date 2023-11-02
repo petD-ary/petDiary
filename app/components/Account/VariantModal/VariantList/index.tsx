@@ -1,5 +1,3 @@
-import { Variant } from './styled';
-
 interface VariantListProps {
   id: string;
   title: string;
@@ -8,7 +6,12 @@ interface VariantListProps {
 
 const VariantList = ({ id, title, handlePutId }: VariantListProps) => {
   return (
-    <Variant onClick={() => handlePutId && handlePutId(id)}>{title}</Variant>
+    <option
+      onClick={() => handlePutId && handlePutId(id)}
+      className='w-full p-5 border-b border-grayColor-200'
+    >
+      {title}
+    </option>
   );
 };
 
