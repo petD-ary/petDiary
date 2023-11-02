@@ -2,77 +2,34 @@
 
 import React, { useState } from 'react';
 
-import { FormContainer, FormGroup, SelectBox } from './styled';
-
 import Input from '@/components/Input';
 import TypeButton from '@/components/Input/TypeButton';
 import AuthButton from '@/components/Input/AuthButton';
 import CheckButton from '@/components/Input/CheckButton';
-
-import { dogBreeds } from '@/data/BreedList';
-import { catBreeds } from '@/data/BreedList';
 import VariantModal from '@/components/Account/VariantModal';
-import { useRecoilState } from 'recoil';
-import { variantModalState } from '@/recoil/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { stepState, variantModalState } from '@/recoil/atoms';
+import { BsCheckLg } from 'react-icons/bs';
 
 export const PetInForm = () => {
   const [petType, setPetType] = useState<string>('강아지');
   const [breeds, setBreeds] = useState();
   const [breed, setBreed] = useState('');
   const [name, setName] = useState('');
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('남아');
   const [neutered, setNeutered] = useState<boolean>(false);
   const [birthday, setBirthday] = useState('');
   const [adoptionDate, setAdoptionDate] = useState('');
   const [weight, setWeight] = useState('');
 
   const [modalOpen, setModalOpen] = useRecoilState(variantModalState);
+  const setStep = useSetRecoilState(stepState);
 
-  const confirm =
-    breed === '' || name === '' || gender === '' || birthday === '';
+  const confirm = breed === '' || name === '' || birthday === '';
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-  };
-
-  const DogSelect = () => {
-    return (
-      <select
-        value={breed}
-        onChange={(e) => setBreed(e.target.value)}
-        required
-        className='relative w-full p-5  bg-grayColor-100 rounded-xl focus:outline-none appearance-none'
-      >
-        <option value=''>품종을 선택해주세요</option>
-        {dogBreeds.map((dog, i) => {
-          return (
-            <option value={dog} key={i}>
-              {dog}
-            </option>
-          );
-        })}
-      </select>
-    );
-  };
-
-  const CatSelect = () => {
-    return (
-      <select
-        value={breed}
-        onChange={(e) => setBreed(e.target.value)}
-        required
-        className='relative w-full p-5 bg-grayColor-100 rounded-xl focus:outline-none appearance-none'
-      >
-        <option value=''>품종을 선택해주세요</option>
-        {catBreeds.map((cat, i) => {
-          return (
-            <option value={cat} key={i}>
-              {cat}
-            </option>
-          );
-        })}
-      </select>
-    );
+    setStep((prev) => prev + 1);
   };
 
   return (
@@ -93,22 +50,26 @@ export const PetInForm = () => {
             />
           </div>
         </div>
-        {/* 
-        <div className="mb-12">
-          <label className="block ml-5 mb-5">품종*</label>
-          {petType === "강아지" ? <DogSelect /> : <CatSelect />}
-        </div>
- */}
 
         <div className='mt-5'>
           <label className='block'>품종*</label>
           <div
             onClick={() => setModalOpen(true)}
-            className='relative w-full p-5 bg-grayColor-100 rounded-xl focus:outline-none appearance-none'
+            className='relative flex justify-between items-center w-full p-5 bg-grayColor-100 rounded-xl focus:outline-none appearance-none cursor-pointer'
           >
-            품종을 선택해주세요
+            {breed === '' ? '품종을 선택해주세요' : breed}
+            <BsCheckLg
+              className={`${
+                breed !== '' ? 'text-green-500' : 'text-grayColor-300'
+              }`}
+            />
           </div>
-          {modalOpen && <VariantModal variant={petType} />}
+          {modalOpen && (
+            <VariantModal
+              variant={petType}
+              setBreed={(breed) => setBreed(breed)}
+            />
+          )}
         </div>
 
         <Input
