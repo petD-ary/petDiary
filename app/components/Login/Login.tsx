@@ -1,44 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import styled from "styled-components";
-import Input from "../Input";
-import CheckButton from "../Input/CheckButton";
-import AuthButton from "../Input/AuthButton";
+
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaFacebook } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
+
+import Input from "../Input";
+import CheckButton from "../Input/CheckButton";
+import AuthButton from "../Input/AuthButton";
 import SocialButton from "../Input/SocialButton";
 
-const LoginContainer = styled.div`
-  width: 100%;
-  padding: 48px 0 64px;
-  margin: 0 auto;
-  font-size: 1.4rem;
-  max-width: 500px;
-`;
-
-const AccoutGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const SocialIcons = styled.div`
-  width: 80%;
-  margin: 50px auto;
-  display: flex;
-  justify-content: space-between;
-  font-size: 30px;
-`;
-
-const RegisterLink = styled.div`
-  text-align: center;
-  a {
-    font-weight: 500;
-    text-decoration: underline;
-  }
-`;
+import { LoginContainer, AccoutGroup, SocialIcons, RegisterLink } from "./styled";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -48,7 +21,7 @@ export const Login = () => {
   const confirm = userId === "" || password === "";
 
   return (
-    <LoginContainer>
+    <div className="w-full pt-12 pb-16 md:max-w-2xl mx-auto text-1.4rem">
       <form action="로그인 처리 페이지 URL" method="post">
         <Input
           label="아이디"
@@ -66,23 +39,26 @@ export const Login = () => {
           placeholder="비밀번호를 입력해 주세요"
           required
         />
-        <AccoutGroup>
+        <div className="flex justify-between">
           <CheckButton label="로그인 유지" checked={automaticLogin} setState={setAutomaticLogin} />
           <p>아이디/비밀번호 찾기</p>
-        </AccoutGroup>
+        </div>
         <AuthButton type="submit" content="로그인" disabled={confirm} />
       </form>
-      <SocialIcons>
+      <div className="w-4/5 mx-auto my-20 flex justify-between ">
         <SocialButton type={"button"} content={""} />
         <SocialButton type={"button"} content={""} />
         <SocialButton type={"button"} content={""} />
         <SocialButton type={"button"} content={""} />
-      </SocialIcons>
-      <RegisterLink>
+      </div>
+      <div className="text-center">
         <p>
-          아직 회원이 아니신가요? <a href="/account">회원가입</a>
+          아직 회원이 아니신가요?
+          <a className="ml-4 font-bold underline" href="/account">
+            회원가입
+          </a>
         </p>
-      </RegisterLink>
-    </LoginContainer>
+      </div>
+    </div>
   );
 };

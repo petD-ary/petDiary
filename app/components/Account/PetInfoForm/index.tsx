@@ -1,114 +1,15 @@
 "use client";
 
+import React, { useState } from "react";
+
 import Input from "@/components/Input";
 import TypeButton from "@/components/Input/TypeButton";
 import AuthButton from "@/components/Input/AuthButton";
 import CheckButton from "@/components/Input/CheckButton";
 
-import React, { useState } from "react";
-import styled from "styled-components";
-import { BsCheckLg } from "react-icons/bs";
 import { dogBreeds } from "../../../data/BreedList.js";
 import { catBreeds } from "../../../data/BreedList.js";
-
-const FormContainer = styled.div`
-  width: 100%;
-  padding: 48px 0 64px;
-  margin: 0 auto;
-  font-size: 1.4rem;
-`;
-
-const SelectBox = styled.div`
-  display: flex;
-  gap: 12px;
-  > * {
-    flex: 1;
-    height: 56px;
-  }
-`;
-
-const CheckBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 8px;
-  /* 숨겨진 기본 체크박스 숨기기 */
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  /* 커스텀 체크박스 스타일링 */
-  label[for="customCheckbox"] {
-    display: inline-block;
-    padding: 0;
-    width: 22px;
-    height: 22px;
-    margin-right: 8px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-  }
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 25px;
-
-  label {
-    display: block;
-    padding: 10px 8px;
-    margin-top: 20px;
-  }
-
-  select {
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 50%;
-      right: 12px;
-      width: 20px;
-      height: 20px;
-      background: #ff0000; /* checkbox 비활성화 배경색 */
-      border: 1px solid #000;
-      border-radius: 4px;
-      transform: translateY(-50%);
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* 선택된 경우 checkbox 스타일 변경 */
-    &:checked::before {
-      background: #000; /* checkbox 활성화 배경색 */
-      border: 1px solid #000; /* checkbox 활성화 테두리 색상 */
-    }
-  }
-
-  button.active {
-    background-color: #000;
-    color: white;
-  }
-
-  button {
-    display: inline-block;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-`;
+import { FormContainer, FormGroup, SelectBox } from "./styled";
 
 export const PetInForm = () => {
   const [petType, setPetType] = useState("");
@@ -129,7 +30,12 @@ export const PetInForm = () => {
 
   const DogSelect = () => {
     return (
-      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+      <select
+        value={breed}
+        onChange={(e) => setBreed(e.target.value)}
+        required
+        className="relative w-full p-5 py-9 px-8  bg-grayColor-100 rounded-xl focus:outline-none appearance-none"
+      >
         <option value="">품종을 선택해주세요</option>
         {dogBreeds.map((dog, i) => {
           return (
@@ -144,7 +50,12 @@ export const PetInForm = () => {
 
   const CatSelect = () => {
     return (
-      <select value={breed} onChange={(e) => setBreed(e.target.value)} required>
+      <select
+        value={breed}
+        onChange={(e) => setBreed(e.target.value)}
+        required
+        className="relative w-full p-5 py-9 px-8  bg-grayColor-100 rounded-xl focus:outline-none appearance-none"
+      >
         <option value="">품종을 선택해주세요</option>
         {catBreeds.map((cat, i) => {
           return (
@@ -158,20 +69,20 @@ export const PetInForm = () => {
   };
 
   return (
-    <FormContainer>
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <label>반려동물*</label>
-          <SelectBox>
+    <div className="w-full pt-12 pb-16  text-1.4rem">
+      <form className="mt-12" onSubmit={handleSubmit}>
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">반려동물*</label>
+          <div className="flex gap-5 flex-wrap">
             <TypeButton type="강아지" selectedType={petType} setType={setPetType} />
             <TypeButton type="고양이" selectedType={petType} setType={setPetType} />
-          </SelectBox>
-        </FormGroup>
+          </div>
+        </div>
 
-        <FormGroup>
-          <label>품종*</label>
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">품종*</label>
           {petType === "강아지" ? <DogSelect /> : <CatSelect />}
-        </FormGroup>
+        </div>
 
         <Input
           label="이름*"
@@ -182,14 +93,14 @@ export const PetInForm = () => {
           placeholder="이름을 입력해 주세요"
         />
 
-        <FormGroup>
-          <label>성별*</label>
-          <SelectBox>
+        <div className="mb-12">
+          <label className="block ml-5 mb-5">성별*</label>
+          <div className="flex gap-5 flex-wrap mb-7">
             <TypeButton type="남아" selectedType={gender} setType={setGender} />
             <TypeButton type="여아" selectedType={gender} setType={setGender} />
-          </SelectBox>
+          </div>
           <CheckButton label="중성화를 했어요" checked={neutered} setState={setNeutered} />
-        </FormGroup>
+        </div>
 
         <Input
           label="생일*"
@@ -216,6 +127,6 @@ export const PetInForm = () => {
 
         <AuthButton type="submit" content="가입하기" disabled={confirm} />
       </form>
-    </FormContainer>
+    </div>
   );
 };
