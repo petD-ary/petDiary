@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // const InputWrapper = styled.div`
 //   position: relative;
@@ -26,27 +26,30 @@ import styled from "styled-components";
 //       color: #000;
 //     }
 
-//     &::before {
-//       content: "";
-//       display: block;
-//       width: 24px;
-//       height: 24px;
-//       border-radius: 100%;
-//       background: #000;
-//       position: absolute;
-//       right: 20px;
-//       top: 50%;
-//       transform: translateY(-50%);
-//       z-index: 10;
-//     }
-//   }
-//   & input[type="date"]::before {
-//     display: none;
-//   }
 
-//   & input[type="text"] input[type="password"] {
-//     cursor: text;
-//   }
+    &::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 24px;
+      border-radius: 100%;
+      background: #000;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+  }
+  & input[type='date']::before {
+    display: none;
+  }
+
+  & input[type='text'],
+  input[type='password'] {
+    cursor: text;
+  }
+
 
 //   & > div {
 //     display: flex;
@@ -77,7 +80,16 @@ interface InputProps {
   desc?: string;
 }
 
-const Input = ({ label, type, value, setValue, required, placeholder, button, desc }: InputProps) => {
+const Input = ({
+  label,
+  type,
+  value,
+  setValue,
+  required,
+  placeholder,
+  button,
+  desc,
+}: InputProps) => {
   return (
     <div className="relative w-full mb-12 text-1.4rem">
       <label className="block ml-5 mb-5">{label}</label>
