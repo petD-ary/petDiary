@@ -14,7 +14,6 @@ const VariantModal = ({ variant, setBreed }: VariantModalProps) => {
   const setIsOpen = useSetRecoilState(variantModalState);
   const ref = useRef<HTMLDivElement>(null);
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [breeds, setBreeds] = useState<string[] | null>(null);
 
   const handleOpenModal = () => {

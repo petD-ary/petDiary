@@ -7,13 +7,13 @@ import TypeButton from '@/components/Input/TypeButton';
 import AuthButton from '@/components/Input/AuthButton';
 import CheckButton from '@/components/Input/CheckButton';
 import VariantModal from '@/components/Account/VariantModal';
+
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { stepState, variantModalState } from '@/recoil/atoms';
 import { BsCheckLg } from 'react-icons/bs';
 
 export const PetInForm = () => {
   const [petType, setPetType] = useState<string>('강아지');
-  const [breeds, setBreeds] = useState();
   const [breed, setBreed] = useState('');
   const [name, setName] = useState('');
   const [gender, setGender] = useState('남아');
