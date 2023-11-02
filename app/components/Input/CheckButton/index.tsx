@@ -8,7 +8,7 @@ interface InputProps {
 
 const CheckButton = ({ label, checked, setState }: InputProps) => {
   return (
-    <label className='flex items-center ml-2 cursor-pointer pb-0'>
+    <label className='flex items-center ml-2 cursor-pointer pb-0 text-sm'>
       <input
         type='checkbox'
         id='customCheckbox'
