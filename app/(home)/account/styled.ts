@@ -9,9 +9,13 @@ export const Container = styled.div`
   align-items: center;
   padding-bottom: 150px;
 
-  & p > a {
-    padding-left: 6px;
-    text-decoration: underline;
-    font-weight: 600;
+  & p {
+    font-size: 14px;
+
+    & a {
+      padding-left: 6px;
+      text-decoration: underline;
+      font-weight: 600;
+    }
   }
 `;
