@@ -83,7 +83,7 @@ export const PetInForm = () => {
 
         <div className='mt-5'>
           <label className='block'>성별*</label>
-          <div className='flex gap-5 flex-wrap mb-7'>
+          <div className='flex gap-3 flex-wrap mb-7'>
             <TypeButton type='남아' selectedType={gender} setType={setGender} />
             <TypeButton type='여아' selectedType={gender} setType={setGender} />
           </div>
