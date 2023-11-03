@@ -1,7 +1,6 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import { IconWrapper, TitleWrapper } from './styled';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import backBtn from '@/assets/images/backBtn.png';
 import { useRecoilState } from 'recoil';
@@ -29,7 +28,7 @@ const Heading = ({ title }: { title: string }) => {
       {title === '회원가입' ? (
         <div
           onClick={() => handleClickRoute()}
-          className='w-[28px] h-[28px] absolute [&_img]:p-[6px] left-[48px] bottom-5'
+          className='w-[28px] h-[28px] absolute [&_img]:p-[6px] left-[48px] bottom-5 cursor-pointer'
         >
           <Image
             src={backBtn}

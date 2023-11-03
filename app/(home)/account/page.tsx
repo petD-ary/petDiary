@@ -5,9 +5,7 @@ import UserForm from '@/components/Account/UserForm';
 
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
-import { Container } from './styled';
 import { stepState, variantModalState } from '@/recoil/atoms';
-import VariantModal from '@/components/Account/VariantModal';
 
 import { PetInForm } from '@/components/Account/PetInfoForm';
 
@@ -16,7 +14,10 @@ const AccountPage = () => {
   const isOpen = useRecoilValue(variantModalState);
 
   return (
-    <Container>
+    <div
+      className='w-[488px] mx-auto pb-[150px]
+    flex flex-col justify-center items-center'
+    >
       <Breadcrumb step={step} />
 
       {step === 0 && <UserForm />}
@@ -24,10 +25,13 @@ const AccountPage = () => {
         <VariantModal variant='고양이' variantData={variantData} />
       ) */}
       {step === 1 && <PetInForm />}
-      <p>
-        이미 계정이 있으신가요?<Link href='/login'>로그인</Link>
+      <p className='text-sm'>
+        이미 계정이 있으신가요?
+        <Link href='/login' className='pl-[6px] underline font-semibold'>
+          로그인
+        </Link>
       </p>
-    </Container>
+    </div>
   );
 };
 
