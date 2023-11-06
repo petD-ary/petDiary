@@ -1,9 +1,9 @@
 'use client';
 import Input from '@/components/Input';
+import AuthButton from '@/components/Input/AuthButton';
 import { stepState } from '@/recoil/atoms';
 import { FormEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { AccountForm } from './styled';
 
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
@@ -36,7 +36,7 @@ const UserForm = () => {
   };
 
   return (
-    <AccountForm onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
       <Input
         label='아이디*'
         type='text'
@@ -71,10 +71,20 @@ const UserForm = () => {
         placeholder='비밀번호를 한번 더 입력해 주세요'
         required
       />
-      <button type='submit' disabled={confirm ? true : false}>
+      {/* <button
+        type='submit'
+        disabled={confirm ? true : false}
+        className='w-full
+        py-5 mt-[60px]
+        font-semibold rounded-lg
+        bg-black text-white
+        disabled:opacity-50 disabled:cursor-default
+        '
+      >
         다음 단계로
-      </button>
-    </AccountForm>
+      </button> */}
+      <AuthButton type='submit' content='다음 단계로' disabled={confirm} />
+    </form>
   );
 };
 

@@ -1,14 +1,19 @@
-import { Variant } from './styled';
-
 interface VariantListProps {
   id: string;
   title: string;
-  handlePutId?: (id: string) => void;
+  handlePutId: (id: string) => void;
 }
 
 const VariantList = ({ id, title, handlePutId }: VariantListProps) => {
   return (
-    <Variant onClick={() => handlePutId && handlePutId(id)}>{title}</Variant>
+    <li
+      onClick={() => handlePutId(id)}
+      className={`w-full p-5 border-b border-grayColor-200 
+      ${id === '' ? 'cursor-default' : 'cursor-pointer'}
+      `}
+    >
+      {title}
+    </li>
   );
 };
 

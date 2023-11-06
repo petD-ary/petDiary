@@ -7,5 +7,5 @@ export const stepState = atom<number>({
 
 export const variantModalState = atom<boolean>({
   key: 'variantModalState',
-  default: true,
+  default: false,
 });

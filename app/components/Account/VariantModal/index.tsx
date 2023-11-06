@@ -1,24 +1,20 @@
 import useModal from '@/hooks/useModal';
 import { variantModalState } from '@/recoil/atoms';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import VariantList from './VariantList';
-import { Container } from './styled';
+import { catBreeds, dogBreeds } from '@/data/BreedList';
 
 interface VariantModalProps {
-  variant: '강아지' | '고양이';
-  variantData: { id: string; title: string }[];
+  variant: string;
+  setBreed: (value: string) => void;
 }
 
-const VariantModal = ({ variant, variantData }: VariantModalProps) => {
+const VariantModal = ({ variant, setBreed }: VariantModalProps) => {
   const setIsOpen = useSetRecoilState(variantModalState);
   const ref = useRef<HTMLDivElement>(null);
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  console.log(
-    '🚀 ~ file: index.tsx:18 ~ VariantModal ~ selectedId:',
-    selectedId
-  );
+  const [breeds, setBreeds] = useState<string[] | null>(null);
 
   const handleOpenModal = () => {
     setIsOpen(false);
@@ -27,32 +23,58 @@ const VariantModal = ({ variant, variantData }: VariantModalProps) => {
   useModal(ref, handleOpenModal);
 
   const handlePutId = (id: string) => {
-    setSelectedId(id);
+    setBreed(id);
 
     setIsOpen(false);
   };
 
-  return (
-    <Container>
-      <div ref={ref}>
-        <h2>{variant === '강아지' ? '견종' : '묘종'}선택</h2>
+  useEffect(() => {
+    if (variant === '강아지') {
+      setBreeds(dogBreeds);
+    } else {
+      setBreeds(catBreeds);
+    }
+  }, [variant]);
 
-        <p>
+  return (
+    <div className='fixed w-full h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
+      <div
+        ref={ref}
+        className='absolute left-1/2 -translate-x-1/2 bottom-0
+        w-full sm:w-[612px] h-[684px] mx-6 sm:mx-0 px-6 pt-12
+        shadow-[0_-10px_60px_rgba(0,0,0,0.15)]
+        rounded-t-lg rounded-r-lg bg-white
+      '
+      >
+        <h2 className='text-[20px] font-semibold'>
+          {variant === '강아지' ? '견종' : '묘종'}선택
+        </h2>
+
+        <p
+          className='
+        relative rounded-lg mt-5 mb-2 p-5 pl-14
+        font-medium bg-grayColor-100 cursor-default
+        before:bg-grayColor-200 before:block before:absolute
+        before:left-5 before:top-1/2 before:-translate-y-1/2 before:w-6 before:h-6
+        before:rounded-full
+        '
+        >
           {variant === '강아지' ? '견종을 입력해주세요' : '묘종을 입력해주세요'}
         </p>
 
-        <ul>
-          {variantData.map(({ id, title }) => (
-            <VariantList
-              key={id}
-              id={id}
-              title={title}
-              handlePutId={handlePutId}
-            />
-          ))}
+        <ul className='h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-grayColor-200'>
+          {breeds &&
+            breeds.map((breed) => (
+              <VariantList
+                key={breed}
+                id={breed}
+                title={breed}
+                handlePutId={handlePutId}
+              />
+            ))}
         </ul>
       </div>
-    </Container>
+    </div>
   );
 };
 
