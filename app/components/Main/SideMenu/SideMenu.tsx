@@ -1,4 +1,4 @@
-import NavBtn from "./NavBtn";
+import NavBtn from "./Menu";
 
 const SideMenu = () => {
   let nav = [
