@@ -14,6 +14,7 @@ import SocialButton from '../Input/SocialButton';
 export const Login = () => {
   const [userId, setUserId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [automaticLogin, setAutomaticLogin] = useState<boolean>(false);
 
   const confirm = userId === '' || password === '';
@@ -32,11 +33,13 @@ export const Login = () => {
 
         <Input
           label='비밀번호'
-          type='password'
+          type={showPassword ? 'text' : 'password'}
           value={password}
           setValue={(value: string) => setPassword(value)}
           placeholder='비밀번호를 입력해 주세요'
           required
+          handleChangeType={() => setShowPassword((prev) => !prev)}
+          showPassword={showPassword}
         />
 
         <div className='flex justify-between pt-5'>

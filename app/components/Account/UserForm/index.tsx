@@ -4,6 +4,8 @@ import AuthButton from '@/components/Input/AuthButton';
 import { stepState } from '@/recoil/atoms';
 import { FormEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { authService } from '@/firebase';
 
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
@@ -12,27 +14,31 @@ const UserForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
-  const [err, setErr] = useState<boolean>(false);
-  const [errMsg, setErrMsg] = useState<string>();
 
   const confirm =
-    userId === '' || email === '' || password === '' || passwordCheck === '';
+    userId === '' ||
+    email === '' ||
+    password === '' ||
+    passwordCheck === '' ||
+    password.length < 5 ||
+    password !== passwordCheck;
 
-  const correctPassword = (pw: string, pwCheck: string) => {
-    if (pw.length > 6)
-      if (pw !== pwCheck) {
-        setErr(true);
-      } else {
-        setErr(false);
-      }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    correctPassword(password, passwordCheck);
+    await createUserWithEmailAndPassword(authService, email, password)
+      .then((userCredential) => {
+        const user = userCredential;
+        console.log('🚀 ~ file: index.tsx:32 ~ .then ~ user:', user.user);
 
-    setStep((prev) => prev + 1);
+        updateProfile(user.user, { displayName: userId });
+
+        setStep((prev) => prev + 1);
+      })
+      .catch((err) => {
+        const errCode = err.code;
+        const errMsg = err.message;
+      });
   };
 
   return (
@@ -62,6 +68,7 @@ const UserForm = () => {
         placeholder='비밀번호를 입력해 주세요'
         required
         desc='6자 이상의 숫자와 특수문자를 포함해주세요'
+        checkbox={passwordCheck === '' ? undefined : password.length > 5}
       />
       <Input
         label='비밀번호 확인*'
@@ -70,19 +77,8 @@ const UserForm = () => {
         setValue={(value: string) => setPasswordCheck(value)}
         placeholder='비밀번호를 한번 더 입력해 주세요'
         required
+        checkbox={passwordCheck === '' ? undefined : password === passwordCheck}
       />
-      {/* <button
-        type='submit'
-        disabled={confirm ? true : false}
-        className='w-full
-        py-5 mt-[60px]
-        font-semibold rounded-lg
-        bg-black text-white
-        disabled:opacity-50 disabled:cursor-default
-        '
-      >
-        다음 단계로
-      </button> */}
       <AuthButton type='submit' content='다음 단계로' disabled={confirm} />
     </form>
   );
