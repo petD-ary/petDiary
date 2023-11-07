@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import RecoilRootWrapper from "@/components/RecoilRootWrapper";
-import SideMenu from "@/components/Main/SideMenu/SideMenu";
+import SideMenu from "@/components/SideMenu/SideMenu";
 
 const pretendard = localFont({
   src: [
@@ -39,8 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={pretendard.className}>
         <RecoilRootWrapper>
-          <SideMenu />
-          {children}
+          <div className="flex">
+            <SideMenu />
+            {children}
+          </div>
         </RecoilRootWrapper>
       </body>
     </html>
