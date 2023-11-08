@@ -2,7 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
-import StyledComponentsRegistry from '@/utils/registry';
 
 const pretendard = localFont({
   src: [
@@ -42,9 +41,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={pretendard.className}>
-        <RecoilRootWrapper>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        </RecoilRootWrapper>
+        <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>
     </html>
   );
