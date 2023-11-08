@@ -19,9 +19,16 @@ export const Login = () => {
 
   const confirm = userId === '' || password === '';
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   return (
     <div className='w-full pt-12 pb-16 md:max-w-[380px] mx-auto text-1.4rem'>
-      <form action='로그인 처리 페이지 URL' method='post'>
+      <form
+        onSubmit={handleSubmit}
+        action='로그인 처리 페이지 URL'
+        method='post'
+      >
         <Input
           label='아이디'
           type='text'
