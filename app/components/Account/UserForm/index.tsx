@@ -13,6 +13,7 @@ const UserForm = () => {
   const [userId, setUserId] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordCheck, setPasswordCheck] = useState<string>('');
 
   const confirm =
@@ -62,13 +63,14 @@ const UserForm = () => {
       />
       <Input
         label='비밀번호*'
-        type='password'
+        type={showPassword ? 'text' : 'password'}
         value={password}
         setValue={(value: string) => setPassword(value)}
         placeholder='비밀번호를 입력해 주세요'
         required
         desc='6자 이상의 숫자와 특수문자를 포함해주세요'
-        checkbox={passwordCheck === '' ? undefined : password.length > 5}
+        handleChangeType={() => setShowPassword((prev) => !prev)}
+        showPassword={showPassword}
       />
       <Input
         label='비밀번호 확인*'
