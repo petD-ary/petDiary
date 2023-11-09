@@ -1,5 +1,5 @@
 import useModal from '@/hooks/useModal';
-import { variantModalState } from '@/recoil/atoms';
+import { variantModalState } from '@/recoil/Account/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import VariantList from './VariantList';
