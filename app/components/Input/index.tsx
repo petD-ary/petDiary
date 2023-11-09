@@ -13,6 +13,7 @@ interface InputProps {
   checkbox?: boolean;
   handleChangeType?: () => void;
   showPassword?: boolean;
+  btnOnClick?: () => void;
 }
 
 const Input = ({
@@ -77,6 +78,7 @@ const Input = ({
           hover:bg-grayColor-300 hover:text-white
           active:bg-grayColor-400 active:text-white
           rounded-lg'
+            onClick={() => props.btnOnClick && props?.btnOnClick()}
           >
             {button}
           </button>
