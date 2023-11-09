@@ -8,7 +8,7 @@ import AuthButton from '@/components/Input/AuthButton';
 import CheckButton from '@/components/Input/CheckButton';
 import VariantModal from '@/components/Account/VariantModal';
 
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   authObjState,
   stepState,
@@ -31,7 +31,7 @@ interface PetObjProps {
 }
 
 export const PetInForm = () => {
-  const [authObj, setAuthObj] = useRecoilState(authObjState);
+  const authObj = useRecoilValue(authObjState);
   const { userId, email, password } = authObj;
 
   const [petObj, setPetObj] = useState<PetObjProps>({
@@ -55,16 +55,6 @@ export const PetInForm = () => {
     weight,
   } = petObj;
 
-  /* 
-  const [petType, setPetType] = useState<string>('강아지');
-  const [breed, setBreed] = useState('');
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('남아');
-  const [neutered, setNeutered] = useState<boolean>(false);
-  const [birthday, setBirthday] = useState('');
-  const [adoptionDate, setAdoptionDate] = useState('');
-  const [weight, setWeight] = useState('');
- */
   const [modalOpen, setModalOpen] = useRecoilState(variantModalState);
   const setStep = useSetRecoilState(stepState);
 
