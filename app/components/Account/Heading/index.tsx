@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import backBtn from '@/assets/images/backBtn.png';
 import { useRecoilState } from 'recoil';
-import { stepState } from '@/recoil/atoms';
+import { stepState } from '@/recoil/Account/atoms';
 
 const Heading = ({ title }: { title: string }) => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import useModal from '@/hooks/useModal';
-import { variantModalState } from '@/recoil/atoms';
+import { variantModalState } from '@/recoil/Account/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import VariantList from './VariantList';
@@ -37,7 +37,7 @@ const VariantModal = ({ variant, setBreed }: VariantModalProps) => {
   }, [variant]);
 
   return (
-    <div className='fixed w-full h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
+    <div className='fixed z-20 w-full h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
       <div
         ref={ref}
         className='absolute left-1/2 -translate-x-1/2 bottom-0
