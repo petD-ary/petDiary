@@ -1,6 +1,3 @@
-import { BsCheckLg, BsXLg } from 'react-icons/bs';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-
 interface InputProps {
   label: string;
   type: string;
