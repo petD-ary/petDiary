@@ -4,9 +4,11 @@ import AuthButton from '@/components/Input/AuthButton';
 import { authObjState, stepState } from '@/recoil/Account/atoms';
 import { FormEvent, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { authService, dbService } from '@/firebase';
+import { dbService } from '@/firebase';
 import { DocumentData, collection, getDocs } from 'firebase/firestore';
+import InputButton from '@/components/Input/InputButton';
+import ShowInput from '@/components/Input/ShowInput';
+import InputCheck from '@/components/Input/InputCheck';
 
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
@@ -16,15 +18,35 @@ const UserForm = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [userIdCheck, setUserIdCheck] = useState<boolean | null>(null);
+  const [emailCheck, setEmailCheck] = useState<boolean | null>(null);
 
   const confirm =
     userId === '' ||
     !userIdCheck ||
     email === '' ||
+    !emailCheck ||
     password === '' ||
     passwordCheck === '' ||
     password.length < 5 ||
     password !== authObj.passwordCheck;
+
+  const handleCheckedEmail = async () => {
+    if (email !== '') {
+      /* 서버에서 사용자 정보 받아오기 */
+      const querySnapshot = await getDocs(collection(dbService, 'userInfo'));
+
+      let userIdList: DocumentData[] = [];
+      querySnapshot.forEach((doc) =>
+        userIdList.push({ id: doc.id, ...doc.data() })
+      );
+
+      /* 서버에서 받아온 사용자 정보로 email 유효성 검사 */
+      const result = userIdList.filter((item) => item.email === email);
+      setEmailCheck((prev) =>
+        result.length === 0 ? true : prev === null ? false : prev
+      );
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +72,7 @@ const UserForm = () => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
-      <Input
+      <InputButton
         label='아이디*'
         type='text'
         value={userId}
@@ -61,29 +83,40 @@ const UserForm = () => {
         required
         button='중복 확인'
         btnOnClick={() => handleCheckedAvailability()}
+        desc={
+          userIdCheck
+            ? userId !== ''
+              ? '사용 가능한 아이디입니다.'
+              : '아이디를 입력해주세요.'
+            : userIdCheck !== null
+            ? '이미 사용 중인 아이디입니다.'
+            : null
+        }
       />
-      {userIdCheck ? (
-        <p className='pt-5 pl-5 text-grayColor-400'>
-          사용 가능한 아이디입니다.
-        </p>
-      ) : (
-        userIdCheck !== null && (
-          <p className='pt-5 pl-5 text-grayColor-400'>
-            이미 사용 중인 아이디입니다.
-          </p>
-        )
-      )}
-      <Input
+
+      <InputButton
         label='이메일*'
         type='text'
         value={email}
-        setValue={(value) =>
-          setAuthObj((authObj) => ({ ...authObj, email: value }))
-        }
+        setValue={(value) => {
+          setAuthObj((authObj) => ({ ...authObj, email: value }));
+        }}
         placeholder='이메일을 입력해 주세요'
         required
+        button='중복 확인'
+        btnOnClick={() => handleCheckedEmail()}
+        desc={
+          emailCheck
+            ? email !== ''
+              ? '사용 가능한 이메일입니다.'
+              : '이메일을 입력해주세요.'
+            : emailCheck !== null
+            ? '이미 가입되어 있는 이메일입니다.'
+            : null
+        }
       />
-      <Input
+
+      <ShowInput
         label='비밀번호*'
         type={showPassword ? 'text' : 'password'}
         value={password}
@@ -96,7 +129,8 @@ const UserForm = () => {
         handleChangeType={() => setShowPassword((prev) => !prev)}
         showPassword={showPassword}
       />
-      <Input
+
+      <InputCheck
         label='비밀번호 확인*'
         type='password'
         value={passwordCheck}
