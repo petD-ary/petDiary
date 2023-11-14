@@ -40,7 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={pretendard.className}>
         <RecoilRootWrapper>
           <div className="flex">
-            <SideMenu />
+            {/* 로그인이 됐을 때만 */}
+            {/* <SideMenu /> */}
             {children}
           </div>
         </RecoilRootWrapper>
