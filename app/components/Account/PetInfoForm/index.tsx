@@ -72,6 +72,7 @@ export const PetInForm = () => {
         const userInfo = {
           displayname: userId,
           userId: user.user.uid,
+          email,
           ...petObj,
         };
 

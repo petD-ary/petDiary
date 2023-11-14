@@ -1,26 +1,30 @@
-interface InputProps {
+import { BsCheckLg, BsXLg } from 'react-icons/bs';
+
+interface InputCheckProps {
   label: string;
   type: string;
   value: string;
   setValue: (value: string) => void;
   required?: boolean;
   placeholder?: string;
+  checkbox?: boolean;
   desc?: string;
 }
 
-const Input = ({
+const InputCheck = ({
   label,
   type,
   value,
   setValue,
   required,
   placeholder,
+  checkbox,
   desc,
-}: InputProps) => {
+}: InputCheckProps) => {
   return (
     <div className='w-full mt-5 text-1.4rem'>
       <label className='block p-2'>{label}</label>
-      <div className='flex justify-between gap-2 relative'>
+      <div className='relative flex'>
         <input
           type={type}
           value={value}
@@ -32,10 +36,23 @@ const Input = ({
           ${type === 'password' ? 'cursor-text' : ''}
           `}
         />
+        {checkbox ? (
+          <BsCheckLg
+            className='absolute right-5 top-1/2 -translate-y-1/2 text-green-500'
+            size={18}
+          />
+        ) : (
+          checkbox !== undefined && (
+            <BsXLg
+              size={18}
+              className='absolute right-5 top-1/2 -translate-y-1/2 text-rose-500'
+            />
+          )
+        )}
       </div>
       {desc ? <p className='pt-5 pl-5 text-grayColor-400'>{desc}</p> : null}
     </div>
   );
 };
 
-export default Input;
+export default InputCheck;

@@ -7,9 +7,10 @@ import { FaFacebook } from 'react-icons/fa';
 import { FaGoogle } from 'react-icons/fa';
 
 import Input from '../Input';
-import CheckButton from '../Input/CheckButton';
-import AuthButton from '../Input/AuthButton';
-import SocialButton from '../Input/SocialButton';
+import CheckButton from '@/components/Input/CheckButton';
+import AuthButton from '@/components/Input/AuthButton';
+import SocialButton from '@/components/Input/SocialButton';
+import ShowInput from '@/components/Input/ShowInput';
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>('');
@@ -30,15 +31,15 @@ export const Login = () => {
         method='post'
       >
         <Input
-          label='아이디'
+          label='이메일'
           type='text'
           value={userId}
           setValue={(value: string) => setUserId(value)}
-          placeholder='아이디를 입력해 주세요'
+          placeholder='이메일을 입력해 주세요'
           required
         />
 
-        <Input
+        <ShowInput
           label='비밀번호'
           type={showPassword ? 'text' : 'password'}
           value={password}
