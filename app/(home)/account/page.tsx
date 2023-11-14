@@ -5,7 +5,7 @@ import UserForm from '@/components/Account/UserForm';
 
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
-import { stepState } from '@/recoil/atoms';
+import { stepState } from '@/recoil/Account/atoms';
 
 import { PetInForm } from '@/components/Account/PetInfoForm';
 import ComplatedPage from '@/components/Account/ComplatedPage';
