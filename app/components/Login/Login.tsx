@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaFacebook } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
 import { GrGooglePlus } from "react-icons/gr";
 
 import Input from "../Input";
@@ -13,7 +12,7 @@ import AuthButton from "@/components/Input/AuthButton";
 import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
-import { googleLogin } from "./SocialLogin";
+import { facebookLogin, googleLogin } from "./SocialLogin";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -66,7 +65,7 @@ export const Login = () => {
 
       <div className="w-4/5 mx-auto my-12 flex justify-between gap-3">
         <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin(router)} />
-        <SocialButton type={"button"} content={"페"} />
+        <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
         <SocialButton type={"button"} content={"네"} />
         <SocialButton type={"button"} content={"카"} />
       </div>
