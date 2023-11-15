@@ -34,3 +34,22 @@ export const facebookLogin = (router: any) => {
       console.log("로그인 실패");
     });
 };
+
+// 카카오톡 로그인
+const Rest_api_key = process.env.KAKAO_REST_API_KEY; //REST API KEY
+const kakaoClientId = process.env.KAKAO_JAVASCRIPT_KEY;
+const redirect_uri = "http://localhost:3000/auth"; //Redirect URI
+// oauth 요청 URL
+const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+export const kakaoLogin = () => {
+  window.location.href = kakaoURL;
+};
+const code = new URL(window.location.href).searchParams.get("code");
+
+const kakaoOnSuccess = async (data: { response: { access_token: any } }) => {
+  console.log(data);
+  const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
+};
+const kakaoOnFailure = (error: any) => {
+  console.log(error);
+};

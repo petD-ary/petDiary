@@ -12,7 +12,7 @@ import AuthButton from "@/components/Input/AuthButton";
 import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
-import { facebookLogin, googleLogin } from "./SocialLogin";
+import { facebookLogin, googleLogin, kakaoLogin } from "./SocialLogin";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
