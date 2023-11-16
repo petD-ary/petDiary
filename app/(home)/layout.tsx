@@ -40,8 +40,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ko'>
-      <body className={pretendard.className}>
-        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+      <body className={`${pretendard.className} bg-backgroundColor`}>
+        <RecoilRootWrapper>
+          <div className='fixed top-0 left-0 z-50 w-[72px] lg:w-[144px] h-full bg-grayColor-100 hidden sm:block'></div>
+          <div className='w-full h-screen sm:w-[calc(100%_-_72px)] lg:w-[calc(100%_-_144px)] ml-0 sm:ml-[72px] lg:ml-[144px]'>
+            {children}
+          </div>
+        </RecoilRootWrapper>
       </body>
     </html>
   );
