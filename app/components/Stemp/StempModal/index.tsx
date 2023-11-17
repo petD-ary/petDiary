@@ -20,6 +20,7 @@ const StempModal = ({ todayChecked }: { todayChecked: boolean }) => {
         className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
         max-w-[500px] w-full bg-white
         flex flex-col items-center rounded-lg overflow-hidden
+        shadow-[0_10px_20px_rgba(0,0,0,0.25)]
         pt-[60px]'
       >
         <div className='w-[120px] h-[120px] relative bg-grayColor-200 rounded-xl'></div>
