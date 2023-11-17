@@ -15,6 +15,11 @@ const Heading = ({
   page: number;
   setPage: (value: number) => void;
 }) => {
+  const handlePageChange = (newPage: number) => {
+    const validPage = Math.min(Math.max(newPage, 1), totalPages);
+    setPage(validPage);
+  };
+
   return (
     <div className='w-full flex justify-between items-start pb-12'>
       <div>
@@ -25,11 +30,10 @@ const Heading = ({
       </div>
       <div className='flex items-center'>
         <button
-          className='w-3 h-3 relative [&_img]:rotate-180'
-          onClick={() => {
-            const prevPage = page === 1 ? page : page - 1;
-            return setPage(prevPage);
-          }}
+          className={`w-3 h-3 relative [&_img]:rotate-180 ${
+            page === 1 ? 'cursor-default' : ''
+          }`}
+          onClick={() => handlePageChange(page - 1)}
         >
           <Image
             src={page === 1 ? chevron : activeChevron}
@@ -39,15 +43,14 @@ const Heading = ({
             style={{ objectFit: 'contain' }}
           />
         </button>
-        <p className='font-semibold px-5'>
+        <p className='font-semibold px-5 cursor-default'>
           {page} <span className='text-grayColor-200 font-normal'>/ 8</span>
         </p>
         <button
-          className='w-3 h-3 relative'
-          onClick={() => {
-            const nextPage = page < totalPages ? page + 1 : page;
-            return setPage(nextPage);
-          }}
+          className={`w-3 h-3 relative ${
+            page < totalPages ? '' : 'cursor-default'
+          }`}
+          onClick={() => handlePageChange(page + 1)}
         >
           <Image
             src={page < totalPages ? activeChevron : chevron}
