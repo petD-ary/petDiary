@@ -1,25 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
 
 interface AuthButtonProps {
-  type: 'button' | 'submit' | 'reset';
-  content: string;
+  type: "button" | "submit" | "reset";
+  content: React.ReactNode;
   onClick?: () => void;
 }
-
-// const StyledButton = styled.button`
-//   width: 80px;
-//   height: 60px;
-//   background-color: #f0f0f0;
-//   border-radius: 8px;
-// `;
 
 function SocialButton({ content, onClick }: AuthButtonProps) {
   return (
     <button
-      type='button'
+      type="button"
       onClick={onClick}
-      className='w-20 h-[60px] bg-grayColor-100 rounded-xl'
+      className="w-20 h-[60px] bg-grayColor-100 rounded-xl flex items-center justify-center text-2xl"
     >
       {content}
     </button>

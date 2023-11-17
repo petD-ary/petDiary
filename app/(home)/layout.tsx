@@ -1,52 +1,46 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import RecoilRootWrapper from '@/components/RecoilRootWrapper';
+import "./globals.css";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import RecoilRootWrapper from "@/components/RecoilRootWrapper";
+import SideMenu from "@/components/SideMenu/SideMenu";
 
 const pretendard = localFont({
   src: [
     {
-      path: '../assets/font/Pretendard-Regular.otf',
-      weight: '400',
-      style: 'normal',
+      path: "../assets/font/Pretendard-Regular.otf",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: '../assets/font/Pretendard-Medium.otf',
-      weight: '500',
-      style: 'normal',
+      path: "../assets/font/Pretendard-Medium.otf",
+      weight: "500",
+      style: "normal",
     },
     {
-      path: '../assets/font/Pretendard-SemiBold.otf',
-      weight: '600',
-      style: 'normal',
+      path: "../assets/font/Pretendard-SemiBold.otf",
+      weight: "600",
+      style: "normal",
     },
     {
-      path: '../assets/font/Pretendard-Bold.otf',
-      weight: '700',
-      style: 'normal',
+      path: "../assets/font/Pretendard-Bold.otf",
+      weight: "700",
+      style: "normal",
     },
   ],
 });
 
 export const metadata: Metadata = {
-  title: '반려동물 앱',
-  description: '반려동물 케어 가이드 서비스',
+  title: "반려동물 앱",
+  description: "반려동물 케어 가이드 서비스",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ko'>
-      <body className={`${pretendard.className} bg-backgroundColor`}>
-        <RecoilRootWrapper>
-          <div className='fixed top-0 left-0 z-50 w-[72px] lg:w-[144px] h-full bg-grayColor-100 hidden sm:block'></div>
-          <div className='w-full h-screen sm:w-[calc(100%_-_72px)] lg:w-[calc(100%_-_144px)] ml-0 sm:ml-[72px] lg:ml-[144px]'>
-            {children}
-          </div>
-        </RecoilRootWrapper>
+    <html lang="ko">
+      <body className={pretendard.className}>
+        {/* 로그인이 됐을 때만 */}
+        {/* <SideMenu /> */}
+        <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>
     </html>
   );
