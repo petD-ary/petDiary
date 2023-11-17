@@ -17,6 +17,7 @@ module.exports = {
           300: '#808080',
           400: '#404040',
         },
+        backgroundColor: '#fbfbfb',
       },
     },
   },

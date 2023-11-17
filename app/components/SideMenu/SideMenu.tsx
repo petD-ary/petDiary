@@ -24,7 +24,7 @@ const SideMenu = () => {
       <div className="flex flex-col gap-5">
         <div className="w-8 h-8 mx-auto mb-1 rounded-2xl bg-grayColor-200"></div>
         {nav.map((item, i) => {
-          return <NavBtn key={i} navItem={item.title} icon="icon" />;
+          return <NavBtn key={item.tilte} navItem={item.title} icon="icon" />;
         })}
       </div>
       <div>
