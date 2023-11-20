@@ -13,6 +13,7 @@ import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
 import { facebookLogin, googleLogin, kakaoLogin } from "./SocialLogin";
+import SocialKakao from "./SocialKakao";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -67,9 +68,9 @@ export const Login = () => {
         <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin(router)} />
         <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
         <SocialButton type={"button"} content={"네"} />
-        <SocialButton type={"button"} content={"카"} />
+        <SocialButton type={"button"} content={"카"} onClick={() => kakaoLogin(router)} />
       </div>
-
+      <SocialKakao />
       <div className="text-center text-sm">
         <p>
           아직 회원이 아니신가요?

@@ -37,21 +37,21 @@ export const metadata: Metadata = {
   description: "반려동물 케어 가이드 서비스",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function Document({ children }: { children: React.ReactNode }) {
   return (
-    <Html lang="ko">
-      <Head>
+    <html lang="ko">
+      {/* <Head>
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
           integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH"
           crossOrigin="anonymous"
         />
-      </Head>
+      </Head> */}
       <body className={pretendard.className}>
         {/* 로그인이 됐을 때만 */}
         {/* <SideMenu /> */}
         <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>
-    </Html>
+    </html>
   );
 }
