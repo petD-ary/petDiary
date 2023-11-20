@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import SideMenu from '@/components/SideMenu/SideMenu';
+import Container from '@/components/Container';
 
 const pretendard = localFont({
   src: [
@@ -44,8 +45,11 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <RecoilRootWrapper>
           {/* 로그인이 됐을 때만 */}
-          {/* <SideMenu /> */}
-          {children}
+          <SideMenu />
+          <div className='flex'>
+            <div className='flex-grow'></div>
+            <Container>{children}</Container>
+          </div>
         </RecoilRootWrapper>
       </body>
     </html>
