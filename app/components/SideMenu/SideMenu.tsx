@@ -20,11 +20,11 @@ const SideMenu = () => {
     },
   ];
   return (
-    <div className="flex flex-col justify-between w-1/12 h-screen py-20 rounded-ee-3xl rounded-se-3xl bg-grayColor-100">
+    <div className="absolute flex flex-col justify-between w-1/12 h-screen py-20 rounded-ee-3xl rounded-se-3xl bg-grayColor-100">
       <div className="flex flex-col gap-5">
         <div className="w-8 h-8 mx-auto mb-1 rounded-2xl bg-grayColor-200"></div>
         {nav.map((item, i) => {
-          return <NavBtn key={item.tilte} navItem={item.title} icon="icon" />;
+          return <NavBtn key={item.title} navItem={item.title} icon="icon" />;
         })}
       </div>
       <div>

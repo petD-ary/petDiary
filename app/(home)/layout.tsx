@@ -49,7 +49,7 @@ export default function Document({ children }: { children: React.ReactNode }) {
       </Head> */}
       <body className={pretendard.className}>
         {/* 로그인이 됐을 때만 */}
-        {/* <SideMenu /> */}
+        <SideMenu />
         <RecoilRootWrapper>{children}</RecoilRootWrapper>
       </body>
     </html>

@@ -1,5 +1,7 @@
+import Container from "@/components/Container";
+
 const CommunityPage = () => {
-  return <div>ss</div>;
+  return <Container>ssssssssss</Container>;
 };
 
 export default CommunityPage;
