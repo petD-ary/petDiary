@@ -12,10 +12,7 @@ const TabMenu = ({ tabList }: ChangePageBtnProps) => {
   const pathname = usePathname();
 
   return (
-    <div
-      className={`flex mx-auto max-w-[1000px] min-w-[300px] justify-between gap-2
-   `}
-    >
+    <div className={`flex gap-2 mb-3`}>
       {tabList.map((tab) => (
         <Link
           key={tab.path}

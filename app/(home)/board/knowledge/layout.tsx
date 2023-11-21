@@ -13,8 +13,12 @@ const KnowledgeLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <React.Fragment>
-      <TabMenu tabList={tabList} />
-      <Container>{children}</Container>
+      <div className="mx-auto max-w-[1000px] min-w-[300px]">
+        <Container>
+          <TabMenu tabList={tabList} />
+          {children}
+        </Container>
+      </div>
     </React.Fragment>
   );
 };

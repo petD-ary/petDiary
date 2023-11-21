@@ -5,18 +5,12 @@ import { useState } from "react";
 
 interface ComponentProps {
   filterItem: string[];
-  list: string;
 }
 
-const FilterCategory = ({ filterItem, list }: ComponentProps) => {
+const FilterCategory = ({ filterItem }: ComponentProps) => {
   const [selected, setSelected] = useState("전체");
 
-  return (
-    <Container>
-      <Filter filterItem={filterItem} selected={selected} setSelected={setSelected} />
-      {list}
-    </Container>
-  );
+  return <Filter filterItem={filterItem} selected={selected} setSelected={setSelected} />;
 };
 
 export default FilterCategory;
