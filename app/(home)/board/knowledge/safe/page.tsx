@@ -1,16 +1,10 @@
 "use client";
-import Filter from "@/components/Board/Filter";
-import Container from "@/components/Container";
-import { useState } from "react";
+
+import FilterCategory from "@/components/Board/Filter/FilterCategory";
+
 let safe = ["전체", "강아지", "고양이"];
 const Safe = () => {
-  let [selected, setSelected] = useState("전체");
-  return (
-    <Container>
-      <Filter filterItem={safe} selected={selected} />
-      Safe
-    </Container>
-  );
+  return <FilterCategory filterItem={safe} list="safe" />;
 };
 
 export default Safe;

@@ -20,7 +20,7 @@ const TabMenu = ({ tabList }: ChangePageBtnProps) => {
         <Link
           key={tab.path}
           href={tab.path}
-          className={`px-5 py-3 border-2 rounded-lg flex-1 ${
+          className={`px-5 py-3 border rounded-lg flex-1 ${
             pathname === tab.path ? " border-black bg-grayColor-100" : "border-grayColor-200"
           }`}
         >
