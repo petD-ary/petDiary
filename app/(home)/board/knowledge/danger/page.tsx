@@ -9,7 +9,7 @@ const Danger = () => {
     <>
       <FilterCategory filterItem={danger} />
       <ListHeader title="위험 음식" />
-      <BoardList />
+      <BoardList cause="음식명" effect="먹은 후 나타나는 증상" />
     </>
   );
 };

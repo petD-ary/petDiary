@@ -10,7 +10,7 @@ const Safe = () => {
     <>
       <FilterCategory filterItem={safe} />
       <ListHeader title="안심 음식" />
-      <BoardList />
+      <BoardList cause="음식명" effect="영양소" />
     </>
   );
 };
