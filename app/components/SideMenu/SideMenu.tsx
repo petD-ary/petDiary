@@ -21,15 +21,15 @@ const SideMenu = () => {
   ];
   return (
     <div
-      className='fixed z-10 flex flex-col justify-between
-    lg:w-[110px] h-screen py-20
-    rounded-ee-3xl rounded-se-3xl bg-grayColor-100'
+      className='fixed bottom-0 sm:top-0 z-10 flex flex-row-reverse sm:flex-col justify-around sm:justify-between
+    w-full sm:w-[80px] lg:w-[110px] sm:h-screen sm:py-20
+     bg-grayColor-100'
     >
-      <div className='flex flex-col gap-6 items-center'>
-        <div className='w-20 pb-6 border-b border-grayColor-400'>
+      <div className='flex sm:flex-col gap-6 items-center'>
+        <div className='hidden sm:block w-20 sm:pb-6 sm:border-b border-grayColor-400'>
           <div className='w-8 h-8 mx-auto mb-1 rounded-2xl bg-grayColor-200'></div>
         </div>
-        <div className='flex flex-col gap-6 items-center'>
+        <div className='flex sm:flex-col sm:gap-6 items-center justify-around'>
           {nav.map((item) => {
             return (
               <NavBtn
