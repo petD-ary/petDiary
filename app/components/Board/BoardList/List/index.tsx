@@ -16,7 +16,7 @@ interface BoardProps {
 
 const BoardList = ({ substance, effect, mockData }: BoardProps) => {
   return (
-    <div className="overflow-x-auto ">
+    <div className="overflow-x-auto max-h-[400px]">
       <table className="min-w-full border border-gray-300 border-x-0">
         <thead className="bg-grayColor-200 text-left ">
           <tr className="grid grid-cols-10 gap-4 border-b">
