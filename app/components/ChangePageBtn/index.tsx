@@ -1,20 +1,33 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React from 'react';
+import { BsBag, BsHeart, BsSearch } from 'react-icons/bs';
+import { useSetRecoilState } from 'recoil';
+import { searchModalState } from '@/recoil/Store/atoms';
 
 interface ChangePageBtnProps {
   PageList: { path: string; title: string }[];
+  search?: boolean;
+  store?: boolean;
 }
 
-const ChangePageBtn = ({ PageList }: ChangePageBtnProps) => {
+interface PageList {
+  path: string;
+  title: string;
+}
+
+const ChangePageBtn = ({ PageList, search, store }: ChangePageBtnProps) => {
   const pathname = usePathname();
 
+  const setIsOpen = useSetRecoilState(searchModalState);
+
   return (
-    <div className='px-4 sm:px-0 py-6 sm:py-12'>
+    <div className='px-4 sm:px-0 py-6 sm:py-12 flex justify-end items-center relative'>
       <div
-        className={`flex mx-auto 
+        className={`absolute left-1/2 -translate-x-1/2 flex mx-auto 
       bg-grayColor-200
-      h-12 max-w-[450px] min-w-[300px]
+      h-12 max-w-[450px] min-w-[280px]
       rounded-lg
    `}
       >
@@ -27,7 +40,7 @@ const ChangePageBtn = ({ PageList }: ChangePageBtnProps) => {
           rounded-lg w-1/2
           font-semibold
           ${
-            pathname === page.path
+            pathname.includes(page.path)
               ? 'border-2 border-grayColor-200 bg-white'
               : 'text-white'
           }`}
@@ -36,6 +49,18 @@ const ChangePageBtn = ({ PageList }: ChangePageBtnProps) => {
           </Link>
         ))}
       </div>
+
+      {search && (
+        <div className='flex gap-8 items-center [&_svg]:cursor-pointer'>
+          <BsSearch size={18} onClick={() => setIsOpen(true)} />
+          {store && (
+            <React.Fragment>
+              <BsHeart size={18} />
+              <BsBag size={18} />
+            </React.Fragment>
+          )}
+        </div>
+      )}
     </div>
   );
 };
