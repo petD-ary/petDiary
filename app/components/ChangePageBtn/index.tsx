@@ -26,6 +26,7 @@ const ChangePageBtn = ({ PageList }: ChangePageBtnProps) => {
           flex justify-center items-center
           rounded-lg w-1/2
           font-semibold
+          
           ${pathname === page.path ? "border-2 border-grayColor-200 bg-white" : "text-white"}`}
           >
             {page.title}

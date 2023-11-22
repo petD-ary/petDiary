@@ -29,8 +29,8 @@ const BoardList = ({ substance, effect, mockData }: BoardProps) => {
         <tbody>
           {mockData.map((data) => (
             <tr key={data.id} className="grid grid-cols-10 gap-4 border-b">
-              <td className="col-span-2 py-2 px-4 ">{data.substance}</td>
-              <td className="col-span-5 py-2 px-4 ">{data.symptoms}</td>
+              <td className="col-span-2 py-2 px-4 truncate">{data.substance}</td>
+              <td className="col-span-5 py-2 px-4 truncate">{data.symptoms}</td>
               <td className="col-span-2 py-2 px-4 ">{data.petType}</td>
               <td className="col-span-1 py-2 px-4 ">{data.risk}</td>
             </tr>
