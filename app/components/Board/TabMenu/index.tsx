@@ -5,24 +5,26 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 interface ChangePageBtnProps {
-  tabList: { path: string; title: string }[];
+  tabList: { id: number; title: string }[];
+  selected: string;
+  setSelected: (value: string) => void;
 }
 
-const TabMenu = ({ tabList }: ChangePageBtnProps) => {
-  const pathname = usePathname();
-
+const TabMenu = ({ tabList, selected, setSelected }: ChangePageBtnProps) => {
   return (
     <div className={`flex gap-2 mb-3`}>
       {tabList.map((tab) => (
-        <Link
-          key={tab.path}
-          href={tab.path}
+        <div
+          onClick={() => {
+            setSelected(tab.title);
+          }}
+          key={tab.id}
           className={`px-5 py-3 border rounded-lg flex-1 ${
-            pathname === tab.path ? " border-black bg-grayColor-100" : "border-grayColor-200"
+            selected === tab.title ? " border-black bg-grayColor-100" : "border-grayColor-200"
           }`}
         >
           {tab.title}
-        </Link>
+        </div>
       ))}
     </div>
   );
