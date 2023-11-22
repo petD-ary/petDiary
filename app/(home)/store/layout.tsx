@@ -1,4 +1,5 @@
 import ChangePageBtn from '@/components/ChangePageBtn';
+import React from 'react';
 
 const StoreLayout = ({ children }: { children: React.ReactNode }) => {
   const StoreList = [
@@ -7,10 +8,10 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div>
+    <React.Fragment>
       <ChangePageBtn PageList={StoreList} />
       {children}
-    </div>
+    </React.Fragment>
   );
 };
 
