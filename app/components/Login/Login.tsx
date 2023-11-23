@@ -68,9 +68,9 @@ export const Login = () => {
         <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin(router)} />
         <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
         <SocialButton type={"button"} content={"네"} />
-        <SocialButton type={"button"} content={"카"} onClick={() => kakaoLogin(router)} />
+        <SocialKakao />
       </div>
-      <SocialKakao />
+
       <div className="text-center text-sm">
         <p>
           아직 회원이 아니신가요?
