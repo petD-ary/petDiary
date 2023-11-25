@@ -1,5 +1,6 @@
 import { signInWithFacebook, signInWithGoogle } from "@/firebase";
 import { GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import KakaoLogin from "react-kakao-login";
 
 // 구글 로그인
@@ -35,3 +36,6 @@ export const facebookLogin = (router: any) => {
       console.log("로그인 실패");
     });
 };
+
+// 카카오 로그인
+export const kakaoClientId = "a6aa60048bdaaa66d87d253b08a66ba3";
