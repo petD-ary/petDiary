@@ -1,5 +1,5 @@
-import { signInWithFacebook, signInWithGoogle } from "@/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
+import { authService, signInWithFacebook, signInWithGoogle } from "@/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import KakaoLogin from "react-kakao-login";
 
