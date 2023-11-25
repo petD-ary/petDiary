@@ -39,3 +39,16 @@ export const facebookLogin = (router: any) => {
 
 // 카카오 로그인
 export const kakaoClientId = "a6aa60048bdaaa66d87d253b08a66ba3";
+
+//네이버 로그인
+
+// const express = require("express");
+// const { createProxyMiddleware } = require("http-proxy-middleware");
+
+// const app = express();
+
+// app.use("/api", createProxyMiddleware({ target: "https://nid.naver.com", changeOrigin: true }));
+
+// app.listen(3000, () => {
+//   console.log("프록시 서버가 3000 포트에서 실행 중입니다.");
+// });

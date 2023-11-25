@@ -14,6 +14,7 @@ import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
 import { facebookLogin, googleLogin } from "./SocialLogin";
 import SocialKakao from "./SocialKakao";
+import SocialNaver from "./SocialNaver";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -69,6 +70,7 @@ export const Login = () => {
         <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
         <SocialButton type={"button"} content={"네"} />
         <SocialKakao />
+        <SocialNaver />
       </div>
 
       <div className="text-center text-sm">
