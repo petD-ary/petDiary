@@ -37,13 +37,10 @@ export const facebookLogin = (router: any) => {
     });
 };
 
-// 카카오 로그인
-export const kakaoClientId = "a6aa60048bdaaa66d87d253b08a66ba3";
-
 //네이버 로그인
-const NAVER_CLIENT_ID = "opgkZtCOcqRMs0wozjW3";
-const REDIRECT_URI = "http://localhost:3000/login"; // Callback URL
-const STATE = "false";
+const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
+const REDIRECT_URI = process.env.NEXT_NEXT_PUBLIC_REDIRECT_URI;
+const STATE = process.env.NEXT_PUBLIC_STATE;
 const NAVER_AUTH_URL = `http://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
 
 export const naverLogin = (router: any) => {

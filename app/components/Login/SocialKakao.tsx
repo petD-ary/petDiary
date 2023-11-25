@@ -16,6 +16,8 @@ const SocialKakao = () => {
     console.log(error);
   };
 
+  let kakaoClientId = process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY;
+
   return (
     <>
       <KakaoLogin
