@@ -41,14 +41,12 @@ export const facebookLogin = (router: any) => {
 export const kakaoClientId = "a6aa60048bdaaa66d87d253b08a66ba3";
 
 //네이버 로그인
+const NAVER_CLIENT_ID = "opgkZtCOcqRMs0wozjW3";
+const REDIRECT_URI = "http://localhost:3000/login"; // Callback URL
+const STATE = "false";
+const NAVER_AUTH_URL = `http://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
 
-// const express = require("express");
-// const { createProxyMiddleware } = require("http-proxy-middleware");
-
-// const app = express();
-
-// app.use("/api", createProxyMiddleware({ target: "https://nid.naver.com", changeOrigin: true }));
-
-// app.listen(3000, () => {
-//   console.log("프록시 서버가 3000 포트에서 실행 중입니다.");
-// });
+export const naverLogin = (router: any) => {
+  window.location.href = NAVER_AUTH_URL;
+  router.push("/");
+};
