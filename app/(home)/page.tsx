@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="max-w-[1200px] min-w-[300px] mx-auto p-14 ">
+    <div className="max-w-[1500px] min-w-[300px] mx-auto p-14 ">
       <div className={`flex flex-row flex-wrap gap-6`}>
         <div className="flex-1 flex flex-col gap-6 ">
           <PetInfo />
@@ -24,7 +24,7 @@ export default function Home() {
             <Walk />
           </div>
         </div>
-        <div className={`flex-2`}>
+        <div className="flex-2">
           <Schedule />
         </div>
       </div>

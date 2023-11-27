@@ -24,7 +24,7 @@ const Calendar = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      {/* <div className="flex items-center justify-between mb-4">
         <div className="px-2 py-1 rounded" onClick={prevMonth}>
           <IoIosArrowBack />
         </div>
@@ -32,7 +32,7 @@ const Calendar = () => {
         <button className=" px-2 py-1 rounded" onClick={nextMonth}>
           <IoIosArrowForward />
         </button>
-      </div>
+      </div> */}
       <table className="w-full border-collapse">
         <thead>
           <tr>

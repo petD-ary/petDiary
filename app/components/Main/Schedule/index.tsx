@@ -13,8 +13,9 @@ const Schedule = () => {
         <DayMark day={day.day} monthYear={day.monthYear} />
         <Calender />
       </div>
-
-      <ScheduleList />
+      <div className="">
+        <ScheduleList />
+      </div>
     </div>
   );
 };
