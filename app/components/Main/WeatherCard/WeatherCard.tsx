@@ -5,7 +5,6 @@ import Image from "next/image";
 interface CardType {
   title: string;
   weather: string;
-
   addition?: React.ReactNode;
 }
 
