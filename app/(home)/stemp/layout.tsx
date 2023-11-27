@@ -11,7 +11,7 @@ const StempLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <React.Fragment>
       <ChangePageBtn PageList={StempList} />
-      <Container>{children}</Container>
+      {children}
     </React.Fragment>
   );
 };

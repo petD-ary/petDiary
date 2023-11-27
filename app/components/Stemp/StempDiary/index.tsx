@@ -115,7 +115,7 @@ const StempDiary = ({ title, data }: { title: string; data: string[] }) => {
       </div>
       <button
         onClick={() => setIsOpen(true)}
-        className='mt-5 mx-auto block px-6 py-4 bg-black
+        className='my-10 mx-auto block px-6 py-4 bg-black
       text-white font-medium rounded-lg
       '
       >
