@@ -3,7 +3,7 @@ import Highlight from "../PetInfo/Highlight";
 
 const Temperatures = () => {
   return (
-    <div className="text-sm ">
+    <div className="text-sm mt-20">
       <span className="mr-2">
         최저 <Highlight content="21°" />
       </span>
