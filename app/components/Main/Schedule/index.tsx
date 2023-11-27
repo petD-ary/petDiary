@@ -9,11 +9,11 @@ const Schedule = () => {
   return (
     <div className="w-full h-full flex flex-col gap-5 p-4 bg-grayColor-100 rounded-xl">
       <div className="text-lg font-semibold">이달의 일정</div>
-      <div className=" bg-white rounded-xl">
+      <div className="bg-white rounded-xl">
         <DayMark day={day.day} monthYear={day.monthYear} />
         <Calender />
       </div>
-      <div className="">
+      <div className="h-64 overflow-y-auto">
         <ScheduleList />
       </div>
     </div>

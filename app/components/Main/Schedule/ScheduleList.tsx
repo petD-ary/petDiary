@@ -7,14 +7,14 @@ const ScheduleList = () => {
   const ScheduleData = [
     {
       date: 23,
-      day: "토요일",
+      day: "토",
       work: "사상충 약 먹으러!",
       location: "프렌즈동물병원",
       time: "14:00 ~ 15:00",
     },
     {
       date: 23,
-      day: "토요일",
+      day: "토",
       work: "사상충 약 먹으러!",
       location: "프렌즈동물병원",
       time: "14:00 ~ 15:00",
