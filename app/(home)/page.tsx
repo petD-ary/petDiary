@@ -1,3 +1,5 @@
+"use client";
+
 import PetInfo from "@/components/Main/PetInfo";
 import Schedule from "@/components/Main/Schedule";
 import Weather from "@/components/Main/Weather";
@@ -10,7 +12,7 @@ export default function Home() {
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
   useEffect(() => {
     setPetInfo({ name: "김콩", born: "1,004", together: "1,004" });
-  });
+  }, []);
 
   return (
     <div className="max-w-[1200px] min-w-[300px] mx-auto p-14 ">
