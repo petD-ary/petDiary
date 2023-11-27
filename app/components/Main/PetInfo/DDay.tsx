@@ -1,12 +1,12 @@
 import React from "react";
 import Highlight from "./Highlight";
+import { PetInfoProps } from "./PetData";
 
-let petInfo = {
-  name: "김콩",
-  born: "1,004",
-  together: "1,004",
-};
-const DDay = () => {
+interface DDayProps {
+  petInfo: PetInfoProps;
+}
+
+const DDay: React.FC<DDayProps> = ({ petInfo }) => {
   return (
     <div className="inline-block px-6 py-3 mb-3 bg-white items-center rounded-xl text-sm">
       <div className="mb-3">
