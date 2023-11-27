@@ -28,8 +28,10 @@ const Product = ({ id, title, brand, price, like, image }: ProductProps) => {
             />
           )}
         </div>
+      </Link>
 
-        <div className='flex justify-between bg-white px-5 py-4'>
+      <div className='flex justify-between bg-white px-5 py-4'>
+        <Link href={`/store/shop/${id}`}>
           <div>
             <p>{brand}</p>
             <h3 className='text-[#4e4e4e]'>
@@ -37,18 +39,18 @@ const Product = ({ id, title, brand, price, like, image }: ProductProps) => {
             </h3>
             <p className='text-lg pt-2'>{price.toLocaleString()}원</p>
           </div>
-          <div className='flex flex-col justify-center items-center gap-1 cursor-pointer'>
-            <div className='p-2' onClick={() => setCheckHeart((prev) => !prev)}>
-              {checkHeart ? (
-                <BsHeartFill className='text-rose-500' size={18} />
-              ) : (
-                <BsHeart size={18} />
-              )}
-            </div>
-            <p className='text-sm'>{like.toLocaleString()}</p>
+        </Link>
+        <div className='flex flex-col justify-center items-center gap-1 cursor-pointer'>
+          <div className='p-2' onClick={() => setCheckHeart((prev) => !prev)}>
+            {checkHeart ? (
+              <BsHeartFill className='text-rose-500' size={18} />
+            ) : (
+              <BsHeart size={18} />
+            )}
           </div>
+          <p className='text-sm'>{like.toLocaleString()}</p>
         </div>
-      </Link>
+      </div>
     </li>
   );
 };
