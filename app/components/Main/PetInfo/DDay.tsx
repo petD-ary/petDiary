@@ -1,12 +1,11 @@
+import { petInfoState } from "@/recoil/Main/atoms";
 import React from "react";
+import { useRecoilValue } from "recoil";
 import Highlight from "./Highlight";
-import { PetInfoProps } from "./PetData";
 
-interface DDayProps {
-  petInfo: PetInfoProps;
-}
+const DDay = () => {
+  const petInfo = useRecoilValue(petInfoState);
 
-const DDay: React.FC<DDayProps> = ({ petInfo }) => {
   return (
     <div className="inline-block px-6 py-3 mb-3 bg-white items-center rounded-xl text-sm">
       <div className="mb-3">
