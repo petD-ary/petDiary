@@ -36,8 +36,8 @@ const Calendar = () => {
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <th key={day} className="border p-2 text-center font-semibold">
+            {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
+              <th key={day} className=" p-2 text-center font-thin">
                 {day}
               </th>
             ))}

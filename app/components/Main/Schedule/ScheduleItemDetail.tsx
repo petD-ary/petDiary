@@ -16,7 +16,7 @@ const ScheduleItemDetail = ({ work, location, time }: ScheduleItem) => {
           <div className="text-xs">{location}</div>
         </div>
       </div>
-      <div className="text-sm">{time}</div>
+      <div>{time}</div>
     </div>
   );
 };

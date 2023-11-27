@@ -1,5 +1,4 @@
 import React from "react";
-import Temperatures from "../Weather/Temperatures";
 import ScheduleItem from "./ScheduleItem";
 import ScheduleItemDetail from "./ScheduleItemDetail";
 
