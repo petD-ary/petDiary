@@ -1,14 +1,17 @@
 import React from "react";
-import Image from 'next/image'
+import Image from "next/image";
 
 const PetImg = () => {
   return (
     <div className="relative w-full mb-6 bg-grayColor-200 rounded-xl">
-      <Image  
+      <Image
         fill
-          style={{
-            objectFit: 'cover',
-          }}></img>
+        style={{
+          objectFit: "cover",
+        }}
+        src={""}
+        alt={""}
+      />
     </div>
   );
 };
