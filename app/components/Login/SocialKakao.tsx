@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import KakaoLogin from "react-kakao-login";
-import { kakaoClientId } from "./SocialLogin";
 
 const SocialKakao = () => {
   const router = useRouter();
