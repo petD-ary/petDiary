@@ -37,6 +37,7 @@ export const facebookLogin = (router: any) => {
     });
 };
 
+
 //네이버 로그인
 const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 const REDIRECT_URI = process.env.NEXT_NEXT_PUBLIC_REDIRECT_URI;
