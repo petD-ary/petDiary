@@ -1,10 +1,10 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Heading from '@/components/Stemp/Heading';
-import Stemp from '@/components/Stemp';
-import { useRecoilState } from 'recoil';
-import { stempModalState } from '@/recoil/Stemp/atoms';
-import StempModal from '../StempModal';
+"use client";
+import { useEffect, useState } from "react";
+import Heading from "@/components/Stemp/Heading";
+import Stemp from "@/components/Stemp";
+import { useRecoilState } from "recoil";
+import { stempModalState } from "@/recoil/Stemp/atoms";
+import StempModal from "../StempModal";
 
 interface StempProps {
   value: number;
@@ -70,16 +70,12 @@ const StempDiary = ({ title, data }: { title: string; data: string[] }) => {
   });
 
   return (
-    <div className='h-full'>
-      {isOpen && (
-        <StempModal
-          todayChecked={checkTodayStemp.length !== 0 ? true : false}
-        />
-      )}
+    <div className="h-full">
+      {isOpen && <StempModal todayChecked={checkTodayStemp.length !== 0 ? true : false} />}
       <div
-        className='bg-white flex flex-wrap justify-between relative
+        className="bg-white flex flex-wrap justify-between relative
       px-[78px] py-[78px]
-      border-[24px] border-grayColor-200 rounded-2xl'
+      border-[24px] border-grayColor-200 rounded-2xl"
       >
         <Heading
           title={title}
@@ -88,26 +84,22 @@ const StempDiary = ({ title, data }: { title: string; data: string[] }) => {
           page={page}
           setPage={(value: number) => setPage(value)}
         />
-        <div className='flex flex-wrap w-[calc(50%_-_100px)] gap-6'>
+        <div className="flex flex-wrap w-[calc(50%_-_100px)] gap-6">
           {left &&
             left.map((stemp) => (
               <Stemp
                 key={stemp.value}
-                check={data.filter(
-                  (_: string, idx: number) => idx + 1 === stemp.value
-                )}
+                check={data.filter((_: string, idx: number) => idx + 1 === stemp.value)}
                 value={stemp.value}
               />
             ))}
         </div>
-        <div className='flex flex-wrap justify-end w-[calc(50%_-_100px)] gap-6'>
+        <div className="flex flex-wrap justify-end w-[calc(50%_-_100px)] gap-6">
           {right &&
             right.map((stemp) => (
               <Stemp
                 key={stemp.value}
-                check={data.filter(
-                  (_: string, idx: number) => idx + 1 === stemp.value
-                )}
+                check={data.filter((_: string, idx: number) => idx + 1 === stemp.value)}
                 value={stemp.value}
               />
             ))}
@@ -115,9 +107,9 @@ const StempDiary = ({ title, data }: { title: string; data: string[] }) => {
       </div>
       <button
         onClick={() => setIsOpen(true)}
-        className='my-10 mx-auto block px-6 py-4 bg-black
+        className="my-10 mx-auto block px-6 py-4 bg-black
       text-white font-medium rounded-lg
-      '
+      "
       >
         스탬프 찍기
       </button>

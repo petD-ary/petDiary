@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SiNaver } from "react-icons/si";
 import { FaFacebook } from "react-icons/fa";
 import { GrGooglePlus } from "react-icons/gr";
+import { RiKakaoTalkFill } from "react-icons/ri";
 
 import Input from "../Input";
 import CheckButton from "@/components/Input/CheckButton";
@@ -11,8 +12,7 @@ import AuthButton from "@/components/Input/AuthButton";
 import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
-import { facebookLogin, googleLogin, naverLogin } from "./SocialLogin";
-import SocialKakao from "./SocialKakao";
+import { facebookLogin, googleLogin, kakaoLogin, naverLogin } from "./SocialLogin";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -64,10 +64,10 @@ export const Login = () => {
       </form>
 
       <div className="w-4/5 mx-auto my-12 flex justify-between gap-3">
-        <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin(router)} />
-        <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
-        <SocialButton type={"button"} content={<SiNaver />} onClick={() => naverLogin(router)} />
-        <SocialKakao />
+        <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin()} />
+        <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin()} />
+        <SocialButton type={"button"} content={<SiNaver />} onClick={() => naverLogin()} />
+        <SocialButton type={"button"} content={<RiKakaoTalkFill />} onClick={() => kakaoLogin()} />
       </div>
 
       <div className="text-center text-sm">
