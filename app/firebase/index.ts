@@ -26,7 +26,7 @@ export const signInWithGoogle = () => {
   const googleProvider = new GoogleAuthProvider();
   return signInWithPopup(authService, googleProvider);
 };
-// 구글 로그인
+// 페이스북 로그인
 export const signInWithFacebook = () => {
   const facebookProvider = new FacebookAuthProvider();
   return signInWithPopup(authService, facebookProvider);

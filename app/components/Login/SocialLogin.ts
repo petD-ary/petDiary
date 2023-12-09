@@ -1,5 +1,7 @@
-import { signInWithFacebook, signInWithGoogle } from "@/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
+import { authService, signInWithFacebook, signInWithGoogle } from "@/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import KakaoLogin from "react-kakao-login";
 
 // 구글 로그인
 export const googleLogin = (router: any) => {
@@ -35,29 +37,14 @@ export const facebookLogin = (router: any) => {
     });
 };
 
-// 카카오톡 로그인
-const rest_api_key = process.env.KAKAO_REST_API_KEY; // REST API KEY
-const redirect_uri = "http://localhost:3000/login/auth"; //Redirect URI
 
-// oauth 요청 URL
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-export const kakaoLogin = (router: any) => {
-  window.location.href = kakaoURL;
+//네이버 로그인
+const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
+const REDIRECT_URI = process.env.NEXT_NEXT_PUBLIC_REDIRECT_URI;
+const STATE = process.env.NEXT_PUBLIC_STATE;
+const NAVER_AUTH_URL = `http://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URI}`;
 
-  // router.push("/");
-};
-// 인가코드 추출
-const code = new URL(window.location.href).searchParams.get("code");
-
-export const kakaoOnSuccess = async (data: { response: { access_token: any } }) => {
-  console.log(data);
-  const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
-};
-
-export const SocialKakao = () => {
-  // return (
-  //   <>
-  //     <KakaoLogin token={kakaoClientId} onSuccess={kakaoOnSuccess} onFail={kakaoOnFailure} />
-  //   </>
-  // );
+export const naverLogin = (router: any) => {
+  window.location.href = NAVER_AUTH_URL;
+  router.push("/");
 };

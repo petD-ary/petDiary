@@ -3,7 +3,18 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import Temperatures from "./Temperatures";
 
 const Weather = () => {
-  return <WeatherCard title="오늘의 날씨" subTitle="22° 흐림" addition={<Temperatures />} />;
+  let weatherDate = {
+    weather: "22° 흐림",
+    low: "21°",
+    high: "28°",
+  };
+  return (
+    <WeatherCard
+      title="오늘의 날씨"
+      weather={weatherDate.weather}
+      addition={<Temperatures low={weatherDate.low} high={weatherDate.high} />}
+    />
+  );
 };
 
 export default Weather;
