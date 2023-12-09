@@ -20,6 +20,4 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST
 
 export const kakaoLogin = () => {
   window.location.href = KAKAO_AUTH_URL;
-  let KAKAO_AUTH_CODE = new URL(window.location.href).searchParams.get("code");
-  console.log(KAKAO_AUTH_CODE);
 };
