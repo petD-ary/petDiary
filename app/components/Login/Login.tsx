@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 
 import { SiNaver } from "react-icons/si";
-import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaFacebook } from "react-icons/fa";
 import { GrGooglePlus } from "react-icons/gr";
 
@@ -12,7 +11,10 @@ import AuthButton from "@/components/Input/AuthButton";
 import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
-import { facebookLogin, googleLogin } from "./SocialLogin";
+
+import { facebookLogin, googleLogin, kakaoLogin } from "./SocialLogin";
+
+import SocialKakao from "./SocialKakao";
 
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
@@ -66,10 +68,12 @@ export const Login = () => {
       <div className="w-4/5 mx-auto my-12 flex justify-between gap-3">
         <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin(router)} />
         <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin(router)} />
-        <SocialButton type={"button"} content={"네"} />
-        <SocialButton type={"button"} content={"카"} />
-      </div>
+        <SocialButton type={"button"} content={"카"} onClick={() => kakaoLogin(router)} />
+        <SocialButton type={"button"} content={<SiNaver />} onClick={() => naverLogin(router)} />
+        <SocialKakao />
 
+      </div>
+      <SocialKakao />
       <div className="text-center text-sm">
         <p>
           아직 회원이 아니신가요?

@@ -12,11 +12,6 @@ interface ChangePageBtnProps {
   store?: boolean;
 }
 
-interface PageList {
-  path: string;
-  title: string;
-}
-
 const ChangePageBtn = ({ PageList, search, store }: ChangePageBtnProps) => {
   const pathname = usePathname();
 

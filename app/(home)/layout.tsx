@@ -5,6 +5,9 @@ import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import SideMenu from '@/components/SideMenu/SideMenu';
 import Container from '@/components/Container';
 
+import Script from "next/script";
+import { Head, Html } from "next/dist/pages/_document";
+
 const pretendard = localFont({
   src: [
     {
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
   title: '반려동물 앱',
   description: '반려동물 케어 가이드 서비스',
 };
+
 
 export default function RootLayout({
   children,
