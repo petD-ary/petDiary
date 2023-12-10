@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Heading from '@/components/Stamp/Heading';
-import Stamp from '@/components/Stamp';
 import { useRecoilState } from 'recoil';
 import { stampModalState } from '@/recoil/Stamp/atoms';
 import StampModal from '../StampModal';
+import StampGrid from './StampGrid';
 
-interface StampProps {
+export interface StampProps {
   value: number;
   checked: null | string;
 }
@@ -89,28 +89,11 @@ const StampDiary = ({ title, data }: { title: string; data: string[] }) => {
           setPage={(value: number) => setPage(value)}
         />
         <div className='flex flex-wrap w-[calc(50%_-_100px)] gap-6'>
-          {left &&
-            left.map((stamp) => (
-              <Stamp
-                key={stamp.value}
-                check={data.filter(
-                  (_: string, idx: number) => idx + 1 === stamp.value
-                )}
-                value={stamp.value}
-              />
-            ))}
+          {left && <StampGrid stamps={left} data={data} />}
         </div>
-        <div className='flex flex-wrap justify-end w-[calc(50%_-_100px)] gap-6'>
-          {right &&
-            right.map((stamp) => (
-              <Stamp
-                key={stamp.value}
-                check={data.filter(
-                  (_: string, idx: number) => idx + 1 === stamp.value
-                )}
-                value={stamp.value}
-              />
-            ))}
+
+        <div className='flex flex-wrap w-[calc(50%_-_100px)] gap-6'>
+          {right && <StampGrid stamps={right} data={data} />}
         </div>
       </div>
       <button
