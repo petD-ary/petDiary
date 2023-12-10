@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import SideMenu from '@/components/SideMenu/SideMenu';
+import Container from '@/components/Container';
 
 import Script from "next/script";
 import { Head, Html } from "next/dist/pages/_document";
@@ -48,8 +49,11 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <RecoilRootWrapper>
           {/* 로그인이 됐을 때만 */}
-          {/* <SideMenu /> */}
-          {children}
+          <SideMenu />
+          <div className='flex'>
+            <div className='flex-grow'></div>
+            <Container>{children}</Container>
+          </div>
         </RecoilRootWrapper>
       </body>
     </html>

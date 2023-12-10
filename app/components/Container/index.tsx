@@ -1,5 +1,12 @@
 const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="mx-2 sm:mx-auto px-0 sm:px-6 lg:px-12 h-full ">{children}</div>;
+  return (
+    <div
+      className='sm:mx-auto px-2 sm:px-6 lg:px-20
+    h-full w-full sm:w-[calc(100%_-_80px)] lg:w-[calc(100%_-_110px)]'
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Container;
