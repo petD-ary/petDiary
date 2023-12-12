@@ -12,15 +12,11 @@ interface ChangePageBtnProps {
   store?: boolean;
 }
 
-interface PageList {
-  path: string;
-  title: string;
-}
-
 const ChangePageBtn = ({ PageList, search, store }: ChangePageBtnProps) => {
   const pathname = usePathname();
 
   const setIsOpen = useSetRecoilState(searchModalState);
+  const activeBtnStyle = "border-2 border-grayColor-200 bg-white";
 
   return (
     <div className="px-4 sm:px-0 py-6 sm:py-12 flex justify-end items-center relative">
@@ -39,8 +35,7 @@ const ChangePageBtn = ({ PageList, search, store }: ChangePageBtnProps) => {
           flex justify-center items-center
           rounded-lg w-1/2
           font-semibold
-
-          ${pathname.includes(page.path) ? "border-2 border-grayColor-200 bg-white" : "text-white"}`}
+          ${pathname.includes(page.path) ? activeBtnStyle : "text-white"}`}
           >
             {page.title}
           </Link>

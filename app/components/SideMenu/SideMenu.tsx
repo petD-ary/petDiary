@@ -4,7 +4,7 @@ const SideMenu = () => {
   let nav = [
     {
       title: "스탬프",
-      link: "/stemp/walk",
+      link: "/stamp/walk",
     },
     {
       title: "캘린더",

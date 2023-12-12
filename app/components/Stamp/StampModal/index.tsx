@@ -1,10 +1,10 @@
 import useModal from '@/hooks/useModal';
-import { stempModalState } from '@/recoil/Stemp/atoms';
+import { stampModalState } from '@/recoil/Stamp/atoms';
 import { useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-const StempModal = ({ todayChecked }: { todayChecked: boolean }) => {
-  const setIsOpen = useSetRecoilState(stempModalState);
+const StampModal = ({ todayChecked }: { todayChecked: boolean }) => {
+  const setIsOpen = useSetRecoilState(stampModalState);
   const ref = useRef(null);
 
   const handleOpenModal = () => {
@@ -40,4 +40,4 @@ const StempModal = ({ todayChecked }: { todayChecked: boolean }) => {
   );
 };
 
-export default StempModal;
+export default StampModal;
