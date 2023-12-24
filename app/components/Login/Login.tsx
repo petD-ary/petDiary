@@ -12,9 +12,38 @@ import AuthButton from "@/components/Input/AuthButton";
 import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { kakaoLogin } from "./Social";
 
-import { facebookLogin, googleLogin, kakaoLogin, naverLogin } from "./SocialLogin";
+// const socialLogins = [
+//   {
+//     link: "auth/kakao",
+//     socialLogin: <SiNaver />,
+//   },
+//   {
+//     link: "auth/naver",
+//     socialLogin: <RiKakaoTalkFill />,
+//   },
+//   {
+//     link: "auth/google",
+//     socialLogin: <GrGooglePlus />,
+//   },
+// ];
 
+const socialLogins = [
+  {
+    login: kakaoLogin,
+    socialLogin: <SiNaver />,
+  },
+  {
+    login: kakaoLogin,
+    socialLogin: <RiKakaoTalkFill />,
+  },
+  {
+    login: kakaoLogin,
+    socialLogin: <GrGooglePlus />,
+  },
+];
 export const Login = () => {
   const [userId, setUserId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -64,11 +93,22 @@ export const Login = () => {
         <AuthButton type="submit" content="로그인" disabled={confirm} />
       </form>
 
+      {/* <div className="w-4/5 mx-auto my-12 flex justify-between gap-3">
+        {socialLogins.map((socialLogin, index) => (
+          <Link href={socialLogin.link} key={index}>
+            <SocialButton type={"button"} content={socialLogin.socialLogin} onClick />
+          </Link>
+        ))}
+      </div> */}
       <div className="w-4/5 mx-auto my-12 flex justify-between gap-3">
-        <SocialButton type={"button"} content={<GrGooglePlus />} onClick={() => googleLogin()} />
-        <SocialButton type={"button"} content={<FaFacebook />} onClick={() => facebookLogin()} />
-        <SocialButton type={"button"} content={<SiNaver />} onClick={() => naverLogin()} />
-        <SocialButton type={"button"} content={<RiKakaoTalkFill />} onClick={() => kakaoLogin()} />
+        {socialLogins.map((socialLogin, index) => (
+          <SocialButton
+            key={index}
+            type={"button"}
+            content={socialLogin.socialLogin}
+            onClick={socialLogin.login}
+          />
+        ))}
       </div>
 
       <div className="text-center text-sm">
