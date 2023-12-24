@@ -13,26 +13,11 @@ import SocialButton from "@/components/Input/SocialButton";
 import ShowInput from "@/components/Input/ShowInput";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { kakaoLogin } from "./Social";
-
-// const socialLogins = [
-//   {
-//     link: "auth/kakao",
-//     socialLogin: <SiNaver />,
-//   },
-//   {
-//     link: "auth/naver",
-//     socialLogin: <RiKakaoTalkFill />,
-//   },
-//   {
-//     link: "auth/google",
-//     socialLogin: <GrGooglePlus />,
-//   },
-// ];
+import { googleLogin, kakaoLogin, naverLogin } from "./Social";
 
 const socialLogins = [
   {
-    login: kakaoLogin,
+    login: naverLogin,
     socialLogin: <SiNaver />,
   },
   {
@@ -40,7 +25,7 @@ const socialLogins = [
     socialLogin: <RiKakaoTalkFill />,
   },
   {
-    login: kakaoLogin,
+    login: googleLogin,
     socialLogin: <GrGooglePlus />,
   },
 ];
