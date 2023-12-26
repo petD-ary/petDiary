@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Logo from '@/assets/images/common/logo/pd_logo_white.png';
+import Logo from '@/assets/images/logo/pd_logo_white.png';
 
 const Splash = () => {
   return (
