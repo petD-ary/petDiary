@@ -1,5 +1,5 @@
-import chevron from '@/assets/images/chevron.png';
-import activeChevron from '@/assets/images/activeChevron.png';
+// import chevron from '@/assets/images/chevron.png';
+// import activeChevron from '@/assets/images/activeChevron.png';
 import Image from 'next/image';
 
 const Breadcrumb = ({ step }: { step: number }) => {
@@ -43,14 +43,14 @@ const Breadcrumb = ({ step }: { step: number }) => {
             absolute -right-[38px] top-1/2 -translate-y-1/2
             '
             >
-              <Image
+              {/* <Image
                 src={active ? activeChevron : chevron}
                 alt='>'
                 fill
                 sizes='100%'
                 style={{ objectFit: 'contain' }}
                 priority
-              />
+              /> */}
             </span>
             {page.title}
           </li>
