@@ -15,9 +15,9 @@ import {
   variantModalState,
 } from '@/recoil/Account/atoms';
 import { BsCheckLg } from 'react-icons/bs';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { authService, dbService } from '@/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+// import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+// import { authService, dbService } from '@/firebase';
+// import { addDoc, collection } from 'firebase/firestore';
 
 interface PetObjProps {
   petType: string;
@@ -63,27 +63,27 @@ export const PetInForm = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(authService, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential;
+    // await createUserWithEmailAndPassword(authService, email, password)
+    //   .then(async (userCredential) => {
+    //     const user = userCredential;
 
-        updateProfile(user.user, { displayName: userId });
+    //     updateProfile(user.user, { displayName: userId });
 
-        const userInfo = {
-          displayname: userId,
-          userId: user.user.uid,
-          email,
-          ...petObj,
-        };
+    //     const userInfo = {
+    //       displayname: userId,
+    //       userId: user.user.uid,
+    //       email,
+    //       ...petObj,
+    //     };
 
-        await addDoc(collection(dbService, `userInfo`), userInfo);
+    //     await addDoc(collection(dbService, `userInfo`), userInfo);
 
-        setStep((prev) => prev + 1);
-      })
-      .catch((err) => {
-        const errCode = err.code;
-        const errMsg = err.message;
-      });
+    //     setStep((prev) => prev + 1);
+    //   })
+    //   .catch((err) => {
+    //     const errCode = err.code;
+    //     const errMsg = err.message;
+    //   });
   };
 
   return (
@@ -132,7 +132,7 @@ export const PetInForm = () => {
           )}
         </div>
 
-        <Input
+        {/* <Input
           label='이름*'
           type='text'
           value={name}
@@ -141,7 +141,7 @@ export const PetInForm = () => {
           }
           required
           placeholder='이름을 입력해 주세요'
-        />
+        /> */}
 
         <div className='mt-5'>
           <label className='block'>성별*</label>
@@ -170,7 +170,7 @@ export const PetInForm = () => {
           />
         </div>
 
-        <Input
+        {/*  <Input
           label='생일*'
           type='date'
           value={birthday}
@@ -178,17 +178,17 @@ export const PetInForm = () => {
             setPetObj((petObj) => ({ ...petObj, birthday: value }))
           }
           required
-        />
+        /> */}
 
-        <Input
+        {/* <Input
           label='가족이 된 날'
           type='date'
           value={adoptionDate}
           setValue={(value) =>
             setPetObj((petObj) => ({ ...petObj, adoptionDate: value }))
           }
-        />
-
+        /> */}
+        {/* 
         <Input
           label='몸무게'
           type='text'
@@ -198,7 +198,7 @@ export const PetInForm = () => {
           }
           placeholder='몸무게를 입력해 주세요'
         />
-
+ */}
         <AuthButton type='submit' content='가입하기' disabled={confirm} />
       </form>
     </div>
