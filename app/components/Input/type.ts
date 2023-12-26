@@ -26,6 +26,6 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   isDisabled?: boolean;
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   variant: 'contained' | 'outlined';
 }
