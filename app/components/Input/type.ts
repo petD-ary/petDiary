@@ -1,5 +1,3 @@
-import { FC, ReactElement, ReactNode } from 'react';
-
 export interface InputProps {
   children: JSX.Element | JSX.Element[] | null;
   onClick?: () => void;
