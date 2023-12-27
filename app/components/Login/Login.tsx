@@ -30,14 +30,14 @@ export const Login = () => {
         action='로그인 처리 페이지 URL'
         method='post'
       >
-        <Input
+        {/* <Input
           label='이메일'
           type='text'
           value={userId}
           setValue={(value: string) => setUserId(value)}
           placeholder='이메일을 입력해 주세요'
           required
-        />
+        /> */}
 
         <ShowInput
           label='비밀번호'
