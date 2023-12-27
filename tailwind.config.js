@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -75,6 +76,7 @@ module.exports = {
           background: 'rgba(0, 0, 0, 0.04)',
           tableHeader: 'rgba(0, 0, 0, 0.02)',
         },
+        backgroundColor: '#fbfbfb',
       },
     },
   },

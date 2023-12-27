@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import pretendard from '@/components/Pretendard';
+import Container from '@/components/Container';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -16,7 +17,12 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={pretendard.className}>
-        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+        <RecoilRootWrapper>
+          <div className='flex'>
+            <div className='flex-grow'></div>
+            <Container>{children}</Container>
+          </div>
+        </RecoilRootWrapper>
       </body>
     </html>
   );
