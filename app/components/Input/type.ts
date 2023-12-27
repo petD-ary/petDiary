@@ -1,7 +1,7 @@
 export interface InputProps {
   children: JSX.Element | JSX.Element[] | null;
   onClick?: () => void;
-  onChange?: () => void;
+  onChange?: (value: any) => void;
   value?: string;
   error?: string | null;
 }
@@ -12,20 +12,13 @@ export interface LabelProps {
 }
 
 export interface TextInputProps {
-  value: string;
+  value?: string;
   placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
 }
 
 export interface DateInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface ButtonProps {
-  type?: 'button' | 'submit' | 'reset';
-  isDisabled?: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
-  variant: 'contained' | 'outlined';
 }
