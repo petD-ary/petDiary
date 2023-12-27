@@ -57,7 +57,7 @@ const UserForm = () => {
 
   return (
     <>
-      <div className='pt-4 pb-6 flex flex-col gap-4'>
+      <div className='pt-4 flex flex-col'>
         <div></div>
         <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
       </div>
