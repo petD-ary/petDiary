@@ -9,7 +9,7 @@ interface HeadingProps {
 
 const Heading = ({ title, subTitle }: HeadingProps) => {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 pt-4 pb-6'>
       <Title1 className='text-text-title'>{title}</Title1>
       <SubTitle className='text-text-secondary'>{subTitle}</SubTitle>
     </div>
