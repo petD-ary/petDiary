@@ -8,7 +8,6 @@ import { stepState } from '@/recoil/Account/atoms';
 
 import { PetInForm } from '@/components/Account/PetInfoForm';
 import ComplatedPage from '@/components/Account/ComplatedPage';
-import Container from '@/components/Container';
 
 const AccountPage = () => {
   const step = useRecoilValue(stepState);
