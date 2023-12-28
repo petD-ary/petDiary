@@ -18,10 +18,7 @@ export default function RootLayout({
     <html lang='ko'>
       <body className={pretendard.className}>
         <RecoilRootWrapper>
-          <div className='flex'>
-            <div className='flex-grow'></div>
-            <Container>{children}</Container>
-          </div>
+          <Container>{children}</Container>
         </RecoilRootWrapper>
       </body>
     </html>
