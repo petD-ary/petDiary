@@ -11,19 +11,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      lineHeight: {
-        primary: '1.1',
-        secondary: '1.2',
-        caption: '1.5',
-      },
       fontSize: {
         title1: ['24px', '1.1'],
         title2: ['20px', '1.1'],
         subTitle: ['16px', '1.1'],
         body: ['15px', '1.2'],
         button: ['16px', '1.1'],
+        text: ['13px', '1.1'],
         caption1: ['13px', '1.2'],
         caption2: ['12px', '1.5'],
+        label: ['11px', '1.45'],
       },
       colors: {
         primary: {
