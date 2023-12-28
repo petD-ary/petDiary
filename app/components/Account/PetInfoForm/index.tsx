@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 
 import Input from '@/components/Input';
-import TypeButton from '@/components/Input/TypeButton';
-import AuthButton from '@/components/Input/AuthButton';
-import CheckButton from '@/components/Input/CheckButton';
+// import TypeButton from '@/components/Input/TypeButton';
+// import AuthButton from '@/components/Input/AuthButton';
+// import CheckButton from '@/components/Input/CheckButton';
 import VariantModal from '@/components/Account/VariantModal';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -92,7 +92,7 @@ export const PetInForm = () => {
         <div className='mt-5'>
           <label className='block'>반려동물*</label>
           <div className='flex gap-3 flex-wrap'>
-            <TypeButton
+            {/* <TypeButton
               type='강아지'
               selectedType={petType}
               setType={(type) =>
@@ -105,7 +105,7 @@ export const PetInForm = () => {
               setType={(type) =>
                 setPetObj((petObj) => ({ ...petObj, petType: type }))
               }
-            />
+            /> */}
           </div>
         </div>
 
@@ -146,7 +146,7 @@ export const PetInForm = () => {
         <div className='mt-5'>
           <label className='block'>성별*</label>
           <div className='flex gap-3 flex-wrap mb-7'>
-            <TypeButton
+            {/* <TypeButton
               type='남아'
               selectedType={gender}
               setType={(type) =>
@@ -159,15 +159,15 @@ export const PetInForm = () => {
               setType={(type) =>
                 setPetObj((petObj) => ({ ...petObj, gender: type }))
               }
-            />
+            />*/}
           </div>
-          <CheckButton
+          {/* <CheckButton
             label='중성화를 했어요'
             checked={neutered}
             setState={(value) =>
               setPetObj((petObj) => ({ ...petObj, neutered: value }))
             }
-          />
+          />  */}
         </div>
 
         {/*  <Input
@@ -199,7 +199,7 @@ export const PetInForm = () => {
           placeholder='몸무게를 입력해 주세요'
         />
  */}
-        <AuthButton type='submit' content='가입하기' disabled={confirm} />
+        {/* <AuthButton type='submit' content='가입하기' disabled={confirm} /> */}
       </form>
     </div>
   );

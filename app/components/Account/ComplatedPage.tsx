@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import AuthButton from '../Input/AuthButton';
+// import AuthButton from '../Input/AuthButton';
 import { useRouter } from 'next/navigation';
 
 const ComplatedPage = () => {
@@ -31,12 +31,12 @@ const ComplatedPage = () => {
         <br />펫 다이어리와 함께 해보아요!
       </p>
 
-      <AuthButton
+      {/* <AuthButton
         type='button'
         content='시작하기'
         onClick={() => router.push('/login')}
         disabled={false}
-      />
+      /> */}
     </div>
   );
 };
