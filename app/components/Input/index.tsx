@@ -2,6 +2,7 @@
 import React, { Children, cloneElement } from 'react';
 import { DateInputProps, InputProps, LabelProps, TextInputProps } from './type';
 import IconValid from '@/assets/images/icon-valid.svg';
+import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
 
 const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
@@ -24,11 +25,11 @@ const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
   );
 };
 
-const InputClass = 'w-full p-4 rounded-lg leading-secondary text-[15px] ';
+const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
 
 const Label = ({ children, ...rest }: LabelProps) => (
   <label
-    className={`flex gap-1 text-[13px] pb-2 font-semibold leading-secondary text-text-primary`}
+    className={`flex gap-1 pb-2 text-text text-text-primary leading-[1.2]`}
   >
     {children}
     {rest.isRequired ? <span className='text-error'>*</span> : null}
@@ -51,6 +52,11 @@ const TextInput = ({ value, onChange, error, ...rest }: TextInputProps) => (
     {error !== null && !error ? (
       <span className='absolute right-4 top-10'>
         <IconValid />
+      </span>
+    ) : null}
+    {error !== null && error ? (
+      <span className='absolute right-4 top-10'>
+        <IconError />
       </span>
     ) : null}
   </>
