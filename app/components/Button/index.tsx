@@ -26,6 +26,7 @@ const Button = ({
       disabled={isDisabled ? isDisabled : false}
       {...rest}
       className={`${className} w-full border rounded-lg text-center py-5
+      text-button font-semibold
   ${
     rest.variant === 'contained'
       ? 'bg-primary-500 text-white border-primary-500 disabled:text-white disabled:bg-grayColor-200 disabled:border-grayColor-200'
