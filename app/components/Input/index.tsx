@@ -1,9 +1,16 @@
 'use client';
 import React, { Children, cloneElement } from 'react';
-import { DateInputProps, InputProps, LabelProps, TextInputProps } from './type';
+import {
+  CheckInputProps,
+  DateInputProps,
+  InputProps,
+  LabelProps,
+  TextInputProps,
+} from './type';
 import IconValid from '@/assets/images/icon-valid.svg';
 import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
+import Body1 from '../Typography/Body1';
 
 const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
   return (
@@ -49,7 +56,7 @@ const TextInput = ({ value, onChange, error, ...rest }: TextInputProps) => (
     `}
       {...rest}
     />
-    {error !== null && !error ? (
+    {error !== null && !error && error !== undefined ? (
       <span className='absolute right-4 top-10'>
         <IconValid />
       </span>
@@ -67,9 +74,23 @@ const DateInput = ({ value, onChange, ...rest }: DateInputProps) => (
     type='date'
     value={value}
     onChange={onChange}
-    className={`${InputClass}`}
+    className={`disabled:text-text-disable
+    border border-text-dividers focus:border-text-border transition-colors ${InputClass}`}
     {...rest}
   />
+);
+
+const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
+  <>
+    <input type='checkbox' name={id} id={id} className={`hidden`} {...rest} />
+    <label
+      htmlFor={id}
+      className='w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer'
+    >
+      <span></span>
+      <Body1>{children}</Body1>
+    </label>
+  </>
 );
 
 const Success = ({ children }: LabelProps) => (
@@ -83,6 +104,7 @@ const Error = ({ children }: LabelProps) => (
 Input.Label = Label;
 Input.TextInput = TextInput;
 Input.DateInput = DateInput;
+Input.CheckInput = CheckInput;
 Input.Success = Success;
 Input.Error = Error;
 

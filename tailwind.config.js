@@ -5,12 +5,17 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/assets/**/*.{js,ts,jsx,tsx,mdx}',
 
     // Or if using `src` directory:
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        checkbox: "url('../assets/images/icon-checkbox.png')",
+        'checkbox-checked': "url('../assets/images/icon-checkbox-checked.png')",
+      },
       fontSize: {
         title1: ['24px', '1.1'],
         title2: ['20px', '1.1'],
@@ -48,7 +53,7 @@ module.exports = {
           900: '#031026',
         },
         grayColor: {
-          50: '#F8F8F8',
+          10: '#F8F8F8',
           100: '#DEDEDE',
           200: '#C4C4C4',
           300: '#ABABAB',
