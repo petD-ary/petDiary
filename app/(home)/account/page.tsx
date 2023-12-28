@@ -15,7 +15,7 @@ const AccountPage = () => {
 
   return (
     <div className=''>
-      {/* <Breadcrumb step={step} /> */}
+      <Breadcrumb step={step} />
 
       {step === 0 && <UserForm />}
       {step === 1 && <PetInForm />}
