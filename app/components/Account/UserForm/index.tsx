@@ -40,27 +40,19 @@ const UserForm = () => {
     }); */
 
     if (handleCheckNickname(nickname)) {
-      setError('특수문자 ~!@#$%^&*()_제외');
+      return setError('특수문자 ~!@#$%^&*()_제외');
     }
     // else if (validNickname.length > 0) {
     // setError('이미 등록되어 있는 닉네임 입니다');
     // }
     else {
-      setError(null);
-    }
-
-    /* 다음단계로 */
-    if (/* checkNickname && */ error === null) {
-      setStep((prev) => prev + 1);
+      return setStep((prev) => prev + 1);
     }
   };
 
   return (
     <>
-      <div className='pt-4 flex flex-col'>
-        <div></div>
-        <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
-      </div>
+      <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
 
       <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
         <div className='flex flex-col pt-6 pb-3'>
