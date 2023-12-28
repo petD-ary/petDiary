@@ -1,4 +1,3 @@
-import Heading from '@/components/Account/Heading';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
 import { Fragment } from 'react';
