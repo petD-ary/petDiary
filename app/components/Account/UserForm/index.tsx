@@ -6,6 +6,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Heading from '../Heading';
 import axios from '@/libs/axios';
 import Button from '@/components/Button';
+import getNicknameValidation from './GetNicknameValidation';
 
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
@@ -17,6 +18,7 @@ const UserForm = () => {
   const [validNickname, setValidNickname] = useState<any[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     setNickname(e.target.value);
   };
 
@@ -30,22 +32,20 @@ const UserForm = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    /* axios.get('/users').then((result) => {
-      setCheckNickname(result.data.length === 0 ? true : false);
-      const data = [result.data];
-      setValidNickname(data);
-    }); */
+    const nicknameCheck = await getNicknameValidation(nickname);
+    console.log(
+      '🚀 ~ file: index.tsx:38 ~ handleSubmit ~ nicknameCheck:',
+      nicknameCheck.data
+    );
 
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
-    }
-    // else if (validNickname.length > 0) {
-    // setError('이미 등록되어 있는 닉네임 입니다');
-    // }
-    else {
+    } else if (nicknameCheck.data && !nicknameCheck.data.message) {
+      setError('이미 등록되어 있는 닉네임 입니다.');
+    } else {
       return setStep((prev) => prev + 1);
     }
   };
