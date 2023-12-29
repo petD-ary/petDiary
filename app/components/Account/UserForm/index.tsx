@@ -36,10 +36,6 @@ const UserForm = () => {
     e.preventDefault();
 
     const nicknameCheck = await getNicknameValidation(nickname);
-    console.log(
-      '🚀 ~ file: index.tsx:38 ~ handleSubmit ~ nicknameCheck:',
-      nicknameCheck.data
-    );
 
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
