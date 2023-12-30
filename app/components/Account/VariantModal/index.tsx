@@ -3,7 +3,7 @@ import { variantModalState } from '@/recoil/Account/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import VariantList from './VariantList';
-import { catBreeds, dogBreeds } from '@/data/BreedList';
+import { catBreeds, dogBreeds } from '@/constants/BreedList';
 
 interface VariantModalProps {
   variant: string;
