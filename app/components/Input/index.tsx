@@ -12,9 +12,16 @@ import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
 import Body1 from '../Typography/Body1';
 
-const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
+const Input = ({
+  children,
+  onClick,
+  onChange,
+  value,
+  error,
+  className,
+}: InputProps) => {
   return (
-    <div className='w-full relative'>
+    <div className={`w-full relative ${className}`}>
       {Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           const newProps = {
@@ -69,12 +76,13 @@ const TextInput = ({ value, onChange, error, ...rest }: TextInputProps) => (
   </>
 );
 
-const DateInput = ({ value, onChange, ...rest }: DateInputProps) => (
+const DateInput = ({ value, onChange, disabled, ...rest }: DateInputProps) => (
   <input
     type='date'
     value={value}
     onChange={onChange}
-    className={`disabled:text-text-disable
+    disabled={disabled}
+    className={`disabled:opacity-50
     border border-text-dividers focus:border-text-border transition-colors ${InputClass}`}
     {...rest}
   />
@@ -130,6 +138,7 @@ const CheckOnlyOneInput = ({
       border
       [input[type="checkbox"]_+_&]:border-grayColor-200
       [input[type="checkbox"]:checked_+_&]:border-primary-500
+      [input[type="checkbox"]:checked_+_&]:text-primary-500
       `}
       >
         <Body1>{value}</Body1>

@@ -12,7 +12,6 @@ const UserForm = () => {
   const [nickname, setNickname] = useRecoilState(nicknameState);
 
   const [error, setError] = useState<string | null>(null);
-  console.log('🚀 ~ file: index.tsx:15 ~ UserForm ~ error:', error);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
