@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface InputProps {
   children: JSX.Element | JSX.Element[] | null;
@@ -6,6 +6,7 @@ export interface InputProps {
   onChange?: (value?: any) => void;
   value?: string;
   error?: string | null;
+  className?: string;
 }
 
 export interface LabelProps {
