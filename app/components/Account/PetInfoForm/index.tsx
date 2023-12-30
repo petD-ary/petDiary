@@ -1,14 +1,14 @@
 'use client';
 
 import Input from '@/components/Input';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import Body1 from '@/components/Typography/Body1';
 import IconDown from '@/assets/images/icon-down.svg';
 import { useRecoilState } from 'recoil';
 import { variantModalState } from '@/recoil/Account/atoms';
 import VariantModal from '../VariantModal';
-import getBreedsList from './getBreedsList';
+import Button from '@/components/Button';
 
 interface PetObjProps {
   petType: string;
@@ -19,6 +19,11 @@ interface PetObjProps {
   birthday: string;
   adoptionDate: string;
   weight: string;
+}
+
+interface ErrorProps {
+  breed: boolean;
+  name: boolean;
 }
 
 export const PetInForm = () => {
@@ -33,6 +38,13 @@ export const PetInForm = () => {
     adoptionDate: '',
     weight: '',
   });
+  console.log('🚀 ~ file: index.tsx:41 ~ PetInForm ~ petInfo:', petInfo);
+
+  const [error, setError] = useState<ErrorProps>({
+    breed: true,
+    name: true,
+  });
+  console.log('🚀 ~ file: index.tsx:47 ~ PetInForm ~ error:', error);
 
   const [unknownBirthday, setUnknownBirthday] = useState(false);
 
@@ -65,8 +77,24 @@ export const PetInForm = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    if (petInfo.breed === '') {
+      setError((prev) => ({ ...prev, breed: true }));
+    } else {
+      setError((prev) => ({ ...prev, breed: false }));
+    }
+  }, [petInfo.breed]);
+
+  useEffect(() => {
+    if (petInfo.name === '') {
+      setError((prev) => ({ ...prev, name: true }));
+    } else {
+      setError((prev) => ({ ...prev, name: false }));
+    }
+  }, [petInfo.name]);
+
   return (
-    <div>
+    <Fragment>
       {isOpen && (
         <VariantModal
           variant={petInfo.petType}
@@ -128,9 +156,20 @@ export const PetInForm = () => {
           </div>
         </Input>
 
-        <Input>
+        <Input
+          value={petInfo.name}
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, name: e.target.value }))
+          }
+        >
           <Input.Label isRequired>아이 이름</Input.Label>
-          <Input.TextInput placeholder='반려동물의 이름을 입력해 주세요' />
+          <Input.TextInput
+            placeholder='반려동물의 이름을 입력해 주세요'
+            value={petInfo.name}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, name: e.target.value }))
+            }
+          />
         </Input>
 
         <div className='flex flex-col gap-3'>
@@ -176,7 +215,28 @@ export const PetInForm = () => {
             </Input.CheckInput>
           </Input>
         </div>
+
+        <Input>
+          <Input.Label>가족이 된 날</Input.Label>
+          <Input.DateInput />
+        </Input>
+
+        <Input>
+          <Input.Label>몸무게 입력</Input.Label>
+          <Input.TextInput placeholder='몸무게를 입력해 주세요' />
+          <Body1 className='absolute top-[41px] right-3 text-text-secondary'>
+            KG
+          </Body1>
+        </Input>
+
+        <Button
+          variant='contained'
+          type='submit'
+          isDisabled={error.breed || error.name}
+        >
+          확인
+        </Button>
       </form>
-    </div>
+    </Fragment>
   );
 };
