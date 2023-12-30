@@ -12,15 +12,7 @@ import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
 import Body1 from '../Typography/Body1';
 
-const Input = ({
-  children,
-  onClick,
-  onChange,
-  onCheckOnlyChange,
-  value,
-  checkOnly,
-  error,
-}: InputProps) => {
+const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
   return (
     <div className='w-full relative'>
       {Children.map(children, (child) => {
@@ -30,9 +22,6 @@ const Input = ({
             value,
             onChange,
             error,
-            checkOnly,
-            onCheckOnlyChange: () =>
-              onCheckOnlyChange && onCheckOnlyChange(value),
           };
 
           return cloneElement(child, newProps);
@@ -91,10 +80,11 @@ const DateInput = ({ value, onChange, ...rest }: DateInputProps) => (
   />
 );
 
-const CheckInput = ({ children, ...rest }: CheckInputProps) => (
+const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
   <>
-    <input type='checkbox' className={`hidden`} {...rest} />
+    <input type='checkbox' id={id} name={id} className={`hidden`} {...rest} />
     <label
+      htmlFor={id}
       className='w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
       [input[type="checkbox"]_+_&]:bg-grayColor-10
       [input[type="checkbox"]_+_&]:border
@@ -117,28 +107,34 @@ const CheckInput = ({ children, ...rest }: CheckInputProps) => (
 
 const CheckOnlyOneInput = ({
   value,
-  checkOnly,
-  onCheckOnlyChange,
+  selected,
+  onChange,
+  id,
+  name,
   ...rest
 }: CheckInputProps) => {
   return (
-    <label
-      className={`flex-grow flex justify-center items-center h-[52px] rounded-lg
+    <>
+      <input
+        type='checkbox'
+        className={`hidden`}
+        checked={value === selected}
+        value={value}
+        id={id}
+        onChange={onChange}
+        {...rest}
+      />
+      <label
+        htmlFor={id}
+        className={`flex-grow flex justify-center items-center h-[52px] rounded-lg
       border
       [input[type="checkbox"]_+_&]:border-grayColor-200
       [input[type="checkbox"]:checked_+_&]:border-primary-500
       `}
-    >
-      <input
-        type='checkbox'
-        className={`hidden`}
-        checked={value === checkOnly}
-        value={value}
-        onChange={onCheckOnlyChange}
-        {...rest}
-      />
-      <Body1>{value}</Body1>
-    </label>
+      >
+        <Body1>{value}</Body1>
+      </label>
+    </>
   );
 };
 

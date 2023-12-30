@@ -16,8 +16,20 @@ interface PetObjProps {
 }
 
 export const PetInForm = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [gender, setGender] = useState<string>('남아');
+  console.log('🚀 ~ file: index.tsx:20 ~ PetInForm ~ gender:', gender);
+  const [unknownBirthday, setUnknownBirthday] = useState(false);
+
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {};
+
+  const handleOnlyOneCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+
+    if (value !== gender) return setGender(value);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -39,17 +51,26 @@ export const PetInForm = () => {
         </Input>
 
         <div className='flex flex-col gap-3'>
-          <Input>
+          <Input onChange={handleOnlyOneCheck}>
             <Input.Label isRequired>성별</Input.Label>
             <div className='w-full flex gap-3'>
-              <div className='flex-grow flex justify-center items-center h-[52px] rounded-lg border border-primary-500'>
-                남아
-              </div>
-              <div className='flex-grow flex justify-center items-center h-[52px] rounded-lg border border-grayColor-200'>
-                여아
-              </div>
+              <Input.CheckOnlyOneInput
+                value='남아'
+                id='male'
+                name='gender'
+                selected={gender}
+                onChange={handleOnlyOneCheck}
+              />
+              <Input.CheckOnlyOneInput
+                value='여아'
+                id='female'
+                name='gender'
+                selected={gender}
+                onChange={handleOnlyOneCheck}
+              />
             </div>
           </Input>
+
           <Input>
             <Input.CheckInput id='neutered' onChange={handleCheck}>
               중성화 수술을 했나요?
@@ -64,7 +85,7 @@ export const PetInForm = () => {
           </Input>
 
           <Input>
-            <Input.CheckInput id='birthday' onChange={handleCheck}>
+            <Input.CheckInput id='unknownBirthday' onChange={handleCheck}>
               생일을 잘 모르겠어요
             </Input.CheckInput>
           </Input>

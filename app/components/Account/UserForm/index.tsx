@@ -1,21 +1,18 @@
 'use client';
 import Input from '@/components/Input';
-import { authObjState, stepState } from '@/recoil/Account/atoms';
+import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import Heading from '../Heading';
-import axios from '@/libs/axios';
 import Button from '@/components/Button';
-import getNicknameValidation from './GetNicknameValidation';
+import getNicknameValidation from './getNicknameValidation';
 
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
+  const [nickname, setNickname] = useRecoilState(nicknameState);
 
-  const [nickname, setNickname] = useState('');
   const [error, setError] = useState<string | null>(null);
-  // const [success, setSuccess] = useState<string | null>(null);
-  const [checkNickname, setCheckNickname] = useState(false);
-  const [validNickname, setValidNickname] = useState<any[]>([]);
+  console.log('🚀 ~ file: index.tsx:15 ~ UserForm ~ error:', error);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
@@ -39,7 +36,7 @@ const UserForm = () => {
 
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
-    } else if (nicknameCheck.data && !nicknameCheck.data.message) {
+    } else if (nicknameCheck.message) {
       setError('이미 등록되어 있는 닉네임 입니다.');
     } else {
       return setStep((prev) => prev + 1);
@@ -59,7 +56,6 @@ const UserForm = () => {
               placeholder='닉네임을 입력해 주세요'
             />
             <Input.Error>{error}</Input.Error>
-            {/* <Input.Success>{success}</Input.Success> */}
           </Input>
         </div>
 

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 export interface InputProps {
   children: JSX.Element | JSX.Element[] | null;
@@ -23,10 +23,14 @@ export interface TextInputProps {
 export interface DateInputProps {
   value?: string;
   onChange?: (value?: any) => void;
+  disabled?: boolean;
 }
 
 export interface CheckInputProps {
   children?: ReactNode;
-  id: string;
+  value?: string;
+  selected?: string;
+  id?: string;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
