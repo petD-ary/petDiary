@@ -12,7 +12,15 @@ import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
 import Body1 from '../Typography/Body1';
 
-const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
+const Input = ({
+  children,
+  onClick,
+  onChange,
+  onCheckOnlyChange,
+  value,
+  checkOnly,
+  error,
+}: InputProps) => {
   return (
     <div className='w-full relative'>
       {Children.map(children, (child) => {
@@ -22,6 +30,9 @@ const Input = ({ children, onClick, onChange, value, error }: InputProps) => {
             value,
             onChange,
             error,
+            checkOnly,
+            onCheckOnlyChange: () =>
+              onCheckOnlyChange && onCheckOnlyChange(value),
           };
 
           return cloneElement(child, newProps);
@@ -80,18 +91,56 @@ const DateInput = ({ value, onChange, ...rest }: DateInputProps) => (
   />
 );
 
-const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
+const CheckInput = ({ children, ...rest }: CheckInputProps) => (
   <>
-    <input type='checkbox' name={id} id={id} className={`hidden`} {...rest} />
+    <input type='checkbox' className={`hidden`} {...rest} />
     <label
-      htmlFor={id}
-      className='w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer'
+      className='w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
+      [input[type="checkbox"]_+_&]:bg-grayColor-10
+      [input[type="checkbox"]_+_&]:border
+      [input[type="checkbox"]_+_&]:border-transparent
+      [input[type="checkbox"]:checked_+_&]:border-primary-500
+      [input[type="checkbox"]:checked_+_&]:bg-white
+      [input[type="checkbox"]_+_&]:rounded-lg
+      [input[type="checkbox"]_+_&]:flex
+      [input[type="checkbox"]_+_&]:items-center
+      [input[type="checkbox"]_+_&]:gap-2
+      [input[type="checkbox"]_+_&]:transiton-colors
+      [input[type="checkbox"]:checked_+_&_>_span]:bg-checkbox-checked
+      '
     >
-      <span></span>
+      <span className='w-6 h-6 block bg-checkbox bg-cover'></span>
       <Body1>{children}</Body1>
     </label>
   </>
 );
+
+const CheckOnlyOneInput = ({
+  value,
+  checkOnly,
+  onCheckOnlyChange,
+  ...rest
+}: CheckInputProps) => {
+  return (
+    <label
+      className={`flex-grow flex justify-center items-center h-[52px] rounded-lg
+      border
+      [input[type="checkbox"]_+_&]:border-grayColor-200
+      [input[type="checkbox"]:checked_+_&]:border-primary-500
+      `}
+    >
+      <input
+        type='checkbox'
+        className={`hidden`}
+        checked={value === checkOnly}
+        value={value}
+        onChange={onCheckOnlyChange}
+        {...rest}
+      />
+      <Body1>{value}</Body1>
+    </label>
+  );
+};
 
 const Success = ({ children }: LabelProps) => (
   <Caption2 className='text-success pl-[3px] pt-[6px]'>{children}</Caption2>
@@ -105,6 +154,7 @@ Input.Label = Label;
 Input.TextInput = TextInput;
 Input.DateInput = DateInput;
 Input.CheckInput = CheckInput;
+Input.CheckOnlyOneInput = CheckOnlyOneInput;
 Input.Success = Success;
 Input.Error = Error;
 
