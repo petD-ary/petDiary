@@ -19,12 +19,14 @@ export interface TextInputProps {
   placeholder: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
+  required?: boolean;
 }
 
 export interface DateInputProps {
   value?: string;
   onChange?: (value?: any) => void;
   disabled?: boolean;
+  required?: boolean;
 }
 
 export interface CheckInputProps {
