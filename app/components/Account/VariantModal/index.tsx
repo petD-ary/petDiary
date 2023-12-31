@@ -62,8 +62,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
         shadow-[0_-10px_60px_rgba(0,0,0,0.15)]
         rounded-t-lg rounded-r-lg bg-white
         flex flex-col
-        
-      '
+        '
       >
         <div className='px-2 py-1 flex justify-end'>
           <div className='p-3 cursor-pointer'>
