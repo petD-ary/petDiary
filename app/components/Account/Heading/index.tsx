@@ -1,49 +1,17 @@
 'use client';
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import backBtn from '@/assets/images/backBtn.png';
-import { useRecoilState } from 'recoil';
-import { stepState } from '@/recoil/Account/atoms';
+import Title1 from '@/components/Typography/Title1';
+import SubTitle from '@/components/Typography/SubTitle';
 
-const Heading = ({ title }: { title: string }) => {
-  const router = useRouter();
-  const [step, setStep] = useRecoilState(stepState);
+interface HeadingProps {
+  title: string;
+  subTitle: string;
+}
 
-  const handleClickRoute = () => {
-    if (step > 0 && step <= 2) {
-      return setStep((prev) => prev - 1);
-    } else if (step === 0) {
-      return router.back();
-    }
-  };
-
+const Heading = ({ title, subTitle }: HeadingProps) => {
   return (
-    <div
-      className={`
-      h-[100px] w-full px-12 relative
-      ${title === '회원가입' ? 'border-b border-b-grayColor-100' : ''}
-      `}
-    >
-      {title === '회원가입' ? (
-        <div
-          onClick={() => handleClickRoute()}
-          className='w-[28px] h-[28px] absolute [&_img]:p-[6px] left-[48px] bottom-5 cursor-pointer'
-        >
-          <Image
-            src={backBtn}
-            alt='뒤로 가기'
-            fill
-            sizes='100%'
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        </div>
-      ) : null}
-
-      <h2 className='text-[20px] font-bold absolute bottom-5 left-1/2 -translate-x-1/2'>
-        {title}
-      </h2>
+    <div className='flex flex-col gap-2 pt-4 pb-6'>
+      <Title1 className='text-text-title'>{title}</Title1>
+      <SubTitle className='text-text-secondary'>{subTitle}</SubTitle>
     </div>
   );
 };

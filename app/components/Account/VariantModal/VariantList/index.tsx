@@ -1,18 +1,24 @@
+import IconRadio from '@/assets/images/buttons-radio-m.svg';
+import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
+import Body1 from '@/components/Typography/Body1';
 interface VariantListProps {
-  id: string;
   title: string;
+  selected?: string;
   handlePutId: (id: string) => void;
 }
 
-const VariantList = ({ id, title, handlePutId }: VariantListProps) => {
+const VariantList = ({ title, selected, handlePutId }: VariantListProps) => {
   return (
     <li
-      onClick={() => handlePutId(id)}
-      className={`w-full p-5 border-b border-grayColor-200 
-      ${id === '' ? 'cursor-default' : 'cursor-pointer'}
+      onClick={() => handlePutId(title)}
+      className={`w-full px-3 py-4 border-b border-text-dividers relative
+      ${title === '' ? 'cursor-default' : 'cursor-pointer'}
+      flex justify-between items-center
+      text-text-primary
       `}
     >
-      {title}
+      <Body1>{title}</Body1>
+      <span>{selected === title ? <IconRadio /> : <IconRadioDisabled />}</span>
     </li>
   );
 };

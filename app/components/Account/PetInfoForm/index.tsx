@@ -1,23 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-
 import Input from '@/components/Input';
-import TypeButton from '@/components/Input/TypeButton';
-import AuthButton from '@/components/Input/AuthButton';
-import CheckButton from '@/components/Input/CheckButton';
-import VariantModal from '@/components/Account/VariantModal';
-
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  authObjState,
-  stepState,
-  variantModalState,
-} from '@/recoil/Account/atoms';
-import { BsCheckLg } from 'react-icons/bs';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { authService, dbService } from '@/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import Heading from '../Heading';
+import Body1 from '@/components/Typography/Body1';
+import IconDown from '@/assets/images/icon-down.svg';
+import { useRecoilState } from 'recoil';
+import { variantModalState } from '@/recoil/Account/atoms';
+import VariantModal from '../VariantModal';
+import Button from '@/components/Button';
 
 interface PetObjProps {
   petType: string;
@@ -30,11 +21,14 @@ interface PetObjProps {
   weight: string;
 }
 
-export const PetInForm = () => {
-  const authObj = useRecoilValue(authObjState);
-  const { userId, email, password } = authObj;
+interface ErrorProps {
+  breed: boolean;
+  name: boolean;
+}
 
-  const [petObj, setPetObj] = useState<PetObjProps>({
+export const PetInForm = () => {
+  const [isOpen, setIsOpenModal] = useRecoilState(variantModalState);
+  const [petInfo, setPetInfo] = useState<PetObjProps>({
     petType: '강아지',
     breed: '',
     name: '',
@@ -44,163 +38,205 @@ export const PetInForm = () => {
     adoptionDate: '',
     weight: '',
   });
-  const {
-    petType,
-    breed,
-    name,
-    gender,
-    neutered,
-    birthday,
-    adoptionDate,
-    weight,
-  } = petObj;
+  console.log('🚀 ~ file: index.tsx:41 ~ PetInForm ~ petInfo:', petInfo);
 
-  const [modalOpen, setModalOpen] = useRecoilState(variantModalState);
-  const setStep = useSetRecoilState(stepState);
+  const [error, setError] = useState<ErrorProps>({
+    breed: true,
+    name: true,
+  });
+  console.log('🚀 ~ file: index.tsx:47 ~ PetInForm ~ error:', error);
 
-  const confirm = breed === '' || name === '' || birthday === '';
+  const [unknownBirthday, setUnknownBirthday] = useState(false);
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleUnknownBirthdayCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { checked },
+    } = e;
 
-    await createUserWithEmailAndPassword(authService, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential;
-
-        updateProfile(user.user, { displayName: userId });
-
-        const userInfo = {
-          displayname: userId,
-          userId: user.user.uid,
-          email,
-          ...petObj,
-        };
-
-        await addDoc(collection(dbService, `userInfo`), userInfo);
-
-        setStep((prev) => prev + 1);
-      })
-      .catch((err) => {
-        const errCode = err.code;
-        const errMsg = err.message;
-      });
+    setUnknownBirthday(checked);
   };
 
-  return (
-    <div className='w-full pt-6 pb-16  text-1.4rem [&_label]:pl-2 [&_label]:pb-2'>
-      <form className='mt-6' onSubmit={handleSubmit}>
-        <div className='mt-5'>
-          <label className='block'>반려동물*</label>
-          <div className='flex gap-3 flex-wrap'>
-            <TypeButton
-              type='강아지'
-              selectedType={petType}
-              setType={(type) =>
-                setPetObj((petObj) => ({ ...petObj, petType: type }))
-              }
-            />
-            <TypeButton
-              type='고양이'
-              selectedType={petType}
-              setType={(type) =>
-                setPetObj((petObj) => ({ ...petObj, petType: type }))
-              }
-            />
-          </div>
-        </div>
+  const handleNeuteredCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { checked },
+    } = e;
 
-        <div className='mt-5'>
-          <label className='block'>품종*</label>
-          <div
-            onClick={() => setModalOpen(true)}
-            className='relative flex justify-between items-center w-full p-5 bg-grayColor-100 rounded-xl focus:outline-none appearance-none cursor-pointer'
-          >
-            {breed === '' ? '품종을 선택해주세요' : breed}
-            <BsCheckLg
-              className={`${
-                breed !== '' ? 'text-green-500' : 'text-grayColor-300'
-              }`}
-            />
-          </div>
-          {modalOpen && (
-            <VariantModal
-              variant={petType}
-              setBreed={(breed) =>
-                setPetObj((petObj) => ({ ...petObj, breed }))
+    setPetInfo((prev) => ({ ...prev, neutered: checked }));
+  };
+
+  const handleOnlyOneCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+
+    if (value !== petInfo.gender)
+      return setPetInfo((prev) => ({ ...prev, gender: value }));
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    if (petInfo.breed === '') {
+      setError((prev) => ({ ...prev, breed: true }));
+    } else {
+      setError((prev) => ({ ...prev, breed: false }));
+    }
+  }, [petInfo.breed]);
+
+  useEffect(() => {
+    if (petInfo.name === '') {
+      setError((prev) => ({ ...prev, name: true }));
+    } else {
+      setError((prev) => ({ ...prev, name: false }));
+    }
+  }, [petInfo.name]);
+
+  return (
+    <Fragment>
+      {isOpen && (
+        <VariantModal
+          variant={petInfo.petType}
+          breed={petInfo.breed}
+          setBreed={(value) =>
+            setPetInfo((prev) => ({ ...prev, breed: value }))
+          }
+        />
+      )}
+      <Heading
+        title='반려동물 정보 입력'
+        subTitle='추가 등록은 홈화면-편집에서 가능합니다'
+      />
+
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className='py-10 flex flex-col gap-8'
+      >
+        <Input
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
+          }
+        >
+          <Input.Label isRequired>반려동물</Input.Label>
+          <div className='w-full flex gap-3'>
+            <Input.CheckOnlyOneInput
+              value='강아지'
+              id='dog'
+              name='petType'
+              selected={petInfo.petType}
+              onChange={(e) =>
+                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
               }
             />
-          )}
-        </div>
+            <Input.CheckOnlyOneInput
+              value='고양이'
+              id='cat'
+              name='petType'
+              selected={petInfo.petType}
+              onChange={(e) =>
+                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
+              }
+            />
+          </div>
+        </Input>
+
+        <Input onClick={() => setIsOpenModal(true)}>
+          <Input.Label isRequired>품종</Input.Label>
+          <div
+            onClick={() => setIsOpenModal(true)}
+            className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-text-dividers focus:border-text-border transition-colors'
+          >
+            <Body1 className='flex justify-between items-center'>
+              {petInfo.breed === '' ? '품종을 선택해 주세요' : petInfo.breed}
+              <span>
+                <IconDown />
+              </span>
+            </Body1>
+          </div>
+        </Input>
 
         <Input
-          label='이름*'
-          type='text'
-          value={name}
-          setValue={(value: string) =>
-            setPetObj((petObj) => ({ ...petObj, name: value }))
+          value={petInfo.name}
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, name: e.target.value }))
           }
-          required
-          placeholder='이름을 입력해 주세요'
-        />
-
-        <div className='mt-5'>
-          <label className='block'>성별*</label>
-          <div className='flex gap-3 flex-wrap mb-7'>
-            <TypeButton
-              type='남아'
-              selectedType={gender}
-              setType={(type) =>
-                setPetObj((petObj) => ({ ...petObj, gender: type }))
-              }
-            />
-            <TypeButton
-              type='여아'
-              selectedType={gender}
-              setType={(type) =>
-                setPetObj((petObj) => ({ ...petObj, gender: type }))
-              }
-            />
-          </div>
-          <CheckButton
-            label='중성화를 했어요'
-            checked={neutered}
-            setState={(value) =>
-              setPetObj((petObj) => ({ ...petObj, neutered: value }))
+        >
+          <Input.Label isRequired>아이 이름</Input.Label>
+          <Input.TextInput
+            placeholder='반려동물의 이름을 입력해 주세요'
+            value={petInfo.name}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, name: e.target.value }))
             }
           />
+        </Input>
+
+        <div className='flex flex-col gap-3'>
+          <Input onChange={handleOnlyOneCheck}>
+            <Input.Label isRequired>성별</Input.Label>
+            <div className='w-full flex gap-3'>
+              <Input.CheckOnlyOneInput
+                value='남아'
+                id='male'
+                name='gender'
+                selected={petInfo.gender}
+                onChange={handleOnlyOneCheck}
+              />
+              <Input.CheckOnlyOneInput
+                value='여아'
+                id='female'
+                name='gender'
+                selected={petInfo.gender}
+                onChange={handleOnlyOneCheck}
+              />
+            </div>
+          </Input>
+
+          <Input onChange={handleNeuteredCheck}>
+            <Input.CheckInput id='neutered' onChange={handleNeuteredCheck}>
+              중성화 수술을 했나요?
+            </Input.CheckInput>
+          </Input>
         </div>
 
-        <Input
-          label='생일*'
-          type='date'
-          value={birthday}
-          setValue={(value) =>
-            setPetObj((petObj) => ({ ...petObj, birthday: value }))
-          }
-          required
-        />
+        <div className='flex flex-col gap-3'>
+          <Input>
+            <Input.Label>아이 생일</Input.Label>
+            <Input.DateInput disabled={unknownBirthday} />
+          </Input>
 
-        <Input
-          label='가족이 된 날'
-          type='date'
-          value={adoptionDate}
-          setValue={(value) =>
-            setPetObj((petObj) => ({ ...petObj, adoptionDate: value }))
-          }
-        />
+          <Input onChange={handleUnknownBirthdayCheck}>
+            <Input.CheckInput
+              id='unknownBirthday'
+              onChange={handleUnknownBirthdayCheck}
+            >
+              생일을 잘 모르겠어요
+            </Input.CheckInput>
+          </Input>
+        </div>
 
-        <Input
-          label='몸무게'
-          type='text'
-          value={weight}
-          setValue={(value) =>
-            setPetObj((petObj) => ({ ...petObj, weight: value }))
-          }
-          placeholder='몸무게를 입력해 주세요'
-        />
+        <Input>
+          <Input.Label>가족이 된 날</Input.Label>
+          <Input.DateInput />
+        </Input>
 
-        <AuthButton type='submit' content='가입하기' disabled={confirm} />
+        <Input>
+          <Input.Label>몸무게 입력</Input.Label>
+          <Input.TextInput placeholder='몸무게를 입력해 주세요' />
+          <Body1 className='absolute top-[41px] right-3 text-text-secondary'>
+            KG
+          </Body1>
+        </Input>
+
+        <Button
+          variant='contained'
+          type='submit'
+          isDisabled={error.breed || error.name}
+        >
+          확인
+        </Button>
       </form>
-    </div>
+    </Fragment>
   );
 };
