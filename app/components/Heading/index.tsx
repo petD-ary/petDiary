@@ -1,20 +1,11 @@
 "use client";
 
-import { ContextType, HeaderMap, HeaderProps } from "@/types/header";
+import { HeaderMap, HeaderProps } from "@/types/header";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, createContext, useContext, useEffect, useMemo } from "react";
 import Image from "next/image";
 import logo from "@/assets/images/logo/pd_logo.png";
-
-const HeadingContext = createContext<ContextType | null>({
-  isClose: false,
-  isBack: false,
-  isHome: false,
-  isBackClose: false,
-  isAlert: false,
-  isInteractive: false,
-});
 
 // 헤더 유형별 컴포넌트 정의
 const HeaderElement = {
@@ -35,6 +26,7 @@ const headerMap: HeaderMap = {
   "/3": HeaderElement.BackClose,
   "/": HeaderElement.Alert,
   "/5": HeaderElement.Interactive,
+  //  경로 추가
 };
 
 const HeadingComponent = () => {
@@ -46,11 +38,7 @@ const HeadingComponent = () => {
 };
 
 const Heading = ({ children }: { children: ReactNode }) => {
-  return (
-    <HeadingContext.Provider>
-      <header>{children}</header>
-    </HeadingContext.Provider>
-  );
+  return <header>{children}</header>;
 };
 
 const Content = () => {
