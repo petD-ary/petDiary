@@ -21,10 +21,13 @@ const HeadingComponent = () => {
     <Heading>
       <Heading.Content />
     </Heading>
-  )
-}
+  );
+};
 
-const Heading = ({children}: {children: ReactNode}) => {
+const Heading: {
+  ({ children }: { children: ReactNode }): JSX.Element;
+  Content: () => JSX.Element | null; // 반환 타입을 업데이트
+} = ({ children }) => {
   // 현재 경로
   const pathname = usePathname();
   const currentPath = pathname;
