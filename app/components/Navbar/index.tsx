@@ -28,22 +28,29 @@ const NAVBAR: NavItem[] = [
   {type: 'mypage', pathname: '/mypage', push: '/mypage', content: '마이페이지', icon: IconMypage, selectedIcon: IconSelectedMypage},
 ]
 
+const NAVBAR_BLACKLIST = ['/login', '/account'];
+
 const Navbar = () => {
   const nowPathname = usePathname();
   const router = useRouter();
 
+  if(NAVBAR_BLACKLIST.includes(nowPathname)) {
+    return null;
+  }
+
   return (
-    <div className="fixed w-full bottom-0 h-16 bg-white flex flex-nowrap z-50">
-      {NAVBAR.map(({type, pathname, push, content, selectedIcon, icon}) => {
-        const Icon = pathname === nowPathname ? selectedIcon : icon;
-        return (
-          <div className='cursor-pointer' onClick={() => router.push(push)} key={pathname}>
-            <Icon />
-            <div>{content}</div>
-          </div>
-        )
-      })}
-    </div>
+      <div className="fixed w-full md:max-w-3xl bottom-0 h-16 bg-white flex z-20 px-5 left-1/2 -translate-x-1/2">
+        {NAVBAR.map(({type, pathname, push, content, selectedIcon, icon}) => {
+          const isSelected = pathname === nowPathname ? true : false;
+          const Icon = isSelected ? selectedIcon : icon;
+          return (
+            <div className="w-full flex justify-center items-center flex-col flex-wrap cursor-pointer" onClick={() => router.push(push)} key={pathname}>
+              <Icon />
+              <div className={`${isSelected ? "text-primary-500" : "text-grayColor-700"}`}>{content}</div>
+            </div>
+          )
+        })}
+      </div>
   );
 };
 

@@ -21,8 +21,8 @@ export default function RootLayout({
         <RecoilRootWrapper>
           <Container>
             {children}
-            <Navbar />
           </Container>
+          <Navbar />
         </RecoilRootWrapper>
       </body>
     </html>
