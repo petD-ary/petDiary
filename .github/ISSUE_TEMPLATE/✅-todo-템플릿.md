@@ -1,17 +1,8 @@
 ---
-name: "✅ToDo"
+name: "✅ ToDo 템플릿"
 about: 해야할 일 작성
 title: ''
 labels: Todo
-assignees: ''
-
----
-
----
-name: "✅ToDo"
-about: Feature 작업 사항을 입력하세요
-title: ''
-labels: ''
 assignees: ''
 
 ---
