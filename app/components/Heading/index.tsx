@@ -26,11 +26,13 @@ const HeaderElement = {
 // 현재 경로에 따른 헤더 컴포넌트 매핑
 const headerMap: HeaderMap = {
   "/account": HeaderElement.Close,
-  "/calender": HeaderElement.Back,
+  "/반려정보1": HeaderElement.Back,
   "/login": HeaderElement.Home,
-  "/4": HeaderElement.BackClose,
+  "/반려정보2": HeaderElement.BackClose,
   "/": HeaderElement.Alert,
-  "/5": HeaderElement.Interactive,
+  "/calender": HeaderElement.Interactive,
+  "/info": HeaderElement.Interactive,
+  "/myPage": HeaderElement.Interactive,
   //  경로 추가
 };
 
