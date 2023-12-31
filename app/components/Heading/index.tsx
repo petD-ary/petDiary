@@ -1,9 +1,9 @@
 "use client";
 
-import { ContextType, HeaderProps } from "@/types/header";
+import { ContextType, HeaderMap, HeaderProps } from "@/types/header";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode, createContext, useContext, useEffect, useMemo } from "react";
+import React, { ReactNode, createContext, useContext, useEffect, useMemo } from "react";
 import Image from "next/image";
 import logo from "@/assets/images/logo/pd_logo.png";
 
@@ -16,6 +16,27 @@ const HeadingContext = createContext<ContextType | null>({
   isInteractive: false,
 });
 
+// 헤더 유형별 컴포넌트 정의
+const HeaderElement = {
+  Close: () => <div>Close</div>,
+  Back: () => <div>Back</div>,
+  Home: () => <LogoHeader />,
+  BackClose: () => <div>BackClose</div>,
+  Alert: () => <div>Alert</div>,
+  Interactive: () => <div>Interactive</div>,
+  Default: () => <div>default</div>,
+};
+
+// 현재 경로에 따른 헤더 컴포넌트 매핑
+const headerMap: HeaderMap = {
+  "/1": HeaderElement.Close,
+  "/2": HeaderElement.Back,
+  "/login": HeaderElement.Home,
+  "/3": HeaderElement.BackClose,
+  "/": HeaderElement.Alert,
+  "/5": HeaderElement.Interactive,
+};
+
 const HeadingComponent = () => {
   return (
     <Heading>
@@ -24,37 +45,18 @@ const HeadingComponent = () => {
   );
 };
 
-const Heading: {
-  ({ children }: { children: ReactNode }): JSX.Element;
-  Content: () => JSX.Element | null; // 반환 타입을 업데이트
-} = ({ children }) => {
-  // 현재 경로
-  const pathname = usePathname();
-  const currentPath = pathname;
-
-  // 현재 경로 컨텍스트 값 메모이제이션
-  const contextValue = useMemo<ContextType>(
-    () => ({
-      isClose: currentPath === "/",
-      isBack: currentPath === "/",
-      isHome: currentPath === "/login",
-      isBackClose: currentPath === "/",
-      isAlert: currentPath === "/",
-      isInteractive: currentPath === "/",
-    }),
-    [currentPath]
-  );
-
+const Heading = ({ children }: { children: ReactNode }) => {
   return (
-    <HeadingContext.Provider value={contextValue}>
+    <HeadingContext.Provider>
       <header>{children}</header>
     </HeadingContext.Provider>
   );
 };
 
 const Content = () => {
-  const contextValue = useContext(HeadingContext);
-  if (contextValue && contextValue.isHome) return <LogoHeader />;
+  const pathname = usePathname();
+  const HeaderComponent = headerMap[pathname] || HeaderElement.Default; // 경로에 해당하는 헤더 컴포넌트 또는 기본값
+  return <HeaderComponent />;
 };
 
 const LogoHeader = () => {
