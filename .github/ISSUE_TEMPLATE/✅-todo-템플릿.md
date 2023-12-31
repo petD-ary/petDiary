@@ -1,5 +1,5 @@
 ---
-name: "✅ToDo"
+name: "✅ ToDo 템플릿"
 about: 해야할 일 작성
 title: ''
 labels: Todo
