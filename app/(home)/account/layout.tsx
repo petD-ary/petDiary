@@ -1,11 +1,11 @@
+import AccountHeader from '@/components/Account/AccountHeader';
 import Container from '@/components/Container';
-import Header from '@/components/Header';
 import { Fragment } from 'react';
 
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Fragment>
-      <Header type='account' />
+      <AccountHeader />
       <Container>{children}</Container>
     </Fragment>
   );
