@@ -4,11 +4,6 @@ import BtnSocialLogin from '@/components/Button/BtnSocialLogin';
 
 import LoginImg from '@/assets/images/login/login-image.svg';
 
-import {
-  googleLogin,
-  kakaoLogin,
-  naverLogin,
-} from '@/components/Login/SocialLogin';
 import SubTitle from '@/components/Typography/SubTitle';
 import SocialLoginList from '@/components/Login/Constant';
 import Container from '@/components/Container';
@@ -17,12 +12,14 @@ import Caption2 from '@/components/Typography/Caption2';
 const LoginPage = () => {
   return (
     <Fragment>
-      <Heading
-        title='로그인'
-        subTitle='로그인을 진행하고 펫 다이어리를 이용해 보세요'
-      />
-      <div className='w-full flex flex-col justify-center items-center pt-20'>
-        <LoginImg />
+      <div className='flex flex-col'>
+        <Heading
+          title='로그인'
+          subTitle='로그인을 진행하고 펫 다이어리를 이용해 보세요'
+        />
+        <div className='flex-grow w-full h-full flex justify-center items-center mb-[306px]'>
+          <LoginImg />
+        </div>
       </div>
       <Container className='fixed left-1/2 bottom-0 -translate-x-1/2'>
         <div className='flex flex-col gap-2 py-5'>
