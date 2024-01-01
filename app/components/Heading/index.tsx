@@ -25,10 +25,10 @@ const HeaderElement = {
 
 // 현재 경로에 따른 헤더 컴포넌트 매핑
 const headerMap: HeaderMap = {
-  "/account": HeaderElement.Close,
-  "/반려정보1": HeaderElement.Back,
+  "/반려정보1": HeaderElement.Close,
+  "/반려정보2": HeaderElement.Back,
   "/login": HeaderElement.Home,
-  "/반려정보2": HeaderElement.BackClose,
+  "/반려정보3": HeaderElement.BackClose,
   "/": HeaderElement.Alert,
   "/calender": HeaderElement.Interactive,
   "/info": HeaderElement.Interactive,

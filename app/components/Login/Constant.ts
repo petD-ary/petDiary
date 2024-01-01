@@ -2,7 +2,7 @@ import Google from "@/assets/images/login/Google.svg";
 import KaKao from "@/assets/images/login/Kakao.svg";
 import Naver from "@/assets/images/login/Naver.svg";
 
-import { googleLogin, kakaoLogin, naverLogin } from "@/components/Login/SocialLogin";
+import { googleLogin, kakaoLogin, naverLogin } from "@/utils/SocialLogin";
 
 const SocialLoginList = [
   {

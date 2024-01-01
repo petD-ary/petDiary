@@ -1,4 +1,7 @@
 "use client";
+
+import axios from "axios";
+
 // 카카오톡
 const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
 const KAKAO_CALLBACK_URL = process.env.NEXT_PUBLIC_KAKAO_CALLBACK_URL;
@@ -24,4 +27,14 @@ const naverlink = `https://nid.naver.com/oauth2.0/authorize?client_id=${NAVER_RE
 
 export const naverLogin = () => {
   window.location.href = naverlink;
+};
+
+// 유저 정보 요청
+export const userData = async () => {
+  try {
+    const response = await axios.get("/users/login");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 };

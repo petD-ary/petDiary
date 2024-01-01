@@ -11,10 +11,6 @@ import IconBell from "@/assets/images/Icon-bell.svg";
 import IconLeft from "@/assets/images/icon-left.svg";
 import IconSearch from "@/assets/images/icon-search.svg";
 
-export const TypeHeader = () => {
-  return <div>TypeHeader</div>;
-};
-
 //Close
 export const CloseHeader = () => (
   <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-end">
