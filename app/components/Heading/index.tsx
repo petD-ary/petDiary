@@ -45,10 +45,7 @@ const HeadingComponent = () => {
 };
 
 const Heading = ({ children }: { children: ReactNode }) => {
-  return (
-    // <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center">{children}</header>
-    <header>{children}</header>
-  );
+  return <header>{children}</header>;
 };
 
 const Content = () => {

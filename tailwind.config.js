@@ -82,15 +82,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwind-scrollbar"),
-    function ({ addComponents }) {
-      const newUtilities = {
-        ".header": {
-          "@apply w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center": {},
-        },
-      };
-      addComponents(newUtilities);
-    },
-  ],
+  plugins: [require("tailwind-scrollbar")],
 };
