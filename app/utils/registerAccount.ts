@@ -1,4 +1,4 @@
-import axios from "@/libs/axios";
+import axios from '@/libs/axios';
 
 export interface RegisterAccountProps {
   user: {
@@ -10,7 +10,7 @@ export interface RegisterAccountProps {
     petType: string;
     breed: string;
     name: string;
-    gender: "male" | "female";
+    gender: 'male' | 'female';
     neutered: boolean;
     birthday?: string;
     adoptionDate?: string;
@@ -22,18 +22,18 @@ const RegisterAccount = (nickName: string, email: string, password: string) => {
   const data = {
     user: { nickname: nickName, email, password },
     pet: {
-      petType: "cat",
-      breed: "cute",
-      name: "momomomo",
-      gender: "female",
+      petType: 'cat',
+      breed: 'cute',
+      name: 'momomomo',
+      gender: 'female',
       neutered: false,
-      birthday: "2023-12-17",
-      adoptionDate: "",
-      weight: "5",
+      birthday: '2023-12-17',
+      adoptionDate: '',
+      weight: '5',
     },
   };
 
-  axios.post("/users/signup", data).then((response) => console.log("response :", response));
+  axios.post('/users/signup', data).then((response) => console.log('response :', response));
 };
 
 export default RegisterAccount;

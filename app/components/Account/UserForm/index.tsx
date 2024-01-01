@@ -1,12 +1,11 @@
-"use client";
-import Input from "@/components/Input";
-import { authObjState, stepState } from "@/recoil/Account/atoms";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import Heading from "../Heading";
-import axios from "@/libs/axios";
-import Button from "@/components/Button";
-import getNicknameValidation from "./GetNicknameValidation";
+'use client';
+import Input from '@/components/Input';
+import { nicknameState, stepState } from '@/recoil/Account/atoms';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import Heading from '../Heading';
+import Button from '@/components/Button';
+import getNicknameValidation from './getNicknameValidation';
 
 interface AccountProps {
   userId: string;
@@ -16,12 +15,9 @@ interface AccountProps {
 }
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
+  const [nickname, setNickname] = useRecoilState(nicknameState);
 
-  const [nickname, setNickname] = useState("");
   const [error, setError] = useState<string | null>(null);
-  // const [success, setSuccess] = useState<string | null>(null);
-  const [checkNickname, setCheckNickname] = useState(false);
-  const [validNickname, setValidNickname] = useState<any[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
@@ -44,9 +40,9 @@ const UserForm = () => {
     const nicknameCheck = await getNicknameValidation(nickname);
 
     if (handleCheckNickname(nickname)) {
-      return setError("특수문자 ~!@#$%^&*()_제외");
-    } else if (nicknameCheck.data && !nicknameCheck.data.message) {
-      setError("이미 등록되어 있는 닉네임 입니다.");
+      return setError('특수문자 ~!@#$%^&*()_제외');
+    } else if (nicknameCheck.message) {
+      setError('이미 등록되어 있는 닉네임 입니다.');
     } else {
       return setStep((prev) => prev + 1);
     }
@@ -54,23 +50,22 @@ const UserForm = () => {
 
   return (
     <>
-      <Heading title="닉네임 설정" subTitle="닉네임을 입력해 주세요" />
+      <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
 
-      <form onSubmit={(e) => handleSubmit(e)} className="w-full pt-6 pb-16">
-        <div className="flex flex-col pt-6 pb-3">
+      <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
+        <div className='flex flex-col pt-6 pb-3'>
           <Input onChange={handleChange} value={nickname} error={error}>
             <Input.Label isRequired>닉네임</Input.Label>
             <Input.TextInput
               error={error !== null ? true : false}
-              placeholder="닉네임을 입력해 주세요"
+              placeholder='닉네임을 입력해 주세요'
             />
             <Input.Error>{error}</Input.Error>
-            {/* <Input.Success>{success}</Input.Success> */}
           </Input>
         </div>
 
-        <div className="flex flex-col pt-6 pb-3">
-          <Button isDisabled={nickname !== "" ? false : true} variant="contained" type="submit">
+        <div className='flex flex-col pt-6 pb-3'>
+          <Button isDisabled={nickname !== '' ? false : true} variant='contained' type='submit'>
             다음
           </Button>
         </div>

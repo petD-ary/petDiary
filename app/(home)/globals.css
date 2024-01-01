@@ -7,7 +7,7 @@
     outline: none;
   }
 
-  input[type="checkbox"] + label {
+  input[type='checkbox'] + label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -17,7 +17,7 @@
     @apply transition-all;
   }
 
-  input[type="checkbox"] + label span {
+  input[type='checkbox'] + label span {
     width: 24px;
     height: 24px;
     display: block;
@@ -26,12 +26,12 @@
     @apply transition-colors;
   }
 
-  input[type="checkbox"]:checked + label {
+  input[type='checkbox']:checked + label {
     @apply border-primary-500;
     background: #fff;
   }
 
-  input[type="checkbox"]:checked + label span {
+  input[type='checkbox']:checked + label span {
     @apply bg-checkbox-checked;
     background-size: cover;
   }

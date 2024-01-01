@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface InputProps {
   children: JSX.Element | JSX.Element[] | null;
@@ -6,6 +6,7 @@ export interface InputProps {
   onChange?: (value?: any) => void;
   value?: string;
   error?: string | null;
+  className?: string;
 }
 
 export interface LabelProps {
@@ -18,15 +19,21 @@ export interface TextInputProps {
   placeholder: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
+  required?: boolean;
 }
 
 export interface DateInputProps {
   value?: string;
   onChange?: (value?: any) => void;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 export interface CheckInputProps {
   children?: ReactNode;
-  id: string;
+  value?: string;
+  selected?: string;
+  id?: string;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

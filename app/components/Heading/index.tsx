@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { HeaderMap } from "@/types/header";
-import { usePathname } from "next/navigation";
-import React, { ReactNode } from "react";
+import { HeaderMap } from '@/types/header';
+import { usePathname } from 'next/navigation';
+import React, { ReactNode } from 'react';
 import {
   AlertHeader,
   LogoHeader,
@@ -10,7 +10,7 @@ import {
   InteractiveHeader,
   BackHeader,
   BackCloseHeader,
-} from "./TypeHeader";
+} from './TypeHeader';
 
 // 헤더 유형별 컴포넌트 정의
 const HeaderElement = {
@@ -25,14 +25,14 @@ const HeaderElement = {
 
 // 현재 경로에 따른 헤더 컴포넌트 매핑
 const headerMap: HeaderMap = {
-  "/반려정보1": HeaderElement.Close,
-  "/반려정보2": HeaderElement.Back,
-  "/login": HeaderElement.Home,
-  "/반려정보3": HeaderElement.BackClose,
-  "/": HeaderElement.Alert,
-  "/calender": HeaderElement.Interactive,
-  "/info": HeaderElement.Interactive,
-  "/myPage": HeaderElement.Interactive,
+  '/반려정보1': HeaderElement.Close,
+  '/반려정보2': HeaderElement.Back,
+  '/login': HeaderElement.Home,
+  '/반려정보3': HeaderElement.BackClose,
+  '/': HeaderElement.Alert,
+  '/calender': HeaderElement.Interactive,
+  '/info': HeaderElement.Interactive,
+  '/myPage': HeaderElement.Interactive,
   //  경로 추가
 };
 
