@@ -33,9 +33,7 @@ const RegisterAccount = (nickName: string, email: string, password: string) => {
     },
   };
 
-  axios
-    .post('/users/signup', data)
-    .then((response) => console.log('response :', response));
+  axios.post('/users/signup', data).then((response) => console.log('response :', response));
 };
 
 export default RegisterAccount;

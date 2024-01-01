@@ -15,6 +15,4 @@ export const petInfoState = atom<PetInfoProps>({
   },
 });
 
-// name: "김콩",
-//   born: "1,004",
-//   together: "1,004",
+

@@ -7,6 +7,12 @@ import Heading from '../Heading';
 import Button from '@/components/Button';
 import getNicknameValidation from './getNicknameValidation';
 
+interface AccountProps {
+  userId: string;
+  email: string;
+  password: string;
+  passwordCheck: string;
+}
 const UserForm = () => {
   const setStep = useSetRecoilState(stepState);
   const [nickname, setNickname] = useRecoilState(nicknameState);
@@ -59,11 +65,7 @@ const UserForm = () => {
         </div>
 
         <div className='flex flex-col pt-6 pb-3'>
-          <Button
-            isDisabled={nickname !== '' ? false : true}
-            variant='contained'
-            type='submit'
-          >
+          <Button isDisabled={nickname !== '' ? false : true} variant='contained' type='submit'>
             다음
           </Button>
         </div>

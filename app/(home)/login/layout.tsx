@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Fragment>
-      <Header type='logo' />
+      {/* <Header type='logo' /> */}
       <Container>{children}</Container>
     </Fragment>
   );

@@ -62,11 +62,7 @@ const AccountHeader = () => {
   };
 
   return (
-    <div
-      className={`w-full flex ${
-        step !== 0 ? 'justify-between' : 'justify-end'
-      }`}
-    >
+    <div className={`w-full flex ${step !== 0 ? 'justify-between' : 'justify-end'}`}>
       {step !== 0 ? (
         <button type='button' onClick={handleClickRoute} className='p-4'>
           <IconLeft />
