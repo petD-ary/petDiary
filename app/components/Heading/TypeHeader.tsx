@@ -13,47 +13,17 @@ import IconSearch from "@/assets/images/icon-search.svg";
 
 //Close
 export const CloseHeader = () => (
-  <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-end">
+  <header className="header justify-end">
     <IconBtnWrapper onClick={() => {}}>
       <IconX />
     </IconBtnWrapper>
   </header>
 );
 
-// account header => 페이지가 아니라 step인데 이 부분은 어떻게 처리 해야하는가
-// 반려동물 정보입력을 페이지 이동으로 시켜야하는가
-
-const AccountHeader = () => {
-  const router = useRouter();
-  const [step, setStep] = useRecoilState(stepState);
-
-  const handleClickRoute = () => {
-    if (step > 0 && step <= 2) {
-      return setStep((prev) => prev - 1);
-    } else if (step === 0) {
-      return router.back();
-    }
-  };
-
-  return (
-    <div className={`w-full flex ${step !== 0 ? "justify-between" : "justify-end"}`}>
-      {step !== 0 ? (
-        <button type="button" onClick={handleClickRoute} className="p-4">
-          <IconLeft />
-        </button>
-      ) : null}
-
-      <IconBtnWrapper onClick={() => router.push("/login")}>
-        <IconX />
-      </IconBtnWrapper>
-    </div>
-  );
-};
-
 //Back
 export const BackHeader = () => {
   return (
-    <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 items-center">
+    <header className="header">
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
@@ -64,7 +34,7 @@ export const BackHeader = () => {
 //BackClose
 export const BackCloseHeader = () => {
   return (
-    <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between ">
+    <header className="header justify-between">
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
@@ -78,7 +48,7 @@ export const BackCloseHeader = () => {
 //Alert
 export const AlertHeader = () => {
   return (
-    <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between ">
+    <header className="header justify-between">
       <Link href="/" className="px-3">
         <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
       </Link>
@@ -92,7 +62,7 @@ export const AlertHeader = () => {
 //Interactive
 export const InteractiveHeader = () => {
   return (
-    <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between ">
+    <header className="header  justify-between">
       <Link href="/" className="px-3">
         <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
       </Link>
@@ -111,7 +81,7 @@ export const InteractiveHeader = () => {
 //login
 export const LogoHeader = () => {
   return (
-    <header className="w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center">
+    <header className="header">
       <Link href="/" className="px-3">
         <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
       </Link>

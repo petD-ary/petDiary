@@ -18,7 +18,7 @@ const HeaderElement = {
   Back: () => <BackHeader />,
   Home: () => <LogoHeader />,
   BackClose: () => <BackCloseHeader />,
-  Alert: () => <InteractiveHeader />,
+  Alert: () => <AlertHeader />,
   Interactive: () => <InteractiveHeader />,
   Default: () => <div>default</div>,
 };
