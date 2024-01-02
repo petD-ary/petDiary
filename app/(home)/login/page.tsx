@@ -1,5 +1,5 @@
 import Heading from '@/components/Account/Heading';
-import { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode, useEffect } from 'react';
 import BtnSocialLogin from '@/components/Button/BtnSocialLogin';
 
 import LoginImg from '@/assets/images/login/login-image.svg';

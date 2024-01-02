@@ -1,3 +1,4 @@
+import instance from '@/libs/axios';
 import axios from '@/libs/axios';
 
 const isLogin = async (email: string, password: string) => {

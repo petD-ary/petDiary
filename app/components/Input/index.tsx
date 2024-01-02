@@ -17,7 +17,6 @@ const Input = ({ children, onClick, onChange, value, error, className }: InputPr
             onChange,
             error,
           };
-
           return cloneElement(child, newProps);
         }
         return null;
