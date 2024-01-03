@@ -2,15 +2,13 @@ import axios from '@/libs/axios';
 
 export interface RegisterAccountProps {
   user: {
-    nickName: string;
-    email: string;
-    password: string;
+    nickname: string;
   };
   pet: {
     petType: string;
     breed: string;
     name: string;
-    gender: 'male' | 'female';
+    gender: string;
     neutered: boolean;
     birthday?: string;
     adoptionDate?: string;
@@ -18,22 +16,15 @@ export interface RegisterAccountProps {
   };
 }
 
-const RegisterAccount = (nickName: string, email: string, password: string) => {
-  const data = {
-    user: { nickname: nickName, email, password },
-    pet: {
-      petType: 'cat',
-      breed: 'cute',
-      name: 'momomomo',
-      gender: 'female',
-      neutered: false,
-      birthday: '2023-12-17',
-      adoptionDate: '',
-      weight: '5',
-    },
-  };
+const RegisterAccount = (data: RegisterAccountProps) => {
+  const accsessToken = document.cookie;
 
-  axios.post('/users/signup', data).then((response) => console.log('response :', response));
+  axios
+    .post('/users/info', data, {
+      headers: { Authorization: `${accsessToken}` },
+      withCredentials: true,
+    })
+    .then((response) => console.log('response :', response));
 };
 
 export default RegisterAccount;
