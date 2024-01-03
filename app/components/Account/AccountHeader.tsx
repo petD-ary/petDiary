@@ -19,6 +19,7 @@ const AccountHeader = () => {
     }
   };
 
+  if (step === 2) return;
   return (
     <div
       className={`w-full flex ${
