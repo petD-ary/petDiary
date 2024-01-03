@@ -13,7 +13,7 @@ import {
 } from '@/recoil/Account/atoms';
 import VariantModal from '../VariantModal';
 import Button from '@/components/Button';
-import RegisterAccount from '@/utils/RegisterAccount';
+import UpdatedUserData from '@/utils/UpdatedUserData';
 import { Body } from '@/components/Typography/TypographyList';
 
 interface PetObjProps {
@@ -90,7 +90,7 @@ export const PetInForm = () => {
     };
 
     try {
-      RegisterAccount(data);
+      UpdatedUserData(data);
     } catch (e) {
       return console.log(e);
     }

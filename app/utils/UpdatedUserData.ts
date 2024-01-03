@@ -1,6 +1,6 @@
 import axios from '@/libs/axios';
 
-export interface RegisterAccountProps {
+export interface UpdatedUserDataProps {
   user: {
     nickname: string;
   };
@@ -16,7 +16,7 @@ export interface RegisterAccountProps {
   };
 }
 
-const RegisterAccount = (data: RegisterAccountProps) => {
+const UpdatedUserData = (data: UpdatedUserDataProps) => {
   const accsessToken = document.cookie;
 
   axios
@@ -27,4 +27,4 @@ const RegisterAccount = (data: RegisterAccountProps) => {
     .then((response) => console.log('response :', response));
 };
 
-export default RegisterAccount;
+export default UpdatedUserData;
