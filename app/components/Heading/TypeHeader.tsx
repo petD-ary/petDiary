@@ -10,42 +10,42 @@ import IconSearch from '@/assets/images/icon-search.svg';
 
 //Close
 export const CloseHeader = () => (
-  <header className='header justify-end'>
+  <div className='header justify-end'>
     <IconBtnWrapper onClick={() => {}}>
       <IconX />
     </IconBtnWrapper>
-  </header>
+  </div>
 );
 
 //Back
 export const BackHeader = () => {
   return (
-    <header className='header'>
+    <div className='header'>
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
-    </header>
+    </div>
   );
 };
 
 //BackClose
 export const BackCloseHeader = () => {
   return (
-    <header className='header justify-between'>
+    <div className='header justify-between'>
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
       <IconBtnWrapper onClick={() => {}}>
         <IconX />
       </IconBtnWrapper>
-    </header>
+    </div>
   );
 };
 
 //Alert
 export const AlertHeader = () => {
   return (
-    <header className='header justify-between'>
+    <div className='header justify-between'>
       <Link href='/' className='px-3'>
         <Image
           src={logo.src}
@@ -57,14 +57,14 @@ export const AlertHeader = () => {
       <IconBtnWrapper onClick={() => {}}>
         <IconBell />
       </IconBtnWrapper>
-    </header>
+    </div>
   );
 };
 
 //Interactive
 export const InteractiveHeader = () => {
   return (
-    <header className='header justify-between'>
+    <div className='header justify-between'>
       <Link href='/' className='px-3'>
         <Image
           src={logo.src}
@@ -81,14 +81,14 @@ export const InteractiveHeader = () => {
           <IconSearch />
         </IconBtnWrapper>
       </div>
-    </header>
+    </div>
   );
 };
 
 //login
 export const LogoHeader = () => {
   return (
-    <header className='header'>
+    <div className='header'>
       <Link href='/' className='px-3'>
         <Image
           src={logo.src}
@@ -97,6 +97,6 @@ export const LogoHeader = () => {
           height={logo.height}
         />
       </Link>
-    </header>
+    </div>
   );
 };
