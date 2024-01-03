@@ -13,7 +13,7 @@ import {
 } from '@/recoil/Account/atoms';
 import VariantModal from '../VariantModal';
 import Button from '@/components/Button';
-import RegisterAccount from '@/utils/registerAccount';
+import RegisterAccount from '@/utils/RegisterAccount';
 import { Body } from '@/components/Typography/TypographyList';
 
 interface PetObjProps {
