@@ -19,10 +19,9 @@ export default function RootLayout({
     <html lang='ko'>
       <body className={pretendard.className}>
         <RecoilRootWrapper>
-          <Container>
-            <HeadingComponent />
-            {children}
-          </Container>
+          <HeadingComponent />
+          <Container>{children}</Container>
+          <Navbar />
         </RecoilRootWrapper>
       </body>
     </html>
