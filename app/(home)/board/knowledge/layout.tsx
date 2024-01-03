@@ -1,6 +1,5 @@
 'use client';
 import TabMenu from '@/components/Board/TabMenu';
-import Container from '@/components/Container';
 import { tabState } from '@/recoil/Account/atoms';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -18,7 +17,11 @@ const KnowledgeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <React.Fragment>
       <div className='mx-auto max-w-[1200px] min-w-[300px]'>
-        <TabMenu tabList={tabList} selected={selected} setSelected={setSelected} />
+        <TabMenu
+          tabList={tabList}
+          selected={selected}
+          setSelected={setSelected}
+        />
         {children}
       </div>
     </React.Fragment>

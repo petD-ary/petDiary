@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Btn } from '../Typography/TypographyList';
 
 interface ButtonProps {
   children: ReactNode;
@@ -8,6 +9,7 @@ interface ButtonProps {
   onClick?: () => void;
   variant: 'contained' | 'outlined';
   size?: 'S' | 'M' | 'L';
+  textType?: 'button1' | 'button2';
 }
 
 const Button = ({
@@ -17,6 +19,7 @@ const Button = ({
   onClick,
   isDisabled,
   size = 'L',
+  textType = 'button1',
   ...rest
 }: ButtonProps) => {
   return (
@@ -36,7 +39,10 @@ const Button = ({
     rest.variant === 'outlined'
       ? 'bg-white text-primary-500 border-primary-700 disabled:border-grayColor-200 disabled:text-grayColor-200'
       : ''
-  }`}
+  }
+  ${textType === 'button1' ? `${Btn.button1}` : ''}
+  ${textType === 'button2' ? `${Btn.button2}` : ''}
+  `}
     >
       {children}
     </button>

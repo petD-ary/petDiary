@@ -1,6 +1,6 @@
 'use client';
-import Title1 from '@/components/Typography/Title1';
-import SubTitle from '@/components/Typography/SubTitle';
+
+import { SubTitle, Title } from '@/components/Typography/TypographyList';
 
 interface HeadingProps {
   title: string;
@@ -10,8 +10,8 @@ interface HeadingProps {
 const Heading = ({ title, subTitle }: HeadingProps) => {
   return (
     <div className='flex flex-col gap-2 pt-4 pb-6'>
-      <Title1 className='text-text-title'>{title}</Title1>
-      <SubTitle className='text-text-secondary'>{subTitle}</SubTitle>
+      <h2 className={`text-text-title ${Title.title2}`}>{title}</h2>
+      <p className={`text-text-secondary ${SubTitle.subTitle3}`}>{subTitle}</p>
     </div>
   );
 };
