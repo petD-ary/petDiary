@@ -4,6 +4,7 @@ import BtnSocialLogin from '@/components/Button/BtnSocialLogin';
 
 import LoginImg from '@/assets/images/login/login-image.svg';
 
+import { googleLogin, kakaoLogin, naverLogin } from '@/utils/SocialLogin';
 import SubTitle from '@/components/Typography/SubTitle';
 import SocialLoginList from '@/components/Login/Constant';
 import Container from '@/components/Container';

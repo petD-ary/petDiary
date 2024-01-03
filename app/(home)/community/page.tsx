@@ -1,4 +1,4 @@
-import Container from "@/components/Container";
+import Container from '@/components/Container';
 
 const CommunityPage = () => {
   return <Container>ssssssssss</Container>;

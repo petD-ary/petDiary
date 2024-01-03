@@ -1,6 +1,7 @@
 'use client';
 
 import Input from '@/components/Input';
+
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import Body1 from '@/components/Typography/Body1';
@@ -69,8 +70,7 @@ export const PetInForm = () => {
       target: { value },
     } = e;
 
-    if (value !== petInfo.gender)
-      return setPetInfo((prev) => ({ ...prev, gender: value }));
+    if (value !== petInfo.gender) return setPetInfo((prev) => ({ ...prev, gender: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -99,25 +99,13 @@ export const PetInForm = () => {
         <VariantModal
           variant={petInfo.petType}
           breed={petInfo.breed}
-          setBreed={(value) =>
-            setPetInfo((prev) => ({ ...prev, breed: value }))
-          }
+          setBreed={(value) => setPetInfo((prev) => ({ ...prev, breed: value }))}
         />
       )}
-      <Heading
-        title='반려동물 정보 입력'
-        subTitle='추가 등록은 홈화면-편집에서 가능합니다'
-      />
+      <Heading title='반려동물 정보 입력' subTitle='추가 등록은 홈화면-편집에서 가능합니다' />
 
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className='py-10 flex flex-col gap-8'
-      >
-        <Input
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-          }
-        >
+      <form onSubmit={(e) => handleSubmit(e)} className='py-10 flex flex-col gap-8'>
+        <Input onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}>
           <Input.Label isRequired>반려동물</Input.Label>
           <div className='w-full flex gap-3'>
             <Input.CheckOnlyOneInput
@@ -125,18 +113,14 @@ export const PetInForm = () => {
               id='dog'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-              }
+              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
             />
             <Input.CheckOnlyOneInput
               value='고양이'
               id='cat'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-              }
+              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
             />
           </div>
         </Input>
@@ -158,17 +142,13 @@ export const PetInForm = () => {
 
         <Input
           value={petInfo.name}
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, name: e.target.value }))
-          }
+          onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
         >
           <Input.Label isRequired>아이 이름</Input.Label>
           <Input.TextInput
             placeholder='반려동물의 이름을 입력해 주세요'
             value={petInfo.name}
-            onChange={(e) =>
-              setPetInfo((prev) => ({ ...prev, name: e.target.value }))
-            }
+            onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
           />
         </Input>
 
@@ -207,10 +187,7 @@ export const PetInForm = () => {
           </Input>
 
           <Input onChange={handleUnknownBirthdayCheck}>
-            <Input.CheckInput
-              id='unknownBirthday'
-              onChange={handleUnknownBirthdayCheck}
-            >
+            <Input.CheckInput id='unknownBirthday' onChange={handleUnknownBirthdayCheck}>
               생일을 잘 모르겠어요
             </Input.CheckInput>
           </Input>
@@ -224,16 +201,10 @@ export const PetInForm = () => {
         <Input>
           <Input.Label>몸무게 입력</Input.Label>
           <Input.TextInput placeholder='몸무게를 입력해 주세요' />
-          <Body1 className='absolute top-[41px] right-3 text-text-secondary'>
-            KG
-          </Body1>
+          <Body1 className='absolute top-[41px] right-3 text-text-secondary'>KG</Body1>
         </Input>
 
-        <Button
-          variant='contained'
-          type='submit'
-          isDisabled={error.breed || error.name}
-        >
+        <Button variant='contained' type='submit' isDisabled={error.breed || error.name}>
           확인
         </Button>
       </form>

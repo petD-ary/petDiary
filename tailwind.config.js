@@ -14,6 +14,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         checkbox: "url('../assets/images/icon-checkbox.png')",
+
         'checkbox-checked': "url('../assets/images/icon-checkbox-checked.png')",
       },
       fontSize: {

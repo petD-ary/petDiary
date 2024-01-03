@@ -6,4 +6,37 @@
   input {
     outline: none;
   }
+
+  input[type='checkbox'] + label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    @apply bg-grayColor-10;
+    @apply transition-all;
+  }
+
+  input[type='checkbox'] + label span {
+    width: 24px;
+    height: 24px;
+    display: block;
+    @apply bg-checkbox;
+    background-size: cover;
+    @apply transition-colors;
+  }
+
+  input[type='checkbox']:checked + label {
+    @apply border-primary-500;
+    background: #fff;
+  }
+
+  input[type='checkbox']:checked + label span {
+    @apply bg-checkbox-checked;
+    background-size: cover;
+  }
+
+  .header {
+    @apply w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between;
+  }
 }

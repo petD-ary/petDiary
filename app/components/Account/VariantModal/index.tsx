@@ -3,6 +3,7 @@ import { variantModalState } from '@/recoil/Account/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import VariantList from './VariantList';
+
 import IconSearch from '@/assets/images/icon-search@24.svg';
 import IconClose from '@/assets/images/Icon-x.svg';
 import Title2 from '@/components/Typography/Title2';
@@ -45,9 +46,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   useEffect(() => {
     if (search !== null) {
       getBreedsList(breed).then((result) => {
-        const searchList = result.filter((breed) =>
-          breed.breed.includes(search)
-        );
+        const searchList = result.filter((breed) => breed.breed.includes(search));
         setBreeds(searchList);
       });
     }
@@ -82,11 +81,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
           <Input.TextInput
             value={search === null ? '' : search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={
-              variant === '강아지'
-                ? '견종을 입력해주세요'
-                : '묘종을 입력해주세요'
-            }
+            placeholder={variant === '강아지' ? '견종을 입력해주세요' : '묘종을 입력해주세요'}
           />
           <span className='absolute top-4 right-8'>
             <IconSearch />
@@ -96,12 +91,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
         <ul className='h-full mx-5 overflow-y-scroll scrollbar-none'>
           {breeds &&
             breeds.map((item) => (
-              <VariantList
-                key={item.id}
-                selected={breed}
-                title={item.breed}
-                handlePutId={handlePutId}
-              />
+              <VariantList key={item.id} selected={breed} title={item.breed} handlePutId={handlePutId} />
             ))}
         </ul>
 

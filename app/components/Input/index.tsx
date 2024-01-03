@@ -1,25 +1,12 @@
 'use client';
 import React, { Children, cloneElement } from 'react';
-import {
-  CheckInputProps,
-  DateInputProps,
-  InputProps,
-  LabelProps,
-  TextInputProps,
-} from './type';
+import { CheckInputProps, DateInputProps, InputProps, LabelProps, TextInputProps } from './type';
 import IconValid from '@/assets/images/icon-valid.svg';
 import IconError from '@/assets/images/icon-error.svg';
 import Caption2 from '../Typography/Caption2';
 import Body1 from '../Typography/Body1';
 
-const Input = ({
-  children,
-  onClick,
-  onChange,
-  value,
-  error,
-  className,
-}: InputProps) => {
+const Input = ({ children, onClick, onChange, value, error, className }: InputProps) => {
   return (
     <div className={`w-full relative ${className}`}>
       {Children.map(children, (child) => {
@@ -42,9 +29,7 @@ const Input = ({
 const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
 
 const Label = ({ children, ...rest }: LabelProps) => (
-  <label
-    className={`flex gap-1 pb-2 text-text text-text-primary leading-[1.2]`}
-  >
+  <label className={`flex gap-1 pb-2 text-text text-text-primary leading-[1.2]`}>
     {children}
     {rest.isRequired ? <span className='text-error'>*</span> : null}
   </label>
@@ -113,14 +98,7 @@ const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
   </>
 );
 
-const CheckOnlyOneInput = ({
-  value,
-  selected,
-  onChange,
-  id,
-  name,
-  ...rest
-}: CheckInputProps) => {
+const CheckOnlyOneInput = ({ value, selected, onChange, id, name, ...rest }: CheckInputProps) => {
   return (
     <>
       <input
@@ -159,7 +137,9 @@ Input.Label = Label;
 Input.TextInput = TextInput;
 Input.DateInput = DateInput;
 Input.CheckInput = CheckInput;
+
 Input.CheckOnlyOneInput = CheckOnlyOneInput;
+
 Input.Success = Success;
 Input.Error = Error;
 
