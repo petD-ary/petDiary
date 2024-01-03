@@ -1,4 +1,4 @@
-import Text1 from '@/components/Typography/Text1';
+import { Caption } from '@/components/Typography/TypographyList';
 
 const Breadcrumb = ({ step }: { step: number }) => {
   const accountPage = [
@@ -12,6 +12,8 @@ const Breadcrumb = ({ step }: { step: number }) => {
     },
   ];
 
+  if (step === 2) return;
+
   return (
     <div className='flex gap-3 pt-4'>
       {accountPage.map((page) => (
@@ -21,7 +23,7 @@ const Breadcrumb = ({ step }: { step: number }) => {
           rounded-[4px] cursor-default
           ${step + 1 === page.title ? 'bg-primary-700' : 'bg-grayColor-200'}`}
         >
-          <Text1>{page.title}</Text1>
+          <p className={`${Caption.caption1}`}>{page.title}</p>
         </div>
       ))}
     </div>
