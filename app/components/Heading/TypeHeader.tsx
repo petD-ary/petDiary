@@ -1,19 +1,16 @@
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
-import logo from "@/assets/images/logo/pd_logo.png";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { stepState } from "@/recoil/Account/atoms";
-import IconBtnWrapper from "../Button/IconBtnWrapper";
-import IconX from "@/assets/images/Icon-x.svg";
-import IconBell from "@/assets/images/Icon-bell.svg";
-import IconLeft from "@/assets/images/icon-left.svg";
-import IconSearch from "@/assets/images/icon-search.svg";
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
+import logo from '@/assets/images/logo/pd_logo.png';
+import IconBtnWrapper from '../Button/IconBtnWrapper';
+import IconX from '@/assets/images/Icon-x.svg';
+import IconBell from '@/assets/images/Icon-bell.svg';
+import IconLeft from '@/assets/images/icon-left.svg';
+import IconSearch from '@/assets/images/icon-search.svg';
 
 //Close
 export const CloseHeader = () => (
-  <header className="header justify-end">
+  <header className='header justify-end'>
     <IconBtnWrapper onClick={() => {}}>
       <IconX />
     </IconBtnWrapper>
@@ -23,7 +20,7 @@ export const CloseHeader = () => (
 //Back
 export const BackHeader = () => {
   return (
-    <header className="header">
+    <header className='header'>
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
@@ -34,7 +31,7 @@ export const BackHeader = () => {
 //BackClose
 export const BackCloseHeader = () => {
   return (
-    <header className="header justify-between">
+    <header className='header justify-between'>
       <IconBtnWrapper onClick={() => {}}>
         <IconLeft />
       </IconBtnWrapper>
@@ -48,9 +45,14 @@ export const BackCloseHeader = () => {
 //Alert
 export const AlertHeader = () => {
   return (
-    <header className="header justify-between">
-      <Link href="/" className="px-3">
-        <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
+    <header className='header justify-between'>
+      <Link href='/' className='px-3'>
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
       <IconBtnWrapper onClick={() => {}}>
         <IconBell />
@@ -62,9 +64,14 @@ export const AlertHeader = () => {
 //Interactive
 export const InteractiveHeader = () => {
   return (
-    <header className="header  justify-between">
-      <Link href="/" className="px-3">
-        <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
+    <header className='header justify-between'>
+      <Link href='/' className='px-3'>
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
       <div>
         <IconBtnWrapper onClick={() => {}}>
@@ -81,9 +88,14 @@ export const InteractiveHeader = () => {
 //login
 export const LogoHeader = () => {
   return (
-    <header className="header">
-      <Link href="/" className="px-3">
-        <Image src={logo.src} alt="Pet diary logo" width={75} height={18} />
+    <header className='header'>
+      <Link href='/' className='px-3'>
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
     </header>
   );
