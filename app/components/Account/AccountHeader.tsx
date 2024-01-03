@@ -1,5 +1,6 @@
+'use client';
 import { stepState } from '@/recoil/Account/atoms';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import IconBtnWrapper from '../Button/IconBtnWrapper';
 
