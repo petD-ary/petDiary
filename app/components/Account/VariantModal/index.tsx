@@ -45,12 +45,12 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
 
   useEffect(() => {
     if (search !== null) {
-      getBreedsList(breed).then((result) => {
+      getBreedsList(variant).then((result) => {
         const searchList = result.filter((item) => item.breed.includes(search));
         setBreeds(searchList);
       });
     }
-  }, [search, breed]);
+  }, [search, variant]);
 
   return (
     <div className='fixed z-20 w-full h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
