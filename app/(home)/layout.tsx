@@ -10,15 +10,18 @@ export const metadata: Metadata = {
   description: '반려동물 케어 가이드 서비스',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang='ko'>
       <body className={pretendard.className}>
         <RecoilRootWrapper>
-          <Container>
-            <HeadingComponent />
-            {children}
-          </Container>
+          <HeadingComponent />
+          <Container>{children}</Container>
+          <Navbar />
         </RecoilRootWrapper>
       </body>
     </html>

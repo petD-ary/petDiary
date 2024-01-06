@@ -1,12 +1,24 @@
 'use client';
 import React, { Children, cloneElement } from 'react';
-import { CheckInputProps, DateInputProps, InputProps, LabelProps, TextInputProps } from './type';
+import {
+  CheckInputProps,
+  DateInputProps,
+  InputProps,
+  LabelProps,
+  TextInputProps,
+} from './type';
 import IconValid from '@/assets/images/icon-valid.svg';
 import IconError from '@/assets/images/icon-error.svg';
-import Caption2 from '../Typography/Caption2';
-import Body1 from '../Typography/Body1';
+import { Body, Caption } from '../Typography/TypographyList';
 
-const Input = ({ children, onClick, onChange, value, error, className }: InputProps) => {
+const Input = ({
+  children,
+  onClick,
+  onChange,
+  value,
+  error,
+  className,
+}: InputProps) => {
   return (
     <div className={`w-full relative ${className}`}>
       {Children.map(children, (child) => {
@@ -28,7 +40,7 @@ const Input = ({ children, onClick, onChange, value, error, className }: InputPr
 const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
 
 const Label = ({ children, ...rest }: LabelProps) => (
-  <label className={`flex gap-1 pb-2 text-text text-text-primary leading-[1.2]`}>
+  <label className={`flex gap-1 pb-2 ${Caption.caption1}`}>
     {children}
     {rest.isRequired ? <span className='text-error'>*</span> : null}
   </label>
@@ -77,7 +89,7 @@ const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
     <input type='checkbox' id={id} name={id} className={`hidden`} {...rest} />
     <label
       htmlFor={id}
-      className='w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
+      className={`w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
       [input[type="checkbox"]_+_&]:bg-grayColor-10
       [input[type="checkbox"]_+_&]:border
       [input[type="checkbox"]_+_&]:border-transparent
@@ -89,15 +101,23 @@ const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
       [input[type="checkbox"]_+_&]:gap-2
       [input[type="checkbox"]_+_&]:transiton-colors
       [input[type="checkbox"]:checked_+_&_>_span]:bg-checkbox-checked
-      '
+      ${Body.body1}
+      `}
     >
       <span className='w-6 h-6 block bg-checkbox bg-cover'></span>
-      <Body1>{children}</Body1>
+      {children}
     </label>
   </>
 );
 
-const CheckOnlyOneInput = ({ value, selected, onChange, id, name, ...rest }: CheckInputProps) => {
+const CheckOnlyOneInput = ({
+  value,
+  selected,
+  onChange,
+  id,
+  name,
+  ...rest
+}: CheckInputProps) => {
   return (
     <>
       <input
@@ -116,20 +136,25 @@ const CheckOnlyOneInput = ({ value, selected, onChange, id, name, ...rest }: Che
       [input[type="checkbox"]_+_&]:border-grayColor-200
       [input[type="checkbox"]:checked_+_&]:border-primary-500
       [input[type="checkbox"]:checked_+_&]:text-primary-500
+      ${Body.body1}
       `}
       >
-        <Body1>{value}</Body1>
+        {value}
       </label>
     </>
   );
 };
 
 const Success = ({ children }: LabelProps) => (
-  <Caption2 className='text-success pl-[3px] pt-[6px]'>{children}</Caption2>
+  <p className={`text-success pl-[3px] pt-[6px] ${Caption.caption2}`}>
+    {children}
+  </p>
 );
 
 const Error = ({ children }: LabelProps) => (
-  <Caption2 className='text-error pl-[3px] pt-[6px]'>{children}</Caption2>
+  <p className={`text-error pl-[3px] pt-[6px] ${Caption.caption2}`}>
+    {children}
+  </p>
 );
 
 Input.Label = Label;

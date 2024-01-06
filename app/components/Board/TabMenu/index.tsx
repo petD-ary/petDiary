@@ -1,8 +1,7 @@
-"use client";
-import Container from "@/components/Container";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
 
 interface ChangePageBtnProps {
   tabList: { id: number; title: string }[];
@@ -20,7 +19,9 @@ const TabMenu = ({ tabList, selected, setSelected }: ChangePageBtnProps) => {
           }}
           key={tab.id}
           className={`px-5 py-3 border rounded-lg flex-1 ${
-            selected === tab.title ? " border-black bg-grayColor-100" : "border-grayColor-200"
+            selected === tab.title
+              ? ' border-black bg-grayColor-100'
+              : 'border-grayColor-200'
           }`}
         >
           {tab.title}

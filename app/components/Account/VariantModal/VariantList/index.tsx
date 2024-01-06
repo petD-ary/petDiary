@@ -1,6 +1,7 @@
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
-import Body1 from '@/components/Typography/Body1';
+import { Body } from '@/components/Typography/TypographyList';
+
 interface VariantListProps {
   title: string;
   selected?: string;
@@ -17,7 +18,7 @@ const VariantList = ({ title, selected, handlePutId }: VariantListProps) => {
       text-text-primary
       `}
     >
-      <Body1>{title}</Body1>
+      <p className={`${Body.body1}`}>{title}</p>
       <span>{selected === title ? <IconRadio /> : <IconRadioDisabled />}</span>
     </li>
   );

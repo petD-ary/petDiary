@@ -6,10 +6,10 @@ import VariantList from './VariantList';
 
 import IconSearch from '@/assets/images/icon-search@24.svg';
 import IconClose from '@/assets/images/Icon-x.svg';
-import Title2 from '@/components/Typography/Title2';
 import Input from '@/components/Input';
 import getBreedsList from '../PetInfoForm/getBreedsList';
 import Button from '@/components/Button';
+import { Title } from '@/components/Typography/TypographyList';
 
 interface VariantModalProps {
   variant: string;
@@ -46,7 +46,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   useEffect(() => {
     if (search !== null) {
       getBreedsList(breed).then((result) => {
-        const searchList = result.filter((breed) => breed.breed.includes(search));
+        const searchList = result.filter((item) => item.breed.includes(search));
         setBreeds(searchList);
       });
     }
@@ -61,17 +61,16 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
         shadow-[0_-10px_60px_rgba(0,0,0,0.15)]
         rounded-t-lg rounded-r-lg bg-white
         flex flex-col
-        
-      '
+        '
       >
         <div className='px-2 py-1 flex justify-end'>
-          <div className='p-3 cursor-pointer'>
+          <div className='p-3 cursor-pointer' onClick={() => setIsOpen(false)}>
             <IconClose />
           </div>
         </div>
-        <Title2 className='text-grayColor-900 px-5 py-3'>
+        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
           {variant === '강아지' ? '견종' : '묘종'}선택
-        </Title2>
+        </p>
 
         <Input
           value={search === null ? '' : search}
@@ -82,7 +81,11 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
           <Input.TextInput
             value={search === null ? '' : search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={variant === '강아지' ? '견종을 입력해주세요' : '묘종을 입력해주세요'}
+            placeholder={
+              variant === '강아지'
+                ? '견종을 입력해주세요'
+                : '묘종을 입력해주세요'
+            }
           />
           <span className='absolute top-4 right-8'>
             <IconSearch />
@@ -92,7 +95,12 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
         <ul className='h-full mx-5 overflow-y-scroll scrollbar-none'>
           {breeds &&
             breeds.map((item) => (
-              <VariantList key={item.id} selected={breed} title={item.breed} handlePutId={handlePutId} />
+              <VariantList
+                key={item.id}
+                selected={breed}
+                title={item.breed}
+                handlePutId={handlePutId}
+              />
             ))}
         </ul>
 
