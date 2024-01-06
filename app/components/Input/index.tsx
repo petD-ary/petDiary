@@ -9,7 +9,7 @@ import {
 } from './type';
 import IconValid from '@/assets/images/icon-valid.svg';
 import IconError from '@/assets/images/icon-error.svg';
-import { Body, Caption } from '../Typography/TypographyList';
+import { Body, Caption } from '../../constants/Typography/TypographyList';
 
 const Input = ({
   children,

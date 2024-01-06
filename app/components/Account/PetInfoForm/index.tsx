@@ -14,7 +14,7 @@ import {
 import VariantModal from '../VariantModal';
 import Button from '@/components/Button';
 import UpdatedUserData from '@/utils/UpdatedUserData';
-import { Body } from '@/components/Typography/TypographyList';
+import { Body } from '@/constants/Typography/TypographyList';
 
 interface PetObjProps {
   petType: string;

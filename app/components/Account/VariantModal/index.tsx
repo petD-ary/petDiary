@@ -9,7 +9,7 @@ import IconClose from '@/assets/images/Icon-x.svg';
 import Input from '@/components/Input';
 import getBreedsList from '../PetInfoForm/getBreedsList';
 import Button from '@/components/Button';
-import { Title } from '@/components/Typography/TypographyList';
+import { Title } from '@/constants/Typography/TypographyList';
 
 interface VariantModalProps {
   variant: string;
@@ -40,8 +40,8 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   };
 
   useEffect(() => {
-    getBreedsList(breed).then((result) => setBreeds(result));
-  }, [breed]);
+    getBreedsList(variant).then((result) => setBreeds(result));
+  }, [variant]);
 
   useEffect(() => {
     if (search !== null) {

@@ -1,6 +1,6 @@
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
-import { Body } from '@/components/Typography/TypographyList';
+import { Body } from '@/constants/Typography/TypographyList';
 
 interface VariantListProps {
   title: string;

@@ -6,7 +6,7 @@ import LoginImg from '@/assets/images/login/login-image.svg';
 
 import SocialLoginList from '@/components/Login/Constant';
 import Container from '@/components/Container';
-import { Btn, Caption } from '@/components/Typography/TypographyList';
+import { Btn, Caption } from '@/constants/Typography/TypographyList';
 
 const LoginPage = () => {
   return (
