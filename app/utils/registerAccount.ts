@@ -1,39 +1,18 @@
-import axios from '@/libs/axios';
+import axios from "axios";
+import React from "react";
 
-export interface RegisterAccountProps {
-  user: {
-    nickName: string;
-    email: string;
-    password: string;
-  };
-  pet: {
-    petType: string;
-    breed: string;
-    name: string;
-    gender: 'male' | 'female';
-    neutered: boolean;
-    birthday?: string;
-    adoptionDate?: string;
-    weight: string;
-  };
+interface RegisterAccountProps {
+  userId: string;
+  email: string;
+  password: string;
 }
 
-const RegisterAccount = (nickName: string, email: string, password: string) => {
-  const data = {
-    user: { nickname: nickName, email, password },
-    pet: {
-      petType: 'cat',
-      breed: 'cute',
-      name: 'momomomo',
-      gender: 'female',
-      neutered: false,
-      birthday: '2023-12-17',
-      adoptionDate: '',
-      weight: '5',
-    },
-  };
-
-  axios.post('/users/signup', data).then((response) => console.log('response :', response));
+const RegisterAccount = async (userInfo: RegisterAccountProps) => {
+  try {
+    const response = await axios.post("http://localhost:5000/api/users/signup", userInfo);
+    console.log("response", response);
+  } catch (error) {
+    console.error("계정 등록 중 오류 발생:", error);
+  }
 };
-
 export default RegisterAccount;
