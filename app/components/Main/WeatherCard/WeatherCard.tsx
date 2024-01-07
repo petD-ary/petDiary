@@ -1,34 +1,37 @@
-import React from "react";
-import Highlight from "../PetInfo/Highlight";
-import Image from "next/image";
-
+import React from 'react';
+import Image from 'next/image';
+import { Caption, Title } from '@/components/Typography/TypographyList';
+import normal from '@/assets/images/profile/normal.png';
+import IconInfo from '@/assets/images/Icon-info.svg';
+type weatherData = {
+  state: string;
+  img: string;
+};
 interface CardType {
-  title: string;
-  weather: string;
-  addition?: React.ReactNode;
+  weather: weatherData;
 }
 
-const WeatherCard: React.FC<CardType> = ({ title, weather, addition }) => {
+const WeatherCard: React.FC<CardType> = ({ weather }) => {
   return (
-    <div className="flex justify-between sm:w-1/2 md:w-full lg:w-1/2  h-full p-4 bg-grayColor-100 rounded-xl">
-      <div className="flex flex-col justify-between ">
-        <div className="text-2xl">
-          <div className="text-lg">{title}</div>
-          <Highlight content={weather} />
+    <div className='flex flex-col w-1/2 rounded-xl p-4 border'>
+      <div className='flex flex-row justify-between '>
+        <div className=''>
+          <div className={`${Caption.caption2} mb-1`}>산책지수</div>
+          <div className={`${Title.title3}`}>{weather.state}</div>
         </div>
-        {addition}
+
+        <IconInfo />
       </div>
-      <div className="flex items-end ">
-        <div className="relative p-5 bg-grayColor-200 rounded-lg">
-          <Image
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-            src={""}
-            alt={""}
-          />
-        </div>
+      <div className='relative flex justify-end'>
+        <Image
+          style={{
+            objectFit: 'cover',
+          }}
+          src={normal}
+          width={44}
+          height={44}
+          alt={'weatherimoji'}
+        />
       </div>
     </div>
   );

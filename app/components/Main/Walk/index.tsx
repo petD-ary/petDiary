@@ -1,11 +1,12 @@
-import React from "react";
-import Temperatures from "../Weather/Temperatures";
-import WeatherCard from "../WeatherCard/WeatherCard";
-let WalkData = {
-  state: "좋음",
+import React from 'react';
+import Temperatures from '../Weather/Temperatures';
+import WeatherCard from '../WeatherCard/WeatherCard';
+const walkData = {
+  state: '좋음',
+  img: '',
 };
 const Walk = () => {
-  return <WeatherCard title="산책 지수" weather={WalkData.state} />;
+  return <WeatherCard weather={walkData} />;
 };
 
 export default Walk;

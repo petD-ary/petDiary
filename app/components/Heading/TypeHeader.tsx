@@ -92,7 +92,7 @@ export const LogoHeader = () => {
 export const MainAnimalHeader = () => {
   const count = 3;
   return (
-    <div className='header'>
+    <div className='flex items-center justify-between py-5 '>
       <div className='flex gap-2 '>
         <div className={`${Title.title2}`}>내 반려동물</div>
         <div className={`text-primary-500 ${Title.title2}`}>{count}</div>
