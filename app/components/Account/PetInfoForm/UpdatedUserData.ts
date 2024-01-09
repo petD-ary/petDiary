@@ -16,12 +16,9 @@ export interface UpdatedUserDataProps {
   };
 }
 
-const UpdatedUserData = (data: UpdatedUserDataProps) => {
-  const accsessToken = document.cookie;
-
-  axios
+const UpdatedUserData = async (data: UpdatedUserDataProps) => {
+  await axios
     .post('/users/info', data, {
-      headers: { Authorization: `${accsessToken}` },
       withCredentials: true,
     })
     .then((response) => console.log('response :', response));

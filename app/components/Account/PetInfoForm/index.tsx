@@ -13,7 +13,7 @@ import {
 } from '@/recoil/Account/atoms';
 import VariantModal from '../VariantModal';
 import Button from '@/components/Button';
-import UpdatedUserData from '@/utils/UpdatedUserData';
+import UpdatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { Body } from '@/constants/Typography/TypographyList';
 
 interface PetObjProps {
@@ -79,7 +79,7 @@ export const PetInForm = () => {
       return setPetInfo((prev) => ({ ...prev, gender: value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -90,7 +90,7 @@ export const PetInForm = () => {
     };
 
     try {
-      UpdatedUserData(data);
+      await UpdatedUserData(data);
     } catch (e) {
       return console.log(e);
     }
@@ -136,7 +136,11 @@ export const PetInForm = () => {
       >
         <Input
           onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
+            setPetInfo((prev) => ({
+              ...prev,
+              petType: e.target.value,
+              breed: '',
+            }))
           }
         >
           <Input.Label isRequired>반려동물</Input.Label>
@@ -147,7 +151,11 @@ export const PetInForm = () => {
               name='petType'
               selected={petInfo.petType}
               onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
+                setPetInfo((prev) => ({
+                  ...prev,
+                  petType: e.target.value,
+                  breed: '',
+                }))
               }
             />
             <Input.CheckOnlyOneInput
@@ -156,7 +164,11 @@ export const PetInForm = () => {
               name='petType'
               selected={petInfo.petType}
               onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
+                setPetInfo((prev) => ({
+                  ...prev,
+                  petType: e.target.value,
+                  breed: '',
+                }))
               }
             />
           </div>
