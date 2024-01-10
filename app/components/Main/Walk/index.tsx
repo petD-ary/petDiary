@@ -1,5 +1,5 @@
 import React from 'react';
-import Temperatures from '../Weather/Temperatures';
+
 import WeatherCard from '../WeatherCard/WeatherCard';
 const walkData = {
   state: '좋음',
@@ -10,3 +10,4 @@ const Walk = () => {
 };
 
 export default Walk;
+
