@@ -234,9 +234,20 @@ export const PetInForm = () => {
         </div>
 
         <div className='flex flex-col gap-3'>
-          <Input>
+          <Input
+            value={petInfo.birthday}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))
+            }
+          >
             <Input.Label>아이 생일</Input.Label>
-            <Input.DateInput disabled={unknownBirthday} />
+            <Input.DateInput
+              disabled={unknownBirthday}
+              value={petInfo.birthday}
+              onChange={(e) =>
+                setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))
+              }
+            />
           </Input>
 
           <Input onChange={handleUnknownBirthdayCheck}>
