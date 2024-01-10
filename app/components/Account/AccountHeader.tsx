@@ -22,14 +22,14 @@ const AccountHeader = () => {
   if (step === 2) return;
   return (
     <div
-      className={`w-full flex ${
+      className={`w-full md:max-w-3xl flex px-2 py-1 fixed left-1/2 top-0 -translate-x-1/2 ${
         step !== 0 ? 'justify-between' : 'justify-end'
       }`}
     >
       {step !== 0 ? (
-        <button type='button' onClick={handleClickRoute} className='p-4'>
+        <IconBtnWrapper onClick={handleClickRoute}>
           <IconLeft />
-        </button>
+        </IconBtnWrapper>
       ) : null}
 
       <IconBtnWrapper onClick={() => router.push('/login')}>
