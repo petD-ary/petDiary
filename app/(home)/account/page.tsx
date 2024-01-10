@@ -6,20 +6,21 @@ import UserForm from '@/components/Account/UserForm';
 import { useRecoilValue } from 'recoil';
 import { stepState } from '@/recoil/Account/atoms';
 
-import { PetInForm } from '@/components/Account/PetInfoForm';
+import { PetInfoForm } from '@/components/Account/PetInfoForm';
 import ComplatedPage from '@/components/Account/ComplatedPage';
+import { Fragment } from 'react';
 
 const AccountPage = () => {
   const step = useRecoilValue(stepState);
 
   return (
-    <div className=''>
+    <Fragment>
       <Breadcrumb step={step} />
 
       {step === 0 && <UserForm />}
-      {step === 1 && <PetInForm />}
+      {step === 1 && <PetInfoForm />}
       {step === 2 && <ComplatedPage />}
-    </div>
+    </Fragment>
   );
 };
 

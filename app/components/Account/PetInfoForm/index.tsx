@@ -32,7 +32,7 @@ interface ErrorProps {
   name: boolean;
 }
 
-export const PetInForm = () => {
+export const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const [isOpen, setIsOpenModal] = useRecoilState(variantModalState);
