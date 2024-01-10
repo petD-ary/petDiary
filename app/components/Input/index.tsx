@@ -41,7 +41,7 @@ const Input = ({
 const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
 
 const Label = ({ children, ...rest }: LabelProps) => (
-  <label className={`flex gap-1 pb-2 ${Caption.caption1}`}>
+  <label className={`flex gap-1 pb-2 ${Caption.caption1} text-text-primary`}>
     {children}
     {rest.isRequired ? <span className='text-error'>*</span> : null}
   </label>
