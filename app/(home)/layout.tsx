@@ -17,10 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ko'>
-      <body className={`${pretendard.className} scrollbar-none`}>
+      <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <RecoilRootWrapper>
-          <HeadingComponent />
-          <Container>{children}</Container>
+          <div className='flex flex-col min-h-screen'>
+            <HeadingComponent />
+            <div className='flex-grow'>{children}</div>
+          </div>
           <Navbar />
         </RecoilRootWrapper>
       </body>
