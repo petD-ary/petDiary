@@ -14,7 +14,7 @@ const IconBtnWrapper = ({
   ...rest
 }: IconBtnWrapperProps) => {
   return (
-    <button type={type} onClick={onClick} className='p-4' {...rest}>
+    <button type={type} onClick={onClick} className='p-3' {...rest}>
       {children}
     </button>
   );
