@@ -10,6 +10,7 @@ import Input from '@/components/Input';
 import getBreedsList from '../PetInfoForm/getBreedsList';
 import Button from '@/components/Button';
 import { Title } from '@/constants/Typography/TypographyList';
+import createFuzzyMatcher from '@/utils/Fuzzymatcher';
 
 interface VariantModalProps {
   variant: string;
@@ -46,7 +47,11 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   useEffect(() => {
     if (search !== null) {
       getBreedsList(variant).then((result) => {
-        const searchList = result.filter((item) => item.breed.includes(search));
+        const regex = createFuzzyMatcher(search);
+
+        const searchList = result
+          .filter((item) => regex.test(item.breed))
+          .map((item) => ({ ...item }));
         setBreeds(searchList);
       });
     }
