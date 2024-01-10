@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='ko'>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className} scrollbar-none`}>
         <RecoilRootWrapper>
           <HeadingComponent />
           <Container>{children}</Container>
