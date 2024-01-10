@@ -56,6 +56,8 @@ const Heading = ({ children }: { children: ReactNode }) => {
 const Content = () => {
   const pathname = usePathname();
   const HeaderComponent = headerMap[pathname] || HeaderElement.Default; // 경로에 해당하는 헤더 컴포넌트 또는 기본값
+
+  if (pathname.includes('/account')) return null;
   return <HeaderComponent />;
 };
 
