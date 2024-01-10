@@ -1,33 +1,47 @@
-import React from "react";
-import Highlight from "../PetInfo/Highlight";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
+import { Caption, Title } from '@/constants/Typography/TypographyList';
 
 interface CardType {
-  title: string;
-  weather: string;
+  title?: string;
+  weather?: string;
+  temp?: string;
   addition?: React.ReactNode;
+  icon?: string;
+  isLoading?: boolean;
 }
 
-const WeatherCard: React.FC<CardType> = ({ title, weather, addition }) => {
+const WeatherCard: React.FC<CardType> = ({
+  title,
+  weather,
+  addition,
+  icon,
+  temp,
+  isLoading = false,
+}) => {
   return (
-    <div className="flex justify-between sm:w-1/2 md:w-full lg:w-1/2  h-full p-4 bg-grayColor-100 rounded-xl">
-      <div className="flex flex-col justify-between ">
-        <div className="text-2xl">
-          <div className="text-lg">{title}</div>
-          <Highlight content={weather} />
+    <div className='bg-white rounded-xl p-4'>
+      <div className='flex flex-col justify-between'>
+        <div className='text-2xl'>
+          <div className={`${Caption.caption2} text-text-primary`}>{title}</div>
+          <div
+            className={`flex gap-2 text-text-title mt-1 ${Title.title3} ${
+              isLoading ? 'w-40 h-[22px] bg-grayColor-100 animate-pulse' : ''
+            }`}
+          >
+            <p>{temp}</p>
+            <p>{weather}</p>
+          </div>
         </div>
         {addition}
       </div>
-      <div className="flex items-end ">
-        <div className="relative p-5 bg-grayColor-200 rounded-lg">
-          <Image
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-            src={""}
-            alt={""}
-          />
+      <div className='w-full flex justify-end'>
+        <div
+          className={`relative w-11 h-11 bg-grayColor-100 rounded-2xl ${
+            isLoading ? 'animate-pulse' : ''
+          }`}
+        >
+          {icon ? <Image fill src={icon} alt='오늘의 날씨 아이콘' /> : null}
         </div>
       </div>
     </div>
