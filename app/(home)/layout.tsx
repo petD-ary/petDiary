@@ -1,5 +1,5 @@
 import './globals.css';
-import type { GetServerSideProps, Metadata } from 'next';
+import type { Metadata } from 'next';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import pretendard from '@/components/Pretendard';
 import Container from '@/components/Container';

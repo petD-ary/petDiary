@@ -9,20 +9,19 @@ import together from '@/assets/images/profile/together.png';
 import dog from '@/assets/images/profile/dog.jpeg';
 import axios from 'axios';
 
-const Profile = ({ data }: any) => {
+const Profile = ({ user }: any) => {
   const petData = [
     { profile: 'img', age: '3', name: '김콩', birth: '12', born: '1004', together: '1234' },
   ];
 
   return (
     <div className='mb-4 py-6 bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
-      {data.nickname}
       {petData.map((item, _) => (
         <div key={item.name}>
           <div className='flex flex-col items-center gap-3 mb-4'>
             <div className='rounded-full overflow-hidden w-20 h-20 '>
               <Image src={dog} alt='profile' width={80} height={80} />
-              {data.nickname}
+              {user.nickname}
             </div>
             <div className='flex flex-row items-center gap-2'>
               <div className={`px-2 py-1 ${Extra} text-primary-500 bg-primary-50`}>{item.age}살</div>
