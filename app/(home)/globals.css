@@ -22,28 +22,26 @@
     width: 100vw; /* 전체 뷰포트 너비 */
     bottom: 0; /* 화면 하단에 위치 */
     left: 0; /* 화면 왼쪽에 위치 */
-    animation: slideUp 0.3s ease-out; /* 애니메이션 효과 */
+    /* animation: slideUp 0.3s ease-out; 애니메이션 효과 */
   }
 
-  @keyframes slideUp {
+  /* @keyframes slideUp {
     from {
       transform: translateY(100%);
     }
     to {
       transform: translateY(0);
     }
-  }
-  .custom-datepicker-dropdown {
+  } */
+  .custom-datepicker {
+  
   }
   .custom-datepicker-dropdown .ant-picker-panel-container {
-    /* CSS 변수 초기화 */
-    --arrow-x: initial;
-    --arrow-y: initial;
-    /* inset 속성 재정의 */
-    inset: initial;
+ 
     position: fixed; /* 고정 위치 */
-    bottom: 0; /* 화면 하단 */
-    left: 0; /* 화면 왼쪽 */
+    inset: auto auto 0 0; /* top, right, bottom, left */
+    bottom: 0 ;
+    left: 0 ;
     width: 100vw; /* 전체 뷰포트 너비 */
     animation: slideUp 0.3s ease-out; /* 애니메이션 효과 */
     z-index: 999; /* 다른 요소들 위에 표시 */
@@ -57,12 +55,5 @@
     align-items: center; /* 수평 방향 가운데 정렬 */
   }
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
+
 }

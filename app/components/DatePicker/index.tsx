@@ -1,6 +1,9 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import type { DatePickerProps } from 'antd';
 import { DatePicker as AntDatePicker, Space } from 'antd';
+import { walkingIndex } from '@/utils/WalkingIndex';
 
 const DatePicker = () => {
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {

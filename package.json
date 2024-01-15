@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/react-calendar": "^4.1.0",
     "antd": "^5.12.7",
     "axios": "^1.6.2",
     "body-parser": "^1.20.2",
@@ -40,4 +41,5 @@
     "tailwindcss": "^3.3.5",
     "typescript": "^5"
   }
+
 }

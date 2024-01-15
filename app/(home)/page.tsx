@@ -2,6 +2,7 @@ import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import Profile from '@/components/Main/Profile';
 import Walk from '@/components/Main/Walk';
 import { getUser } from '@/libs/fetchUserAuthInfo';
+import { walkingIndex } from '@/utils/WalkingIndex';
 
 export default async function Home() {
   const user = await getUser();
