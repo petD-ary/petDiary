@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:path*',
+        source: '/B552584/ArpltnInforInqireSvc/:path*',
         destination: `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/:path*`,
       },
     ];

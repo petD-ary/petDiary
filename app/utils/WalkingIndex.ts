@@ -1,16 +1,11 @@
-import axios from 'axios';
+import { fineDustApi } from '@/libs/axios';
 
-export const walkingIndex = async () => {
-  axios.defaults.withCredentials = true;
-
-  const url = `/B552584/ArpltnInforInqireSvc/getCtprvnRItmMesureDnsty?serviceKey=${process.env.NEXT_PUBLIC_SERVICE_KEY}`;
-
+export async function walkingIndex() {
   try {
-    const response = await axios.get(url);
-    console.log('Status:', response.status);
-    console.log('Headers:', response.headers);
-    console.log('Body:', response.data);
+    const response = await fineDustApi('/getCtprvnRItmMesureDnsty');
+    console.log(response.data.khaiValue);
+    return response.data;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.log(error);
   }
-};
+}
