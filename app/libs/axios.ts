@@ -6,13 +6,12 @@ export const instance = axios.create({
 });
 // khaiValue
 export const fineDustApi = axios.create({
-  baseURL: 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc',
+  baseURL: 'http://apis.data.go.kr/B552584/ArpltnStatsSvc',
   params: {
     serviceKey: `${process.env.NEXT_PUBLIC_SERVICE_KEY}`,
     returnType: 'json',
-    numOfRows: '100',
-    pageNo: '1',
-    sidoName: '서울',
-    ver: '1.0',
+    numOfRows: '50',
+    sidoName: '충청',
+    searchCondition: 'DAILY',
   },
 });

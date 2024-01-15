@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 import { instance } from './axios';
+
 export async function getUser() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
