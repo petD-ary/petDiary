@@ -1,6 +1,6 @@
 'use client';
 import ItemList from '@/data/ItemList';
-import useModal from '@/hooks/useModal';
+import useClickOutsideArea from '@/hooks/useClickOutsideArea';
 import { searchModalState } from '@/recoil/Store/atoms';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -24,7 +24,7 @@ const Search = ({ searchQuery, products }: SearchProps) => {
     setIsOpen(false);
   };
 
-  useModal(ref, handleOpenModal);
+  useClickOutsideArea(ref, handleOpenModal);
   return (
     <div className='fixed z-50 w-full h-full top-0 left-0 bg-black/30'>
       <div ref={ref} className='fixed right-0 w-[360px] h-full bg-white p-5'>

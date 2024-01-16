@@ -1,20 +1,18 @@
 'use client';
 
-import Input from '@/components/Input';
-
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
-import Heading from '../Heading';
-import IconDown from '@/assets/images/icon-down.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  nicknameState,
-  stepState,
-  variantModalState,
-} from '@/recoil/Account/atoms';
-import VariantModal from '../VariantModal';
-import Button from '@/components/Button';
-import UpdatedUserData from '@/utils/UpdatedUserData';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+
+import Input from '@/components/Input';
 import { Body } from '@/components/Typography/TypographyList';
+import Button from '@/components/Button';
+import IconDown from '@/assets/images/icon-down.svg';
+import { nicknameState, stepState } from '@/recoil/Account/atoms';
+import UpdatedUserData from '@/utils/UpdatedUserData';
+import { useModal } from '@/hooks/useModal';
+import Heading from '../Heading';
+import VariantModal from '../VariantModal';
+import { MODAL_TYPE } from '@/components/Modal';
 
 interface PetObjProps {
   petType: string;
@@ -27,15 +25,10 @@ interface PetObjProps {
   weight: string;
 }
 
-interface ErrorProps {
-  breed: boolean;
-  name: boolean;
-}
-
 export const PetInForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
-  const [isOpen, setIsOpenModal] = useRecoilState(variantModalState);
+  const { addModal } = useModal();
   const [petInfo, setPetInfo] = useState<PetObjProps>({
     petType: '강아지',
     breed: '',
@@ -45,11 +38,6 @@ export const PetInForm = () => {
     birthday: '',
     adoptionDate: '',
     weight: '',
-  });
-
-  const [error, setError] = useState<ErrorProps>({
-    breed: true,
-    name: true,
   });
 
   const [unknownBirthday, setUnknownBirthday] = useState(false);
@@ -98,33 +86,15 @@ export const PetInForm = () => {
     setStep((prev) => prev + 1);
   };
 
-  useEffect(() => {
-    if (petInfo.breed === '') {
-      setError((prev) => ({ ...prev, breed: true }));
-    } else {
-      setError((prev) => ({ ...prev, breed: false }));
-    }
-  }, [petInfo.breed]);
-
-  useEffect(() => {
-    if (petInfo.name === '') {
-      setError((prev) => ({ ...prev, name: true }));
-    } else {
-      setError((prev) => ({ ...prev, name: false }));
-    }
-  }, [petInfo.name]);
-
   return (
     <Fragment>
-      {isOpen && (
-        <VariantModal
-          variant={petInfo.petType}
-          breed={petInfo.breed}
-          setBreed={(value) =>
-            setPetInfo((prev) => ({ ...prev, breed: value }))
-          }
-        />
-      )}
+      <VariantModal
+        variant={petInfo.petType}
+        breed={petInfo.breed}
+        setBreed={(value) =>
+          setPetInfo((prev) => ({ ...prev, breed: value }))
+        }
+      />
       <Heading
         title='반려동물 정보 입력'
         subTitle='추가 등록은 홈화면-편집에서 가능합니다'
@@ -162,10 +132,10 @@ export const PetInForm = () => {
           </div>
         </Input>
 
-        <Input onClick={() => setIsOpenModal(true)}>
+        <Input onClick={() => addModal(MODAL_TYPE.BREED)}>
           <Input.Label isRequired>품종</Input.Label>
           <div
-            onClick={() => setIsOpenModal(true)}
+            onClick={() => addModal(MODAL_TYPE.BREED)}
             className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-text-dividers focus:border-text-border transition-colors'
           >
             <p className={`flex justify-between items-center ${Body.body1}`}>
@@ -276,7 +246,7 @@ export const PetInForm = () => {
         <Button
           variant='contained'
           type='submit'
-          isDisabled={error.breed || error.name}
+          isDisabled={!petInfo.breed || !petInfo.name}
         >
           확인
         </Button>

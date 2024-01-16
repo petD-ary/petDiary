@@ -5,11 +5,6 @@ export const stepState = atom<number>({
   default: 0,
 });
 
-export const variantModalState = atom<boolean>({
-  key: 'variantModalState',
-  default: false,
-});
-
 export const nicknameState = atom<string>({
   key: 'nicknameState',
   default: '',
