@@ -1,5 +1,5 @@
 'use client';
-import { walkingIndex } from '@/utils/WalkingIndex';
+import { walkingIndex } from '@/utils/walkingIndex';
 import React, { useEffect } from 'react';
 
 import WeatherCard from '../WeatherCard/WeatherCard';
