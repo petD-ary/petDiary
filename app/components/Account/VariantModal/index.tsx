@@ -26,16 +26,14 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   };
 
   useEffect(() => {
-    getBreedsList(variant).then((result) => setBreeds(result));
-  }, [variant]);
-
-  useEffect(() => {
-    if (search !== null) {
-      getBreedsList(variant).then((result) => {
-        const searchList = result.filter((item) => item.breed.includes(search));
+    getBreedsList(variant).then((result) => {
+      if (search !== null) {
+        const searchList = result.filter((item: { breed: string; }) => item.breed.includes(search));
         setBreeds(searchList);
-      });
-    }
+      } else {
+        setBreeds(result);
+      }
+    });
   }, [search, variant]);
 
   return (

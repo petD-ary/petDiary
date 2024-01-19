@@ -1,8 +1,8 @@
 import { modalState } from "@/recoil/Modal/atom";
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 export const useModal = () => {
-  const setModal = useSetRecoilState(modalState);
+  const [modalList, setModal] = useRecoilState(modalState);
 
   const addModal = (value: string) => {
     setModal((prevModal) => [...prevModal, value]);
@@ -19,5 +19,6 @@ export const useModal = () => {
   return {
     addModal,
     removeModal,
+    modalList,
   };
 }

@@ -1,10 +1,10 @@
-import { MouseEvent, useEffect, useState } from 'react';
+'use client';
+
+import { MouseEvent, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import IconClose from '@/assets/images/Icon-x.svg';
 import Button from '@/components/Button';
-import { modalState } from '@/recoil/Modal/atom';
 import { Title } from '@/components/Typography/TypographyList';
 import { useModal } from '@/hooks/useModal';
 
@@ -27,19 +27,12 @@ interface Props {
 
 
 const Modal = ({ type, children }: Props) => {
-  const [modalList, setModalList] = useRecoilState(modalState);
-  const { removeModal } = useModal();
-  const [isBrowser, setIsBrowser] = useState(false);
+  const { modalList, removeModal } = useModal();
   
   const closeModal = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     removeModal();
   };
-
-  useEffect(() => {
-    setIsBrowser(true);
-    console.log(modalList);
-  }, []);
 
   const modalContent = modalList.includes(type) ? (
     <div onClick={(e) => closeModal(e)} className='fixed z-20 w-full md:max-w-3xl h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
@@ -49,12 +42,12 @@ const Modal = ({ type, children }: Props) => {
     </div>
   ) : null;
 
-  if (isBrowser) {
-    return createPortal(modalContent, document.body);
-  }
-  return null;
+  return createPortal(modalContent, document.body);
 };
 
+/**
+ * 모달 생성 시에 useEffect 실행되서 modal 을 제외하고, scroll 동작 막기 위함.
+ */
 const ModalContainer = ({
   children,
 }: {children?: React.ReactNode}) => {
@@ -67,11 +60,8 @@ const ModalContainer = ({
 
   return (
     <div onClick={(e) => e.stopPropagation()} 
-      className='absolute left-1/2 -translate-x-1/2 bottom-0
-      w-full md:max-w-3xl h-[calc(100%_-_56px)]
-      shadow-[0_-10px_60px_rgba(0,0,0,0.15)]
-      rounded-t-lg rounded-r-lg bg-white
-      flex flex-col hihi'>
+      className='absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(100%_-_56px)]
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'>
       {children}
     </div>
   );
