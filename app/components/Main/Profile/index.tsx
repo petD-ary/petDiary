@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import birth from '@/assets/images/profile/birth.png';
 import born from '@/assets/images/profile/born.png';
 import together from '@/assets/images/profile/together.png';
-import dog from '@/assets/images/profile/dog.jpeg';
+import dog from '@/assets/images/profile/dog/dog1x.webp';
 import { getPetData } from '@/utils/fetchPetData';
 import { PetData } from '@/types/petData';
 import { calculateElapsedDays, calculateRemainingDays } from '@/utils/calculateDay';
