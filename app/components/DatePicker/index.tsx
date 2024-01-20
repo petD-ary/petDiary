@@ -1,13 +1,18 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import type { DatePickerProps } from 'antd';
 import { DatePicker as AntDatePicker, Space } from 'antd';
+import moment from 'moment';
+import 'moment/locale/ko'; // 한국어 locale
+import locale from 'antd/es/date-picker/locale/ko_KR'; // antd 한국어 locale 설정
 
 const DatePicker = () => {
-  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+  const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
+
+  useEffect(() => {
+    moment.locale('ko'); // moment의 locale을 한국어로 설정
+  }, []);
 
   return (
     <Space direction='vertical'>
@@ -15,8 +20,8 @@ const DatePicker = () => {
         <AntDatePicker
           onChange={onChange}
           placeholder='연도 - 월 - 일'
+          locale={locale} // Ant DatePicker에 한국어 locale 적용
           className='custom-datepicker p-4 w-full rounded-lg '
-          dropdownClassName='custom-datepicker-dropdown'
         />
       </div>
     </Space>
