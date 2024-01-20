@@ -7,6 +7,7 @@ import birth from '@/assets/images/profile/birth.png';
 import born from '@/assets/images/profile/born.png';
 import together from '@/assets/images/profile/together.png';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
+import dogPng from '@/assets/images/profile/dog/dog.png';
 import { getPetData } from '@/utils/fetchPetData';
 import { PetData } from '@/types/petData';
 import { calculateElapsedDays, calculateRemainingDays } from '@/utils/calculateDay';
@@ -34,7 +35,11 @@ const Profile = ({ user }: any) => {
         <div key={item.name}>
           <div className='flex flex-col items-center gap-3 mb-4'>
             <div className='rounded-full overflow-hidden w-20 h-20 '>
-              <Image src={dog} alt='profile' width={80} height={80} />
+              <picture>
+                <source srcSet={dogPng.src} />
+                <Image src={dog} alt='profile' width={80} height={80} />
+              </picture>
+
               {item.name}
             </div>
             <div className='flex flex-row items-center gap-2'>
