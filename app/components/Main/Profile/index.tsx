@@ -36,7 +36,7 @@ const Profile = ({ user }: any) => {
             <div className='rounded-full overflow-hidden w-20 h-20 '>
               <picture>
                 <source srcSet={dogPng.src} />
-                <Image src={dog} alt='profile' width={80} height={80} />
+                <Image src={dog} alt='profile' width={80} height={80} priority />
               </picture>
 
               {item.name}

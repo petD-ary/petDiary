@@ -1,7 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { Caption, Title } from '@/components/Typography/TypographyList';
-import normal from '@/assets/images/profile/normal.png';
+import normal from '@/assets/images/status/normal.png';
+import bad from '@/assets/images/status/bad.png';
+import veryBad from '@/assets/images/status/veryBad.png';
 import IconInfo from '@/assets/images/Icon-info.svg';
 type weatherData = {
   state: string;
@@ -12,6 +14,17 @@ interface CardType {
 }
 
 const WeatherCard: React.FC<CardType> = ({ weather }) => {
+  let imageSrc;
+  switch (weather.img) {
+    case 'bad.png':
+      imageSrc = bad;
+      break;
+    case 'veryBad.png':
+      imageSrc = veryBad;
+      break;
+    default:
+      imageSrc = normal;
+  }
   return (
     <div className='flex flex-col w-1/2 rounded-xl p-4 border'>
       <div className='flex flex-row justify-between '>
@@ -27,7 +40,7 @@ const WeatherCard: React.FC<CardType> = ({ weather }) => {
           style={{
             objectFit: 'cover',
           }}
-          src={normal}
+          src={imageSrc}
           width={44}
           height={44}
           alt={'weatherimoji'}
