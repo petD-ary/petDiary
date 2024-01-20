@@ -35,7 +35,7 @@ const Modal = ({ type, children }: Props) => {
   };
 
   const modalContent = modalList.includes(type) ? (
-    <div onClick={(e) => closeModal(e)} className='fixed z-20 w-full md:max-w-3xl h-full left-1/2 bottom-0 -translate-x-1/2 bg-black/30'>
+    <div onClick={(e) => closeModal(e)} className='fixed z-20 w-full md:max-w-3xl h-full left-1/2 bottom-0 transform -translate-x-1/2 bg-black/30'>
       <ModalContainer>
         {children}
       </ModalContainer>
@@ -46,7 +46,7 @@ const Modal = ({ type, children }: Props) => {
 };
 
 /**
- * 모달 생성 시에 useEffect 실행되서 modal 을 제외하고, scroll 동작 막기 위함.
+ * Modal 생성 시에 useEffect 실행되서 Modal 을 제외하고, scroll 동작 막기 위함.
  */
 const ModalContainer = ({
   children,
@@ -60,7 +60,7 @@ const ModalContainer = ({
 
   return (
     <div onClick={(e) => e.stopPropagation()} 
-      className='absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(100%_-_56px)]
+      className='animate-slide-up absolute left-1/2 transform -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(100%_-_56px)]
       shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'>
       {children}
     </div>
