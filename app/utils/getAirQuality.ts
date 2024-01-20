@@ -1,3 +1,5 @@
+import { AreaDataType, SetStateType } from '@/types/weather';
+
 export const getAirQuality = (pm10: number, pm25: number) => {
   let pm10Quality = '';
   let pm25Quality = '';
@@ -42,4 +44,16 @@ export const getAirQualityImage = (status: string) => {
   }
 
   return airQuality;
+};
+
+export const processDustSetData = (areaData: AreaDataType, setState: SetStateType) => {
+  if (areaData) {
+    const pm10Value = +areaData.pm10Value || 0;
+    const pm25Value = +areaData.pm25Value || 0;
+
+    const stateResult = getAirQuality(pm10Value, pm25Value);
+    const stateImgResult = getAirQualityImage(stateResult);
+
+    setState({ state: stateResult, img: stateImgResult });
+  }
 };

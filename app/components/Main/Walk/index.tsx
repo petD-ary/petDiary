@@ -1,6 +1,6 @@
 'use client';
-import { getAirQuality, getAirQualityImage } from '@/utils/getAirQuality';
-import { walkingIndex } from '@/utils/walkingIndex';
+import { processDustSetData } from '@/utils/getAirQuality';
+import { walkingIndex } from '@/api/walkingIndex';
 import React, { useEffect, useState } from 'react';
 import WeatherCard from '../WeatherCard/WeatherCard';
 
@@ -14,20 +14,16 @@ const Walk = () => {
     area: '강남구',
   });
 
+  const fetchAreaData = async (sido: string, area: string) => {
+    const data = await walkingIndex(sido);
+    return data.find((d: { cityName: string }) => d.cityName === area);
+  };
+
+  // 기존 fetchData 함수에서 두 함수를 사용
   const fetchData = async (sido: string, area: string) => {
     try {
-      const data = await walkingIndex(sido);
-      const areaData = data.find((d: { cityName: string }) => d.cityName === area);
-
-      if (areaData) {
-        const pm10Value = +areaData.pm10Value || 0;
-        const pm25Value = +areaData.pm25Value || 0;
-
-        const stateResult = getAirQuality(pm10Value, pm25Value);
-        const stateImgResult = getAirQualityImage(stateResult);
-
-        setState({ state: stateResult, img: stateImgResult });
-      }
+      const areaData = await fetchAreaData(sido, area);
+      processDustSetData(areaData, setState);
     } catch (error) {
       console.log(error);
     }
