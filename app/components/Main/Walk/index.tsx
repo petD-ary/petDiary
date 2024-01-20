@@ -8,9 +8,10 @@ const walkData = {
   img: '',
 };
 const Walk = () => {
-  // useEffect(() => {
-  //   const data = walkingIndex();
-  // });
+  useEffect(() => {
+    const data = walkingIndex();
+    console.log(data, '산책지수');
+  });
   return <WeatherCard weather={walkData} />;
 };
 

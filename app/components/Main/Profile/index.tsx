@@ -19,7 +19,6 @@ const Profile = ({ user }: any) => {
     const fetchData = async () => {
       try {
         const petData = await getPetData();
-        console.log(petData, 'petData');
         setPetData(petData);
       } catch (error) {
         console.error(error);

@@ -11,7 +11,7 @@ export const fineDustApi = axios.create({
     serviceKey: `${process.env.NEXT_PUBLIC_SERVICE_KEY}`,
     returnType: 'json',
     numOfRows: '50',
-    sidoName: '충청',
+    sidoName: '서울',
     searchCondition: 'DAILY',
   },
 });
