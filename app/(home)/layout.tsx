@@ -5,6 +5,7 @@ import pretendard from '@/components/Pretendard';
 import Container from '@/components/Container';
 import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
+import { ConfigProvider } from 'antd';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -15,13 +16,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='ko'>
       <body className={pretendard.className}>
-        <RecoilRootWrapper>
-          <HeadingComponent />
-
-          <Container>{children}</Container>
-
-          <Navbar />
-        </RecoilRootWrapper>
+        <ConfigProvider theme={{ hashed: false }}>
+          <RecoilRootWrapper>
+            <HeadingComponent />
+            <Container>{children}</Container>
+            <Navbar />
+          </RecoilRootWrapper>
+        </ConfigProvider>
       </body>
     </html>
   );

@@ -1,12 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')([
-  'antd',
-  'rc-picker',
-  'rc-pagination',
-  'rc-notification',
-]);
 
-module.exports = withTM({
+const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
     return [
@@ -24,6 +18,6 @@ module.exports = withTM({
 
     return config;
   },
-});
+};
 
 module.exports = nextConfig;

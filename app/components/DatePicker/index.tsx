@@ -1,30 +1,36 @@
-'use client';
+import React, { useState } from 'react';
+import { ConfigProvider, DatePicker, DatePickerProps } from 'antd';
 
-import React from 'react';
-
+import koKR from 'antd/lib/locale/ko_KR';
 import moment from 'moment';
-import 'moment/locale/ko';
-import locale from 'antd/lib/locale/ko_KR';
 
-moment.locale('ko');
-
-const DatePickerForm = () => {
+export const DatePickerBox = () => {
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     console.log(date, dateString);
   };
-
   return (
-    <Space direction='vertical'>
-      <div className='relative'>
+    <div className='locale-components'>
+      <div className='example'>
         <DatePicker
           onChange={onChange}
           placeholder='연도 - 월 - 일'
           className='custom-datepicker p-4 w-full rounded-lg '
           popupClassName='custom-datepicker-dropdown'
-          locale={locale}
         />
       </div>
-    </Space>
+    </div>
+  );
+};
+const DatePickerForm = () => {
+  const [locale, setLocale] = useState(koKR);
+
+  return (
+    <div>
+      <div className='change-locale'>{/* Radio.Group에 value와 onChange 이벤트 핸들러 연결 */}</div>
+      <ConfigProvider locale={locale}>
+        <DatePickerBox key={locale ? locale.locale : 'ko'} />
+      </ConfigProvider>
+    </div>
   );
 };
 
