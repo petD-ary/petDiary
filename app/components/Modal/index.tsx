@@ -67,19 +67,33 @@ const ModalContainer = ({
   );
 };
 
-const Header = ({title}: {title: string}) => {
+const Header = ({title, titleType = 'left'}: {title: string, titleType: 'center' | 'left'}) => {
   const { removeModal } = useModal();
-  return (
-    <>
-      <div className='px-2 py-1 flex justify-end'>
-        <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
-          <IconClose />
+  if( titleType === 'left' ) {
+    return (
+      <div>
+        <div className='px-2 py-1 flex justify-end'>
+          <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
+            <IconClose />
+          </div>
         </div>
+        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
+          {title}
+        </p>
       </div>
-      <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
+    )
+  }
+
+  return (
+    <div className='px-2 py-1 flex justify-between items-center'>
+      <div className='w-12'/>
+      <p className={`text-grayColor-900 ${Title.title3}`}>
         {title}
       </p>
-    </>
+      <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
+        <IconClose />
+      </div>
+    </div>
   )
 }
 
