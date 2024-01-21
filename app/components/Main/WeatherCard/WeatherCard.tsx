@@ -20,7 +20,7 @@ const WeatherCard: React.FC<CardType> = ({
   isLoading = false,
 }) => {
   return (
-    <div className='bg-white rounded-xl p-4'>
+    <div className='bg-white rounded-xl p-4 cursor-pointer'>
       <div className='flex flex-col justify-between'>
         <div className='text-2xl'>
           <div className={`${Caption.caption2} text-text-primary`}>{title}</div>
