@@ -16,8 +16,8 @@ const AccountPage = () => {
     <div className=''>
       <Breadcrumb step={step} />
 
-      {step === 0 && <UserForm />}
-      {step === 1 && <PetInForm />}
+      {step === 1 && <UserForm />}
+      {step === 0 && <PetInForm />}
       {step === 2 && <ComplatedPage />}
     </div>
   );

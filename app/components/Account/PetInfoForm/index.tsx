@@ -12,7 +12,7 @@ import Button from '@/components/Button';
 
 import UpdatedUserData from '@/utils/UpdatedUserData';
 import { Body } from '@/components/Typography/TypographyList';
-import DatePicker from '@/components/DatePicker';
+import DatePickerForm from '@/components/DatePicker';
 
 interface PetObjProps {
   petType: string;
@@ -203,7 +203,7 @@ export const PetInForm = () => {
             <Input.Label>아이 생일</Input.Label>
             <Input.DateInput disabled={unknownBirthday} />
           </Input>
-          <DatePicker />
+          <DatePickerForm />
           <Input onChange={handleUnknownBirthdayCheck}>
             <Input.CheckInput id='unknownBirthday' onChange={handleUnknownBirthdayCheck}>
               생일을 잘 모르겠어요

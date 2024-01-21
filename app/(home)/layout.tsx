@@ -17,7 +17,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={pretendard.className}>
         <RecoilRootWrapper>
           <HeadingComponent />
+
           <Container>{children}</Container>
+
           <Navbar />
         </RecoilRootWrapper>
       </body>
