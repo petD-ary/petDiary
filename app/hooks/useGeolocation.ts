@@ -16,6 +16,15 @@ export interface GeolocationState {
   error: PositionError | null;
 }
 
+/*
+ * @return geolocation(getter)
+ *
+ * -------------------------
+ * position : 위치정보 허용 및 데이터 조회 가능 시 사용자 위치 좌표를 반환
+ * error : error 발생 시 code 및 message를 반환
+ * -------------------------------
+ */
+
 const useGeolocation = () => {
   const [geolocation, setGeolocation] = useState<GeolocationState>({
     position: null,
