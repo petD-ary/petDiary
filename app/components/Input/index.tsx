@@ -29,7 +29,6 @@ const Input = ({
             onChange,
             error,
           };
-
           return cloneElement(child, newProps);
         }
         return null;
