@@ -1,36 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
+import { DataState } from '..';
 
 interface CardType {
-  title?: string;
-  weather?: string;
-  temp?: string;
+  data?: DataState;
   addition?: React.ReactNode;
-  icon?: string;
   isLoading?: boolean;
 }
 
 const WeatherCard: React.FC<CardType> = ({
-  title,
-  weather,
+  data,
   addition,
-  icon,
-  temp,
   isLoading = false,
 }) => {
   return (
     <div className='bg-white rounded-xl p-4 cursor-pointer'>
       <div className='flex flex-col justify-between'>
         <div className='text-2xl'>
-          <div className={`${Caption.caption2} text-text-primary`}>{title}</div>
+          <div className={`${Caption.caption2} text-text-primary`}>
+            오늘의 날씨
+          </div>
           <div
             className={`flex gap-2 text-text-title mt-1 ${Title.title3} ${
               isLoading ? 'w-40 h-[22px] bg-grayColor-100 animate-pulse' : ''
             }`}
           >
-            <p>{temp}</p>
-            <p>{weather}</p>
+            <p>{data?.temp.main}</p>
+            <p>{data?.weather}</p>
           </div>
         </div>
         {addition}
@@ -41,7 +38,9 @@ const WeatherCard: React.FC<CardType> = ({
             isLoading ? 'animate-pulse' : ''
           }`}
         >
-          {icon ? <Image fill src={icon} alt='오늘의 날씨 아이콘' /> : null}
+          {data?.icon ? (
+            <Image fill src={data?.icon} alt='오늘의 날씨 아이콘' />
+          ) : null}
         </div>
       </div>
     </div>
