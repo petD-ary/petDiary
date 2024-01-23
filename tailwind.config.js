@@ -89,6 +89,15 @@ module.exports = {
         },
         backgroundColor: '#fbfbfb',
       },
+      keyframes: {
+        'slide-up': {
+          '0%': { transform: 'translate(-50%, 100%)' },
+          '100%': { transform: 'translate(-50%, 0)' },
+        },
+      },
+      animation: {
+        'slide-up': 'slide-up 0.4s ease-out',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar')],

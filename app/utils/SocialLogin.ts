@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import axios from "axios";
+import axios from 'axios';
 
 // 카카오톡
 const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
@@ -32,7 +32,7 @@ export const naverLogin = () => {
 // 유저 정보 요청
 export const userData = async () => {
   try {
-    const response = await axios.get("/users/login");
+    const response = await axios.get('/users/login');
     console.log(response);
   } catch (error) {
     console.log(error);
