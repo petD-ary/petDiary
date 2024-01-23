@@ -6,6 +6,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Heading from '../Heading';
 import Button from '@/components/Button';
 import getNicknameValidation from './getNicknameValidation';
+import DatePicker from 'antd/es/date-picker';
 
 interface AccountProps {
   userId: string;
@@ -51,7 +52,6 @@ const UserForm = () => {
   return (
     <>
       <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
-
       <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
         <div className='flex flex-col pt-6 pb-3'>
           <Input onChange={handleChange} value={nickname} error={error}>

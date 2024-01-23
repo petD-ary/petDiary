@@ -6,15 +6,13 @@ import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import IconDown from '@/assets/images/icon-down.svg';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  nicknameState,
-  stepState,
-  variantModalState,
-} from '@/recoil/Account/atoms';
+import { nicknameState, stepState, variantModalState } from '@/recoil/Account/atoms';
 import VariantModal from '../VariantModal';
 import Button from '@/components/Button';
+
 import UpdatedUserData from '@/utils/UpdatedUserData';
 import { Body } from '@/components/Typography/TypographyList';
+import DatePicker from '@/components/DatePicker';
 
 interface PetObjProps {
   petType: string;
@@ -75,8 +73,7 @@ export const PetInForm = () => {
       target: { value },
     } = e;
 
-    if (value !== petInfo.gender)
-      return setPetInfo((prev) => ({ ...prev, gender: value }));
+    if (value !== petInfo.gender) return setPetInfo((prev) => ({ ...prev, gender: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -120,25 +117,13 @@ export const PetInForm = () => {
         <VariantModal
           variant={petInfo.petType}
           breed={petInfo.breed}
-          setBreed={(value) =>
-            setPetInfo((prev) => ({ ...prev, breed: value }))
-          }
+          setBreed={(value) => setPetInfo((prev) => ({ ...prev, breed: value }))}
         />
       )}
-      <Heading
-        title='반려동물 정보 입력'
-        subTitle='추가 등록은 홈화면-편집에서 가능합니다'
-      />
+      <Heading title='반려동물 정보 입력' subTitle='추가 등록은 홈화면-편집에서 가능합니다' />
 
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className='py-10 flex flex-col gap-8'
-      >
-        <Input
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-          }
-        >
+      <form onSubmit={(e) => handleSubmit(e)} className='py-10 flex flex-col gap-8'>
+        <Input onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}>
           <Input.Label isRequired>반려동물</Input.Label>
           <div className='w-full flex gap-3'>
             <Input.CheckOnlyOneInput
@@ -146,18 +131,14 @@ export const PetInForm = () => {
               id='dog'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-              }
+              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
             />
             <Input.CheckOnlyOneInput
               value='고양이'
               id='cat'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) =>
-                setPetInfo((prev) => ({ ...prev, petType: e.target.value }))
-              }
+              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
             />
           </div>
         </Input>
@@ -179,17 +160,13 @@ export const PetInForm = () => {
 
         <Input
           value={petInfo.name}
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, name: e.target.value }))
-          }
+          onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
         >
           <Input.Label isRequired>아이 이름</Input.Label>
           <Input.TextInput
             placeholder='반려동물의 이름을 입력해 주세요'
             value={petInfo.name}
-            onChange={(e) =>
-              setPetInfo((prev) => ({ ...prev, name: e.target.value }))
-            }
+            onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
           />
         </Input>
 
@@ -226,12 +203,9 @@ export const PetInForm = () => {
             <Input.Label>아이 생일</Input.Label>
             <Input.DateInput disabled={unknownBirthday} />
           </Input>
-
+          <DatePicker />
           <Input onChange={handleUnknownBirthdayCheck}>
-            <Input.CheckInput
-              id='unknownBirthday'
-              onChange={handleUnknownBirthdayCheck}
-            >
+            <Input.CheckInput id='unknownBirthday' onChange={handleUnknownBirthdayCheck}>
               생일을 잘 모르겠어요
             </Input.CheckInput>
           </Input>
@@ -239,45 +213,29 @@ export const PetInForm = () => {
 
         <Input
           value={petInfo.adoptionDate}
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
-          }
+          onChange={(e) => setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))}
         >
           <Input.Label isRequired>가족이 된 날</Input.Label>
           <Input.DateInput
             value={petInfo.adoptionDate}
-            onChange={(e) =>
-              setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
-            }
+            onChange={(e) => setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))}
           />
         </Input>
 
         <Input
           value={petInfo.weight}
-          onChange={(e) =>
-            setPetInfo((prev) => ({ ...prev, weight: e.target.value }))
-          }
+          onChange={(e) => setPetInfo((prev) => ({ ...prev, weight: e.target.value }))}
         >
           <Input.Label>몸무게 입력</Input.Label>
           <Input.TextInput
             placeholder='몸무게를 입력해 주세요'
             value={petInfo.weight}
-            onChange={(e) =>
-              setPetInfo((prev) => ({ ...prev, weight: e.target.value }))
-            }
+            onChange={(e) => setPetInfo((prev) => ({ ...prev, weight: e.target.value }))}
           />
-          <p
-            className={`absolute top-[41px] right-3 text-text-secondary ${Body.body1}`}
-          >
-            KG
-          </p>
+          <p className={`absolute top-[41px] right-3 text-text-secondary ${Body.body1}`}>KG</p>
         </Input>
 
-        <Button
-          variant='contained'
-          type='submit'
-          isDisabled={error.breed || error.name}
-        >
+        <Button variant='contained' type='submit' isDisabled={error.breed || error.name}>
           확인
         </Button>
       </form>
