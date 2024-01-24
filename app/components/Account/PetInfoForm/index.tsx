@@ -8,9 +8,9 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { MODAL_TYPE } from '@/components/Modal';
 import DatePicker from '@/components/DatePicker';
-import { Body } from '@/components/Typography/TypographyList';
+import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
-import UpdatedUserData from '@/utils/UpdatedUserData';
+import UpdatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
@@ -27,7 +27,7 @@ interface PetObjProps {
   weight: string;
 }
 
-export const PetInForm = () => {
+export const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
@@ -68,7 +68,7 @@ export const PetInForm = () => {
     if (value !== petInfo.gender) return setPetInfo((prev) => ({ ...prev, gender: value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -79,7 +79,7 @@ export const PetInForm = () => {
     };
 
     try {
-      UpdatedUserData(data);
+      await UpdatedUserData(data);
     } catch (e) {
       return console.log(e);
     }
@@ -98,7 +98,15 @@ export const PetInForm = () => {
       <Heading title='반려동물 정보 입력' subTitle='추가 등록은 홈화면-편집에서 가능합니다' />
 
       <form onSubmit={(e) => handleSubmit(e)} className='py-10 flex flex-col gap-8'>
-        <Input onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}>
+        <Input
+          onChange={(e) =>
+            setPetInfo((prev) => ({
+              ...prev,
+              petType: e.target.value,
+              breed: '',
+            }))
+          }
+        >
           <Input.Label isRequired>반려동물</Input.Label>
           <div className='w-full flex gap-3'>
             <Input.CheckOnlyOneInput
@@ -106,14 +114,26 @@ export const PetInForm = () => {
               id='dog'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
+              onChange={(e) =>
+                setPetInfo((prev) => ({
+                  ...prev,
+                  petType: e.target.value,
+                  breed: '',
+                }))
+              }
             />
             <Input.CheckOnlyOneInput
               value='고양이'
               id='cat'
               name='petType'
               selected={petInfo.petType}
-              onChange={(e) => setPetInfo((prev) => ({ ...prev, petType: e.target.value }))}
+              onChange={(e) =>
+                setPetInfo((prev) => ({
+                  ...prev,
+                  petType: e.target.value,
+                  breed: '',
+                }))
+              }
             />
           </div>
         </Input>
@@ -174,9 +194,16 @@ export const PetInForm = () => {
         </div>
 
         <div className='flex flex-col gap-3'>
-          <Input>
+          <Input
+            value={petInfo.birthday}
+            onChange={(e) => setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))}
+          >
             <Input.Label>아이 생일</Input.Label>
-            <Input.DateInput disabled={unknownBirthday} />
+            <Input.DateInput
+              disabled={unknownBirthday}
+              value={petInfo.birthday}
+              onChange={(e) => setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))}
+            />
           </Input>
           <DatePickerForm />
           <Input onChange={handleUnknownBirthdayCheck}>

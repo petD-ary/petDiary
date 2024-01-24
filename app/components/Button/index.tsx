@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Btn } from '../Typography/TypographyList';
+import { Btn } from '../../constants/Typography/TypographyList';
 
 interface ButtonProps {
   children: ReactNode;

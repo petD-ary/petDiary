@@ -4,7 +4,7 @@ import Filter from '@/components/Store/Shop/Filter';
 import Category from '@/components/Store/Shop/Category';
 import activeChevron from '@/assets/images/activeChevron.png';
 import Image from 'next/image';
-import ItemList from '@/data/ItemList';
+// import ItemList from '@/data/ItemList';/
 import Product from '@/components/Store/Product';
 
 const ShopPage = () => {
@@ -68,7 +68,7 @@ const ShopPage = () => {
         py-2 mb-20
       overflow-y-scroll scrollbar-none'
       >
-        {ItemList.map((item) => (
+        {/* {ItemList.map((item) => (
           <Product
             key={item.id}
             id={item.id}
@@ -77,7 +77,7 @@ const ShopPage = () => {
             price={item.price}
             like={item.like}
           />
-        ))}
+        ))} */}
       </ul>
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { SubTitle, Title } from '@/components/Typography/TypographyList';
+import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 
 interface HeadingProps {
   title: string;

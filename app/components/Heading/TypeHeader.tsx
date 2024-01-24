@@ -8,7 +8,7 @@ import IconBell from '@/assets/images/Icon-bell.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconSearch from '@/assets/images/icon-search.svg';
 import IconEdit from '@/assets/images/icon-edit.svg';
-import { Caption, Title } from '../Typography/TypographyList';
+import { Caption, Title } from '@/constants/Typography/TypographyList';
 
 //Close
 export const CloseHeader = () => (
@@ -49,7 +49,12 @@ export const AlertHeader = () => {
   return (
     <div className='header justify-between'>
       <Link href='/' className='px-3'>
-        <Image src={logo.src} alt='Pet diary logo' width={logo.width} height={logo.height} />
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
       <IconBtnWrapper onClick={() => {}}>
         <IconBell />
@@ -63,7 +68,12 @@ export const InteractiveHeader = () => {
   return (
     <div className='header justify-between'>
       <Link href='/' className='px-3'>
-        <Image src={logo.src} alt='Pet diary logo' width={logo.width} height={logo.height} />
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
       <div>
         <IconBtnWrapper onClick={() => {}}>
@@ -82,7 +92,12 @@ export const LogoHeader = () => {
   return (
     <div className='header'>
       <Link href='/' className='px-3'>
-        <Image src={logo.src} alt='Pet diary logo' width={logo.width} height={logo.height} />
+        <Image
+          src={logo.src}
+          alt='Pet diary logo'
+          width={logo.width}
+          height={logo.height}
+        />
       </Link>
     </div>
   );
@@ -92,9 +107,9 @@ export const LogoHeader = () => {
 export const MainAnimalHeader = () => {
   const count = 3;
   return (
-    <div className='flex items-center justify-between py-5 '>
+    <div className='flex items-center justify-between pt-4'>
       <div className='flex gap-2 '>
-        <div className={`${Title.title2}`}>내 반려동물</div>
+        <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
         <div className={`text-primary-500 ${Title.title2}`}>{count}</div>
       </div>
       <div

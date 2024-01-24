@@ -2,6 +2,14 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'openweathermap.org',
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
