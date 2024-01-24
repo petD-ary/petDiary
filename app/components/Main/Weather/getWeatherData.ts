@@ -21,9 +21,9 @@ const getWeatherData = async (position: any) => {
       weather: koWeather,
       icon: iconURL,
       temp: {
-        main: data.main.temp + '℃',
-        max: data.main.temp_max + '℃',
-        min: data.main.temp_min + '℃',
+        main: Math.round(data.main.temp) + '°',
+        max: Math.round(data.main.temp_max) + '°',
+        min: Math.round(data.main.temp_min) + '°',
       },
     };
     result = geolocationData;
