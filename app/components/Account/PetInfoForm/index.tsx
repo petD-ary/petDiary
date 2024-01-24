@@ -125,7 +125,7 @@ export const PetInForm = () => {
             className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-text-dividers focus:border-text-border transition-colors'
           >
             <p className={`flex justify-between items-center ${Body.body1}`}>
-              {petInfo.breed === '' ? '품종을 선택해 주세요' : petInfo.breed}
+              믹스견
               <span>
                 <IconDown />
               </span>

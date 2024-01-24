@@ -21,7 +21,7 @@ const HeaderElement = {
   BackClose: () => <BackCloseHeader />,
   Alert: () => <AlertHeader />,
   Interactive: () => <InteractiveHeader />,
-  Default: () => <div>default</div>,
+  Default: () => <div></div>,
 };
 
 // 현재 경로에 따른 헤더 컴포넌트 매핑
