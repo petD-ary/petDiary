@@ -1,4 +1,4 @@
-import useModal from '@/hooks/useModal';
+import useClickOutsideArea from '@/hooks/useClickOutsideArea';
 import { stampModalState } from '@/recoil/Stamp/atoms';
 import { useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -11,7 +11,7 @@ const StampModal = ({ todayChecked }: { todayChecked: boolean }) => {
     setIsOpen(false);
   };
 
-  useModal(ref, handleOpenModal);
+  useClickOutsideArea(ref, handleOpenModal);
 
   return (
     <div className='fixed z-50 w-full h-full top-0 left-0 bg-black/30'>
