@@ -13,7 +13,6 @@ export interface RegionState {
 const CurrLocation = () => {
   const location = useGeolocation();
   const [region, setRegion] = useState<null | RegionState>();
-  console.log('🚀 ~ CurrLocation ~ region:', region);
 
   useEffect(() => {
     if (location.position) {
@@ -22,6 +21,7 @@ const CurrLocation = () => {
       });
     }
   }, [location]);
+
   return (
     <div className='px-4 py-[15px] flex justify-between items-center bg-white rounded-xl'>
       <div
@@ -30,9 +30,13 @@ const CurrLocation = () => {
         <IconLocation />
         <span>내 위치</span>
       </div>
-      <p
-        className={`text-secondary-900 ${Body.body3}`}
-      >{`${region?.city} ${region?.district}`}</p>
+      {!region ? (
+        <div className={`w-32 h-[22px] bg-grayColor-100 animate-pulse`}></div>
+      ) : (
+        <p
+          className={`text-secondary-900 ${Body.body3}`}
+        >{`${region?.city} ${region?.district}`}</p>
+      )}
     </div>
   );
 };
