@@ -7,11 +7,11 @@ import Profile from '@/components/Main/Profile';
 
 export default function Home() {
   return (
-    <Container className='bg-extra-divice-bg h-full grid grid-cols-1 gap-3'>
+    <Container className='bg-extra-divice-bg h-full grid grid-cols-1 grid-rows-none gap-3 justify-center items-start'>
       <MainAnimalHeader />
       <Profile />
       <CurrLocation />
-      <div className='grid grid-cols-2 gap-3'>
+      <div className='grid grid-cols-2 gap-3 mb-3'>
         <Weather />
         {/* <Walk /> */}
       </div>
