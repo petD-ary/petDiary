@@ -1,8 +1,9 @@
 'use client';
-import WeatherCard from './WeatherCard/WeatherCard';
+import WeatherCard from './WeatherCard';
 import useGeolocation from '@/hooks/useGeolocation';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import getWeatherData from './getWeatherData';
+import WeatherModal from './WeatherModal';
 
 export interface DataState {
   weather: string;
@@ -26,7 +27,12 @@ const Weather = () => {
 
   if (conditions) return <WeatherCard isLoading={conditions} />;
 
-  return <WeatherCard data={data} />;
+  return (
+    <Fragment>
+      <WeatherCard data={data} />
+      <WeatherModal data={data} />
+    </Fragment>
+  );
 };
 
 export default Weather;
