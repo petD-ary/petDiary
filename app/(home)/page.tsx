@@ -4,7 +4,7 @@ import Weather from '@/components/Main/Weather';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import Profile from '@/components/Main/Profile';
 import Walk from '@/components/Main/Walk';
-// import Walk from '@/components/Main/Walk';
+import PetEditModal from '@/components/Main/Profile/PetEditModal';
 
 export default function Home() {
   return (
@@ -16,6 +16,7 @@ export default function Home() {
         <Weather />
         <Walk />
       </div>
+      <PetEditModal />
     </Container>
   );
 }

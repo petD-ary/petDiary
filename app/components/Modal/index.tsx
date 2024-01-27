@@ -11,12 +11,15 @@ import { useModal } from '@/hooks/useModal';
 export const MODAL_TYPE = {
   BREED: 'breed',
   WEATHER: 'weather',
+  WALK: 'walk',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
   SLIDE: 'slide',
   CARD: 'card',
+  // 꽉찬 모달 명칭
+  FULLCARD: 'fullCard',
 };
 
 export type MODAL_VARIANT = (typeof MODAL_VARIANT)[keyof typeof MODAL_VARIANT];
@@ -108,9 +111,7 @@ const Header = ({
             <IconClose />
           </div>
         </div>
-        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
-          {title}
-        </p>
+        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>{title}</p>
       </div>
     );
 
