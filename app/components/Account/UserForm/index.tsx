@@ -37,9 +37,7 @@ const UserForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const nicknameCheck = await getNicknameValidation(nickname);
-
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
     } else if (nicknameCheck.message) {

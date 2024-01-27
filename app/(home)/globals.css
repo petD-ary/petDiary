@@ -28,7 +28,7 @@
     width: 100vw; /* 전체 뷰포트 너비 */
     bottom: 0; /* 화면 하단에 위치 */
     left: 0; /* 화면 왼쪽에 위치 */
-    /* animation: slideUp 0.3s ease-out; 애니메이션 효과 */
+
   }
   
   
@@ -40,11 +40,9 @@
   .custom-datepicker-dropdown .ant-picker-panel-container {
 
     position: fixed; /* 고정 위치 */
-    inset: auto auto 0 0 !important; /* top, right, bottom, left */
     bottom: 0 ;
     left: 0 ;
     width: 100vw; /* 전체 뷰포트 너비 */
-    animation: slideUp 0.3s ease-out; /* 애니메이션 효과 */
     z-index: 999; /* 다른 요소들 위에 표시 */
     background: white; /* 배경색 */
     border-top-left-radius: 16px; /* 상단 왼쪽 둥근 모서리 */

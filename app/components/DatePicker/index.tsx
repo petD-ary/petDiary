@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { ConfigProvider, DatePicker, DatePickerProps } from 'antd';
 
 import koKR from 'antd/lib/locale/ko_KR';
-import moment from 'moment';
 
 export const DatePickerBox = () => {
-
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     console.log(date, dateString);
   };
@@ -27,7 +25,6 @@ const DatePickerForm = () => {
 
   return (
     <div>
-      <div className='change-locale'>{/* Radio.Group에 value와 onChange 이벤트 핸들러 연결 */}</div>
       <ConfigProvider locale={locale}>
         <DatePickerBox key={locale ? locale.locale : 'ko'} />
       </ConfigProvider>
