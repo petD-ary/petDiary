@@ -35,7 +35,7 @@ const PetEditContent = () => {
       </div>
 
       <div>
-        <Button className={`${Caption.caption1}`} children={'수정'} variant={'outlined'} />
+        <Button className={`${Caption.caption1}`} children={'수정'} variant={'blueContained'} />
       </div>
     </div>
   );
