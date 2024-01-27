@@ -34,9 +34,13 @@ const PetEditContent = () => {
         </div>
       </div>
 
-      <div>
-        <Button className={`${Caption.caption1}`} children={'수정'} variant={'blueContained'} />
-      </div>
+      <span>
+        <Button
+          className={`${Caption.caption1} py-[6px] px-3 rounded-full `}
+          children={'수정'}
+          variant={'blueContained'}
+        />
+      </span>
     </div>
   );
 };
