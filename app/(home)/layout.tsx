@@ -2,7 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import pretendard from '@/components/Pretendard';
-import Container from '@/components/Container';
 import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
 
@@ -14,10 +13,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ko'>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <RecoilRootWrapper>
-          <HeadingComponent />
-          <Container>{children}</Container>
+          <div className='flex flex-col min-h-screen'>
+            <HeadingComponent />
+            <div className='flex-grow'>{children}</div>
+          </div>
           <Navbar />
         </RecoilRootWrapper>
       </body>

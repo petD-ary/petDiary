@@ -1,4 +1,4 @@
-import { Caption } from '@/components/Typography/TypographyList';
+import { Caption } from '@/constants/Typography/TypographyList';
 
 const Breadcrumb = ({ step }: { step: number }) => {
   const accountPage = [

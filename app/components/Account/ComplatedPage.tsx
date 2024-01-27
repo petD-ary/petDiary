@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import AccountComplated from '@/assets/images/account/account-complated.svg';
 import Button from '../Button';
-import { SubTitle, Title } from '../Typography/TypographyList';
+import { SubTitle, Title } from '../../constants/Typography/TypographyList';
 
 const ComplatedPage = () => {
   const router = useRouter();

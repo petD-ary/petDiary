@@ -5,6 +5,7 @@ import IconSearch from '@/assets/images/icon-search@24.svg';
 import Input from '@/components/Input';
 import Modal, { MODAL_TYPE } from '@/components/Modal';
 import getBreedsList from '../PetInfoForm/getBreedsList';
+import createFuzzyMatcher from '@/utils/Fuzzymatcher';
 
 interface VariantModalProps {
   variant: string;
@@ -28,7 +29,12 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
   useEffect(() => {
     getBreedsList(variant).then((result) => {
       if (search !== null) {
-        const searchList = result.filter((item: { breed: string; }) => item.breed.includes(search));
+        const regex = createFuzzyMatcher(search);
+
+        const searchList = result
+          .filter((item: any) => regex.test(item.breed))
+          .map((item: any) => ({ ...item }));
+
         setBreeds(searchList);
       } else {
         setBreeds(result);
@@ -48,9 +54,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
           value={search === null ? '' : search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={
-            variant === '강아지'
-              ? '견종을 입력해주세요'
-              : '묘종을 입력해주세요'
+            variant === '강아지' ? '견종을 입력해주세요' : '묘종을 입력해주세요'
           }
         />
         <span className='absolute top-4 right-8'>
