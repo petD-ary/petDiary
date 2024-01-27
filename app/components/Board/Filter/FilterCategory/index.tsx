@@ -1,5 +1,5 @@
 'use client';
-import Filter from '@/components/Board/Filter';
+import Filter from '@/components/Board/filter';
 import { useState } from 'react';
 
 interface ComponentProps {
@@ -9,13 +9,7 @@ interface ComponentProps {
 const FilterCategory = ({ filterItem }: ComponentProps) => {
   const [selected, setSelected] = useState('전체');
 
-  return (
-    <Filter
-      filterItem={filterItem}
-      selected={selected}
-      setSelected={setSelected}
-    />
-  );
+  return <Filter filterItem={filterItem} selected={selected} setSelected={setSelected} />;
 };
 
 export default FilterCategory;

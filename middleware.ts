@@ -14,6 +14,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!login|account).)*', // 모든 경로 포함
+    // '/((?!login|account).)*', // 모든 경로 포함
   ],
 };

@@ -3,6 +3,7 @@ import CurrLocation from '@/components/Main/CurrLocation';
 import Weather from '@/components/Main/Weather';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import Profile from '@/components/Main/Profile';
+import Walk from '@/components/Main/Walk';
 // import Walk from '@/components/Main/Walk';
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
       <CurrLocation />
       <div className='grid grid-cols-2 gap-3 mb-3'>
         <Weather />
-        {/* <Walk /> */}
+        <Walk />
       </div>
     </Container>
   );
