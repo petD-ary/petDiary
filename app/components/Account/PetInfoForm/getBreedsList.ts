@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '@/libs/axios';
 
 const getBreedsList = async (petType: string) => {
   const breedValue = petType === '강아지' ? 'dogs' : 'cats';

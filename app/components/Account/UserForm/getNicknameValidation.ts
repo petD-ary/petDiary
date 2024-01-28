@@ -1,9 +1,7 @@
-import { instance } from '@/libs/axios';
+import axios from '@/libs/axios';
 
 const getNicknameValidation = async (nickname: string) => {
-  const response = await instance(`/users/nicknames/${nickname}/exists`, {
-    withCredentials: true,
-  });
+  const response = await axios.get(`/users/nicknames/${nickname}/exists`);
 
   return response.data;
 };

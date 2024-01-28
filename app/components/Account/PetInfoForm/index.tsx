@@ -65,7 +65,8 @@ export const PetInfoForm = () => {
       target: { value },
     } = e;
 
-    if (value !== petInfo.gender) return setPetInfo((prev) => ({ ...prev, gender: value }));
+    if (value !== petInfo.gender)
+      return setPetInfo((prev) => ({ ...prev, gender: value }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -95,9 +96,15 @@ export const PetInfoForm = () => {
         setBreed={(value) => setPetInfo((prev) => ({ ...prev, breed: value }))}
       />
 
-      <Heading title='반려동물 정보 입력' subTitle='추가 등록은 홈화면-편집에서 가능합니다' />
+      <Heading
+        title='반려동물 정보 입력'
+        subTitle='추가 등록은 홈화면-편집에서 가능합니다'
+      />
 
-      <form onSubmit={(e) => handleSubmit(e)} className='py-10 flex flex-col gap-8'>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className='py-10 flex flex-col gap-8'
+      >
         <Input
           onChange={(e) =>
             setPetInfo((prev) => ({
@@ -155,13 +162,17 @@ export const PetInfoForm = () => {
 
         <Input
           value={petInfo.name}
-          onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, name: e.target.value }))
+          }
         >
           <Input.Label isRequired>아이 이름</Input.Label>
           <Input.TextInput
             placeholder='반려동물의 이름을 입력해 주세요'
             value={petInfo.name}
-            onChange={(e) => setPetInfo((prev) => ({ ...prev, name: e.target.value }))}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, name: e.target.value }))
+            }
           />
         </Input>
 
@@ -196,18 +207,25 @@ export const PetInfoForm = () => {
         <div className='flex flex-col gap-3'>
           <Input
             value={petInfo.birthday}
-            onChange={(e) => setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))
+            }
           >
             <Input.Label>아이 생일</Input.Label>
             <Input.DateInput
               disabled={unknownBirthday}
               value={petInfo.birthday}
-              onChange={(e) => setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))}
+              onChange={(e) =>
+                setPetInfo((prev) => ({ ...prev, birthday: e.target.value }))
+              }
             />
           </Input>
           <DatePickerForm />
           <Input onChange={handleUnknownBirthdayCheck}>
-            <Input.CheckInput id='unknownBirthday' onChange={handleUnknownBirthdayCheck}>
+            <Input.CheckInput
+              id='unknownBirthday'
+              onChange={handleUnknownBirthdayCheck}
+            >
               생일을 잘 모르겠어요
             </Input.CheckInput>
           </Input>
@@ -215,29 +233,45 @@ export const PetInfoForm = () => {
 
         <Input
           value={petInfo.adoptionDate}
-          onChange={(e) => setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))}
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
+          }
         >
           <Input.Label isRequired>가족이 된 날</Input.Label>
           <Input.DateInput
             value={petInfo.adoptionDate}
-            onChange={(e) => setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
+            }
           />
         </Input>
 
         <Input
           value={petInfo.weight}
-          onChange={(e) => setPetInfo((prev) => ({ ...prev, weight: e.target.value }))}
+          onChange={(e) =>
+            setPetInfo((prev) => ({ ...prev, weight: e.target.value }))
+          }
         >
           <Input.Label>몸무게 입력</Input.Label>
           <Input.TextInput
             placeholder='몸무게를 입력해 주세요'
             value={petInfo.weight}
-            onChange={(e) => setPetInfo((prev) => ({ ...prev, weight: e.target.value }))}
+            onChange={(e) =>
+              setPetInfo((prev) => ({ ...prev, weight: e.target.value }))
+            }
           />
-          <p className={`absolute top-[41px] right-3 text-text-secondary ${Body.body1}`}>KG</p>
+          <p
+            className={`absolute top-[41px] right-3 text-text-secondary ${Body.body1}`}
+          >
+            KG
+          </p>
         </Input>
 
-        <Button variant='contained' type='submit' isDisabled={!petInfo.breed || !petInfo.name}>
+        <Button
+          variant='contained'
+          type='submit'
+          isDisabled={!petInfo.breed || !petInfo.name}
+        >
           확인
         </Button>
       </form>

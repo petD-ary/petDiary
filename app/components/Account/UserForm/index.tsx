@@ -6,7 +6,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Heading from '../Heading';
 import Button from '@/components/Button';
 import getNicknameValidation from './getNicknameValidation';
-import DatePicker from 'antd/es/date-picker';
 
 interface AccountProps {
   userId: string;

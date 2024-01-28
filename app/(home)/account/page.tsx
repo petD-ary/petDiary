@@ -16,7 +16,6 @@ const AccountPage = () => {
   return (
     <Fragment>
       <Breadcrumb step={step} />
-
       {step === 0 && <UserForm />}
       {step === 1 && <PetInfoForm />}
       {step === 2 && <ComplatedPage />}
