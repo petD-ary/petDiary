@@ -46,11 +46,7 @@ const HeadingComponent = () => {
 };
 
 const Heading = ({ children }: { children: ReactNode }) => {
-  return (
-    <header className='bg-white'>
-      <Container>{children}</Container>
-    </header>
-  );
+  return <header className='bg-white'>{children}</header>;
 };
 
 const Content = () => {
