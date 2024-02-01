@@ -111,7 +111,9 @@ const Header = ({
             <IconClose />
           </div>
         </div>
-        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>{title}</p>
+        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
+          {title}
+        </p>
       </div>
     );
 

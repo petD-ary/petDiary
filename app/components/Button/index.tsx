@@ -40,7 +40,11 @@ const Button = ({
       ? 'bg-white text-primary-500 border-primary-700 disabled:border-grayColor-200 disabled:text-grayColor-200'
       : ''
   }
-  ${rest.variant === 'blueContained' ? 'bg-blue-50 text-blue-500 border-blue-100' : ''}
+  ${
+    rest.variant === 'blueContained'
+      ? 'bg-blue-50 text-blue-500 border-blue-100'
+      : ''
+  }
   ${textType === 'button1' ? `${Btn.button1}` : ''}
   ${textType === 'button2' ? `${Btn.button2}` : ''}
   `}

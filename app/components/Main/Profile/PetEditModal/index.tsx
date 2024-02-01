@@ -20,10 +20,16 @@ const PetEditModal = () => {
     <>
       <div className='flex gap-2 '>
         <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
-        <div className={`text-primary-500 ${Title.title2}`}>{petData.length}</div>
+        <div className={`text-primary-500 ${Title.title2}`}>
+          {petData.length}
+        </div>
       </div>
       <PetEditContent petData={petData} />
-      <Button className='border-primary-600' children={'반려동물추가'} variant={'outlined'} />
+      <Button
+        className='border-purple-600 '
+        children={'반려동물추가'}
+        variant={'outlined'}
+      />
     </>
   );
 };
