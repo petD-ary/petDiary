@@ -99,7 +99,7 @@ const ModalContainer = ({
     return (
       <div
         onClick={(e) => e.stopPropagation()}
-        className='fixed inset-0 z-50 bg-white w-full h-full'
+        className=' bg-white w-full h-full'
       >
         {children}
       </div>
