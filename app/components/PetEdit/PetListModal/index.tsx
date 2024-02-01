@@ -16,6 +16,7 @@ import { PetData } from '@/types/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { useModal } from '@/hooks/useModal';
+import AddPetModal from '../AddPetModal';
 const petData = [
   {
     name: '콩이',
@@ -36,6 +37,7 @@ const PetListModal = () => {
   return (
     <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.FULLCARD}>
       <Modal.Header title='' titleType='left-X' />
+      <AddPetModal />
       <div className='flex gap-2 mb-10'>
         <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
         <div className={`text-primary-500 ${Title.title2}`}>

@@ -1,7 +1,14 @@
+'use client';
+import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import React from 'react';
 
 const AddPetModal = () => {
-  return <div>AddPetModal</div>;
+  return (
+    <Modal type={MODAL_TYPE.PETADD} variant={MODAL_VARIANT.FULLCARD}>
+      <Modal.Header title='반려동물 수정' titleType='center' />
+      ddd
+    </Modal>
+  );
 };
 
 export default AddPetModal;
