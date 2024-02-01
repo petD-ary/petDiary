@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
@@ -9,6 +10,8 @@ import IconLeft from '@/assets/images/icon-left.svg';
 import IconSearch from '@/assets/images/icon-search.svg';
 import IconEdit from '@/assets/images/icon-edit.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
+import { useModal } from '@/hooks/useModal';
+import { MODAL_TYPE } from '../Modal';
 
 //Close
 export const CloseHeader = () => (
@@ -105,7 +108,9 @@ export const LogoHeader = () => {
 
 //main
 export const MainAnimalHeader = () => {
-  const count = 3;
+  const count = 1;
+  const { addModal } = useModal();
+
   return (
     <div className='flex items-center justify-between pt-4'>
       <div className='flex gap-2 '>
@@ -113,7 +118,8 @@ export const MainAnimalHeader = () => {
         <div className={`text-primary-500 ${Title.title2}`}>{count}</div>
       </div>
       <div
-        className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 `}
+        className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 cursor-pointer`}
+        onClick={() => addModal(MODAL_TYPE.PETEDIT)}
       >
         <IconEdit />
         수정

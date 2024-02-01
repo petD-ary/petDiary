@@ -4,11 +4,12 @@ import Weather from '@/components/Main/Weather';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import Profile from '@/components/Main/Profile';
 import Walk from '@/components/Main/Walk';
-import PetEditModal from '@/components/Main/Profile/PetEditModal';
+import PetListModal from '@/components/PetEdit/PetListModal';
 
 export default function Home() {
   return (
     <Container className='bg-extra-divice-bg h-full grid grid-cols-1 grid-rows-none gap-3 justify-center items-start'>
+      <PetListModal petData={[]} />
       <MainAnimalHeader />
       <Profile />
       <CurrLocation />
@@ -16,7 +17,6 @@ export default function Home() {
         <Weather />
         <Walk />
       </div>
-      <PetEditModal />
     </Container>
   );
 }

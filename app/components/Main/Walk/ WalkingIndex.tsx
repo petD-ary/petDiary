@@ -32,7 +32,6 @@ const WalkingIndex: React.FC<CardType> = ({ weather }) => {
           <div className={`${Caption.caption2} mb-1`}>산책지수</div>
           <div className={`${Title.title3}`}>{weather.state}</div>
         </div>
-
         <IconInfo />
       </div>
       <div className='relative flex justify-end'>

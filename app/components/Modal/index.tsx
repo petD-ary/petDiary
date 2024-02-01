@@ -12,6 +12,7 @@ export const MODAL_TYPE = {
   BREED: 'breed',
   WEATHER: 'weather',
   WALK: 'walk',
+  PETEDIT: 'petEdit',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
@@ -91,6 +92,15 @@ const ModalContainer = ({
         className='max-w-lg w-full mx-auto absolute left-1/2 -translate-x-1/2 top-[220px]'
       >
         <div className='bg-white rounded-lg mx-5 min-h-[156px]'>{children}</div>
+      </div>
+    );
+  if (variant === MODAL_VARIANT.FULLCARD)
+    return (
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className='fixed inset-0 z-50 bg-white w-full h-full'
+      >
+        {children}
       </div>
     );
 };
