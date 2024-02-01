@@ -99,11 +99,12 @@ const ModalContainer = ({
     return (
       <div
         onClick={(e) => e.stopPropagation()}
-        className=' bg-white w-full h-full'
+        className='fixed inset-0 z-50 bg-white w-full h-full '
       >
         {children}
       </div>
     );
+  return null;
 };
 
 const Header = ({
@@ -148,6 +149,7 @@ const Header = ({
         </div>
       </div>
     );
+  return null;
 };
 
 const ModalButton = () => {
