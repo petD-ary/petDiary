@@ -15,6 +15,7 @@ import {
 import { PetData } from '@/types/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
+import { useModal } from '@/hooks/useModal';
 const petData = [
   {
     name: '콩이',
@@ -31,8 +32,9 @@ type PetEditContentProps = {
   petData: PetData[];
 };
 const PetListModal = () => {
+  const { addModal } = useModal();
   return (
-    <Modal type={MODAL_TYPE.PETEDIT} variant={MODAL_VARIANT.CARD}>
+    <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.FULLCARD}>
       <Modal.Header title='' titleType='left-X' />
       <div className='flex gap-2 mb-10'>
         <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
@@ -87,6 +89,7 @@ const PetListModal = () => {
         className='border-purple-600 mt-3'
         children={'반려동물추가'}
         variant={'outlined'}
+        onClick={() => addModal(MODAL_TYPE.PETADD)}
       />
     </Modal>
   );

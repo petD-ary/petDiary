@@ -119,7 +119,7 @@ export const MainAnimalHeader = () => {
       </div>
       <div
         className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 cursor-pointer`}
-        onClick={() => addModal(MODAL_TYPE.PETEDIT)}
+        onClick={() => addModal(MODAL_TYPE.PETEDITLIST)}
       >
         <IconEdit />
         수정

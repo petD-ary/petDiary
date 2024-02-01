@@ -9,7 +9,7 @@ import PetListModal from '@/components/PetEdit/PetListModal';
 export default function Home() {
   return (
     <Container className='bg-extra-divice-bg h-full grid grid-cols-1 grid-rows-none gap-3 justify-center items-start'>
-      <PetListModal petData={[]} />
+      <PetListModal />
       <MainAnimalHeader />
       <Profile />
       <CurrLocation />
