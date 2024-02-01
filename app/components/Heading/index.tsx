@@ -31,7 +31,7 @@ const headerMap: HeaderMap = {
   '/login': HeaderElement.Home,
   '/반려정보3': HeaderElement.BackClose,
   '/': HeaderElement.Alert,
-  '/calender': HeaderElement.Interactive,
+  '/calendar': HeaderElement.Interactive,
   '/info': HeaderElement.Interactive,
   '/myPage': HeaderElement.Interactive,
   //  경로 추가
