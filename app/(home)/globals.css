@@ -52,6 +52,43 @@
     justify-content: center; /* 수직 방향 가운데 정렬 */
     align-items: center; /* 수평 방향 가운데 정렬 */
   }
+  .Calendar {
+    margin: 0 auto;
+    box-shadow: none;
+  }
+  .Calendar__yearText {
+    display: none;
+  }
 
+  .Calendar__day.-today:not(.-selectedStart):not(.-selectedEnd):not(
+      .-selectedBetween
+    )::after {
+    content: none;
+  }
+
+  .custom-today-day {
+    @apply text-grayColor-10;
+    border: none;
+  }
+
+  .custom-calendar .-selected {
+    @apply bg-primary-400;
+  }
+
+  .Calendar__weekDays {
+    @apply text-gray-600
+    font-weight: 600;
+  }
+  .Calendar__weekDays {
+    :first-child {
+      @apply text-error
+    }
+    :last-child {
+      @apply text-error
+    }
+  }
+  .Calendar__monthArrow {
+    /* background-image: url(${ArrowIcon}); */
+  }
 
 }

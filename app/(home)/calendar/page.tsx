@@ -1,7 +1,12 @@
+import CalendarForm from '@/components/DatePicker';
 import React from 'react';
 
 const CalendarPage = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <CalendarForm />
+    </div>
+  );
 };
 
 export default CalendarPage;
