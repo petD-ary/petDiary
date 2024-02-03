@@ -1,4 +1,4 @@
-import CalendarForm from '@/components/DatePicker';
+import CalendarForm from '@/components/Calendar';
 import React from 'react';
 
 const CalendarPage = () => {
