@@ -9,7 +9,11 @@ const CalendarForm = () => {
   const today = new Date();
 
   const isToday = (day: Date) => day.getDate() === today.getDate();
-  const selectDay = (day: Date) => day.getDate() === selectedDate?.getDate();
+  const isSelectDay = (day: Date) => day.getDate() === selectedDate?.getDate();
+  const isWeekend = (day: Date) => {
+    const dayOfWeek = day.getDay();
+    return dayOfWeek === 0 || dayOfWeek === 6;
+  };
   const handleDayClick = (day: Date) => {
     setSelectedDate(day);
   };
@@ -29,7 +33,8 @@ const CalendarForm = () => {
                   className={`flex-1 py-4 px-4 flex justify-center items-center border rounded-[4px] ${
                     isToday(day) ? 'bg-primary-50' : ''
                   }
-                  ${selectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
+                  ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
+                  ${isWeekend(day) ? 'text-error' : ''}
                   `}
                   onClick={() => handleDayClick(day)}
                 >
