@@ -9,6 +9,7 @@ const CalendarForm = () => {
   const today = new Date();
 
   const isToday = (day: Date) => day.getDate() === today.getDate();
+  const selectDay = (day: Date) => day.getDate() === selectedDate?.getDate();
   const handleDayClick = (day: Date) => {
     setSelectedDate(day);
   };
@@ -26,8 +27,10 @@ const CalendarForm = () => {
                 <div
                   key={dayIndex}
                   className={`flex-1 py-4 px-4 flex justify-center items-center border rounded-[4px] ${
-                    isToday(day) ? 'bg-primary-500 text-grayColor-10' : ''
-                  }`}
+                    isToday(day) ? 'bg-primary-50' : ''
+                  }
+                  ${selectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
+                  `}
                   onClick={() => handleDayClick(day)}
                 >
                   {day.getDate()}
