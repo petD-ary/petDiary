@@ -25,6 +25,7 @@ const Profile = ({ user }: any) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('debugger');
       try {
         const petData = await getPetData();
         setPetData(petData);

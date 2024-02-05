@@ -20,7 +20,9 @@ export const calculateRemainingDays = (dateStr: string): number => {
   }
 
   const msPerDay = 24 * 60 * 60 * 1000;
-  const remainingDays = Math.ceil((targetDate.getTime() - now.getTime()) / msPerDay);
+  const remainingDays = Math.ceil(
+    (targetDate.getTime() - now.getTime()) / msPerDay,
+  );
 
   return remainingDays;
 };
@@ -38,7 +40,9 @@ export const calculateElapsedDays = (dateStr: string): number => {
   const now = new Date(new Date().setHours(0, 0, 0, 0));
 
   const msPerDay = 24 * 60 * 60 * 1000;
-  const elapsedDays = Math.floor((now.getTime() - pastDate.getTime()) / msPerDay);
+  const elapsedDays = Math.floor(
+    (now.getTime() - pastDate.getTime()) / msPerDay,
+  );
 
   return elapsedDays;
 };
