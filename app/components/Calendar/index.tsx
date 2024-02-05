@@ -5,17 +5,17 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 
 const CalendarForm = () => {
   const { weeks } = useCalendar();
-  useEffect(() => {
-    console.log(weeks);
-  });
   return (
-    <div className='calender'>
+    <div className='calender flex flex-col'>
       {weeks.map((week, weekIndex) => {
         return (
-          <div key={weekIndex} className='week'>
+          <div key={weekIndex} className='week flex justify-between'>
             {week.map((day, dayIndex) => {
               return (
-                <div key={dayIndex} className='day'>
+                <div
+                  key={dayIndex}
+                  className='day flex-1 p-2 flex justify-center items-center'
+                >
                   {day.getDate()}
                 </div>
               );
