@@ -9,18 +9,21 @@ const CalendarForm = () => {
   const today = new Date();
 
   const isToday = (day: Date) => day.getDate() === today.getDate();
+
   const isSelectDay = (day: Date) => day.getDate() === selectedDate?.getDate();
+  // 0: 일요일, 6: 토요일
   const isWeekend = (day: Date) => {
     const dayOfWeek = day.getDay();
     return dayOfWeek === 0 || dayOfWeek === 6;
   };
+  const isCurrentMonth = (day: Date) => day.getMonth() === today.getMonth();
+  // useEffect(() => {
+  //   console.log(weeks[4][6].getMonth());
+  // });
   const handleDayClick = (day: Date) => {
     setSelectedDate(day);
   };
 
-  useEffect(() => {
-    console.log(today.getDate());
-  });
   return (
     <div className='calender'>
       {weeks.map((week, weekIndex) => {
@@ -35,6 +38,7 @@ const CalendarForm = () => {
                   }
                   ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
                   ${isWeekend(day) ? 'text-error' : ''}
+                  ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
                   `}
                   onClick={() => handleDayClick(day)}
                 >
