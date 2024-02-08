@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 export default function useClickOutsideArea(
   ref: React.RefObject<HTMLDivElement>,
-  handler: (event: any) => void
+  handler: (event: any) => void,
 ) {
   useEffect(() => {
     const listener = (event: { target: any }) => {

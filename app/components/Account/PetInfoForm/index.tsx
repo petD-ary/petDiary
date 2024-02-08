@@ -10,7 +10,7 @@ import { MODAL_TYPE } from '@/components/Modal';
 import DatePicker from '@/components/DatePicker';
 import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
-import UpdatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
+import updatedUserData from '@/components/Account/PetInfoForm/updatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
@@ -26,7 +26,7 @@ interface PetObjProps {
   weight: string;
 }
 
-export const PetInForm = () => {
+const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
@@ -79,7 +79,7 @@ export const PetInForm = () => {
     };
 
     try {
-      await UpdatedUserData(data);
+      await updatedUserData(data);
     } catch (e) {
       return console.log(e);
     }
@@ -277,3 +277,5 @@ export const PetInForm = () => {
     </Fragment>
   );
 };
+
+export default PetInfoForm;

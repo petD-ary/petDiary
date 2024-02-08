@@ -105,7 +105,7 @@ export const LogoHeader = () => {
 
 //main
 export const MainAnimalHeader = () => {
-  const count = 3;
+  const count = 1;
   return (
     <div className='flex items-center justify-between pt-4'>
       <div className='flex gap-2 '>

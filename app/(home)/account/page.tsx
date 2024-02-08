@@ -6,7 +6,7 @@ import UserForm from '@/components/Account/UserForm';
 import { useRecoilValue } from 'recoil';
 import { stepState } from '@/recoil/Account/atoms';
 
-import { PetInfoForm } from '@/components/Account/PetInfoForm';
+import PetInfoForm from '@/components/Account/PetInfoForm';
 import ComplatedPage from '@/components/Account/ComplatedPage';
 import { Fragment } from 'react';
 

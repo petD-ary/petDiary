@@ -20,7 +20,7 @@ const Weather = () => {
   useEffect(() => {
     if (geolocation.position !== null && geolocation.error === null) {
       getWeatherData(geolocation.position).then((res) =>
-        setData(res !== null ? res : null)
+        setData(res !== null ? res : null),
       );
     }
   }, [geolocation]);

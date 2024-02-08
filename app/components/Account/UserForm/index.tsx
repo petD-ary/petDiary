@@ -65,7 +65,11 @@ const UserForm = () => {
         </div>
 
         <div className='flex flex-col pt-6 pb-3'>
-          <Button isDisabled={nickname !== '' ? false : true} variant='contained' type='submit'>
+          <Button
+            isDisabled={nickname !== '' ? false : true}
+            variant='contained'
+            type='submit'
+          >
             다음
           </Button>
         </div>

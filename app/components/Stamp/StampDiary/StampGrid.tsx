@@ -13,7 +13,7 @@ const StampGrid = ({ stamps, data }: StampGridProps) => {
         <Stamp
           key={stamp.value}
           check={data.filter(
-            (_: string, idx: number) => idx + 1 === stamp.value
+            (_: string, idx: number) => idx + 1 === stamp.value,
           )}
           value={stamp.value}
         />

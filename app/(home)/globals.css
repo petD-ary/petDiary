@@ -34,14 +34,12 @@
     }
   } */
   .custom-datepicker {
-  
   }
   .custom-datepicker-dropdown .ant-picker-panel-container {
- 
     position: fixed; /* 고정 위치 */
     inset: auto auto 0 0; /* top, right, bottom, left */
-    bottom: 0 ;
-    left: 0 ;
+    bottom: 0;
+    left: 0;
     width: 100vw; /* 전체 뷰포트 너비 */
     animation: slideUp 0.3s ease-out; /* 애니메이션 효과 */
     z-index: 999; /* 다른 요소들 위에 표시 */
@@ -54,6 +52,4 @@
     justify-content: center; /* 수직 방향 가운데 정렬 */
     align-items: center; /* 수평 방향 가운데 정렬 */
   }
-
-
 }

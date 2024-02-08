@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 interface PetInfoProps {
   name: string;
@@ -7,12 +7,10 @@ interface PetInfoProps {
 }
 
 export const petInfoState = atom<PetInfoProps>({
-  key: "petInfoState",
+  key: 'petInfoState',
   default: {
-    name: "",
-    born: "",
-    together: "",
+    name: '',
+    born: '',
+    together: '',
   },
 });
-
-

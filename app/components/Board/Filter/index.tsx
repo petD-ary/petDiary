@@ -1,7 +1,7 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 interface ChangePageBtnProps {
   filterItem: string[];
@@ -22,11 +22,13 @@ const Filter = ({ filterItem, selected, setSelected }: ChangePageBtnProps) => {
         <React.Fragment key={item}>
           <div
             onClick={() => filterSelected(item)}
-            className={`cursor-pointer ${selected === item ? "text-black" : "text-grayColor-200"}`}
+            className={`cursor-pointer ${selected === item ? 'text-black' : 'text-grayColor-200'}`}
           >
             {item}
           </div>
-          {index < filterItem.length - 1 && <div className="w-px translate-y-0.5 bg-grayColor-200" />}
+          {index < filterItem.length - 1 && (
+            <div className='w-px translate-y-0.5 bg-grayColor-200' />
+          )}
         </React.Fragment>
       ))}
     </div>
