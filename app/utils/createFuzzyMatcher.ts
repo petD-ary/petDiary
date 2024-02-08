@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $&은 일치한 문자열 전체를 의미
 }
