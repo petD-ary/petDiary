@@ -15,6 +15,14 @@ const nextConfig = {
         source: '/B552584/ArpltnStatsSvc/:path*',
         destination: `http://apis.data.go.kr/B552584/ArpltnStatsSvc/:path*`,
       },
+      {
+        source: '/api/:path*',
+        destination: 'http://54.252.147.64:5001/api/:path*',
+      },
+      /* {
+        source: '/api/:path*',
+        destination: 'https://api/itthatcat.xyz/:path*',
+      }, */
     ];
   },
   webpack: (config) => {
