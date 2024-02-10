@@ -1,5 +1,6 @@
 'use client';
 import useCalendar from '@/hooks/useCalendar';
+import { isSameMonth } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 
@@ -62,8 +63,10 @@ const CalendarForm = () => {
   };
 
   const isCurrentMonth = (day: Date) => {
-    return day.getMonth() + 1 === currentMonth + 1;
+    const selectedMonth = new Date(currentYear, currentMonth);
+    return isSameMonth(day, selectedMonth);
   };
+
   return (
     <div className='calender'>
       <div>
@@ -101,7 +104,7 @@ const CalendarForm = () => {
               return (
                 <div
                   key={dayIndex}
-                  className={`flex-1 py-4 px-4 flex flex-col  justify-center items-center rounded-[4px] ${
+                  className={` flex-1 py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] ${
                     isToday(day) ? 'bg-primary-50' : ''
                   }
                   ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
@@ -111,7 +114,6 @@ const CalendarForm = () => {
                   onClick={() => handleDayClick(day)}
                 >
                   <div> {day.getDate()}</div>
-
                   {isToday(day) ? <div>오늘</div> : null}
                 </div>
               );
