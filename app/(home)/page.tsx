@@ -18,7 +18,6 @@ export default function Home() {
         <Weather />
         <Walk />
       </div>
-      <CalendarForm />
     </Container>
   );
 }

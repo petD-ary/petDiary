@@ -6,6 +6,7 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 const CalendarForm = () => {
   const { weeks } = useCalendar();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
   const today = new Date();
 
   const isToday = (day: Date) => day.getDate() === today.getDate();
@@ -14,7 +15,7 @@ const CalendarForm = () => {
   // 0: 일요일, 6: 토요일
   const isWeekend = (day: Date) => {
     const dayOfWeek = day.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6;
+    return dayOfWeek === 0;
   };
   const isCurrentMonth = (day: Date) => day.getMonth() === today.getMonth();
   // useEffect(() => {
@@ -26,6 +27,18 @@ const CalendarForm = () => {
 
   return (
     <div className='calender'>
+      <div className='flex justify-between bg-white mb-1.25'>
+        {WEEK_DAYS.map((day, index) => (
+          <div
+            key={index}
+            className={`p-4  flex-1 text-center ${
+              [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
+            }`}
+          >
+            {day}
+          </div>
+        ))}
+      </div>
       {weeks.map((week, weekIndex) => {
         return (
           <div key={weekIndex} className='week flex justify-between'>
