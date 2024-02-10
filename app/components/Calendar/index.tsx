@@ -103,8 +103,8 @@ const CalendarForm = () => {
                 <div
                   key={dayIndex}
                   className={`py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] 
-                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
+                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isToday(day) ? 'bg-primary-600/30' : ''}
                   ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
                   `}
