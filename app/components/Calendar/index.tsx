@@ -104,17 +104,32 @@ const CalendarForm = () => {
               return (
                 <div
                   key={dayIndex}
-                  className={` flex-1 py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] ${
-                    isToday(day) ? 'bg-primary-50' : ''
+                  className={`py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] ${
+                    isToday(day) ? 'bg-primary-600/30' : ''
                   }
-                  ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
+                  ${!isCurrentMonth(day) ? 'text-gray-800 text-opacity-20' : ''}
+                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isWeekend(day) ? 'text-error' : ''}
-                  ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
+                
                   `}
                   onClick={() => handleDayClick(day)}
                 >
-                  <div> {day.getDate()}</div>
-                  {isToday(day) ? <div>오늘</div> : null}
+                  <div
+                    className={
+                      isToday(day) ? 'text-primary-600  font-medium' : ''
+                    }
+                  >
+                    {day.getDate()}
+                  </div>
+                  <div
+                    className={`px-4 ${
+                      isToday(day)
+                        ? 'visible text-primary-600 font-bold'
+                        : 'invisible'
+                    } `}
+                  >
+                    오늘
+                  </div>
                 </div>
               );
             })}
