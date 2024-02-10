@@ -9,7 +9,6 @@ import {
 const useCalendar = (currentDate = new Date()) => {
   const startDay = startOfWeek(startOfMonth(currentDate));
   const endDay = endOfWeek(endOfMonth(currentDate));
-
   const days = eachDayOfInterval({ start: startDay, end: endDay });
 
   // 주별로 분할
