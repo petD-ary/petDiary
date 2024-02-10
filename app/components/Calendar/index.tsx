@@ -15,9 +15,7 @@ const CalendarForm = () => {
 
   // useCalendar 훅을 사용하여 현재 선택된 년도와 월에 기반한 주 데이터를 가져옵니다.
   const { weeks } = useCalendar(currentYear, currentMonth);
-  useEffect(() => {
-    console.log(weeks);
-  });
+
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
   const today = new Date();
 
@@ -105,14 +103,12 @@ const CalendarForm = () => {
                 <div
                   key={dayIndex}
                   className={`py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] 
-                  ${isWeekend(day) ? 'text-error' : ' text-gray-800'} 
+                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
+                  ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
                   ${isToday(day) ? 'bg-primary-600/30' : ''}
                   ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
-                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
-               
-                
                   `}
-                  onClick={() => handleDayClick(day)}
+                  onClick={() => isCurrentMonth(day) && handleDayClick(day)}
                 >
                   <div
                     className={
