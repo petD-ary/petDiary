@@ -4,20 +4,27 @@ import React, { useEffect, useState } from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 
 const CalendarForm = () => {
-  const { weeks } = useCalendar();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear(),
+  );
+  const [currentMonth, setCurrentMonth] = useState<number>(
+    new Date().getMonth(),
+  );
 
+  // useCalendar 훅을 사용하여 현재 선택된 년도와 월에 기반한 주 데이터를 가져옵니다.
+  const { weeks } = useCalendar(currentYear, currentMonth);
+  useEffect(() => {
+    console.log(weeks);
+  });
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
-
   const today = new Date();
 
   // 10년 범위의 년도와 12개월을 위한 배열
   const months = Array.from({ length: 12 }, (_, i) => i);
   const years = Array.from(
     { length: 10 },
-    (_, i) => new Date().getFullYear() - 5 + i,
+    (_, i) => today.getFullYear() - 5 + i,
   );
 
   const isToday = (day: Date) => {
@@ -42,24 +49,21 @@ const CalendarForm = () => {
     return dayOfWeek === 0;
   };
 
-  const isCurrentMonth = (day: Date) => day.getMonth() === today.getMonth();
-
   const handleDayClick = (day: Date) => {
-    if (day.getMonth() === today.getMonth()) {
-      setSelectedDate(day);
-    }
+    setSelectedDate(day);
   };
 
-  const handleYearChange = (event: { target: { value: string } }) => {
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentYear(parseInt(event.target.value, 10));
   };
 
-  const handleMonthChange = (event: { target: { value: string } }) => {
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentMonth(parseInt(event.target.value, 10));
   };
 
-  useEffect(() => {}, [currentYear, currentMonth]);
-
+  const isCurrentMonth = (day: Date) => {
+    return day.getMonth() + 1 === currentMonth + 1;
+  };
   return (
     <div className='calender'>
       <div>
@@ -97,7 +101,7 @@ const CalendarForm = () => {
               return (
                 <div
                   key={dayIndex}
-                  className={`flex-1 py-4 px-4 flex justify-center items-center rounded-[4px] ${
+                  className={`flex-1 py-4 px-4 flex flex-col  justify-center items-center rounded-[4px] ${
                     isToday(day) ? 'bg-primary-50' : ''
                   }
                   ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
@@ -106,7 +110,9 @@ const CalendarForm = () => {
                   `}
                   onClick={() => handleDayClick(day)}
                 >
-                  {day.getDate()}
+                  <div> {day.getDate()}</div>
+
+                  {isToday(day) ? <div>오늘</div> : null}
                 </div>
               );
             })}
