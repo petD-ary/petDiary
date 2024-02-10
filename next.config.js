@@ -13,7 +13,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/B552584/ArpltnStatsSvc/:path*',
+        source: '/:path*',
         destination: `http://apis.data.go.kr/B552584/ArpltnStatsSvc/:path*`,
       },
     ];

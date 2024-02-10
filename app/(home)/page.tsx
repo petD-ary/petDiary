@@ -5,7 +5,6 @@ import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import Profile from '@/components/Main/Profile';
 import Walk from '@/components/Main/Walk';
 import PetListModal from '@/components/PetEdit/PetListModal';
-import CalendarForm from '@/components/Calendar';
 
 export default function Home() {
   return (
