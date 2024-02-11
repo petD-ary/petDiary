@@ -39,7 +39,6 @@ const Walk = () => {
   useEffect(() => {
     if (location.position) {
       getAddress(location.position).then((address) => {
-        console.log(address?.city, address?.district);
         fetchData(address?.city, address?.district);
       });
     }
