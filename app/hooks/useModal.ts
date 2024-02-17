@@ -1,4 +1,4 @@
-import { modalState } from "@/recoil/Modal/atom";
+import { modalState } from '@/recoil/Modal/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 export const useModal = () => {
@@ -21,4 +21,4 @@ export const useModal = () => {
     removeModal,
     modalList,
   };
-}
+};

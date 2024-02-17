@@ -13,7 +13,7 @@ import born from '@/assets/images/profile/born.png';
 import together from '@/assets/images/profile/together.png';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import dogPng from '@/assets/images/profile/dog/dog.png';
-import { getPetData } from '@/utils/FetchPetData';
+import { getPetData } from '@/utils/getPetData';
 import { PetData } from '@/types/petData';
 import {
   calculateElapsedDays,

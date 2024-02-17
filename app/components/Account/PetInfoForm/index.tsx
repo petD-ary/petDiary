@@ -9,7 +9,7 @@ import Button from '@/components/Button';
 import { MODAL_TYPE } from '@/components/Modal';
 import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
-import UpdatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
+import updatedUserData from '@/components/Account/PetInfoForm/updatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
@@ -28,7 +28,11 @@ interface PetObjProps {
   weight: string;
 }
 
+<<<<<<< HEAD
 export const PetInfoForm = () => {
+=======
+const PetInfoForm = () => {
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
@@ -81,7 +85,7 @@ export const PetInfoForm = () => {
     };
 
     try {
-      await UpdatedUserData(data);
+      await updatedUserData(data);
     } catch (e) {
       return console.log(e);
     }
@@ -278,3 +282,5 @@ export const PetInfoForm = () => {
     </Fragment>
   );
 };
+
+export default PetInfoForm;

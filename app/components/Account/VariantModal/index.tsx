@@ -5,7 +5,7 @@ import IconSearch from '@/assets/images/icon-search@24.svg';
 import Input from '@/components/Input';
 import Modal, { MODAL_TYPE } from '@/components/Modal';
 import getBreedsList from '../PetInfoForm/getBreedsList';
-import createFuzzyMatcher from '@/utils/Fuzzymatcher';
+import createFuzzyMatcher from '@/utils/createFuzzyMatcher';
 
 interface VariantModalProps {
   variant: string;

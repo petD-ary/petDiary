@@ -1,8 +1,14 @@
 'use client';
 
+<<<<<<< HEAD
 import ListHeader from '@/components/Board/boardList/Header';
 import BoardList from '@/components/Board/boardList/List';
 import FilterCategory from '@/components/Board/filter/FilterCategory';
+=======
+import ListHeader from '@/components/Board/BoardList/Header';
+import BoardList from '@/components/Board/BoardList/List';
+import FilterCategory from '@/components/Board/Filter/FilterCategory';
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
 
 let safe = ['전체', '강아지', '고양이'];
 const mockData = [
@@ -16,7 +22,12 @@ const mockData = [
   {
     id: 2,
     substance: '각막염',
+<<<<<<< HEAD
     symptoms: '노란색 또는 녹색 눈곱, 빨갛게 충혈된 눈, 투명하지 않은 과도한 눈물',
+=======
+    symptoms:
+      '노란색 또는 녹색 눈곱, 빨갛게 충혈된 눈, 투명하지 않은 과도한 눈물',
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     petType: '강아지',
     risk: '보통',
   },
@@ -63,7 +74,12 @@ const mockData = [
   {
     id: 8,
     substance: '갑상선 기능 항진증',
+<<<<<<< HEAD
     symptoms: '과식, 물 같은 변, 설사, 최근 체중 감소, 평소보다 많은 물 마시기, 호흡 곤란',
+=======
+    symptoms:
+      '과식, 물 같은 변, 설사, 최근 체중 감소, 평소보다 많은 물 마시기, 호흡 곤란',
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     petType: '강아지',
     risk: '높음',
   },

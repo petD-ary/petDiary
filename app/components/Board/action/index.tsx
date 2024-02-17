@@ -1,9 +1,25 @@
 'use client';
+<<<<<<< HEAD
 import ListHeader from '@/components/Board/boardList/Header';
 import BoardList from '@/components/Board/boardList/List';
 import FilterCategory from '@/components/Board/filter/FilterCategory';
 
 const action = ['전체', '대변', '소변', '구토', '몸무게', '음수량', '수면 시 호흡 수'];
+=======
+import ListHeader from '@/components/Board/BoardList/Header';
+import BoardList from '@/components/Board/BoardList/List';
+import FilterCategory from '@/components/Board/Filter/FilterCategory';
+
+const action = [
+  '전체',
+  '대변',
+  '소변',
+  '구토',
+  '몸무게',
+  '음수량',
+  '수면 시 호흡 수',
+];
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
 const mockData = [
   {
     id: 1,
@@ -15,21 +31,36 @@ const mockData = [
   {
     id: 2,
     substance: '마늘',
+<<<<<<< HEAD
     symptoms: '구토, 무력감, 빈혈로 휘청거림, 설사, 식욕부진, 호흡곤란 / 혈뇨 : 간장색, 갈색, 적색',
+=======
+    symptoms:
+      '구토, 무력감, 빈혈로 휘청거림, 설사, 식욕부진, 호흡곤란 / 혈뇨 : 간장색, 갈색, 적색',
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     petType: '강아지 · 고양이',
     risk: '높음',
   },
   {
     id: 3,
     substance: '마카다미아',
+<<<<<<< HEAD
     symptoms: '고열, 구토, 권태감, 복통, 무기력, 비틀거림, 소화불량, 설사, 충혈',
+=======
+    symptoms:
+      '고열, 구토, 권태감, 복통, 무기력, 비틀거림, 소화불량, 설사, 충혈',
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     petType: '강아지 · 고양이',
     risk: '높음',
   },
   {
     id: 4,
     substance: '아보카도',
+<<<<<<< HEAD
     symptoms: '구토, 경련, 보랏빛 혀, 복통, 붉은 가래, 붓기, 설사, 식욕저하, 축축한 기침, 호흡 곤란',
+=======
+    symptoms:
+      '구토, 경련, 보랏빛 혀, 복통, 붉은 가래, 붓기, 설사, 식욕저하, 축축한 기침, 호흡 곤란',
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     petType: '강아지 · 고양이',
     risk: '높음',
   },

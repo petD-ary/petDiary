@@ -14,14 +14,15 @@ export const MODAL_TYPE = {
   WALK: 'walk',
   PETEDITLIST: 'petEditList',
   PETADD: 'petAdd',
+  PET_EDIT: 'petEdit',
+
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
   SLIDE: 'slide',
   CARD: 'card',
-  // 꽉찬 모달 명칭
-  FULLCARD: 'fullCard',
+  ALL: 'all',
 };
 
 export type MODAL_VARIANT = (typeof MODAL_VARIANT)[keyof typeof MODAL_VARIANT];
@@ -95,23 +96,28 @@ const ModalContainer = ({
         <div className='bg-white rounded-lg mx-5 min-h-[156px]'>{children}</div>
       </div>
     );
-  if (variant === MODAL_VARIANT.FULLCARD)
+
+
+  if (variant === MODAL_VARIANT.ALL)
     return (
       <div
         onClick={(e) => e.stopPropagation()}
-        className='fixed inset-0 z-50 bg-white w-full h-full '
+        className='w-full h-full bg-white mx-auto absolute left-1/2 -translate-x-1/2 top-0'
+
       >
         {children}
       </div>
     );
-  return null;
+
 };
 
 const Header = ({
   title,
+  desc,
   titleType = 'left',
 }: {
   title: string;
+  desc?: string | number;
   titleType?: 'center' | 'left' | 'left-X';
 }) => {
   const { removeModal } = useModal();
@@ -123,8 +129,11 @@ const Header = ({
             <IconClose />
           </div>
         </div>
-        <p className={`text-grayColor-900 px-5 py-3 ${Title.title2}`}>
+        <p className={`text-text-title px-5 py-3 ${Title.title2}`}>
           {title}
+          {desc ? (
+            <span className='pl-[6px] text-primary-500'>{desc}</span>
+          ) : null}
         </p>
       </div>
     );

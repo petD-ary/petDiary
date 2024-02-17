@@ -16,7 +16,10 @@ const ProductDetailPage = ({ params: { id } }: ProductDetailPageProps) => {
     return (
       <React.Fragment>
         {/* 뒤로가기 버튼 */}
-        <div onClick={() => router.back()} className='absolute left-0 top-[26px] sm:top-12'>
+        <div
+          onClick={() => router.back()}
+          className='absolute left-0 top-[26px] sm:top-12'
+        >
           <BsArrowLeft className='cursor-pointer' size={18} />
         </div>
 
@@ -39,7 +42,9 @@ const ProductDetailPage = ({ params: { id } }: ProductDetailPageProps) => {
             <div className='border-b border-grayColor-400'>
               <p className='font-semibold text-lg'>{brand}</p>
               <h3 className='text-lg'>{title}</h3>
-              <p className='font-semibold text-2xl py-6'>{price.toLocaleString()}원</p>
+              <p className='font-semibold text-2xl py-6'>
+                {price.toLocaleString()}원
+              </p>
             </div>
 
             {/* 리뷰 */}
@@ -54,7 +59,9 @@ const ProductDetailPage = ({ params: { id } }: ProductDetailPageProps) => {
                     ★★★★☆ 4.9<span className='text-grayColor-200'>/5</span>
                   </p>
                 </div>
-                <p className='font-semibold text-sm cursor-pointer'>전체보기 {'>'}</p>
+                <p className='font-semibold text-sm cursor-pointer'>
+                  전체보기 {'>'}
+                </p>
               </div>
 
               <ul
@@ -65,13 +72,16 @@ const ProductDetailPage = ({ params: { id } }: ProductDetailPageProps) => {
                 <li>
                   <div className='w-[100px] h-[100px] rounded-lg bg-grayColor-200 block'></div>
                   <p className='text-sm w-[256px]'>
-                    입맛은 또 어찌나 깐깐한지 이제는 굉장해 엄청나 아니면 쳐다도 안봐요ㅋㅋ
+                    입맛은 또 어찌나 깐깐한지 이제는 굉장해 엄청나 아니면 쳐다도
+                    안봐요ㅋㅋ
                   </p>
                 </li>
 
                 <li>
                   <div className='w-[100px] h-[100px] rounded-lg bg-grayColor-200'></div>
-                  <span className='text-sm'>애들이 맛있대요 ~~ ! 참으로 잘먹네요 ^^*</span>
+                  <span className='text-sm'>
+                    애들이 맛있대요 ~~ ! 참으로 잘먹네요 ^^*
+                  </span>
                 </li>
               </ul>
             </div>
@@ -136,8 +146,12 @@ const ProductDetailPage = ({ params: { id } }: ProductDetailPageProps) => {
                 )}
                 {like.toLocaleString()}
               </div>
-              <div className='bg-grayColor-200 font-semibold'>장바구니 담기</div>
-              <div className='bg-black text-white font-semibold'>바로 구매하기</div>
+              <div className='bg-grayColor-200 font-semibold'>
+                장바구니 담기
+              </div>
+              <div className='bg-black text-white font-semibold'>
+                바로 구매하기
+              </div>
             </div>
           </div>
         </div>
