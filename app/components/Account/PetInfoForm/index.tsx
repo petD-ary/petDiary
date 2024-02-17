@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { useModal } from '@/hooks/useModal';
@@ -9,13 +9,10 @@ import Button from '@/components/Button';
 import { MODAL_TYPE } from '@/components/Modal';
 import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
-import updatedUserData from '@/components/Account/PetInfoForm/updatedUserData';
+import updatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
-import DatePickerForm from '@/components/Calendar';
-import DatePicker from 'react-modern-calendar-datepicker';
-import CalendarForm from '@/components/Calendar';
 
 interface PetObjProps {
   petType: string;
@@ -28,11 +25,7 @@ interface PetObjProps {
   weight: string;
 }
 
-<<<<<<< HEAD
-export const PetInfoForm = () => {
-=======
 const PetInfoForm = () => {
->>>>>>> 00e40bac308497415948496094ab50cd44ee8502
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
