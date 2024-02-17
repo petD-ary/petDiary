@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/react-calendar": "^4.1.0",
     "antd": "^5.12.7",
     "axios": "^1.6.2",

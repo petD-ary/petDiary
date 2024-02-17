@@ -110,10 +110,6 @@ export const LogoHeader = () => {
 export const MainAnimalHeader = () => {
   const count = 1;
   const { addModal } = useModal();
-<<<<<<< HEAD
-
-=======
->>>>>>> 00e40bac308497415948496094ab50cd44ee8502
   return (
     <div className='flex items-center justify-between pt-4'>
       <div className='flex gap-2 '>
@@ -122,11 +118,7 @@ export const MainAnimalHeader = () => {
       </div>
       <div
         className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 cursor-pointer`}
-<<<<<<< HEAD
-        onClick={() => addModal(MODAL_TYPE.PETEDITLIST)}
-=======
         onClick={() => addModal(MODAL_TYPE.PET_EDIT)}
->>>>>>> 00e40bac308497415948496094ab50cd44ee8502
       >
         <IconEdit />
         수정

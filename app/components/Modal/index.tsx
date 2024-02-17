@@ -15,7 +15,6 @@ export const MODAL_TYPE = {
   PETEDITLIST: 'petEditList',
   PETADD: 'petAdd',
   PET_EDIT: 'petEdit',
-
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
@@ -97,18 +96,15 @@ const ModalContainer = ({
       </div>
     );
 
-
   if (variant === MODAL_VARIANT.ALL)
     return (
       <div
         onClick={(e) => e.stopPropagation()}
         className='w-full h-full bg-white mx-auto absolute left-1/2 -translate-x-1/2 top-0'
-
       >
         {children}
       </div>
     );
-
 };
 
 const Header = ({
