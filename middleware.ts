@@ -5,15 +5,22 @@ export async function middleware(request: NextRequest) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
 
-  if (!accessToken) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+  const url = request.nextUrl.clone();
 
+  if (!accessToken?.value) {
+    if (
+      !request.nextUrl.pathname.includes('/login') &&
+      !request.nextUrl.pathname.includes('/account')
+    ) {
+      url.pathname = '/login';
+      // return NextResponse.redirect(url);
+    }
+  }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
+  /* matcher: [
     '/((?!login|account).)*', // 모든 경로 포함
-  ],
+  ], */
 };

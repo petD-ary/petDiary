@@ -19,10 +19,6 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'http://54.252.147.64:5001/api/:path*',
       },
-      /* {
-        source: '/api/:path*',
-        destination: 'https://api/itthatcat.xyz/:path*',
-      }, */
     ];
   },
   webpack: (config) => {
