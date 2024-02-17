@@ -78,7 +78,7 @@ const Search = ({ searchQuery, products }: SearchProps) => {
                 <span
                   onClick={() =>
                     setSearchHistory((prev) =>
-                      prev ? prev.filter((item) => item.id !== id) : undefined
+                      prev ? prev.filter((item) => item.id !== id) : undefined,
                     )
                   }
                   className='cursor-pointer'

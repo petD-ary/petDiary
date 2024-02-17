@@ -28,7 +28,10 @@ export const getAirQuality = (pm10: number, pm25: number) => {
 
   // 둘 중 더 나쁜 상태를 반환
   const qualityLevels = ['좋음', '보통', '나쁨', '매우 나쁨'];
-  const worseIndex = Math.max(qualityLevels.indexOf(pm10Quality), qualityLevels.indexOf(pm25Quality));
+  const worseIndex = Math.max(
+    qualityLevels.indexOf(pm10Quality),
+    qualityLevels.indexOf(pm25Quality),
+  );
   return qualityLevels[worseIndex];
 };
 
@@ -46,7 +49,10 @@ export const getAirQualityImage = (status: string) => {
   return airQuality;
 };
 
-export const processDustSetData = (areaData: AreaDataType, setState: SetStateType) => {
+export const processDustSetData = (
+  areaData: AreaDataType,
+  setState: SetStateType,
+) => {
   if (areaData) {
     const pm10Value = +areaData.pm10Value || 0;
     const pm25Value = +areaData.pm25Value || 0;

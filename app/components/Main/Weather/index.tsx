@@ -19,9 +19,15 @@ const Weather = () => {
 
   useEffect(() => {
     if (geolocation.position !== null && geolocation.error === null) {
+<<<<<<< HEAD
       getWeatherData(geolocation.position).then((res) => {
         setData(res !== null ? res : null);
       });
+=======
+      getWeatherData(geolocation.position).then((res) =>
+        setData(res !== null ? res : null),
+      );
+>>>>>>> 00e40bac308497415948496094ab50cd44ee8502
     }
   }, [geolocation]);
 
