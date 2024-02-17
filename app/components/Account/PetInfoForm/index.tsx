@@ -28,11 +28,7 @@ interface PetObjProps {
   weight: string;
 }
 
-<<<<<<< HEAD
-export const PetInfoForm = () => {
-=======
 const PetInfoForm = () => {
->>>>>>> 00e40bac308497415948496094ab50cd44ee8502
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
