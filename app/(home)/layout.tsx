@@ -4,6 +4,7 @@ import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 import pretendard from '@/components/Pretendard';
 import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
+import { ConfigProvider } from 'antd';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -14,13 +15,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
-        <RecoilRootWrapper>
-          <div className='flex flex-col min-h-screen'>
-            <HeadingComponent />
-            <div className='flex-grow'>{children}</div>
-          </div>
-          <Navbar />
-        </RecoilRootWrapper>
+        <ConfigProvider theme={{ hashed: false }}>
+          <RecoilRootWrapper>
+            <div className='flex flex-col min-h-screen'>
+              <HeadingComponent />
+              <div className='flex-grow'>{children}</div>
+            </div>
+            <Navbar />
+          </RecoilRootWrapper>
+        </ConfigProvider>
       </body>
     </html>
   );

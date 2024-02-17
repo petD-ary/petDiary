@@ -25,6 +25,7 @@ const Profile = ({ user }: any) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('debugger');
       try {
         const petData = await getPetData();
         setPetData(petData);
@@ -52,8 +53,6 @@ const Profile = ({ user }: any) => {
                   priority
                 />
               </picture>
-
-              {item.name}
             </div>
             <div className='flex flex-row items-center gap-2'>
               <div

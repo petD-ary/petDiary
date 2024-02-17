@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '@/libs/axios';
 
 export interface UpdatedUserDataProps {
   user: {
@@ -18,9 +18,7 @@ export interface UpdatedUserDataProps {
 
 const UpdatedUserData = async (data: UpdatedUserDataProps) => {
   await axios
-    .post('/users/info', data, {
-      withCredentials: true,
-    })
+    .post('/users/info', data)
     .then((response) => console.log('response :', response));
 };
 

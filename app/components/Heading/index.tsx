@@ -21,7 +21,7 @@ const HeaderElement = {
   BackClose: () => <BackCloseHeader />,
   Alert: () => <AlertHeader />,
   Interactive: () => <InteractiveHeader />,
-  Default: () => <div>default</div>,
+  Default: () => <div></div>,
 };
 
 // 현재 경로에 따른 헤더 컴포넌트 매핑
@@ -31,7 +31,7 @@ const headerMap: HeaderMap = {
   '/login': HeaderElement.Home,
   '/반려정보3': HeaderElement.BackClose,
   '/': HeaderElement.Alert,
-  '/calender': HeaderElement.Interactive,
+  '/calendar': HeaderElement.Interactive,
   '/info': HeaderElement.Interactive,
   '/myPage': HeaderElement.Interactive,
   //  경로 추가
@@ -46,11 +46,7 @@ const HeadingComponent = () => {
 };
 
 const Heading = ({ children }: { children: ReactNode }) => {
-  return (
-    <header className='bg-white'>
-      <Container>{children}</Container>
-    </header>
-  );
+  return <header className='bg-white'>{children}</header>;
 };
 
 const Content = () => {

@@ -1,4 +1,4 @@
-import { instance } from '@/libs/axios';
+import instance from '@/libs/axios';
 
 export async function getPetData() {
   try {

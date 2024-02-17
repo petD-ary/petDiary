@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  body{
+    position:relative
+  }
   input {
     outline: none;
   }
@@ -10,50 +13,6 @@
   .header {
     @apply w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between;
   }
-
-  .custom-datepicker.ant-picker:hover {
-    @apply border-primary-500;
-  }
-  .custom-datepicker.ant-picker-focused {
-    outline: 0;
-    @apply border-primary-500;
-  }
-  .ant-picker-dropdown {
-    width: 100vw; /* 전체 뷰포트 너비 */
-    bottom: 0; /* 화면 하단에 위치 */
-    left: 0; /* 화면 왼쪽에 위치 */
-    /* animation: slideUp 0.3s ease-out; 애니메이션 효과 */
-  }
-
-  /* @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  } */
-  .custom-datepicker {
   
-  }
-  .custom-datepicker-dropdown .ant-picker-panel-container {
- 
-    position: fixed; /* 고정 위치 */
-    inset: auto auto 0 0; /* top, right, bottom, left */
-    bottom: 0 ;
-    left: 0 ;
-    width: 100vw; /* 전체 뷰포트 너비 */
-    animation: slideUp 0.3s ease-out; /* 애니메이션 효과 */
-    z-index: 999; /* 다른 요소들 위에 표시 */
-    background: white; /* 배경색 */
-    border-top-left-radius: 16px; /* 상단 왼쪽 둥근 모서리 */
-    border-top-right-radius: 16px; /* 상단 오른쪽 둥근 모서리 */
-
-    display: flex; /* Flexbox 사용 */
-    flex-direction: column; /* 수직 방향 정렬 */
-    justify-content: center; /* 수직 방향 가운데 정렬 */
-    align-items: center; /* 수평 방향 가운데 정렬 */
-  }
-
 
 }

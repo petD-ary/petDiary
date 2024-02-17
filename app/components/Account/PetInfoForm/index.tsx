@@ -7,13 +7,15 @@ import { useModal } from '@/hooks/useModal';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { MODAL_TYPE } from '@/components/Modal';
-import DatePicker from '@/components/DatePicker';
 import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import UpdatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
+import DatePickerForm from '@/components/Calendar';
+import DatePicker from 'react-modern-calendar-datepicker';
+import CalendarForm from '@/components/Calendar';
 
 interface PetObjProps {
   petType: string;
@@ -26,7 +28,7 @@ interface PetObjProps {
   weight: string;
 }
 
-export const PetInForm = () => {
+export const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
@@ -219,7 +221,6 @@ export const PetInForm = () => {
               }
             />
           </Input>
-          <DatePicker />
           <Input onChange={handleUnknownBirthdayCheck}>
             <Input.CheckInput
               id='unknownBirthday'

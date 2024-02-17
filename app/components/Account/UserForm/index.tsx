@@ -6,7 +6,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Heading from '../Heading';
 import Button from '@/components/Button';
 import getNicknameValidation from './getNicknameValidation';
-import DatePicker from 'antd/es/date-picker';
 
 interface AccountProps {
   userId: string;
@@ -37,9 +36,7 @@ const UserForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const nicknameCheck = await getNicknameValidation(nickname);
-
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
     } else if (nicknameCheck.message) {

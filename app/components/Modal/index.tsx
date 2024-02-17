@@ -11,12 +11,17 @@ import { useModal } from '@/hooks/useModal';
 export const MODAL_TYPE = {
   BREED: 'breed',
   WEATHER: 'weather',
+  WALK: 'walk',
+  PETEDITLIST: 'petEditList',
+  PETADD: 'petAdd',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
   SLIDE: 'slide',
   CARD: 'card',
+  // 꽉찬 모달 명칭
+  FULLCARD: 'fullCard',
 };
 
 export type MODAL_VARIANT = (typeof MODAL_VARIANT)[keyof typeof MODAL_VARIANT];
@@ -90,6 +95,16 @@ const ModalContainer = ({
         <div className='bg-white rounded-lg mx-5 min-h-[156px]'>{children}</div>
       </div>
     );
+  if (variant === MODAL_VARIANT.FULLCARD)
+    return (
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className='fixed inset-0 z-50 bg-white w-full h-full '
+      >
+        {children}
+      </div>
+    );
+  return null;
 };
 
 const Header = ({
@@ -134,6 +149,7 @@ const Header = ({
         </div>
       </div>
     );
+  return null;
 };
 
 const ModalButton = () => {

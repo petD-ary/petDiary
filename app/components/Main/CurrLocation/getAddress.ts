@@ -14,7 +14,6 @@ const getAddress = async (position: Coordinates) => {
       },
     });
     const { data } = response;
-
     result = {
       city: data.documents[0].address.region_1depth_name,
       district: data.documents[0].address.region_2depth_name,
