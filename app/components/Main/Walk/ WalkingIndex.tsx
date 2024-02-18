@@ -5,6 +5,9 @@ import bad from '@/assets/images/status/bad.png';
 import veryBad from '@/assets/images/status/veryBad.png';
 import IconInfo from '@/assets/images/Icon-info.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
+import { useModal } from '@/hooks/useModal';
+import { MODAL_TYPE } from '@/components/Modal';
+import WalkingInfoModal from './WalkingInfoModal';
 type walkData = {
   state: string;
   img: string;
@@ -14,6 +17,8 @@ interface CardType {
 }
 
 const WalkingIndex: React.FC<CardType> = ({ weather }) => {
+  const { addModal } = useModal();
+
   let imageSrc;
   switch (weather.img) {
     case 'bad.png':
@@ -27,12 +32,15 @@ const WalkingIndex: React.FC<CardType> = ({ weather }) => {
   }
   return (
     <div className='bg-white flex flex-col w-full rounded-xl p-4 '>
+      <WalkingInfoModal />
       <div className='flex flex-row justify-between '>
         <div className=''>
           <div className={`${Caption.caption2} mb-1`}>산책지수</div>
           <div className={`${Title.title3}`}>{weather.state}</div>
         </div>
-        <IconInfo />
+        <div onClick={() => addModal(MODAL_TYPE.WALKING_INFO)}>
+          <IconInfo />
+        </div>
       </div>
       <div className='relative flex justify-end'>
         <Image
