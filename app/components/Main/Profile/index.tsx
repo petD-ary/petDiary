@@ -3,6 +3,9 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 import {
   Body,
@@ -47,9 +50,9 @@ const Profile = ({ user }: any) => {
     <div>
       <MainAnimalHeader petCount={petData.length} />
       <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
-        <Swiper slidesPerView={1}>
+        <Swiper pagination={true} modules={[Pagination]}>
           {petData?.map((item) => (
-            <SwiperSlide key={item.name}>
+            <SwiperSlide key={item.id}>
               <div>
                 <div className='flex flex-col items-center gap-3 mb-4'>
                   <div className='rounded-full overflow-hidden w-20 h-20 '>
