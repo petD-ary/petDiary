@@ -34,7 +34,6 @@ const Profile = ({ user }: any) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('debugger');
       try {
         const petData = await getPetData();
         setPetData(petData);
@@ -118,9 +117,23 @@ const Profile = ({ user }: any) => {
             </SwiperSlide>
           ))}
         </Swiper>
+        {!petData.length && <Skeleton />}
       </div>
     </div>
   );
 };
+
+const Skeleton = () => (
+  <div className='flex flex-col items-center gap-3 mb-4'>
+    <div className='w-20 h-20 bg-grayColor-100 animate-pulse' />
+    <div className='w-[60%] h-[22px] bg-grayColor-100 animate-pulse' />
+    <div className='w-full gap-2 flex justify-center'>
+      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
+      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
+      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
+    </div>
+    <div className='w-8 h-2 m-1 bg-grayColor-100 animate-pulse' />
+  </div>
+);
 
 export default Profile;
