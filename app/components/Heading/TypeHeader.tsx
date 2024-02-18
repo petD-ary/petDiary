@@ -107,14 +107,15 @@ export const LogoHeader = () => {
 };
 
 //main
-export const MainAnimalHeader = () => {
-  const count = 1;
+export const MainAnimalHeader = (props: { petCount: number }) => {
   const { addModal } = useModal();
   return (
-    <div className='flex items-center justify-between pt-4'>
+    <div className='flex items-center justify-between py-4'>
       <div className='flex gap-2 '>
         <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
-        <div className={`text-primary-500 ${Title.title2}`}>{count}</div>
+        <div className={`text-primary-500 ${Title.title2}`}>
+          {props.petCount}
+        </div>
       </div>
       <div
         className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 cursor-pointer`}

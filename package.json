@@ -29,7 +29,8 @@
     "react-kakao-login": "^2.1.1",
     "react-modern-calendar-datepicker": "^3.1.6",
     "recoil": "^0.7.7",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "swiper": "^11.0.6"
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
