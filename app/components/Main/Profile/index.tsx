@@ -13,6 +13,8 @@ import born from '@/assets/images/profile/born.png';
 import together from '@/assets/images/profile/together.png';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import dogPng from '@/assets/images/profile/dog/dog.png';
+import cat from '@/assets/images/profile/cat/cat1x.webp';
+import catPng from '@/assets/images/profile/cat/cat.png';
 import { getPetData } from '@/utils/getPetData';
 import { PetData } from '@/types/petData';
 import {
@@ -44,9 +46,9 @@ const Profile = ({ user }: any) => {
           <div className='flex flex-col items-center gap-3 mb-4'>
             <div className='rounded-full overflow-hidden w-20 h-20 '>
               <picture>
-                <source srcSet={dogPng.src} />
+                <source srcSet={item.petType === '고양이' ? catPng.src : dogPng.src} />
                 <Image
-                  src={dog}
+                  src={item.petType === '고양이' ? cat : dog}
                   alt='profile'
                   width={80}
                   height={80}
