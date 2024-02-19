@@ -23,6 +23,7 @@ import catPng from '@/assets/images/profile/cat/cat.png';
 import { getPetData } from '@/utils/getPetData';
 import { PetData } from '@/types/petData';
 import {
+  calculateAge,
   calculateElapsedDays,
   calculateRemainingDays,
 } from '@/utils/calculateDay';
@@ -74,7 +75,7 @@ const Profile = ({ user }: any) => {
                     <div
                       className={`px-2 py-1 ${Extra} text-primary-500 bg-primary-50`}
                     >
-                      {calculateElapsedDays(item.createdAt)}살
+                      {calculateAge(item.createdAt)}살
                     </div>
                     <div className={`${Title.title3}`}>{item.name}</div>
                   </div>
@@ -86,7 +87,7 @@ const Profile = ({ user }: any) => {
                       생일
                     </span>
                     <div className={`${Body.body2}`}>
-                      D-{calculateRemainingDays(item.adoptionDate)}
+                      D-{calculateRemainingDays(item.birthday)}
                     </div>
                   </div>
                   <div className='text-center  py-2 px-4'>
@@ -95,7 +96,7 @@ const Profile = ({ user }: any) => {
                       태어난지
                     </span>
                     <div className={`${Body.body2}`}>
-                      {calculateElapsedDays(item.adoptionDate)}일
+                      {calculateElapsedDays(item.birthday)}일
                     </div>
                   </div>
                   <div className='text-center  py-2 px-4'>

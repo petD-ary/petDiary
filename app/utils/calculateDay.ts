@@ -57,7 +57,7 @@ export const calculateElapsedDays = (dateStr: string): number => {
  */
 export const calculateAge = (dateStr: string): number => {
   const birth = new Date(dateStr);
-  const now = new Date(new Date().setHours(0, 0, 0, 0));
+  const now = new Date(new Date());
 
   const birthYear = birth.getFullYear();
   const birthMonth = birth.getMonth();
@@ -65,7 +65,7 @@ export const calculateAge = (dateStr: string): number => {
 
   const nowYear = now.getFullYear();
   const nowMonth = now.getMonth();
-  const nowDay = now.getDay();
+  const nowDay = now.getDate();
 
   let age = nowYear - birthYear;
 

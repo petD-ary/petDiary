@@ -33,13 +33,17 @@ const WalkingIndex: React.FC<CardType> = ({ weather }) => {
   return (
     <div className='bg-white flex flex-col w-full rounded-xl p-4 '>
       <WalkingInfoModal />
-      <div className='flex flex-row justify-between '>
+      <div className='flex justify-between items-start'>
         <div className=''>
-          <div className={`${Caption.caption2} mb-1`}>산책지수</div>
-          <div className={`${Title.title3}`}>{weather.state}</div>
+          <div className={`${Caption.caption2} mb-1 text-text-primary`}>
+            산책지수
+          </div>
+          <div className={`${Title.title3} text-text-title`}>
+            {weather.state}
+          </div>
         </div>
         <div onClick={() => addModal(MODAL_TYPE.WALKING_INFO)}>
-          <IconInfo />
+          <IconInfo className='cursor-pointer' />
         </div>
       </div>
       <div className='relative flex justify-end'>

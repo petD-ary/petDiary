@@ -2,7 +2,7 @@ import Container from '@/components/Container';
 import CurrLocation from '@/components/Main/CurrLocation';
 import Weather from '@/components/Main/Weather';
 import Profile from '@/components/Main/Profile';
-import PetEditModal from '@/components/Main/PetEditModal/PetEditModal';
+import PetEditModal from '@/components/Main/PetListModal';
 import Walk from '@/components/Main/Walk';
 
 export default function Home() {

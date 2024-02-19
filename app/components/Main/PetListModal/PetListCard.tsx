@@ -4,16 +4,17 @@ import { PetData } from '@/types/petData';
 import Image from 'next/image';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import dogPng from '@/assets/images/profile/dog/dog.png';
-import {
-  calculateAge,
-  calculateElapsedDays,
-  convertKoreanDateFormat,
-} from '@/utils/calculateDay';
+import cat from '@/assets/images/profile/cat/cat1x.webp';
+import catPng from '@/assets/images/profile/cat/cat.png';
+import { calculateAge, convertKoreanDateFormat } from '@/utils/calculateDay';
 import {
   Caption,
   Extra,
   SubTitle,
 } from '@/constants/Typography/TypographyList';
+import { useModal } from '@/hooks/useModal';
+import { MODAL_TYPE } from '@/components/Modal';
+import PetDataEditModal from './PetEditModal';
 
 const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   return (
@@ -26,13 +27,22 @@ const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   );
 };
 
-const PetEditCard = ({ data }: { data: PetData }) => {
+const PetListCard = ({ data }: { data: PetData }) => {
+  const { addModal } = useModal();
   return (
     <div className='border border-extra-dividers rounded-[4px] p-4 flex justify-between items-center gap-3'>
       <div className='rounded-full overflow-hidden w-12 h-12'>
         <picture>
-          <source srcSet={dogPng.src} />
-          <Image src={dog} alt='profile' width={80} height={80} priority />
+          <source
+            srcSet={data.petType === '고양이' ? catPng.src : dogPng.src}
+          />
+          <Image
+            src={data.petType === '고양이' ? cat : dog}
+            alt='profile'
+            width={48}
+            height={48}
+            priority
+          />
         </picture>
       </div>
       <div className='flex-grow'>
@@ -48,9 +58,11 @@ const PetEditCard = ({ data }: { data: PetData }) => {
           </span>
         </p>
       </div>
-      <EditBtn />
+      <EditBtn onClick={() => addModal(MODAL_TYPE.PETEDIT)} />
+
+      <PetDataEditModal data={data} />
     </div>
   );
 };
 
-export default PetEditCard;
+export default PetListCard;

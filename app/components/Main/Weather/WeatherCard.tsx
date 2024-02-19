@@ -49,7 +49,12 @@ const WeatherCard: React.FC<CardType> = ({
           }`}
         >
           {data?.icon ? (
-            <Image fill src={data?.icon} alt='오늘의 날씨 아이콘' />
+            <Image
+              fill
+              src={data?.icon}
+              sizes='100%'
+              alt='오늘의 날씨 아이콘'
+            />
           ) : null}
         </div>
       </div>
