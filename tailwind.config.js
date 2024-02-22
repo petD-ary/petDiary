@@ -80,6 +80,7 @@ module.exports = {
           disable: 'rgba(0, 0, 0, 0.25)',
         },
         extra: {
+          active: 'rgba(0, 0, 0, 0.25)',
           border: 'rgba(0, 0, 0, 0.15)',
           dividers: 'rgba(0, 0, 0, 0.06)',
           'btn-bg': 'rgba(0, 0, 0, 0.08)',

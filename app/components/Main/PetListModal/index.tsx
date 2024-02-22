@@ -6,9 +6,12 @@ import { getPetData } from '@/utils/getPetData';
 import PetEditCard from './PetListCard';
 import Button from '@/components/Button';
 import { useModal } from '@/hooks/useModal';
+import PetEditModal from './PetEditModal';
 
-const PetEditModal = () => {
+const PetListModal = () => {
   const [petData, setPetData] = useState<PetData[]>([]);
+
+  const [selectedData, setSelectedData] = useState<number | null>(null);
   const { addModal } = useModal();
 
   useEffect(() => {
@@ -33,7 +36,19 @@ const PetEditModal = () => {
       />
       <div className='px-5'>
         <div className='py-4 pt-5 flex flex-col gap-2'>
-          {petData?.map((data) => <PetEditCard data={data} />)}
+          {petData?.map((data) => (
+            <PetEditCard
+              key={data.id}
+              data={data}
+              setSelectedData={(id: number) => setSelectedData(id)}
+            />
+          ))}
+
+          {petData && selectedData ? (
+            <PetEditModal
+              data={petData.filter((item) => item.id === selectedData)[0]}
+            />
+          ) : null}
         </div>
         <Button
           className='border-purple-600 mt-3'
@@ -46,4 +61,4 @@ const PetEditModal = () => {
   );
 };
 
-export default PetEditModal;
+export default PetListModal;

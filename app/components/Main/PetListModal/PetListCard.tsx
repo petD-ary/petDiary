@@ -14,7 +14,6 @@ import {
 } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
-import PetDataEditModal from './PetEditModal';
 
 const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   return (
@@ -27,8 +26,15 @@ const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   );
 };
 
-const PetListCard = ({ data }: { data: PetData }) => {
+const PetListCard = ({
+  data,
+  setSelectedData,
+}: {
+  data: PetData;
+  setSelectedData: (id: number) => void;
+}) => {
   const { addModal } = useModal();
+
   return (
     <div className='border border-extra-dividers rounded-[4px] p-4 flex justify-between items-center gap-3'>
       <div className='rounded-full overflow-hidden w-12 h-12'>
@@ -58,9 +64,12 @@ const PetListCard = ({ data }: { data: PetData }) => {
           </span>
         </p>
       </div>
-      <EditBtn onClick={() => addModal(MODAL_TYPE.PETEDIT)} />
-
-      <PetDataEditModal data={data} />
+      <EditBtn
+        onClick={() => {
+          addModal(MODAL_TYPE.PETEDIT);
+          setSelectedData(data.id);
+        }}
+      />
     </div>
   );
 };

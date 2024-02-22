@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -47,8 +47,8 @@ const Profile = ({ user }: any) => {
   }, []);
 
   return (
-    <div>
-      <MainAnimalHeader petCount={petData.length} />
+    <Fragment>
+      <MainAnimalHeader petCount={petData?.length} />
       <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
         <Swiper pagination={true} modules={[Pagination]}>
           {petData?.map((item) => (
@@ -118,20 +118,24 @@ const Profile = ({ user }: any) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        {!petData.length && <Skeleton />}
+        {!petData?.length && <Skeleton />}
       </div>
-    </div>
+    </Fragment>
   );
 };
 
 const Skeleton = () => (
   <div className='flex flex-col items-center gap-3 mb-4'>
-    <div className='w-20 h-20 bg-grayColor-100 animate-pulse' />
+    <div className='w-20 h-20 bg-grayColor-100 rounded-full animate-pulse' />
     <div className='w-[60%] h-[22px] bg-grayColor-100 animate-pulse' />
     <div className='w-full gap-2 flex justify-center'>
-      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
-      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
-      <div className='w-11 h-[84px] my-2 mx-4 bg-grayColor-100 animate-pulse' />
+      {Array.from(Array(3), () => (
+        <div className='w-11 h-[84px] my-2 mx-4 flex flex-col items-center [&_div]:animate-pulse [&_div]:bg-grayColor-100'>
+          <div className='h-11 rounded-2xl w-full'></div>
+          <div className='h-[14px] w-2/3 mt-2 mb-1'></div>
+          <div className='h-4 w-full'></div>
+        </div>
+      ))}
     </div>
     <div className='w-8 h-2 m-1 bg-grayColor-100 animate-pulse' />
   </div>

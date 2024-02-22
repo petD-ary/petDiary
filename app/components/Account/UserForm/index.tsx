@@ -36,13 +36,17 @@ const UserForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const nicknameCheck = await getNicknameValidation(nickname);
+
     if (handleCheckNickname(nickname)) {
       return setError('특수문자 ~!@#$%^&*()_제외');
-    } else if (nicknameCheck.message) {
-      setError('이미 등록되어 있는 닉네임 입니다.');
     } else {
-      return setStep((prev) => prev + 1);
+      const nicknameCheck = await getNicknameValidation(nickname);
+
+      if (nicknameCheck.message) {
+        return setError('이미 등록되어 있는 닉네임 입니다.');
+      } else {
+        return setStep((prev) => prev + 1);
+      }
     }
   };
 
@@ -51,12 +55,15 @@ const UserForm = () => {
       <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
       <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
         <div className='flex flex-col pt-6 pb-3'>
-          <Input onChange={handleChange} value={nickname} error={error}>
-            <Input.Label isRequired>닉네임</Input.Label>
+          <Input isRequired name='nickname'>
+            <Input.Label>닉네임</Input.Label>
             <Input.TextInput
-              error={error !== null ? true : false}
+              value={nickname}
+              error={error !== null && nickname !== ''}
               placeholder='닉네임을 입력해 주세요'
+              onChange={handleChange}
             />
+            <Input.ValidIcon error={error} />
             <Input.Error>{error}</Input.Error>
           </Input>
         </div>
