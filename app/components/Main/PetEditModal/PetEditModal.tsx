@@ -25,7 +25,7 @@ const PetEditModal = () => {
     <Modal type={MODAL_TYPE.PET_EDIT} variant={MODAL_VARIANT.ALL}>
       <Modal.Header
         title='내 반려동물'
-        desc={petData.length}
+        desc={petData?.length}
         titleType='left'
       />
       <div className='px-5'>

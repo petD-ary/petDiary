@@ -1,9 +1,9 @@
 'use client';
 import useCalendar from '@/hooks/useCalendar';
 import { isSameMonth } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, {   useCallback, useMemo, useState } from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-
+import IconPlus from '@/assets/images/icon-plusW.svg';
 const CalendarForm = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentYear, setCurrentYear] = useState<number>(
@@ -13,18 +13,14 @@ const CalendarForm = () => {
     new Date().getMonth(),
   );
 
-  // useCalendar 훅을 사용하여 현재 선택된 년도와 월에 기반한 주 데이터를 가져옵니다.
-  const { weeks } = useCalendar(currentYear, currentMonth);
+  const weeks = useCalendar(currentYear, currentMonth).weeks;
 
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
   const today = new Date();
 
-  // 10년 범위의 년도와 12개월을 위한 배열
-  const months = Array.from({ length: 12 }, (_, i) => i);
-  const years = Array.from(
-    { length: 10 },
-    (_, i) => today.getFullYear() - 5 + i,
-  );
+
+  const years = useMemo(() => Array.from({ length: 10 }, (_, i) => currentYear - 5 + i), [currentYear]);
+  const months = useMemo(() => Array.from({ length: 12 }, (_, i) => i), []);
 
   const isToday = (day: Date) => {
     return (
@@ -48,17 +44,18 @@ const CalendarForm = () => {
     return dayOfWeek === 0;
   };
 
-  const handleDayClick = (day: Date) => {
-    setSelectedDate(day);
-  };
+ 
+ const handleYearChange = useCallback((event: { target: { value: string; }; }) => {
+  setCurrentYear(parseInt(event.target.value, 10));
+}, []);
 
-  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentYear(parseInt(event.target.value, 10));
-  };
+const handleMonthChange = useCallback((event: { target: { value: string; }; }) => {
+  setCurrentMonth(parseInt(event.target.value, 10));
+}, []);
 
-  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentMonth(parseInt(event.target.value, 10));
-  };
+const handleDayClick = useCallback((day: React.SetStateAction<Date | null>) => {
+  setSelectedDate(day);
+}, []);
 
   const isCurrentMonth = (day: Date) => {
     const selectedMonth = new Date(currentYear, currentMonth);
@@ -66,7 +63,13 @@ const CalendarForm = () => {
   };
 
   return (
-    <div className='calender'>
+    <div className='calender '>
+      <button
+  className="fixed bottom-[80px] right-[25px] z-50 bg-primary-500 hover:bg-primary-400 text-white font-bold rounded-full drop-shadow-floatBtn hover:shadow-xl transition-shadow flex items-center justify-center h-12 w-12"
+  
+>
+  <IconPlus color/>
+</button>
       <div>
         <select value={currentYear} onChange={handleYearChange}>
           {years.map((year) => (
@@ -83,49 +86,46 @@ const CalendarForm = () => {
           ))}
         </select>
       </div>
-      <div className='flex justify-between border-b border-grayColor-100/40  mb-5 '>
+      <div className='min-w-[345px] flex justify-between mb-2 '>
         {WEEK_DAYS.map((day, index) => (
           <div
             key={index}
-            className={`py-2 px-4 flex-1 text-center ${
+            className={`py-[2.4vw] px-[1.9vw] text-center ${
               [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
             }`}
           >
-            {day}
+            <div className={`px-[clamp(12px, 1.9vw, 16px)] `}>{day}</div>
           </div>
         ))}
       </div>
       {weeks.map((week, weekIndex) => {
         return (
-          <div key={weekIndex} className='week flex justify-between'>
+          <div key={weekIndex} className='flex justify-between'>
             {week.map((day, dayIndex) => {
               return (
                 <div
                   key={dayIndex}
-                  className={`py-4 px-4  flex flex-col  justify-center items-center rounded-[4px] 
+                  className={`max-w-[60px] max-h-[60px] py-[2.4vw] px-[1.9vw] flex flex-col  justify-center items-center rounded-[4px] 
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
-                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
-                  ${isToday(day) ? 'bg-primary-600/30' : ''}
+                  ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
+                  ${isToday(day) ? 'bg-primary-50' : ''}
                   ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
                   `}
                   onClick={() => isCurrentMonth(day) && handleDayClick(day)}
                 >
-                  <div
-                    className={
-                      isToday(day) ? 'text-primary-600  font-medium' : ''
-                    }
-                  >
-                    {day.getDate()}
-                  </div>
+               <div className={`px-0 ${
+                    isToday(day) ? (isWeekend(day) ? 'text-error' : 'text-gray-800') : ''
+                        }`}
+                          >
+                        {day.getDate()}
+                      </div>
                   <div
                     className={`px-4 ${
                       isToday(day)
                         ? 'visible text-primary-600 font-bold'
                         : 'invisible'
                     } `}
-                  >
-                    오늘
-                  </div>
+                  />    
                 </div>
               );
             })}
