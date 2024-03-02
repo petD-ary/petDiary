@@ -15,12 +15,14 @@ export const MODAL_TYPE = {
   PETEDITLIST: 'petEditList',
   PETADD: 'petAdd',
   PET_EDIT: 'petEdit',
+  CALENDAR: 'calendar',
 
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
   SLIDE: 'slide',
+  HALFSLIDE:'halfSlide',
   CARD: 'card',
   ALL: 'all',
 };
@@ -76,7 +78,7 @@ const ModalContainer = ({
     };
   }, []);
 
-  if (variant === MODAL_VARIANT.SLIDE)
+  if (variant === MODAL_VARIANT.SLIDE) {
     return (
       <div
         onClick={(e) => e.stopPropagation()}
@@ -86,8 +88,21 @@ const ModalContainer = ({
         {children}
       </div>
     );
+  }
 
-  if (variant === MODAL_VARIANT.CARD)
+  if (variant === MODAL_VARIANT.HALFSLIDE) {
+    return (
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(50%_-_56px)]
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
+      >
+        {children}
+      </div>
+    );
+  }
+
+  if (variant === MODAL_VARIANT.CARD) {
     return (
       <div
         onClick={(e) => e.stopPropagation()}
@@ -96,18 +111,19 @@ const ModalContainer = ({
         <div className='bg-white rounded-lg mx-5 min-h-[156px]'>{children}</div>
       </div>
     );
+  }
 
-
-  if (variant === MODAL_VARIANT.ALL)
+  if (variant === MODAL_VARIANT.ALL) {
     return (
       <div
         onClick={(e) => e.stopPropagation()}
         className='w-full h-full bg-white mx-auto absolute left-1/2 -translate-x-1/2 top-0'
-
       >
         {children}
       </div>
     );
+  }
+    return null
 
 };
 
@@ -161,12 +177,12 @@ const Header = ({
   return null;
 };
 
-const ModalButton = () => {
+const ModalButton = ({children}:{children:string}) => {
   const { removeModal } = useModal();
   return (
     <div className='py-3 px-5 bg-white w-full shadow-[0_-4px_12px_0_rgba(0_,0_,0_,0.04)]'>
       <Button onClick={() => removeModal()} variant='contained'>
-        선택
+        {children}
       </Button>
     </div>
   );
