@@ -11,4 +11,5 @@ export type PetData = {
   updatedAt: string;
   userId: number;
   weight: string;
+  imageUrl: string | null;
 };

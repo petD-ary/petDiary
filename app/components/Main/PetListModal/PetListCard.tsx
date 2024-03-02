@@ -38,18 +38,34 @@ const PetListCard = ({
   return (
     <div className='border border-extra-dividers rounded-[4px] p-4 flex justify-between items-center gap-3'>
       <div className='rounded-full overflow-hidden w-12 h-12'>
-        <picture>
-          <source
-            srcSet={data.petType === '고양이' ? catPng.src : dogPng.src}
-          />
+        {data.imageUrl ? (
           <Image
-            src={data.petType === '고양이' ? cat : dog}
+            src={
+              data.imageUrl !== null
+                ? data.imageUrl
+                : data.petType === '고양이'
+                  ? cat
+                  : dog
+            }
             alt='profile'
-            width={48}
-            height={48}
-            priority
+            width={80}
+            height={80}
+            priority={data.imageUrl !== null ? false : true}
           />
-        </picture>
+        ) : (
+          <picture>
+            <source
+              srcSet={data.petType === '고양이' ? catPng.src : dogPng.src}
+            />
+            <Image
+              src={data.petType === '고양이' ? cat : dog}
+              alt='profile'
+              width={80}
+              height={80}
+              priority
+            />
+          </picture>
+        )}
       </div>
       <div className='flex-grow'>
         <p

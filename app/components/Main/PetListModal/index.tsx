@@ -10,12 +10,13 @@ import PetEditModal from './PetEditModal';
 
 const PetListModal = () => {
   const [petData, setPetData] = useState<PetData[]>([]);
+  console.log('🚀 ~ PetListModal ~ petData:', petData);
 
   const [selectedData, setSelectedData] = useState<number | null>(null);
   const { addModal } = useModal();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPetData = async () => {
       try {
         const petData = await getPetData();
         setPetData(petData);
@@ -23,8 +24,7 @@ const PetListModal = () => {
         console.error(error);
       }
     };
-
-    fetchData();
+    fetchPetData();
   }, []);
 
   return (

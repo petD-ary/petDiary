@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'openweathermap.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'petdiary-bucket.s3.ap-southeast-2.amazonaws.com',
+      },
     ],
   },
   async rewrites() {
@@ -29,6 +33,9 @@ const nextConfig = {
     });
 
     return config;
+  },
+  experimental: {
+    serverActions: true,
   },
 };
 

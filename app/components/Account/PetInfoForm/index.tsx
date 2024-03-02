@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, Fragment } from 'react';
+import { FormEvent, Fragment, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import updatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, petInfoState, stepState } from '@/recoil/Account/atoms';
@@ -22,6 +22,7 @@ const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const petInfo = useRecoilValue(petInfoState);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,13 +34,21 @@ const PetInfoForm = () => {
       },
     };
 
-    try {
-      await updatedUserData(data);
-    } catch (e) {
-      return console.log(e);
+    if (
+      petInfo.petType !== '' ||
+      petInfo.breed !== '' ||
+      petInfo.name !== '' ||
+      petInfo.adoptionDate !== ''
+    ) {
+      try {
+        await updatedUserData(data);
+        return setStep((prev) => prev + 1);
+      } catch (e) {
+        return console.log(e);
+      }
+    } else {
+      return setError('필수 정보를 입력해주세요');
     }
-
-    setStep((prev) => prev + 1);
   };
 
   return (
@@ -50,6 +59,7 @@ const PetInfoForm = () => {
       />
 
       <PetInfo handleSubmit={handleSubmit} submitValue='확인' />
+      {error !== null ? <p className='text-center '>{error}</p> : null}
     </Fragment>
   );
 };

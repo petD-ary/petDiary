@@ -55,27 +55,43 @@ const Profile = ({ user }: any) => {
             <SwiperSlide key={item.id}>
               <div>
                 <div className='flex flex-col items-center gap-3 mb-4'>
-                  <div className='rounded-full overflow-hidden w-20 h-20 '>
-                    <picture>
-                      <source
-                        srcSet={
-                          item.petType === '고양이' ? catPng.src : dogPng.src
-                        }
-                      />
+                  <div className='rounded-full overflow-hidden w-20 h-20 shadow-level1'>
+                    {item.imageUrl ? (
                       <Image
-                        src={item.petType === '고양이' ? cat : dog}
+                        src={
+                          item.imageUrl !== null
+                            ? item.imageUrl
+                            : item.petType === '고양이'
+                              ? cat
+                              : dog
+                        }
                         alt='profile'
                         width={80}
                         height={80}
-                        priority
+                        priority={item.imageUrl !== null ? false : true}
                       />
-                    </picture>
+                    ) : (
+                      <picture>
+                        <source
+                          srcSet={
+                            item.petType === '고양이' ? catPng.src : dogPng.src
+                          }
+                        />
+                        <Image
+                          src={item.petType === '고양이' ? cat : dog}
+                          alt='profile'
+                          width={80}
+                          height={80}
+                          priority
+                        />
+                      </picture>
+                    )}
                   </div>
                   <div className='flex flex-row items-center gap-2'>
                     <div
                       className={`px-2 py-1 ${Extra} text-primary-500 bg-primary-50`}
                     >
-                      {calculateAge(item.createdAt)}살
+                      {calculateAge(item.birthday)}살
                     </div>
                     <div className={`${Title.title3}`}>{item.name}</div>
                   </div>
@@ -129,8 +145,11 @@ const Skeleton = () => (
     <div className='w-20 h-20 bg-grayColor-100 rounded-full animate-pulse' />
     <div className='w-[60%] h-[22px] bg-grayColor-100 animate-pulse' />
     <div className='w-full gap-2 flex justify-center'>
-      {Array.from(Array(3), () => (
-        <div className='w-11 h-[84px] my-2 mx-4 flex flex-col items-center [&_div]:animate-pulse [&_div]:bg-grayColor-100'>
+      {Array.from(Array(3), (_, key) => (
+        <div
+          key={key}
+          className='w-11 h-[84px] my-2 mx-4 flex flex-col items-center [&_div]:animate-pulse [&_div]:bg-grayColor-100'
+        >
           <div className='h-11 rounded-2xl w-full'></div>
           <div className='h-[14px] w-2/3 mt-2 mb-1'></div>
           <div className='h-4 w-full'></div>

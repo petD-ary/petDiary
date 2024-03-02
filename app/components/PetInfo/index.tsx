@@ -8,13 +8,13 @@ import { Body } from '@/constants/Typography/TypographyList';
 import VariantModal from '../Account/VariantModal';
 import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
 import { useRecoilState } from 'recoil';
-import { petInfoState } from '@/recoil/Account/atoms';
+import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
 
 const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
   const { addModal } = useModal();
-  const [unknownBirthday, setUnknownBirthday] = useState(false);
+  const [unknownBirthday, setUnknownBirthday] =
+    useRecoilState(unknownBirthdayState);
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
-  console.log('🚀 ~ PetInfo ~ petInfo:', petInfo);
   const {
     adoptionDate,
     birthday,
@@ -27,26 +27,26 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
   } = petInfo;
 
   useEffect(() => {
-    setPetInfo((prev) => ({ ...prev, breed: '' }));
-  }, [petInfo.petType]);
-
-  useEffect(() => {
-    if (unknownBirthday)
+    if (unknownBirthday) {
       return setPetInfo((prev) => ({ ...prev, birthday: '' }));
+    }
   }, [unknownBirthday]);
 
-  // const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value, checked } = e.target;
-  //   const updatedValue: PetObjValue =
-  //     name === INPUT_TYPE.NEUTERED || name === INPUT_TYPE.BIRTHDAY
-  //       ? checked
-  //       : value;
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = e.target;
+    const updatedValue: PetObjValue =
+      name === INPUT_TYPE.NEUTERED ? checked : value;
 
-  //   return setPetInfo((prev) => ({
-  //     ...prev,
-  //     [name]: updatedValue,
-  //   }));
-  // };
+    const updatedObj =
+      name === INPUT_TYPE.TYPE
+        ? { [name]: updatedValue, breed: '' }
+        : { [name]: updatedValue };
+
+    return setPetInfo((prev) => ({
+      ...prev,
+      ...updatedObj,
+    }));
+  };
 
   return (
     <form
@@ -61,22 +61,12 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           <Input.CheckOnlyOneInput
             value='강아지'
             selected={petType}
-            onChange={(e) => {
-              setPetInfo((prev) => ({
-                ...prev,
-                petType: e.target.value,
-              }));
-            }}
+            onChange={(e) => handleChangeValue(e)}
           />
           <Input.CheckOnlyOneInput
             value='고양이'
             selected={petType}
-            onChange={(e) =>
-              setPetInfo((prev) => ({
-                ...prev,
-                petType: e.target.value,
-              }))
-            }
+            onChange={(e) => handleChangeValue(e)}
           />
         </div>
       </Input>
@@ -101,12 +91,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         <Input.TextInput
           placeholder='반려동물의 이름을 입력해 주세요'
           value={name}
-          onChange={(e) =>
-            setPetInfo((prev) => ({
-              ...prev,
-              name: e.target.value,
-            }))
-          }
+          onChange={(e) => handleChangeValue(e)}
         />
       </Input>
 
@@ -117,22 +102,12 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
             <Input.CheckOnlyOneInput
               value='남아'
               selected={gender}
-              onChange={(e) =>
-                setPetInfo((prev) => ({
-                  ...prev,
-                  gender: e.target.value,
-                }))
-              }
+              onChange={(e) => handleChangeValue(e)}
             />
             <Input.CheckOnlyOneInput
               value='여아'
               selected={gender}
-              onChange={(e) =>
-                setPetInfo((prev) => ({
-                  ...prev,
-                  gender: e.target.value,
-                }))
-              }
+              onChange={(e) => handleChangeValue(e)}
             />
           </div>
         </Input>
@@ -140,12 +115,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         <Input name={INPUT_TYPE.NEUTERED}>
           <Input.CheckInput
             checked={neutered}
-            onChange={(e) =>
-              setPetInfo((prev) => ({
-                ...prev,
-                neutered: e.target.checked,
-              }))
-            }
+            onChange={(e) => handleChangeValue(e)}
           >
             중성화 수술을 했나요?
           </Input.CheckInput>
@@ -158,12 +128,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           <Input.DateInput
             disabled={unknownBirthday}
             value={birthday}
-            onChange={(e) =>
-              setPetInfo((prev) => ({
-                ...prev,
-                gender: e.target.value,
-              }))
-            }
+            onChange={(e) => handleChangeValue(e)}
           />
         </Input>
         <Input name='unknownBirthday'>
@@ -183,12 +148,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         <Input.Label>가족이 된 날</Input.Label>
         <Input.DateInput
           value={adoptionDate}
-          onChange={(e) =>
-            setPetInfo((prev) => ({
-              ...prev,
-              adoptionDate: e.target.value,
-            }))
-          }
+          onChange={(e) => handleChangeValue(e)}
         />
       </Input>
 
@@ -197,12 +157,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         <Input.TextInput
           placeholder='몸무게를 입력해 주세요'
           value={weight}
-          onChange={(e) =>
-            setPetInfo((prev) => ({
-              ...prev,
-              weight: e.target.value,
-            }))
-          }
+          onChange={(e) => handleChangeValue(e)}
         />
         <p
           className={`absolute top-[41px] right-3 text-text-secondary ${Body.body1}`}

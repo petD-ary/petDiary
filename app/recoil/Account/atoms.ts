@@ -25,6 +25,11 @@ export const petInfoState = atom<PetObjProps>({
   },
 });
 
+export const unknownBirthdayState = atom<boolean>({
+  key: 'unknownBirthdayState',
+  default: false,
+});
+
 export const tabState = atom<string>({
   key: 'tabState',
   default: '질병지식',

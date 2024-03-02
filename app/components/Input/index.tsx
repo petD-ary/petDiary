@@ -44,7 +44,7 @@ const Label = ({ children }: LabelProps) => {
 const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
   const { isRequired, isDisabled, isValid, name } = useInputContext();
   return (
-    <label>
+    <label htmlFor={name}>
       <input
         type='text'
         value={value}
@@ -74,15 +74,16 @@ const ValidIcon = ({ error }: { error?: string | null }) => {
 };
 
 const Date = ({ value, onChange, disabled, ...rest }: DateInputProps) => {
-  const { name } = useInputContext();
+  const { isRequired, name } = useInputContext();
   return (
-    <label>
+    <label htmlFor={name}>
       <input
         type='date'
         value={value}
         name={name}
         onChange={onChange}
         disabled={disabled}
+        required={isRequired}
         className={`disabled:opacity-50
     border border-text-dividers active:border-text-border transition-colors ${InputClass}`}
         {...rest}
@@ -107,6 +108,7 @@ const Check = ({
         checked={checked}
         onChange={onChange}
         className={`hidden`}
+        id={name}
         {...rest}
       />
       <label
@@ -135,15 +137,16 @@ const CheckOnlyOne = ({
     <>
       <input
         type='checkbox'
-        className={`hidden`}
+        className='hidden'
         checked={value === selected}
         value={value}
+        id={value}
         name={name}
         onChange={onChange}
         {...rest}
       />
       <label
-        htmlFor={name}
+        htmlFor={value}
         className={`flex-grow flex justify-center items-center h-[52px] rounded-lg
       cursor-pointer border
       [input[type="checkbox"]_+_&]:border-grayColor-200
