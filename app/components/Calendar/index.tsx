@@ -96,53 +96,55 @@ const CalendarForm = () => {
         </div>
       </div>
 
-      <div className='w-full max-h-[500px] relative justify-center items-center border border-solid rounded-md after:block  after:pb-[100%]'>
-        <div className='min-w-[345px] max-h-[500px] flex justify-around bg-white'>
+      <div className='relative after:pb-[100%] after:block w-full h-full  bg-white'>
+        {/* 주 */}
+        <div className='flex justify-around mb-2 bg-white'>
           {WEEK_DAYS.map((day, index) => (
             <div
               key={day}
-              className={`py-[2.4vw] px-[1.9vw] flex text-center ${
+              className={`py-[16px] flex text-center ${
                 [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
               }`}
             >
-              <div className={`px-2`}>{day}</div>
+              <div className={`px-2 `}>{day}</div>
             </div>
           ))}
         </div>
-        <div className='max-h-[500px]'>
+        {/* 일 */}
+        <div className=''>
           {weeks.map((week, weekIndex) => {
             return (
-              <div key={String(week)} className='flex justify-around bg-white'>
+              <div key={String(week)} className=' flex justify-around bg-white'>
                 {week.map((day, dayIndex) => {
                   return (
                     <div
                       key={String(day)}
-                      className={`max-w-[60px] min-w-[20px] max-h-[60px] min-h-[20px] py-[2.4vw] px-[1.9vw] flex flex-col  justify-center items-center rounded-[4px] 
-                  ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
-                  ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
-                  ${isToday(day) ? 'bg-primary-50' : ''}
-                  ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
-                  `}
+                      className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
+                      ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
+                      ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
+                      ${isToday(day) ? 'bg-primary-600/30' : ''}
+                      ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
+                      `}
                       onClick={() => isCurrentMonth(day) && handleDayClick(day)}
                     >
-                      <div
-                        className={` ${
-                          isToday(day)
-                            ? isWeekend(day)
-                              ? 'text-error'
-                              : 'text-gray-800'
-                            : ''
-                        }`}
-                      >
-                        {day.getDate()}
+                      <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>
+                        <div
+                          className={
+                            isToday(day) ? 'text-primary-600  font-medium' : ''
+                          }
+                        >
+                          {day.getDate()}
+                        </div>
+                        <div
+                          className={`px-4 ${
+                            isToday(day)
+                              ? 'visible text-primary-600 font-bold'
+                              : 'invisible'
+                          } `}
+                        >
+                          {/* 오늘 */}
+                        </div>
                       </div>
-                      <div
-                        className={`px-4 ${
-                          isToday(day)
-                            ? 'visible text-primary-600 font-bold'
-                            : 'invisible'
-                        } `}
-                      />
                     </div>
                   );
                 })}
