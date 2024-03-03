@@ -38,17 +38,16 @@ const PetEditModal = ({ data }: { data: PetData }) => {
     e.preventDefault();
 
     try {
-      let uploadImageUrl;
+      const formData = new FormData();
+      formData.append('id', String(data.id));
+      Object.entries(petInfo).forEach(([key, value]) => {
+        formData.append(key, String(value));
+      });
       if (image !== null) {
-        uploadImageUrl = await updatedImage(image);
+        formData.append('file', image);
       }
-      const newData = {
-        id: data.id,
-        imageUrl: uploadImageUrl ?? data.imageUrl,
-        ...petInfo,
-      };
 
-      await updatedPetData(newData);
+      await updatedPetData(formData);
     } finally {
       return removeModal();
     }
