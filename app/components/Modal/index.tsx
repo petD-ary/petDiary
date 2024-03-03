@@ -12,17 +12,16 @@ export const MODAL_TYPE = {
   BREED: 'breed',
   WEATHER: 'weather',
   WALK: 'walk',
-  PETEDITLIST: 'petEditList',
-  PETADD: 'petAdd',
+  PET_EDIT_LIST: 'petEditList',
+  PET_ADD: 'petAdd',
   PET_EDIT: 'petEdit',
   CALENDAR: 'calendar',
-
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
   SLIDE: 'slide',
-  HALFSLIDE:'halfSlide',
+  HALF_SLIDE: 'halfSlide',
   CARD: 'card',
   ALL: 'all',
 };
@@ -90,11 +89,11 @@ const ModalContainer = ({
     );
   }
 
-  if (variant === MODAL_VARIANT.HALFSLIDE) {
+  if (variant === MODAL_VARIANT.HALF_SLIDE) {
     return (
       <div
         onClick={(e) => e.stopPropagation()}
-        className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(50%_-_56px)]
+        className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl 
       shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
       >
         {children}
@@ -123,8 +122,7 @@ const ModalContainer = ({
       </div>
     );
   }
-    return null
-
+  return null;
 };
 
 const Header = ({
@@ -177,7 +175,7 @@ const Header = ({
   return null;
 };
 
-const ModalButton = ({children}:{children:string}) => {
+const ModalButton = ({ children }: { children: string }) => {
   const { removeModal } = useModal();
   return (
     <div className='py-3 px-5 bg-white w-full shadow-[0_-4px_12px_0_rgba(0_,0_,0_,0.04)]'>

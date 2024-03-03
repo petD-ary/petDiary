@@ -35,7 +35,7 @@ type PetEditContentProps = {
 const PetListModal = () => {
   const { addModal } = useModal();
   return (
-    <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.FULLCARD}>
+    <Modal type={MODAL_TYPE.PET_EDIT_LIST} variant={MODAL_VARIANT.FULLCARD}>
       <Modal.Header title='' titleType='left-X' />
       <AddPetModal />
       <div className=' px-4'>
@@ -92,7 +92,7 @@ const PetListModal = () => {
           className='border-purple-600 mt-3'
           children={'반려동물추가'}
           variant={'outlined'}
-          onClick={() => addModal(MODAL_TYPE.PETADD)}
+          onClick={() => addModal(MODAL_TYPE.PET_ADD)}
         />
       </div>
     </Modal>

@@ -11,8 +11,12 @@ import { useModal } from '@/hooks/useModal';
 import CalendarModal from './CalendarModal';
 const CalendarForm = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
-  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear(),
+  );
+  const [currentMonth, setCurrentMonth] = useState<number>(
+    new Date().getMonth(),
+  );
   const { addModal } = useModal();
 
   const weeks = useCalendar(currentYear, currentMonth).weeks;
@@ -20,7 +24,10 @@ const CalendarForm = () => {
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
   const today = new Date();
 
-  const years = useMemo(() => Array.from({ length: 10 }, (_, i) => currentYear - 5 + i), [currentYear]);
+  const years = useMemo(
+    () => Array.from({ length: 10 }, (_, i) => currentYear - 5 + i),
+    [currentYear],
+  );
   const months = useMemo(() => Array.from({ length: 12 }, (_, i) => i), []);
 
   const isToday = (day: Date) => {
@@ -45,17 +52,26 @@ const CalendarForm = () => {
     return dayOfWeek === 0;
   };
 
-  const handleYearChange = useCallback((event: { target: { value: string } }) => {
-    setCurrentYear(parseInt(event.target.value, 10));
-  }, []);
+  const handleYearChange = useCallback(
+    (event: { target: { value: string } }) => {
+      setCurrentYear(parseInt(event.target.value, 10));
+    },
+    [],
+  );
 
-  const handleMonthChange = useCallback((event: { target: { value: string } }) => {
-    setCurrentMonth(parseInt(event.target.value, 10));
-  }, []);
+  const handleMonthChange = useCallback(
+    (event: { target: { value: string } }) => {
+      setCurrentMonth(parseInt(event.target.value, 10));
+    },
+    [],
+  );
 
-  const handleDayClick = useCallback((day: React.SetStateAction<Date | null>) => {
-    setSelectedDate(day);
-  }, []);
+  const handleDayClick = useCallback(
+    (day: React.SetStateAction<Date | null>) => {
+      setSelectedDate(day);
+    },
+    [],
+  );
 
   const isCurrentMonth = (day: Date) => {
     const selectedMonth = new Date(currentYear, currentMonth);
@@ -65,79 +81,76 @@ const CalendarForm = () => {
   return (
     <div className='calender bg-extra-divice-bg mx-[-20px]'>
       <button className='fixed bottom-[80px] right-[25px] z-1 bg-primary-500 hover:bg-primary-400 text-white font-bold rounded-full drop-shadow-floatBtn hover:shadow-xl transition-shadow flex items-center justify-center h-12 w-12'>
-        <IconPlus  />
+        <IconPlus />
       </button>
-      <CalendarModal/>
-      <div onClick={() => addModal(MODAL_TYPE.CALENDAR)} className='px-[20px] py-[14px] flex mb-3 border-y border-gray-100  bg-white cursor-pointer ' >
+      <CalendarModal />
+      <div
+        onClick={() => addModal(MODAL_TYPE.CALENDAR)}
+        className='px-[20px] py-[14px] flex mb-3 border-y border-gray-100  bg-white cursor-pointer '
+      >
         <div className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full'>
-          <div className={`${SubTitle.subTitle2} `} >
+          <div className={`${SubTitle.subTitle2} `}>
             {currentYear.toString().slice(2)}년, {currentMonth}월
           </div>
           <IconDown />
         </div>
       </div>
-      {/* <div>
-        <select value={currentYear} onChange={handleYearChange}>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}년
-            </option>
+
+      <div className='w-full max-h-[500px] relative justify-center items-center border border-solid rounded-md after:block  after:pb-[100%]'>
+        <div className='min-w-[345px] max-h-[500px] flex justify-around bg-white'>
+          {WEEK_DAYS.map((day, index) => (
+            <div
+              key={day}
+              className={`py-[2.4vw] px-[1.9vw] flex text-center ${
+                [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
+              }`}
+            >
+              <div className={`px-2`}>{day}</div>
+            </div>
           ))}
-        </select>
-        <select value={currentMonth} onChange={handleMonthChange}>
-          {months.map((month) => (
-            <option key={month} value={month}>
-              {month + 1}월
-            </option>
-          ))}
-        </select>
-      </div> */}
-      <div className='min-w-[345px] flex justify-between bg-white'>
-        {WEEK_DAYS.map((day, index) => (
-          <div
-            key={index}
-            className={`py-[2.4vw] px-[1.9vw] flex text-center ${
-              [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
-            }`}
-          >
-            <div className={`px-2`}>{day}</div>
-          </div>
-        ))}
-      </div>
-      {weeks.map((week, weekIndex) => {
-        return (
-          <div key={weekIndex} className='flex justify-between  bg-white'>
-            {week.map((day, dayIndex) => {
-              return (
-                <div
-                  key={dayIndex}
-                  className={`max-w-[60px] max-h-[60px] py-[2.4vw] px-[1.9vw] flex flex-col  justify-center items-center rounded-[4px] 
+        </div>
+        <div className='max-h-[500px]'>
+          {weeks.map((week, weekIndex) => {
+            return (
+              <div key={String(week)} className='flex justify-around bg-white'>
+                {week.map((day, dayIndex) => {
+                  return (
+                    <div
+                      key={String(day)}
+                      className={`max-w-[60px] min-w-[20px] max-h-[60px] min-h-[20px] py-[2.4vw] px-[1.9vw] flex flex-col  justify-center items-center rounded-[4px] 
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
                   ${isSelectDay(day) ? 'bg-primary-500 text-grayColor-10' : ''}
                   ${isToday(day) ? 'bg-primary-50' : ''}
                   ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
                   `}
-                  onClick={() => isCurrentMonth(day) && handleDayClick(day)}
-                >
-                  <div
-                    className={` ${
-                      isToday(day) ? (isWeekend(day) ? 'text-error' : 'text-gray-800') : ''
-                    }`}
-                  >
-                    {day.getDate()}
-                  </div>
-                  <div
-                    className={`px-4 ${
-                      isToday(day) ? 'visible text-primary-600 font-bold' : 'invisible'
-                    } `}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
-     
+                      onClick={() => isCurrentMonth(day) && handleDayClick(day)}
+                    >
+                      <div
+                        className={` ${
+                          isToday(day)
+                            ? isWeekend(day)
+                              ? 'text-error'
+                              : 'text-gray-800'
+                            : ''
+                        }`}
+                      >
+                        {day.getDate()}
+                      </div>
+                      <div
+                        className={`px-4 ${
+                          isToday(day)
+                            ? 'visible text-primary-600 font-bold'
+                            : 'invisible'
+                        } `}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
