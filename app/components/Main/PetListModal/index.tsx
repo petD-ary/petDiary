@@ -10,7 +10,6 @@ import PetEditModal from './PetEditModal';
 
 const PetListModal = () => {
   const [petData, setPetData] = useState<PetData[]>([]);
-  console.log('🚀 ~ PetListModal ~ petData:', petData);
 
   const [selectedData, setSelectedData] = useState<number | null>(null);
   const { addModal } = useModal();
@@ -28,7 +27,7 @@ const PetListModal = () => {
   }, []);
 
   return (
-    <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.ALL}>
+    <Modal type={MODAL_TYPE.PET_EDIT_LIST} variant={MODAL_VARIANT.ALL}>
       <Modal.Header
         title='내 반려동물'
         desc={petData?.length}
@@ -54,7 +53,7 @@ const PetListModal = () => {
           className='border-purple-600 mt-3'
           children={'반려동물추가'}
           variant={'outlined'}
-          onClick={() => addModal(MODAL_TYPE.PETADD)}
+          onClick={() => addModal(MODAL_TYPE.PET_ADD)}
         />
       </div>
     </Modal>

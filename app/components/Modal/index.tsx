@@ -12,9 +12,9 @@ export const MODAL_TYPE = {
   BREED: 'breed',
   WEATHER: 'weather',
   WALK: 'walk',
-  PETEDITLIST: 'petList',
-  PETADD: 'petAdd',
-  PETEDIT: 'petEdit',
+  PET_EDIT_LIST: 'petList',
+  PET_ADD: 'petAdd',
+  PET_EDIT: 'petEdit',
   WALKING_INFO: 'workingInfo',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];

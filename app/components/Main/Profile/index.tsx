@@ -82,6 +82,7 @@ const Profile = ({ user }: any) => {
                           alt='profile'
                           width={80}
                           height={80}
+                          className='object-cover'
                           priority
                         />
                       </picture>

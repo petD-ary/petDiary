@@ -84,7 +84,7 @@ const PetEditModal = ({ data }: { data: PetData }) => {
 
   return (
     <>
-      <Modal type={MODAL_TYPE.PETEDIT} variant={MODAL_VARIANT.SLIDE}>
+      <Modal type={MODAL_TYPE.PET_EDIT} variant={MODAL_VARIANT.SLIDE}>
         <Modal.Header title='반려동물 수정' titleType='center' />
         <div className='px-5 pt-10 overflow-y-auto scrollbar-none'>
           <form className='flex justify-center'>

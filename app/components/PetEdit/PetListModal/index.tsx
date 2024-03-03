@@ -12,7 +12,6 @@ import {
   SubTitle,
   Title,
 } from '@/constants/Typography/TypographyList';
-import { PetData } from '@/types/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { useModal } from '@/hooks/useModal';
@@ -30,14 +29,10 @@ const petData = [
   },
 ];
 
-type PetEditContentProps = {
-  petData: PetData[];
-};
-
 const PetListModal = () => {
   const { addModal } = useModal();
   return (
-    <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.ALL}>
+    <Modal type={MODAL_TYPE.PET_EDIT_LIST} variant={MODAL_VARIANT.ALL}>
       <Modal.Header title='' titleType='left-X' />
       <AddPetModal />
       <div className=' px-4'>
@@ -94,7 +89,7 @@ const PetListModal = () => {
           className='border-purple-600 mt-3'
           children={'반려동물추가'}
           variant={'outlined'}
-          onClick={() => addModal(MODAL_TYPE.PETADD)}
+          onClick={() => addModal(MODAL_TYPE.PET_ADD)}
         />
       </div>
     </Modal>
