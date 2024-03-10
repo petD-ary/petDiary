@@ -26,7 +26,7 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      disabled={isDisabled ? isDisabled : false}
+      disabled={isDisabled}
       {...rest}
       className={`${className} w-full border rounded-lg text-center py-5
       text-button font-semibold transition-colors

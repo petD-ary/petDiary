@@ -7,6 +7,7 @@ import PetEditCard from './PetListCard';
 import Button from '@/components/Button';
 import { useModal } from '@/hooks/useModal';
 import PetEditModal from './PetEditModal';
+import PetAddModal from './PetAddModal';
 
 const PetListModal = () => {
   const [petData, setPetData] = useState<PetData[]>([]);
@@ -49,12 +50,19 @@ const PetListModal = () => {
             />
           ) : null}
         </div>
+
         <Button
           className='border-purple-600 mt-3'
-          children={'반려동물추가'}
           variant={'outlined'}
           onClick={() => addModal(MODAL_TYPE.PET_ADD)}
-        />
+          isDisabled={petData.length >= 5}
+        >
+          {petData.length < 5
+            ? '반려동물 추가'
+            : '더 이상 반려동물을 추가할 수 없어요.'}
+        </Button>
+
+        <PetAddModal />
       </div>
     </Modal>
   );

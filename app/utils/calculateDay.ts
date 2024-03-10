@@ -5,9 +5,9 @@
  * 주히님 태어나신 날짜: 9월 24일.
  *
  * @param dateStr - 'YYYY-MM-DD' 형식의 문자열 날짜
- * @return {number} - 현재 날짜로부터 입력된 날짜까지 남은 일수
+ * @return {string} - 현재 날짜로부터 입력된 날짜까지 남은 일수
  */
-export const calculateRemainingDays = (dateStr: string): number => {
+export const calculateRemainingDays = (dateStr: string): string => {
   // 현재 날짜의 자정 시간을 나타내는 Date 객체
   const now = new Date(new Date().setHours(0, 0, 0, 0));
   const currentYear = now.getFullYear();
@@ -24,7 +24,7 @@ export const calculateRemainingDays = (dateStr: string): number => {
     (targetDate.getTime() - now.getTime()) / msPerDay,
   );
 
-  return remainingDays;
+  return remainingDays.toLocaleString();
 };
 
 /**
@@ -33,9 +33,9 @@ export const calculateRemainingDays = (dateStr: string): number => {
  * 주히님 태어나신 날짜: 9월 24일.
  *
  * @param dateStr - 과거의 'YYYY-MM-DD' 형식의 문자열 날짜
- * @return {number} - 주어진 날짜로부터 현재까지 지난 날 수
+ * @return {string} - 주어진 날짜로부터 현재까지 지난 날 수
  */
-export const calculateElapsedDays = (dateStr: string): number => {
+export const calculateElapsedDays = (dateStr: string): string => {
   const pastDate = new Date(dateStr);
   const now = new Date(new Date().setHours(0, 0, 0, 0));
 
@@ -44,7 +44,11 @@ export const calculateElapsedDays = (dateStr: string): number => {
     (now.getTime() - pastDate.getTime()) / msPerDay,
   );
 
-  return elapsedDays;
+  if (elapsedDays < 0) {
+    return '1';
+  }
+
+  return elapsedDays.toLocaleString();
 };
 
 /**
@@ -53,9 +57,9 @@ export const calculateElapsedDays = (dateStr: string): number => {
  * 주히님 태어나신 날짜: 9월 24일.
  *
  * @param dateStr - 과거의 'YYYY-MM-DD' 형식의 문자열 날짜
- * @return {number} - 주어진 날짜로부터 현재까지 지난 년 수
+ * @return {string} - 주어진 날짜로부터 현재까지 지난 년 수
  */
-export const calculateAge = (dateStr: string): number => {
+export const calculateAge = (dateStr: string): string => {
   const birth = new Date(dateStr);
   const now = new Date(new Date());
 
@@ -69,13 +73,11 @@ export const calculateAge = (dateStr: string): number => {
 
   let age = nowYear - birthYear;
 
-  if (nowMonth < birthMonth) {
-    age--;
-  } else if (nowMonth === birthMonth && nowDay < birthDay) {
+  if (nowMonth < birthMonth || (nowMonth === birthMonth && nowDay < birthDay)) {
     age--;
   }
 
-  return age;
+  return age.toLocaleString();
 };
 
 /**

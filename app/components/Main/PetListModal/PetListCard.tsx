@@ -40,17 +40,11 @@ const PetListCard = ({
       <div className='rounded-full overflow-hidden w-12 h-12'>
         {data.imageUrl ? (
           <Image
-            src={
-              data.imageUrl !== null
-                ? data.imageUrl
-                : data.petType === '고양이'
-                  ? cat
-                  : dog
-            }
+            src={data.imageUrl ?? data.petType === '고양이' ? cat : dog}
             alt='profile'
             width={80}
             height={80}
-            priority={data.imageUrl !== null ? false : true}
+            priority={!data.imageUrl}
           />
         ) : (
           <picture>
@@ -82,7 +76,7 @@ const PetListCard = ({
       </div>
       <EditBtn
         onClick={() => {
-          addModal(MODAL_TYPE.PETEDIT);
+          addModal(MODAL_TYPE.PET_EDIT);
           setSelectedData(data.id);
         }}
       />
