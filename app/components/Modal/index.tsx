@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import IconClose from '@/assets/images/Icon-x.svg';
@@ -16,6 +16,7 @@ export const MODAL_TYPE = {
   PET_ADD: 'petAdd',
   PET_EDIT: 'petEdit',
   CALENDAR: 'calendar',
+  WHEEL_CALENDAR: 'wheelCalendar',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
@@ -57,7 +58,9 @@ const Modal = ({ type, children, variant = MODAL_VARIANT.SLIDE }: Props) => {
     </div>
   ) : null;
 
-  return createPortal(modalContent, document.body);
+  const isBrowser = typeof window !== 'undefined';
+
+  return isBrowser ? createPortal(modalContent, document.body) : null;
 };
 
 /**
@@ -175,11 +178,25 @@ const Header = ({
   return null;
 };
 
-const ModalButton = ({ children }: { children: string }) => {
+interface ModalButtonProps {
+  children: ReactNode;
+  onClick?: (event: MouseEvent) => void;
+}
+
+const ModalButton: React.FC<ModalButtonProps> = ({ children, onClick }) => {
   const { removeModal } = useModal();
+
+  const handleClick = (event: MouseEvent) => {
+    if (onClick) {
+      onClick(event);
+      removeModal();
+    }
+    removeModal();
+  };
+
   return (
     <div className='py-3 px-5 bg-white w-full shadow-[0_-4px_12px_0_rgba(0_,0_,0_,0.04)]'>
-      <Button onClick={() => removeModal()} variant='contained'>
+      <Button onClick={handleClick} variant='contained'>
         {children}
       </Button>
     </div>

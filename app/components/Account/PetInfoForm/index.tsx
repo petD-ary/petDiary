@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { useModal } from '@/hooks/useModal';
 import Input from '@/components/Input';
@@ -13,9 +13,10 @@ import updatedUserData from '@/components/Account/PetInfoForm/updatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
-import DatePickerForm from '@/components/Calendar';
-import DatePicker from 'react-modern-calendar-datepicker';
-import CalendarForm from '@/components/Calendar';
+
+import { CalendarInput } from '@/components/Input/calendar/CalendarInput';
+import CalendarInputModal from '@/components/Calendar/CalendarInputModal';
+import { selectedDateState } from '@/recoil/calendar/atoms';
 
 interface PetObjProps {
   petType: string;
@@ -28,12 +29,11 @@ interface PetObjProps {
   weight: string;
 }
 
-
 const PetInfoForm = () => {
-
   const setStep = useSetRecoilState(stepState);
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [petInfo, setPetInfo] = useState<PetObjProps>({
     petType: '강아지',
     breed: '',
@@ -232,7 +232,14 @@ const PetInfoForm = () => {
             </Input.CheckInput>
           </Input>
         </div>
+        {/* 캘린더 */}
 
+        <CalendarInput
+          label={'아이 생일'}
+          selectedDate={selectedDate}
+          onClick={() => addModal(MODAL_TYPE.CALENDAR)}
+        />
+        <CalendarInputModal />
         <Input
           value={petInfo.adoptionDate}
           onChange={(e) =>

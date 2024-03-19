@@ -1,34 +1,37 @@
 'use client';
 import useCalendar from '@/hooks/useCalendar';
 import { isSameMonth } from 'date-fns';
-import React, { useCallback, useMemo, useState } from 'react';
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import IconPlus from '@/assets/images/icon-plusW.svg';
 import { SubTitle } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import { MODAL_TYPE } from '../Modal';
 import { useModal } from '@/hooks/useModal';
 import CalendarModal from './CalendarModal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { selectedDateState } from '@/recoil/calendar/atoms';
+import ScheduleAddBtn from './ScheduleAddBtn';
+
 const CalendarForm = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [currentYear, setCurrentYear] = useState<number>(
-    new Date().getFullYear(),
-  );
-  const [currentMonth, setCurrentMonth] = useState<number>(
-    new Date().getMonth(),
-  );
+
+  useEffect(() => {
+    console.log(selectedDate);
+  });
+  const selectedYMDDate = useRecoilValue(selectedDateState);
+  const displayDate = selectedYMDDate.selectedYear
+    ? `${selectedYMDDate.selectedYear.toString().slice(2)}년, ${selectedYMDDate.selectedMonth}월`
+    : `${new Date().getFullYear().toString().slice(2)}년, ${new Date().getMonth()}월`;
+
   const { addModal } = useModal();
 
-  const weeks = useCalendar(currentYear, currentMonth).weeks;
+  const weeks = useCalendar(
+    selectedYMDDate.selectedYear,
+    selectedYMDDate.selectedMonth,
+  ).weeks;
 
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
   const today = new Date();
-
-  const years = useMemo(
-    () => Array.from({ length: 10 }, (_, i) => currentYear - 5 + i),
-    [currentYear],
-  );
-  const months = useMemo(() => Array.from({ length: 12 }, (_, i) => i), []);
 
   const isToday = (day: Date) => {
     return (
@@ -52,51 +55,42 @@ const CalendarForm = () => {
     return dayOfWeek === 0;
   };
 
-  const handleYearChange = useCallback(
-    (event: { target: { value: string } }) => {
-      setCurrentYear(parseInt(event.target.value, 10));
-    },
-    [],
-  );
-
-  const handleMonthChange = useCallback(
-    (event: { target: { value: string } }) => {
-      setCurrentMonth(parseInt(event.target.value, 10));
-    },
-    [],
-  );
-
   const handleDayClick = useCallback(
     (day: React.SetStateAction<Date | null>) => {
-      setSelectedDate(day);
+      const selectedDay =
+        day ||
+        new Date(
+          selectedYMDDate.selectedYear,
+          selectedYMDDate.selectedMonth,
+          1,
+        );
+      setSelectedDate(selectedDay);
     },
-    [],
+    [selectedYMDDate.selectedYear, selectedYMDDate.selectedMonth],
   );
 
   const isCurrentMonth = (day: Date) => {
-    const selectedMonth = new Date(currentYear, currentMonth);
+    const selectedMonth = new Date(
+      selectedYMDDate.selectedYear,
+      selectedYMDDate.selectedMonth,
+    );
     return isSameMonth(day, selectedMonth);
   };
 
   return (
     <div className='calender bg-extra-divice-bg mx-[-20px]'>
-      <button className='fixed bottom-[80px] right-[25px] z-1 bg-primary-500 hover:bg-primary-400 text-white font-bold rounded-full drop-shadow-floatBtn hover:shadow-xl transition-shadow flex items-center justify-center h-12 w-12'>
-        <IconPlus />
-      </button>
+      <ScheduleAddBtn />
       <CalendarModal />
       <div
-        onClick={() => addModal(MODAL_TYPE.CALENDAR)}
+        onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
         className='px-[20px] py-[14px] flex mb-3 border-y border-gray-100  bg-white cursor-pointer '
       >
         <div className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full'>
-          <div className={`${SubTitle.subTitle2} `}>
-            {currentYear.toString().slice(2)}년, {currentMonth}월
-          </div>
+          <div className={`${SubTitle.subTitle2} `}>{displayDate}</div>
           <IconDown />
         </div>
       </div>
-
-      <div className='relative after:pb-[100%] after:block w-full h-full  bg-white'>
+      <div className='relative after:block w-full h-full  bg-white'>
         {/* 주 */}
         <div className='flex justify-around mb-2 bg-white'>
           {WEEK_DAYS.map((day, index) => (
@@ -111,7 +105,7 @@ const CalendarForm = () => {
           ))}
         </div>
         {/* 일 */}
-        <div className=''>
+        <div>
           {weeks.map((week, weekIndex) => {
             return (
               <div key={String(week)} className=' flex justify-around bg-white'>
@@ -120,11 +114,11 @@ const CalendarForm = () => {
                     <div
                       key={String(day)}
                       className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
-                      ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
-                      ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
-                      ${isToday(day) ? 'bg-primary-600/30' : ''}
-                      ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
-                      `}
+                  ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
+                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
+                  ${isToday(day) ? 'bg-primary-600/30' : ''}
+                  ${!isCurrentMonth(day) ? ' text-opacity-20' : ''}
+                  `}
                       onClick={() => isCurrentMonth(day) && handleDayClick(day)}
                     >
                       <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>

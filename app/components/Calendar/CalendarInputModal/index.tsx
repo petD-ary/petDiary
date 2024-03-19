@@ -2,29 +2,31 @@ import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { selectedDateState } from '@/recoil/calendar/atoms';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import DateScrollPicker from './DateScrollPicker';
+import CalendarForm from '..';
+import DateScrollPicker from '../CalendarModal/DateScrollPicker';
 
-const CalendarModal = () => {
+const CalendarInputModal = () => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [temporarySelectedDate, setTemporarySelectedDate] = useState({
     selectedYear: new Date().getFullYear(),
     selectedMonth: new Date().getMonth(),
     selectedDay: new Date().getDay(),
   });
+
   const handleConfirmButtonClick = () => {
     setSelectedDate(temporarySelectedDate);
   };
   return (
-    <Modal type={MODAL_TYPE.WHEEL_CALENDAR} variant={MODAL_VARIANT.HALF_SLIDE}>
+    <Modal type={MODAL_TYPE.CALENDAR} variant={MODAL_VARIANT.HALF_SLIDE}>
       <Modal.Header title='' titleType='left-X' />
-      <div className='h-full p-5 flex flex-col justify-between items-center'>
-        <DateScrollPicker setTemporarySelectedDate={setTemporarySelectedDate} />
-        <Modal.Button onClick={(event) => handleConfirmButtonClick()}>
-          확인
-        </Modal.Button>
+      <div className=' p-10 '>
+        <CalendarForm />
       </div>
+      <Modal.Button onClick={(event) => handleConfirmButtonClick()}>
+        확인
+      </Modal.Button>
     </Modal>
   );
 };
 
-export default CalendarModal;
+export default CalendarInputModal;
