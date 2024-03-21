@@ -14,7 +14,6 @@ export async function walkingIndex(sido: string) {
         },
       },
     );
-    console.log(response, 'response');
 
     return response.data.response.body.items;
   } catch (error) {
