@@ -15,8 +15,9 @@ import Heading from '../Heading';
 import VariantModal from '../VariantModal';
 
 import { CalendarInput } from '@/components/Input/calendar/CalendarInput';
-import CalendarInputModal from '@/components/Calendar/CalendarInputModal';
+
 import { selectedDateState } from '@/recoil/calendar/atoms';
+import CalendarForm from '@/components/Calendar/CalendarForm';
 
 interface PetObjProps {
   petType: string;
@@ -34,6 +35,10 @@ const PetInfoForm = () => {
   const nickname = useRecoilValue(nicknameState);
   const { addModal } = useModal();
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+  const [showCalendar, setShowCalendar] = useState({
+    birthday: false,
+    family: false,
+  });
   const [petInfo, setPetInfo] = useState<PetObjProps>({
     petType: '강아지',
     breed: '',
@@ -89,6 +94,22 @@ const PetInfoForm = () => {
     }
 
     setStep((prev) => prev + 1);
+  };
+  // 캘린더 토글
+  // 생일 캘린더 열기/닫기
+  const handleToggleBirthdayCalendar = () => {
+    setShowCalendar({
+      ...showCalendar,
+      birthday: !showCalendar.birthday,
+    });
+  };
+
+  // 가족이 된 날 캘린더 열기/닫기
+  const handleToggleFamilyCalendar = () => {
+    setShowCalendar({
+      ...showCalendar,
+      family: !showCalendar.family,
+    });
   };
 
   return (
@@ -207,7 +228,7 @@ const PetInfoForm = () => {
           </Input>
         </div>
 
-        <div className='flex flex-col gap-3'>
+        {/* <div className='flex flex-col gap-3'>
           <Input
             value={petInfo.birthday}
             onChange={(e) =>
@@ -223,6 +244,23 @@ const PetInfoForm = () => {
               }
             />
           </Input>
+        </div> */}
+        {/* 캘린더 */}
+
+        <div className='flex flex-col gap-3'>
+          <CalendarInput
+            label={'아이 생일'}
+            selectedDate={selectedDate}
+            onClick={handleToggleBirthdayCalendar}
+            disabled={unknownBirthday}
+          />
+          {showCalendar.birthday && (
+            <div className='bg-grayColor-10 rounded-lg'>
+              <CalendarForm>
+                <CalendarForm.Header headerType='center' />
+              </CalendarForm>
+            </div>
+          )}
           <Input onChange={handleUnknownBirthdayCheck}>
             <Input.CheckInput
               id='unknownBirthday'
@@ -232,9 +270,8 @@ const PetInfoForm = () => {
             </Input.CheckInput>
           </Input>
         </div>
-        {/* 캘린더 */}
 
-        <Input
+        {/* <Input
           value={petInfo.adoptionDate}
           onChange={(e) =>
             setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
@@ -247,8 +284,21 @@ const PetInfoForm = () => {
               setPetInfo((prev) => ({ ...prev, adoptionDate: e.target.value }))
             }
           />
-        </Input>
-
+        </Input> */}
+        <div className='flex flex-col gap-3'>
+          <CalendarInput
+            label={'가족이 된 날'}
+            selectedDate={selectedDate}
+            onClick={handleToggleFamilyCalendar}
+          />
+          {showCalendar.family && (
+            <div className='bg-grayColor-10 rounded-lg'>
+              <CalendarForm>
+                <CalendarForm.Header headerType='center' />
+              </CalendarForm>
+            </div>
+          )}
+        </div>
         <Input
           value={petInfo.weight}
           onChange={(e) =>

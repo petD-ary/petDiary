@@ -74,10 +74,10 @@ const CalendarForm = ({ children }: any) => {
   );
 
   return (
-    <div className='relative after:block w-full h-full  bg-white'>
+    <div className='relative after:block w-full h-full'>
       {children}
       {/* 주 */}
-      <div className='flex justify-around mb-2 bg-white'>
+      <div className='flex justify-around'>
         {WEEK_DAYS.map((day, index) => (
           <div
             key={day}
@@ -93,7 +93,7 @@ const CalendarForm = ({ children }: any) => {
       <div>
         {weeks.map((week) => {
           return (
-            <div key={String(week)} className=' flex justify-around bg-white'>
+            <div key={String(week)} className=' flex justify-around '>
               {week.map((day) => {
                 return (
                   <div
@@ -151,7 +151,7 @@ const Header = ({
 
   const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
-
+  // 일정 추가 부분에서 이전 함수 다음 함수 분리 필요
   const handlePrevMonth = () => {
     const updatedDate = { ...selectedDate };
 
@@ -195,7 +195,7 @@ const Header = ({
   }
   if (headerType === 'center') {
     return (
-      <div className='px-[20px] py-[14px]  mb-3  border-gray-100  bg-white cursor-pointer'>
+      <div className='px-[20px] py-[20px]  cursor-pointer'>
         <div className='flex items-center justify-between'>
           <IconLeft onClick={handlePrevMonth} />
           <div

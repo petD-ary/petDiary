@@ -12,20 +12,26 @@ interface CalendarInputProps {
   label: string;
   onClick?: () => void;
   selectedDate?: SelectedDateState;
+  disabled?: boolean;
 }
 
 export const CalendarInput: React.FC<CalendarInputProps> = ({
   label,
   onClick,
   selectedDate,
+  disabled,
 }) => {
+  const disabledClass = disabled
+    ? 'opacity-50 text-text-disable cursor-not-allowed'
+    : '';
+
   return (
     <div>
       <Input.Label>{label}</Input.Label>
       <div
-        className={`cursor-pointer disabled:opacity-50 flex justify-between
-    border border-text-dividers focus:border-text-border transition-colors ${InputClass}`}
-        onClick={onClick}
+        className={`cursor-pointer flex justify-between
+    border border-text-dividers focus:border-text-border transition-colors ${InputClass} ${disabledClass}`}
+        onClick={disabled ? undefined : onClick}
       >
         <div>
           {selectedDate

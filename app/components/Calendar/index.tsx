@@ -11,7 +11,7 @@ const Calendar = () => {
       <CalendarModal />
 
       <CalendarForm>
-        <CalendarForm.Header headerType='center' />
+        <CalendarForm.Header headerType='left' />
       </CalendarForm>
     </div>
   );
