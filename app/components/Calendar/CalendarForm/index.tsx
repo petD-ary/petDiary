@@ -5,10 +5,17 @@ import { isSameDay } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedDateState } from '@/recoil/calendar/atoms';
-
+import { useModal } from '@/hooks/useModal';
+import { MODAL_TYPE } from '@/components/Modal';
+import IconDown from '@/assets/images/icon-down.svg';
+import IconLeft from '@/assets/images/icon-left.svg';
+import IconRight from '@/assets/images/icon-right.svg';
+import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-const CalendarForm = () => {
+// calendar
+
+const CalendarForm = ({ children }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   useEffect(() => {
@@ -68,6 +75,7 @@ const CalendarForm = () => {
 
   return (
     <div className='relative after:block w-full h-full  bg-white'>
+      {children}
       {/* 주 */}
       <div className='flex justify-around mb-2 bg-white'>
         {WEEK_DAYS.map((day, index) => (
@@ -127,4 +135,82 @@ const CalendarForm = () => {
   );
 };
 
+// header
+
+const Header = ({
+  headerType = 'left',
+  onPrevMonth,
+  onNextMonth,
+}: {
+  headerType?: 'center' | 'left';
+  onPrevMonth?: () => void;
+  onNextMonth?: () => void;
+}) => {
+  const { addModal } = useModal();
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+
+  const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
+  const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
+
+  const handlePrevMonth = () => {
+    const updatedDate = { ...selectedDate };
+
+    updatedDate.selectedMonth -= 1;
+
+    if (updatedDate.selectedMonth === 0) {
+      updatedDate.selectedYear -= 1;
+      updatedDate.selectedMonth = 12;
+    }
+
+    setSelectedDate(updatedDate);
+  };
+  const handleNextMonth = () => {
+    // 현재 선택된 날짜를 복사
+    const updatedDate = { ...selectedDate };
+
+    // 현재 월에서 1을 더해서 다음 달로
+    updatedDate.selectedMonth += 1;
+
+    // 현재 월이 12월인 경우, 연도도 업데이트하고 1월로 설정
+    if (updatedDate.selectedMonth === 13) {
+      updatedDate.selectedYear += 1;
+      updatedDate.selectedMonth = 1;
+    }
+
+    // 업데이트된 날짜를 선택된 날짜로 설정
+    setSelectedDate(updatedDate);
+  };
+  if (headerType === 'left') {
+    return (
+      <div
+        onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
+        className='px-[20px] py-[14px] flex mb-3 border-y border-t-1 border-b-8 border-gray-100  bg-white cursor-pointer '
+      >
+        <div className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full'>
+          <div className={`${SubTitle.subTitle2} `}>{displayYYDate}</div>
+          <IconDown />
+        </div>
+      </div>
+    );
+  }
+  if (headerType === 'center') {
+    return (
+      <div className='px-[20px] py-[14px]  mb-3  border-gray-100  bg-white cursor-pointer'>
+        <div className='flex items-center justify-between'>
+          <IconLeft onClick={handlePrevMonth} />
+          <div
+            className={`${Title.title2} `}
+            onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
+          >
+            {displayYYYYDate}
+          </div>
+          <IconRight onClick={handleNextMonth} />
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
+CalendarForm.Header = Header;
 export default CalendarForm;
