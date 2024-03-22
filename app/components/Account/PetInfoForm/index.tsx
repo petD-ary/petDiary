@@ -234,12 +234,6 @@ const PetInfoForm = () => {
         </div>
         {/* 캘린더 */}
 
-        <CalendarInput
-          label={'아이 생일'}
-          selectedDate={selectedDate}
-          onClick={() => addModal(MODAL_TYPE.CALENDAR)}
-        />
-        <CalendarInputModal />
         <Input
           value={petInfo.adoptionDate}
           onChange={(e) =>
