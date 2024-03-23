@@ -2,7 +2,7 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectedDateState } from '@/recoil/calendar/atoms';
 import { useModal } from '@/hooks/useModal';
@@ -11,16 +11,26 @@ import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
+
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 // calendar
 
-const CalendarForm = ({ children }: any) => {
+const CalendarForm = ({ children, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
-  useEffect(() => {
-    console.log(selectedDate);
+  //const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear().toString();
+  const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const currentDay = currentDate.getDate().toString().padStart(2, '0');
+
+  const [selectedDate, setSelectedDate] = useState({
+    selectedYear: date ? date.slice(0, 4) : currentYear,
+    selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
+    selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
+
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
     selectedDate.selectedYear,
@@ -50,6 +60,7 @@ const CalendarForm = ({ children }: any) => {
     // 0번째가 일요일임
     return dayOfWeek === 0;
   };
+
   // 해당 날짜가 현재 월에 속하는지 확인하는 함수
   const isCurrentMonth = (day: Date) => {
     const year = day.getFullYear() === selectedDate.selectedYear;
@@ -57,21 +68,6 @@ const CalendarForm = ({ children }: any) => {
 
     return year && month;
   };
-  // 선택 날짜 업데이트
-  const handleDayClick = useCallback(
-    (day: Date) => {
-      // 클릭한 날짜가 현재 월을 벗어나는 경우에만 선택한 월의 값을 변경합니다.
-      if (isCurrentMonth(day)) {
-        setSelectedDate((prev) => ({
-          ...prev,
-          selectedYear: day.getFullYear(),
-          selectedMonth: day.getMonth() + 1,
-          selectedDay: day.getDate(),
-        }));
-      }
-    },
-    [isCurrentMonth],
-  );
 
   return (
     <div className='relative after:block w-full h-full'>
@@ -200,7 +196,10 @@ const Header = ({
           <IconLeft onClick={handlePrevMonth} />
           <div
             className={`${Title.title2} `}
-            onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
+            onClick={() => {
+              console.log('모달띄우기');
+              addModal(MODAL_TYPE.WHEEL_CALENDAR);
+            }}
           >
             {displayYYYYDate}
           </div>

@@ -2,10 +2,8 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  console.log('🚀 ~ middleware ~ request:', request.nextUrl.pathname);
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
-  console.log('🚀 ~ middleware ~ accessToken:', accessToken);
 
   const loginConditions =
     request.nextUrl.pathname.startsWith('/login') ||

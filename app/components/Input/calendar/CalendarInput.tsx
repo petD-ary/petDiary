@@ -1,17 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input, { InputClass } from '..';
 import IconDate from '@/assets/images/icon-date.svg';
-
-interface SelectedDateState {
-  selectedYear: number;
-  selectedMonth: number;
-  selectedDay: number;
-}
 
 interface CalendarInputProps {
   label: string;
   onClick?: () => void;
-  selectedDate?: SelectedDateState;
+  selectedDate?: string;
   disabled?: boolean;
 }
 
@@ -33,11 +27,7 @@ export const CalendarInput: React.FC<CalendarInputProps> = ({
     border border-text-dividers focus:border-text-border transition-colors ${InputClass} ${disabledClass}`}
         onClick={disabled ? undefined : onClick}
       >
-        <div>
-          {selectedDate
-            ? `${selectedDate.selectedYear}-${String(selectedDate.selectedMonth).padStart(2, '0')}-${String(selectedDate.selectedDay).padStart(2, '0')}`
-            : 'YYYY-MM-DD'}
-        </div>
+        <div>{selectedDate || 'YYYY-MM-DD'}</div>
         <IconDate />
       </div>
     </div>

@@ -22,7 +22,6 @@ const useCalendar = (year: number, month: number): UseCalendarReturn => {
   useEffect(() => {
     // 현재 선택된 년과 월로 날짜 객체를 생성합니다.
     // 월은 0부터 시작하므로, month에 -1을 해줍니다.
-    console.log(startDay, endDay);
 
     const days = eachDayOfInterval({ start: startDay, end: endDay });
 
