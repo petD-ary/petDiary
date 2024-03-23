@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import CalendarForm from '@/components/Calendar';
 import CalendarList from '@/components/Calendar/CalendarList';
 

@@ -1,10 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import RecoilRootWrapper from '@/components/RecoilRootWrapper';
-import pretendard from '@/components/Pretendard';
-import Navbar from '@/components/Navbar';
-import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
+
+import Navbar from '@/components/Navbar';
+import pretendard from '@/components/Pretendard';
+import HeadingComponent from '@/components/Heading';
+import QueryWrapper from '@/components/Wrapper/QueryWrapper';
+import RecoilRootWrapper from '@/components/Wrapper/RecoilRootWrapper';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -20,13 +22,15 @@ export default async function RootLayout({
     <html lang='ko'>
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <ConfigProvider theme={{ hashed: false }}>
-          <RecoilRootWrapper>
-            <div className='flex flex-col min-h-screen'>
-              <HeadingComponent />
-              <div className='flex-grow'>{children}</div>
-            </div>
-            <Navbar />
-          </RecoilRootWrapper>
+          <QueryWrapper>
+            <RecoilRootWrapper>
+              <div className='flex flex-col min-h-screen'>
+                <HeadingComponent />
+                <div className='flex-grow'>{children}</div>
+              </div>
+              <Navbar />
+            </RecoilRootWrapper>
+          </QueryWrapper>
         </ConfigProvider>
       </body>
     </html>
