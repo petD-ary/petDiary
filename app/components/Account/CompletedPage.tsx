@@ -1,16 +1,16 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import AccountComplated from '@/assets/images/account/account-complated.svg';
+import AccountCompleted from '@/assets/images/account/account-complated.svg';
 import Button from '../Button';
 import { SubTitle, Title } from '../../constants/Typography/TypographyList';
 
-const ComplatedPage = () => {
+const CompletedPage = () => {
   const router = useRouter();
 
   return (
     <div className='relative'>
       <div className='flex justify-center items-center pt-[138px] pb-[84px]'>
-        <AccountComplated />
+        <AccountCompleted />
       </div>
 
       <div className='flex flex-col gap-3 items-center py-5 mb-0 md:mb-6'>
@@ -34,4 +34,4 @@ const ComplatedPage = () => {
   );
 };
 
-export default ComplatedPage;
+export default CompletedPage;

@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { stepState } from '@/recoil/Account/atoms';
 
 import PetInfoForm from '@/components/Account/PetInfoForm';
-import ComplatedPage from '@/components/Account/ComplatedPage';
+import CompletedPage from '@/components/Account/CompletedPage';
 import { Fragment } from 'react';
 
 const AccountPage = () => {
@@ -18,7 +18,7 @@ const AccountPage = () => {
       <Breadcrumb step={step} />
       {step === 0 && <UserForm />}
       {step === 1 && <PetInfoForm />}
-      {step === 2 && <ComplatedPage />}
+      {step === 2 && <CompletedPage />}
     </Fragment>
   );
 };
