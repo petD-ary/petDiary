@@ -16,7 +16,6 @@ export interface UpdatedUserDataProps {
   };
 }
 
-
 const updatedUserData = async (data: UpdatedUserDataProps) => {
   try {
     await axios

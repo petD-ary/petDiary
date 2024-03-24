@@ -3,22 +3,25 @@
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
+
 import { useModal } from '@/hooks/useModal';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { MODAL_TYPE } from '@/components/Modal';
 import { Body } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
-import updatedUserData from '@/components/Account/PetInfoForm/updatedUserData';
+import updatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
 import VariantModal from '../VariantModal';
+
 
 import { CalendarInput } from '@/components/Input/calendar/CalendarInput';
 
 import { selectedDateState } from '@/recoil/calendar/atoms';
 import CalendarForm from '@/components/Calendar/CalendarForm';
 import CalendarModal from '@/components/Calendar/CalendarModal';
+
 
 interface PetObjProps {
   petType: string;

@@ -14,7 +14,6 @@ module.exports = {
     extend: {
       backgroundImage: {
         checkbox: "url('../assets/images/icon-checkbox.png')",
-
         'checkbox-checked': "url('../assets/images/icon-checkbox-checked.png')",
       },
       fontSize: {
@@ -103,8 +102,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [require('tailwind-scrollbar')],
 };
