@@ -20,7 +20,6 @@ export const MODAL_TYPE = {
   WHEEL_CALENDAR: 'wheelCalendar',
 
   WALKING_INFO: 'workingInfo',
-
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
@@ -119,9 +118,7 @@ const ModalContainer = ({
     );
   }
 
-
   if (variant === MODAL_VARIANT.ALL) {
-
     return (
       <div
         onClick={(e) => e.stopPropagation()}
@@ -130,10 +127,8 @@ const ModalContainer = ({
         {children}
       </div>
     );
-
   }
   return null;
-
 };
 
 const Header = ({

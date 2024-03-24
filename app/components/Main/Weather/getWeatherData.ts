@@ -5,9 +5,9 @@ import { DataState } from './index';
 const getWeatherData = async (position: any) => {
   let result: null | DataState = null;
 
-  const { latitude, longitude } = position;
+  const { lat, lng } = position;
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
 
   try {
     const response = await axios.get(url);

@@ -1,17 +1,23 @@
 import { ReactNode } from 'react';
 
 export interface InputProps {
-  children: JSX.Element | JSX.Element[] | null;
-  onClick?: () => void;
-  onChange?: (value?: any) => void;
-  value?: string;
-  error?: string | null;
+  children: ReactNode;
   className?: string;
+  isValid?: boolean;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  name: string;
+}
+
+export interface InputContextProps {
+  isValid?: boolean;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  name: string;
 }
 
 export interface LabelProps {
   children?: ReactNode;
-  isRequired?: boolean;
 }
 
 export interface TextInputProps {
@@ -31,9 +37,11 @@ export interface DateInputProps {
 
 export interface CheckInputProps {
   children?: ReactNode;
+  checked?: boolean;
   value?: string;
   selected?: string;
   id?: string;
   name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }

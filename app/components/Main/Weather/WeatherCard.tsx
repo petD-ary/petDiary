@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import IconArrowRight from '@/assets/images/icon-arrow-right.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { DataState } from '.';
 import { useModal } from '@/hooks/useModal';
@@ -19,14 +20,19 @@ const WeatherCard: React.FC<CardType> = ({
   const { addModal } = useModal();
 
   return (
-    <div
-      className='bg-white rounded-xl p-4 cursor-pointer'
-      onClick={() => addModal(MODAL_TYPE.WEATHER)}
-    >
+    <div className='bg-white rounded-xl p-4'>
       <div className='flex flex-col justify-between pb-2'>
         <div className='text-2xl'>
-          <div className={`${Caption.caption2} text-text-primary`}>
-            오늘의 날씨
+          <div
+            className={`${Caption.caption2} text-text-primary flex justify-between`}
+          >
+            <div>오늘의 날씨</div>
+            <div
+              className='w-5 h-5 flex justify-center items-center cursor-pointer'
+              onClick={() => addModal(MODAL_TYPE.WEATHER)}
+            >
+              <IconArrowRight />
+            </div>
           </div>
           <div
             className={`flex gap-2 text-text-title mt-1 ${Title.title3} ${
@@ -49,7 +55,12 @@ const WeatherCard: React.FC<CardType> = ({
           }`}
         >
           {data?.icon ? (
-            <Image fill src={data?.icon} alt='오늘의 날씨 아이콘' />
+            <Image
+              fill
+              src={data?.icon}
+              sizes='100%'
+              alt='오늘의 날씨 아이콘'
+            />
           ) : null}
         </div>
       </div>

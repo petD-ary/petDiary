@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import VariantList from './VariantList';
 
 import IconSearch from '@/assets/images/icon-search@24.svg';
@@ -6,28 +6,22 @@ import Input from '@/components/Input';
 import Modal, { MODAL_TYPE } from '@/components/Modal';
 import getBreedsList from '../PetInfoForm/getBreedsList';
 import createFuzzyMatcher from '@/utils/createFuzzyMatcher';
-
-interface VariantModalProps {
-  variant: string;
-  breed: string;
-  setBreed: (value: string) => void;
-}
+import { useRecoilValue } from 'recoil';
+import { petInfoState } from '@/recoil/Account/atoms';
 
 interface BreedsProps {
   id: number;
   breed: string;
 }
 
-const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
+const VariantModal = () => {
   const [breeds, setBreeds] = useState<BreedsProps[] | null>(null);
   const [search, setSearch] = useState<string | null>(null);
 
-  const handlePutId = (id: string) => {
-    setBreed(id);
-  };
+  const petInfo = useRecoilValue(petInfoState);
 
   useEffect(() => {
-    getBreedsList(variant).then((result) => {
+    getBreedsList(petInfo.petType).then((result) => {
       if (search !== null) {
         const regex = createFuzzyMatcher(search);
 
@@ -40,37 +34,33 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
         setBreeds(result);
       }
     });
-  }, [search, variant]);
+  }, [search, petInfo.petType]);
 
   return (
     <Modal type={MODAL_TYPE.BREED}>
-      <Modal.Header title={`${variant === '강아지' ? '견종' : '묘종'}선택`} />
+      <Modal.Header
+        title={`${petInfo.petType === '강아지' ? '견종' : '묘종'}선택`}
+      />
       <Input
-        value={search === null ? '' : search}
-        onChange={(e) => setSearch(e.target.value)}
+        name='searchBreed'
         className='rounded-lg mt-5 mb-2 font-medium cursor-default px-5'
       >
         <Input.TextInput
           value={search === null ? '' : search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={
-            variant === '강아지' ? '견종을 입력해주세요' : '묘종을 입력해주세요'
+            petInfo.petType === '강아지'
+              ? '견종을 입력해주세요'
+              : '묘종을 입력해주세요'
           }
         />
-        <span className='absolute top-4 right-8'>
-          <IconSearch />
-        </span>
+        <IconSearch className='absolute top-4 right-8' />
       </Input>
 
       <ul className='h-full mx-5 overflow-y-scroll scrollbar-none'>
         {breeds &&
           breeds.map((item) => (
-            <VariantList
-              key={item.id}
-              selected={breed}
-              title={item.breed}
-              handlePutId={handlePutId}
-            />
+            <VariantList key={item.id} title={item.breed} />
           ))}
       </ul>
 

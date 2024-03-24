@@ -29,6 +29,10 @@ export default async function RootLayout({
             <Navbar />
           </RecoilRootWrapper>
         </ConfigProvider>
+        <Script
+          type='text/javascript'
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY}`}
+        />
       </body>
     </html>
   );

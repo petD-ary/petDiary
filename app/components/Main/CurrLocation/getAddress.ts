@@ -5,7 +5,7 @@ import { RegionState } from './index';
 const getAddress = async (position: Coordinates) => {
   let result: null | RegionState = null;
 
-  const URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.longitude}&y=${position.latitude}`;
+  const URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.lng}&y=${position.lat}`;
 
   try {
     const response = await axios.get(URL, {
