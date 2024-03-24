@@ -5,6 +5,7 @@ import pretendard from '@/components/Pretendard';
 import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -28,6 +29,10 @@ export default async function RootLayout({
             <Navbar />
           </RecoilRootWrapper>
         </ConfigProvider>
+        <Script
+          type='text/javascript'
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY}`}
+        />
       </body>
     </html>
   );

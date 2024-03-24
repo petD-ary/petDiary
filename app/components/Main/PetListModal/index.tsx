@@ -44,9 +44,9 @@ const PetListModal = () => {
             />
           ))}
 
-          {petData && selectedData ? (
+          {selectedData ? (
             <PetEditModal
-              data={petData.filter((item) => item.id === selectedData)[0]}
+              data={petData?.filter((item) => item.id === selectedData)[0]}
             />
           ) : null}
         </div>
@@ -55,9 +55,9 @@ const PetListModal = () => {
           className='border-purple-600 mt-3'
           variant={'outlined'}
           onClick={() => addModal(MODAL_TYPE.PET_ADD)}
-          isDisabled={petData.length >= 5}
+          isDisabled={petData?.length >= 5}
         >
-          {petData.length < 5
+          {petData?.length < 5
             ? '반려동물 추가'
             : '더 이상 반려동물을 추가할 수 없어요.'}
         </Button>

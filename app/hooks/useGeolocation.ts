@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 
 export interface Coordinates {
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lng: number;
 }
 
 export interface PositionError {
@@ -34,7 +34,7 @@ const useGeolocation = () => {
   const onSuccess = (position: GeolocationPosition) => {
     const { latitude, longitude } = position.coords;
     setGeolocation({
-      position: { latitude, longitude },
+      position: { lat: latitude, lng: longitude },
       error: null,
     });
   };

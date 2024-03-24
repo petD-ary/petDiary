@@ -51,7 +51,7 @@ const Profile = ({ user }: any) => {
                         alt='profile'
                         width={80}
                         height={80}
-                        priority={!item.imageUrl}
+                        priority
                       />
                     ) : (
                       <picture>

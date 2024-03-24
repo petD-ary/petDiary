@@ -16,12 +16,12 @@ export async function middleware(request: NextRequest) {
   if (loginConditions) {
     if (accessToken) {
       url.pathname = '/';
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(url.pathname);
     }
   } else {
     // if (!accessToken) {
     //   url.pathname = '/login';
-    //   return NextResponse.redirect(url);
+    //   return NextResponse.redirect(url.pathname);
     // }
     return NextResponse.next();
   }

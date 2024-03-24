@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import IconAddImg from '@/assets/images/icon-addImg.svg';
-import { updatedImage } from '@/api/updatedImage';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
 
@@ -49,17 +48,13 @@ const PetEditModal = ({ data }: { data: PetData }) => {
 
       await updatedPetData(formData);
     } finally {
-      return removeModal();
+      removeModal();
     }
   };
 
   const imageSource = useMemo(() => {
     if (preview) return preview;
-    if (data.imageUrl !== null) {
-      return data.imageUrl;
-    } else {
-      return petInfo.petType === '고양이' ? cat : dog;
-    }
+    return data.imageUrl ?? petInfo.petType === '고양이' ? cat.src : dog.src;
   }, [preview, petInfo.petType]);
 
   useEffect(() => {
@@ -82,36 +77,34 @@ const PetEditModal = ({ data }: { data: PetData }) => {
   }, [data]);
 
   return (
-    <>
-      <Modal type={MODAL_TYPE.PET_EDIT} variant={MODAL_VARIANT.SLIDE}>
-        <Modal.Header title='반려동물 수정' titleType='center' />
-        <div className='px-5 pt-10 overflow-y-auto scrollbar-none'>
-          <form className='flex justify-center'>
-            <label className='relative w-20 h-20 cursor-pointer'>
-              <input
-                type='file'
-                name='profile'
-                onChange={(e) => handleChangeImage(e)}
-                accept='image/*'
-                className='hidden'
+    <Modal type={MODAL_TYPE.PET_EDIT} variant={MODAL_VARIANT.SLIDE}>
+      <Modal.Header title='반려동물 수정' titleType='center' />
+      <div className='px-5 pt-10 overflow-y-auto scrollbar-none'>
+        <form className='flex justify-center'>
+          <label className='relative w-20 h-20 cursor-pointer'>
+            <input
+              type='file'
+              name='profile'
+              onChange={(e) => handleChangeImage(e)}
+              accept='image/*'
+              className='hidden'
+            />
+            <div className='w-full h-full relative overflow-hidden rounded-full border border-white shadow-level1'>
+              <Image
+                src={imageSource}
+                alt='profile'
+                fill
+                sizes='100%'
+                priority
+                className='object-cover'
               />
-              <div className='w-full h-full relative overflow-hidden rounded-full border border-white shadow-level1'>
-                <Image
-                  src={imageSource}
-                  alt='profile'
-                  fill
-                  sizes='100%'
-                  priority
-                  className='object-cover'
-                />
-              </div>
-              <IconAddImg className='absolute -right-1 bottom-1 z-10' />
-            </label>
-          </form>
-          <PetInfo handleSubmit={handleSubmit} submitValue='저장' />
-        </div>
-      </Modal>
-    </>
+            </div>
+            <IconAddImg className='absolute -right-1 bottom-1 z-10' />
+          </label>
+        </form>
+        <PetInfo handleSubmit={handleSubmit} submitValue='저장' />
+      </div>
+    </Modal>
   );
 };
 
