@@ -12,7 +12,6 @@ import {
   SubTitle,
   Title,
 } from '@/constants/Typography/TypographyList';
-import { PetData } from '@/types/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { useModal } from '@/hooks/useModal';
@@ -29,20 +28,18 @@ const petData = [
     breed: '믹스견',
   },
 ];
-type PetEditContentProps = {
-  petData: PetData[];
-};
+
 const PetListModal = () => {
   const { addModal } = useModal();
   return (
-    <Modal type={MODAL_TYPE.PETEDITLIST} variant={MODAL_VARIANT.FULLCARD}>
+    <Modal type={MODAL_TYPE.PET_EDIT_LIST} variant={MODAL_VARIANT.ALL}>
       <Modal.Header title='' titleType='left-X' />
       <AddPetModal />
       <div className=' px-4'>
         <div className='flex gap-2 mb-10 '>
           <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
           <div className={`text-primary-500 ${Title.title2}`}>
-            {petData.length}
+            {petData?.length}
           </div>
         </div>
         {petData?.map((item: any) => (
@@ -92,7 +89,7 @@ const PetListModal = () => {
           className='border-purple-600 mt-3'
           children={'반려동물추가'}
           variant={'outlined'}
-          onClick={() => addModal(MODAL_TYPE.PETADD)}
+          onClick={() => addModal(MODAL_TYPE.PET_ADD)}
         />
       </div>
     </Modal>

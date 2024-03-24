@@ -16,6 +16,11 @@ module.exports = {
         checkbox: "url('../assets/images/icon-checkbox.png')",
         'checkbox-checked': "url('../assets/images/icon-checkbox-checked.png')",
       },
+      boxShadow: {
+        level1: '0, 4px, 4px, 0, rgba(0, 0, 0, 0.04)',
+        level2: '0, -4px, 12px, 0, rgba(0, 0, 0, 0.04)',
+        level3: '0, 4px, 8px, 0, rgba(0, 0, 0, 0.16)',
+      },
       fontSize: {
         title1: ['28px', '1.1'],
         title2: ['24px', '1.1'],
@@ -80,6 +85,7 @@ module.exports = {
           disable: 'rgba(0, 0, 0, 0.25)',
         },
         extra: {
+          active: 'rgba(0, 0, 0, 0.25)',
           border: 'rgba(0, 0, 0, 0.15)',
           dividers: 'rgba(0, 0, 0, 0.06)',
           'btn-bg': 'rgba(0, 0, 0, 0.08)',
@@ -96,6 +102,9 @@ module.exports = {
       },
       animation: {
         'slide-up': 'slide-up 0.4s ease-out',
+      },
+      dropShadow: {
+        'floatBtn': '0px 8px 16px 0px rgba(0, 0, 0, 0.16)',
       },
     },
   },

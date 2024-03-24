@@ -1,138 +1,154 @@
 'use client';
-import React, { Children, cloneElement } from 'react';
 import {
   CheckInputProps,
   DateInputProps,
+  InputContextProps,
   InputProps,
   LabelProps,
   TextInputProps,
 } from './type';
-import IconValid from '@/assets/images/icon-valid.svg';
 import IconError from '@/assets/images/icon-error.svg';
 import { Body, Caption } from '../../constants/Typography/TypographyList';
+import { createContext } from 'react';
+import useInputContext from '@/hooks/useInputContext';
 
-const Input = ({
-  children,
-  onClick,
-  onChange,
-  value,
-  error,
-  className,
-}: InputProps) => {
+export const defaultInputContext: InputContextProps = {
+  isValid: false,
+  isRequired: false,
+  isDisabled: false,
+  name: '',
+};
+export const InputContext =
+  createContext<InputContextProps>(defaultInputContext);
+
+const Input = ({ children, className = '', ...props }: InputProps) => {
   return (
-    <div className={`w-full relative ${className}`}>
-      {Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          const newProps = {
-            onClick,
-            value,
-            onChange,
-            error,
-          };
-          return cloneElement(child, newProps);
-        }
-        return null;
-      })}
+    <InputContext.Provider value={{ ...props }}>
+      <div className={`w-full relative ${className}`}>{children}</div>
+    </InputContext.Provider>
+  );
+};
+
+export const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
+
+const Label = ({ children }: LabelProps) => {
+  const { isRequired } = useInputContext();
+  return (
+    <div className={`flex gap-1 pb-2 ${Caption.caption1} text-text-primary`}>
+      {children}
+      {isRequired ? <span className='text-error'>*</span> : null}
     </div>
   );
 };
 
-const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
-
-const Label = ({ children, ...rest }: LabelProps) => (
-  <label className={`flex gap-1 pb-2 ${Caption.caption1} text-text-primary`}>
-    {children}
-    {rest.isRequired ? <span className='text-error'>*</span> : null}
-  </label>
-);
-
-const TextInput = ({ value, onChange, error, ...rest }: TextInputProps) => (
-  <>
-    <input
-      type='text'
-      value={value}
-      onChange={onChange}
-      className={`${InputClass}
+const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
+  const { isRequired, isDisabled, isValid, name } = useInputContext();
+  return (
+    <label htmlFor={name}>
+      <input
+        type='text'
+        value={value}
+        name={name}
+        onChange={onChange}
+        className={`${InputClass}
       disabled:text-text-disable
-      border border-text-dividers focus:border-text-border transition-colors
+      border border-text-dividers active:border-active-border transition-colors
     ${error !== null && error ? '!border-error focus:!border-error' : ''}
     `}
-      {...rest}
-    />
-    {error !== null && !error && error !== undefined ? (
-      <span className='absolute right-4 top-10'>
-        <IconValid />
-      </span>
-    ) : null}
-    {error !== null && error ? (
-      <span className='absolute right-4 top-10'>
-        <IconError />
-      </span>
-    ) : null}
-  </>
-);
-
-const DateInput = ({ value, onChange, disabled, ...rest }: DateInputProps) => (
-  <input
-    type='date'
-    value={value}
-    onChange={onChange}
-    disabled={disabled}
-    className={`disabled:opacity-50
-    border border-text-dividers focus:border-text-border transition-colors ${InputClass}`}
-    {...rest}
-  />
-);
-
-const CheckInput = ({ children, id, ...rest }: CheckInputProps) => (
-  <>
-    <input type='checkbox' id={id} name={id} className={`hidden`} {...rest} />
-    <label
-      htmlFor={id}
-      className={`w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
-      [input[type="checkbox"]_+_&]:bg-grayColor-10
-      [input[type="checkbox"]_+_&]:border
-      [input[type="checkbox"]_+_&]:border-transparent
-      [input[type="checkbox"]:checked_+_&]:border-primary-500
-      [input[type="checkbox"]:checked_+_&]:bg-white
-      [input[type="checkbox"]_+_&]:rounded-lg
-      [input[type="checkbox"]_+_&]:flex
-      [input[type="checkbox"]_+_&]:items-center
-      [input[type="checkbox"]_+_&]:gap-2
-      [input[type="checkbox"]_+_&]:transiton-colors
-      [input[type="checkbox"]:checked_+_&_>_span]:bg-checkbox-checked
-      ${Body.body1}
-      `}
-    >
-      <span className='w-6 h-6 block bg-checkbox bg-cover'></span>
-      {children}
+        required={isRequired}
+        disabled={isDisabled}
+        {...rest}
+      />
     </label>
-  </>
-);
+  );
+};
 
-const CheckOnlyOneInput = ({
-  value,
-  selected,
+const ValidIcon = ({ error }: { error?: string | null }) => {
+  if (error === undefined || error === null) return;
+
+  return (
+    <span className='absolute right-4 top-10'>
+      <IconError />
+    </span>
+  );
+};
+
+const Date = ({ value, onChange, disabled, ...rest }: DateInputProps) => {
+  const { isRequired, name } = useInputContext();
+  return (
+    <label htmlFor={name}>
+      <input
+        type='date'
+        value={value}
+        name={name}
+        onChange={onChange}
+        disabled={disabled}
+        required={isRequired}
+        className={`disabled:opacity-50
+    border border-text-dividers active:border-text-border transition-colors ${InputClass}`}
+        {...rest}
+      />
+    </label>
+  );
+};
+
+const Check = ({
+  children,
   onChange,
   id,
-  name,
+  checked = false,
   ...rest
 }: CheckInputProps) => {
+  const { name } = useInputContext();
   return (
     <>
       <input
         type='checkbox'
+        name={name}
+        checked={checked}
+        onChange={onChange}
         className={`hidden`}
+        id={name}
+        {...rest}
+      />
+      <label
+        htmlFor={name}
+        className={`w-full flex gap-2 justify-start px-4 py-[14px] cursor-pointer
+        rounded-lg items-center transiton-colors bg-grayColor-10 border border-transparent
+    [input[type="checkbox"]:checked_+_&]:border-primary-500
+    [input[type="checkbox"]:checked_+_&]:bg-white
+    [input[type="checkbox"]:checked_+_&_>_span]:bg-checkbox-checked ${Body.body1}`}
+      >
+        <span className='w-6 h-6 block bg-checkbox bg-cover'></span>
+        {children}
+      </label>
+    </>
+  );
+};
+
+const CheckOnlyOne = ({
+  value,
+  selected,
+  onChange,
+  ...rest
+}: CheckInputProps) => {
+  const { name } = useInputContext();
+  return (
+    <>
+      <input
+        type='checkbox'
+        className='hidden'
         checked={value === selected}
         value={value}
-        id={id}
+        id={value}
+        name={name}
         onChange={onChange}
         {...rest}
       />
       <label
-        htmlFor={id}
+        htmlFor={value}
         className={`flex-grow flex justify-center items-center h-[52px] rounded-lg
-      border
+      cursor-pointer border
       [input[type="checkbox"]_+_&]:border-grayColor-200
       [input[type="checkbox"]:checked_+_&]:border-primary-500
       [input[type="checkbox"]:checked_+_&]:text-primary-500
@@ -152,17 +168,22 @@ const Success = ({ children }: LabelProps) => (
 );
 
 const Error = ({ children }: LabelProps) => (
-  <p className={`text-error pl-[3px] pt-[6px] ${Caption.caption2}`}>
-    {children}
-  </p>
+  <>
+    {children ? (
+      <p className={`text-error pl-[3px] pt-[6px] ${Caption.caption2}`}>
+        {children}
+      </p>
+    ) : null}
+  </>
 );
 
 Input.Label = Label;
-Input.TextInput = TextInput;
-Input.DateInput = DateInput;
-Input.CheckInput = CheckInput;
+Input.TextInput = Text;
+Input.DateInput = Date;
+Input.CheckInput = Check;
+Input.ValidIcon = ValidIcon;
 
-Input.CheckOnlyOneInput = CheckOnlyOneInput;
+Input.CheckOnlyOneInput = CheckOnlyOne;
 
 Input.Success = Success;
 Input.Error = Error;

@@ -5,5 +5,8 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-
 export default instance;
+
+export const mapAxios = axios.create({
+  baseURL: 'https://dapi.kakao.com/v2/local',
+});

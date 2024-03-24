@@ -1,3 +1,5 @@
+'use client';
+
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
