@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+ 
   body{
     position:relative
   }
@@ -13,5 +14,61 @@
   .header {
     @apply w-full md:max-w-3xl h-14 mx-auto px-2 py-1 flex items-center justify-between;
   }
+ 
+  .selected-area {
+  
+    position: absolute;
+}
+
+.selected-area--year-upper {
+  width: 69px;
+  top: calc(50% - 20px);
+    left: calc(50% - 134px);
+}
+
+.selected-area--year-lower {
+  width: 69px;
+  top: calc(50% + 18px);
+    left: calc(50% - 134px);
+}
+
+
+.selected-area--month-upper {
+  margin: 0 15px;
+  width: 39px;
+  top: calc(50% - 20px);
+  left: calc(50% - 26px);
+}
+
+.selected-area--month-lower {
+  margin: 0 15px;
+  width: 39px;
+    top: calc(50% + 18px);
+    left: calc(50% - 26px);
+}
+
+.selected-area--day-upper {
+  margin: 0 15px;
+  width: 39px;
+    top: calc(50% - 20px);
+    left: calc(50% + 72px);
+}
+
+.selected-area--day-lower {
+    margin: 0 15px;
+    width: 39px;
+    top: calc(50% + 18px);
+    left: calc(50% + 72px);
+}
+
+.selected-area-container {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 100%;
+    justify-content: center;
+    height: 40px;
+}
 
 }

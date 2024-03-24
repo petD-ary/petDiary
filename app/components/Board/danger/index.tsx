@@ -1,4 +1,5 @@
 'use client';
+
 import ListHeader from '@/components/Board/BoardList/Header';
 import BoardList from '@/components/Board/BoardList/List';
 import FilterCategory from '@/components/Board/Filter/FilterCategory';

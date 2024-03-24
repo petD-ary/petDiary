@@ -9,9 +9,50 @@ import VariantModal from '../Account/VariantModal';
 import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
 import { useRecoilState } from 'recoil';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
+import { CalendarInput } from '../Input/calendar/CalendarInput';
+import CalendarForm from '../Calendar/CalendarForm';
+import { handleformattedDate } from '../Account/PetInfoForm';
 
 const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
   const { addModal } = useModal();
+  const [showCalendar, setShowCalendar] = useState({
+    birthday: false,
+    family: false,
+  });
+
+  // 캘린더 토글
+  // 생일 캘린더 열기/닫기
+  const handleToggleBirthdayCalendar = () => {
+    setShowCalendar((prevShowCalendar) => ({
+      ...prevShowCalendar,
+      birthday: !prevShowCalendar.birthday,
+      family: false,
+    }));
+  };
+
+  // 가족된지 캘린더 열기/닫기
+  const handleToggleFamilyCalendar = () => {
+    setShowCalendar((prevShowCalendar) => ({
+      ...prevShowCalendar,
+      family: !prevShowCalendar.family,
+      birthday: false,
+    }));
+  };
+
+  //  생일 데이터 추가
+  const handleBirthClick = (data: Date) => {
+    const formattedDate = handleformattedDate(data);
+    setPetInfo((prev: any) => ({ ...prev, birthday: formattedDate }));
+    handleToggleBirthdayCalendar();
+  };
+
+  //  가족된 날짜 데이터 추가
+  const handleAdoptionlick = (data: Date) => {
+    const formattedDate = handleformattedDate(data);
+    setPetInfo((prev: any) => ({ ...prev, adoptionDate: formattedDate }));
+    handleToggleFamilyCalendar();
+  };
+
   const [unknownBirthday, setUnknownBirthday] =
     useRecoilState(unknownBirthdayState);
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
@@ -121,17 +162,28 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           </Input.CheckInput>
         </Input>
       </div>
+      {/* 아이 생일 */}
 
       <div className='flex flex-col gap-3'>
+        <CalendarInput
+          label={'아이 생일'}
+          selectedDate={petInfo.birthday}
+          onClick={handleToggleBirthdayCalendar}
+          disabled={unknownBirthday}
+        />
+        {showCalendar.birthday && (
+          <div className='bg-grayColor-10 rounded-lg'>
+            <CalendarForm
+              handleDayClick={(day: Date) => handleBirthClick(day)}
+              showCalendar={showCalendar}
+              date={petInfo.birthday}
+              headerType='center'
+            >
+              <CalendarForm.Header />
+            </CalendarForm>
+          </div>
+        )}
         <Input name={INPUT_TYPE.BIRTHDAY}>
-          <Input.Label>아이 생일</Input.Label>
-          <Input.DateInput
-            disabled={unknownBirthday}
-            value={birthday}
-            onChange={(e) => handleChangeValue(e)}
-          />
-        </Input>
-        <Input name='unknownBirthday'>
           <Input.CheckInput
             id='unknownBirthday'
             checked={unknownBirthday}
@@ -144,13 +196,26 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         </Input>
       </div>
 
-      <Input isRequired name={INPUT_TYPE.ADOPTIONDATE}>
-        <Input.Label>가족이 된 날</Input.Label>
-        <Input.DateInput
-          value={adoptionDate}
-          onChange={(e) => handleChangeValue(e)}
+      {/* 가족이 된 날 */}
+      <div className='flex flex-col gap-3'>
+        <CalendarInput
+          label={'가족이 된 날'}
+          selectedDate={petInfo.adoptionDate}
+          onClick={handleToggleFamilyCalendar}
         />
-      </Input>
+        {showCalendar.family && (
+          <div className='bg-grayColor-10 rounded-lg'>
+            <CalendarForm
+              handleDayClick={(day: Date) => handleAdoptionlick(day)}
+              showCalendar={showCalendar}
+              date={petInfo.adoptionDate}
+              headerType='center'
+            >
+              <CalendarForm.Header />
+            </CalendarForm>
+          </div>
+        )}
+      </div>
 
       <Input name={INPUT_TYPE.WEIGHT}>
         <Input.Label>몸무게 입력</Input.Label>

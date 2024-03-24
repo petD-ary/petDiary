@@ -29,7 +29,7 @@ const Input = ({ children, className = '', ...props }: InputProps) => {
   );
 };
 
-const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
+export const InputClass = 'w-full p-4 rounded-lg text-text-title text-body';
 
 const Label = ({ children }: LabelProps) => {
   const { isRequired } = useInputContext();

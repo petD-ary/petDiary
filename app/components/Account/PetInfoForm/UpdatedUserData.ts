@@ -24,6 +24,7 @@ const updatedUserData = async (data: UpdatedUserDataProps) => {
   } catch (error) {
     return console.log('🚀 ~ UpdatedUserData ~ error:', error);
   }
+
 };
 
 export default updatedUserData;

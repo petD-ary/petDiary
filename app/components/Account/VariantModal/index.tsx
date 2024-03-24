@@ -64,7 +64,7 @@ const VariantModal = () => {
           ))}
       </ul>
 
-      <Modal.Button />
+      <Modal.Button children='선택'/>
     </Modal>
   );
 };

@@ -2,6 +2,7 @@
 
 import { FormEvent, Fragment, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+
 import updatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, petInfoState, stepState } from '@/recoil/Account/atoms';
 import Heading from '../Heading';
@@ -17,6 +18,13 @@ export interface PetObjProps {
   adoptionDate: string;
   weight: string;
 }
+//  YYYY-MM-DD 형식 변환
+export const handleformattedDate = (data: Date) => {
+  const year = data.getFullYear();
+  const month = (data.getMonth() + 1).toString().padStart(2, '0');
+  const date = data.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${date}`;
+};
 
 const PetInfoForm = () => {
   const setStep = useSetRecoilState(stepState);
@@ -59,6 +67,7 @@ const PetInfoForm = () => {
       />
 
       <PetInfo handleSubmit={handleSubmit} submitValue='확인' />
+
       {error !== null ? <p className='text-center '>{error}</p> : null}
     </Fragment>
   );
