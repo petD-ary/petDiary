@@ -103,7 +103,7 @@ export const convertKoreanDateFormat = (dateStr: string): string => {
  * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
  * @return {string} - 일은 1부터 시작하며, 10 미만인 경우 앞에 0을 붙입니다.
  */
-export const getDate = (dateStr: string): string => {
+export const getDate = (dateStr: any): string => {
   const date = new Date(convertKST(dateStr));
 
   return padZero(date.getDate());
@@ -112,7 +112,7 @@ export const getDate = (dateStr: string): string => {
 /**
  * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 요일을 반환합니다.
  * 주히님 태어나신 날짜: 9월 24일.
- * 
+ *
  * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
  * @return {string} - ('일', '월', '화', '수', '목', '금', '토')
  */
@@ -127,7 +127,7 @@ export const getDay = (dateStr: string): string => {
     4: '목',
     5: '금',
     6: '토',
-  }
+  };
 
   return dayList[date.getDay()];
 };

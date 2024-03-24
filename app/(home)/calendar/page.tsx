@@ -1,13 +1,13 @@
 'use client';
 
 import CalendarForm from '@/components/Calendar';
-import CalendarList from '@/components/Calendar/CalendarList';
+import ScheduleList from '@/components/Calendar/ScheduleList';
 
 const CalendarPage = () => {
   return (
     <div>
       <CalendarForm />
-      <CalendarList />
+      <ScheduleList />
     </div>
   );
 };
