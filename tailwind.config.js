@@ -97,6 +97,9 @@ module.exports = {
       animation: {
         'slide-up': 'slide-up 0.4s ease-out',
       },
+      dropShadow: {
+        'floatBtn': '0px 8px 16px 0px rgba(0, 0, 0, 0.16)',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar')],

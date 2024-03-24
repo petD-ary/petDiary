@@ -74,7 +74,7 @@ const VariantModal = ({ variant, breed, setBreed }: VariantModalProps) => {
           ))}
       </ul>
 
-      <Modal.Button />
+      <Modal.Button children='선택'/>
     </Modal>
   );
 };

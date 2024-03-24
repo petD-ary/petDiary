@@ -5,6 +5,7 @@ import pretendard from '@/components/Pretendard';
 import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',

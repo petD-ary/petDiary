@@ -1,4 +1,5 @@
 'use client';
+
 import ListHeader from '@/components/Board/BoardList/Header';
 import BoardList from '@/components/Board/BoardList/List';
 import FilterCategory from '@/components/Board/Filter/FilterCategory';
@@ -12,6 +13,7 @@ const action = [
   '음수량',
   '수면 시 호흡 수',
 ];
+
 const mockData = [
   {
     id: 1,
