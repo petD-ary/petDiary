@@ -269,13 +269,13 @@ const PetInfoForm = () => {
           />
           {showCalendar.birthday && (
             <div className='bg-grayColor-10 rounded-lg'>
-              <CalendarModal />
               <CalendarForm
                 handleDayClick={(day: Date) => handleBirthClick(day)}
                 showCalendar={showCalendar}
                 date={petInfo.birthday}
+                headerType='center'
               >
-                <CalendarForm.Header headerType='center' />
+                <CalendarForm.Header />
               </CalendarForm>
             </div>
           )}
@@ -301,9 +301,10 @@ const PetInfoForm = () => {
               <CalendarForm
                 handleDayClick={(day: Date) => handleAdoptionlick(day)}
                 showCalendar={showCalendar}
+                date={petInfo.adoptionDate}
+                headerType='center'
               >
-                <CalendarModal />
-                <CalendarForm.Header headerType='center' />
+                <CalendarForm.Header />
               </CalendarForm>
             </div>
           )}

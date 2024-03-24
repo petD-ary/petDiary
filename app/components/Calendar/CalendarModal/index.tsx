@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import DateScrollPicker from './DateScrollPicker';
 
-const CalendarModal = () => {
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+const CalendarModal = ({ setSelectedDate }: { setSelectedDate: any }) => {
   const [temporarySelectedDate, setTemporarySelectedDate] = useState({
     selectedYear: new Date().getFullYear(),
     selectedMonth: new Date().getMonth(),

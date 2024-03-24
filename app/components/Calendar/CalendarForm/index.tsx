@@ -11,12 +11,13 @@ import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
+import CalendarModal from '../CalendarModal';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 // calendar
 
-const CalendarForm = ({ children, handleDayClick, date }: any) => {
+const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
   //const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
@@ -48,9 +49,10 @@ const CalendarForm = ({ children, handleDayClick, date }: any) => {
   // 선택된 날짜인지 확인하는 함수 : 선택된 건 컬러 변경 위함
   const isSelectDay = (day: Date) => {
     return (
-      selectedDate.selectedYear === day.getFullYear() &&
-      selectedDate.selectedMonth - 1 === day.getMonth() &&
-      selectedDate.selectedDay === day.getDate()
+      selectedDate.selectedYear === day.getFullYear().toString() &&
+      selectedDate.selectedMonth ===
+        (day.getMonth() + 1).toString().padStart(2, '0') &&
+      selectedDate.selectedDay === day.getDate().toString().padStart(2, '0')
     );
   };
 
@@ -62,16 +64,20 @@ const CalendarForm = ({ children, handleDayClick, date }: any) => {
   };
 
   // 해당 날짜가 현재 월에 속하는지 확인하는 함수
-  const isCurrentMonth = (day: Date) => {
-    const year = day.getFullYear() === selectedDate.selectedYear;
-    const month = day.getMonth() === selectedDate.selectedMonth - 1;
-
-    return year && month;
-  };
+  const isCurrentMonth = (day: Date) =>
+    day.getFullYear() == selectedDate.selectedYear &&
+    day.getMonth() === selectedDate.selectedMonth - 1;
 
   return (
-    <div className='relative after:block w-full h-full'>
-      {children}
+    <div
+      className={`relative after:block w-full h-full ${window.location.pathname === '/calendar' ? 'bg-white' : ''}`}
+    >
+      <CalendarModal setSelectedDate={setSelectedDate} />
+      <Header
+        headerType={headerType}
+        setSelectedDate={setSelectedDate}
+        selectedDate={selectedDate}
+      />
       {/* 주 */}
       <div className='flex justify-around'>
         {WEEK_DAYS.map((day, index) => (
@@ -137,13 +143,16 @@ const Header = ({
   headerType = 'left',
   onPrevMonth,
   onNextMonth,
+  selectedDate,
+  setSelectedDate,
 }: {
+  selectedDate?: any;
+  setSelectedDate?: any;
   headerType?: 'center' | 'left';
   onPrevMonth?: () => void;
   onNextMonth?: () => void;
 }) => {
   const { addModal } = useModal();
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
   const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
@@ -151,31 +160,29 @@ const Header = ({
   const handlePrevMonth = () => {
     const updatedDate = { ...selectedDate };
 
-    updatedDate.selectedMonth -= 1;
+    updatedDate.selectedMonth = parseInt(updatedDate.selectedMonth, 10) - 1;
 
     if (updatedDate.selectedMonth === 0) {
-      updatedDate.selectedYear -= 1;
+      updatedDate.selectedYear = parseInt(updatedDate.selectedYear, 10) - 1;
       updatedDate.selectedMonth = 12;
     }
 
     setSelectedDate(updatedDate);
   };
+
   const handleNextMonth = () => {
-    // 현재 선택된 날짜를 복사
     const updatedDate = { ...selectedDate };
 
-    // 현재 월에서 1을 더해서 다음 달로
-    updatedDate.selectedMonth += 1;
+    updatedDate.selectedMonth = parseInt(updatedDate.selectedMonth, 10) + 1;
 
-    // 현재 월이 12월인 경우, 연도도 업데이트하고 1월로 설정
     if (updatedDate.selectedMonth === 13) {
-      updatedDate.selectedYear += 1;
+      updatedDate.selectedYear = parseInt(updatedDate.selectedYear, 10) + 1;
       updatedDate.selectedMonth = 1;
     }
 
-    // 업데이트된 날짜를 선택된 날짜로 설정
     setSelectedDate(updatedDate);
   };
+
   if (headerType === 'left') {
     return (
       <div
@@ -197,7 +204,6 @@ const Header = ({
           <div
             className={`${Title.title2} `}
             onClick={() => {
-              console.log('모달띄우기');
               addModal(MODAL_TYPE.WHEEL_CALENDAR);
             }}
           >

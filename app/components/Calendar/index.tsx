@@ -15,7 +15,7 @@ const Calendar = () => {
   return (
     <div className='calender bg-extra-divice-bg mx-[-20px]'>
       <ScheduleAddBtn />
-      <CalendarModal />
+      <CalendarModal setSelectedDate={setSelectedDate} />
 
       <CalendarForm
         handleDayClick={(day: Date) => handleSelectedDateClick(day)}
