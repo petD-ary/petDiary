@@ -1,4 +1,5 @@
 import IconPlus from '@/assets/images/icon-plusW.svg';
+import { usePathname } from 'next/navigation';
 import { MouseEventHandler } from 'react';
 
 interface AddButtonProps {
@@ -8,7 +9,7 @@ interface AddButtonProps {
   /* dropshadow 언니껄로 수정 */
 }
 const ScheduleAddBtn = ({ onClick }: AddButtonProps) => {
-  const currentUrl = window.location.pathname;
+  const currentUrl = usePathname();
   const isAccountPage = currentUrl.includes('account');
 
   if (isAccountPage) return null;

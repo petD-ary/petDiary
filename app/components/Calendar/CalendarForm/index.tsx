@@ -2,9 +2,7 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedDateState } from '@/recoil/calendar/atoms';
+import React, { useState } from 'react';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
@@ -12,6 +10,7 @@ import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import CalendarModal from '../CalendarModal';
+import { usePathname } from 'next/navigation';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -20,6 +19,7 @@ const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
 
+  const pathname = usePathname();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear().toString();
   const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -75,7 +75,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
 
   return (
     <div
-      className={`relative after:block w-full h-full ${window.location.pathname === '/calendar' ? 'bg-white' : ''}`}
+      className={`relative after:block w-full h-full ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
     >
       <CalendarModal setSelectedDate={setSelectedDate} />
       <Header
