@@ -17,7 +17,10 @@ const CalendarModal = ({ setSelectedDate }: { setSelectedDate: any }) => {
     <Modal type={MODAL_TYPE.WHEEL_CALENDAR} variant={MODAL_VARIANT.HALF_SLIDE}>
       <Modal.Header title='' titleType='left-X' />
       <div className='h-full p-5 flex flex-col justify-between items-center'>
-        <DateScrollPicker setTemporarySelectedDate={setTemporarySelectedDate} />
+        <DateScrollPicker
+          temporarySelectedDate={temporarySelectedDate}
+          setTemporarySelectedDate={setTemporarySelectedDate}
+        />
         <Modal.Button onClick={(event) => handleConfirmButtonClick()}>
           확인
         </Modal.Button>

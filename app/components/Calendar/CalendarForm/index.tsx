@@ -19,7 +19,6 @@ const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
-  //const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear().toString();
@@ -31,7 +30,13 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
     selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
-
+  useEffect(() => {
+    setSelectedDate({
+      selectedYear: date ? date.slice(0, 4) : currentYear,
+      selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
+      selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
+    });
+  }, [date]);
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
     selectedDate.selectedYear,
@@ -154,7 +159,7 @@ const Header = ({
 }) => {
   const { addModal } = useModal();
 
-  const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
+  const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth.toString().padStart(2, '0')}월`;
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
   // 일정 추가 부분에서 이전 함수 다음 함수 분리 필요
   const handlePrevMonth = () => {
