@@ -18,6 +18,8 @@ export const MODAL_TYPE = {
 
   CALENDAR: 'calendar',
   WHEEL_CALENDAR: 'wheelCalendar',
+  SCHEDULE_ADD: 'scheduleAdd',
+  SCHEDULE_LOCATION: 'scheduleLocation',
 
   WALKING_INFO: 'workingInfo',
 };

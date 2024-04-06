@@ -12,6 +12,7 @@ import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import CalendarModal from '../CalendarModal';
+import { usePathname } from 'next/navigation';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -21,6 +22,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
   //const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
+  const pathname = usePathname();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear().toString();
   const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -69,69 +71,71 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     day.getMonth() === selectedDate.selectedMonth - 1;
 
   return (
-    <div
-      className={`relative after:block w-full h-full ${window.location.pathname === '/calendar' ? 'bg-white' : ''}`}
-    >
+    <div className='relative after:block w-full'>
       <CalendarModal setSelectedDate={setSelectedDate} />
       <Header
         headerType={headerType}
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
       />
-      {/* 주 */}
-      <div className='flex justify-around'>
-        {WEEK_DAYS.map((day, index) => (
-          <div
-            key={day}
-            className={`py-[16px] flex text-center ${
-              [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
-            }`}
-          >
-            <div className={`px-2 `}>{day}</div>
-          </div>
-        ))}
-      </div>
-      {/* 일 */}
-      <div>
-        {weeks.map((week) => {
-          return (
-            <div key={String(week)} className=' flex justify-around '>
-              {week.map((day) => {
-                return (
-                  <div
-                    key={String(day)}
-                    className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
+
+      <div className='bg-white pb-4 lg:pb-8'>
+        {/* 주 */}
+        <div className='flex justify-around'>
+          {WEEK_DAYS.map((day, index) => (
+            <div
+              key={day}
+              className={`py-[16px] flex text-center ${
+                [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
+              }`}
+            >
+              <div className={`px-2 `}>{day}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 일 */}
+        <div>
+          {weeks.map((week) => {
+            return (
+              <div key={String(week)} className=' flex justify-around '>
+                {week.map((day) => {
+                  return (
+                    <div
+                      key={String(day)}
+                      className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
                   ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isToday(day) ? 'bg-primary-600/30' : ''}
                   ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
                   `}
-                    onClick={() => isCurrentMonth(day) && handleDayClick(day)}
-                  >
-                    <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>
-                      <div
-                        className={
-                          isToday(day) ? 'text-primary-600  font-medium' : ''
-                        }
-                      >
-                        {day.getDate()}
-                      </div>
-                      <div
-                        className={`px-4 ${
-                          isToday(day)
-                            ? 'visible text-primary-600 font-bold'
-                            : 'invisible'
-                        } `}
-                      >
-                        {/* 오늘 */}
+                      onClick={() => isCurrentMonth(day) && handleDayClick(day)}
+                    >
+                      <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>
+                        <div
+                          className={
+                            isToday(day) ? 'text-primary-600  font-medium' : ''
+                          }
+                        >
+                          {day.getDate()}
+                        </div>
+                        <div
+                          className={`px-4 ${
+                            isToday(day)
+                              ? 'visible text-primary-600 font-bold'
+                              : 'invisible'
+                          } `}
+                        >
+                          {/* 오늘 */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -153,6 +157,8 @@ const Header = ({
   onNextMonth?: () => void;
 }) => {
   const { addModal } = useModal();
+
+  const pathname = usePathname();
 
   const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
@@ -186,10 +192,12 @@ const Header = ({
   if (headerType === 'left') {
     return (
       <div
-        onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
-        className='px-[20px] py-[14px] flex mb-3 border-y border-t-1 border-b-8 border-gray-100  bg-white cursor-pointer '
+        className={`px-[20px] py-[14px] flex mb-2 bg-white ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
       >
-        <div className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full'>
+        <div
+          onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
+          className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full cursor-pointer'
+        >
           <div className={`${SubTitle.subTitle2} `}>{displayYYDate}</div>
           <IconDown />
         </div>
@@ -198,7 +206,7 @@ const Header = ({
   }
   if (headerType === 'center') {
     return (
-      <div className='px-[20px] py-[20px]  cursor-pointer'>
+      <div className='px-[20px] py-[20px] cursor-pointer'>
         <div className='flex items-center justify-between'>
           <IconLeft onClick={handlePrevMonth} />
           <div

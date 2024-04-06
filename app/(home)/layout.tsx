@@ -22,11 +22,11 @@ export default async function RootLayout({
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <ConfigProvider theme={{ hashed: false }}>
           <RecoilRootWrapper>
-            <div className='flex flex-col min-h-screen'>
+            <div className='w-screen h-screen m-0 relative'>
               <HeadingComponent />
-              <div className='flex-grow'>{children}</div>
+              <div className='h-[calc(100%-120px)]'>{children}</div>
+              <Navbar />
             </div>
-            <Navbar />
           </RecoilRootWrapper>
         </ConfigProvider>
         <Script
