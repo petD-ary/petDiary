@@ -2,7 +2,7 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
@@ -11,11 +11,17 @@ import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import CalendarModal from '../CalendarModal';
 import { usePathname } from 'next/navigation';
+import { useGetSchedules } from '@/hooks/queries/useSchedules';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-// calendar
-
+export function formatDateToYYYYMMDDTHHMMSSZ(date: Date): string {
+  const isoString = date.toISOString();
+  return isoString.replace(
+    /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).\d{3}Z/,
+    '$1$2$3T$4$5$6Z',
+  );
+}
 const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
 
@@ -30,6 +36,25 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
     selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
+
+  const { startDay, endDay } = useCalendar(
+    selectedDate.selectedYear,
+    selectedDate.selectedMonth,
+  );
+
+  const { data, isSuccess } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
+  useEffect(() => {
+    console.log(
+      formatDateToYYYYMMDDTHHMMSSZ(startDay),
+      data,
+      isSuccess,
+      '일정리스트',
+    );
+  });
+
   useEffect(() => {
     setSelectedDate({
       selectedYear: date ? date.slice(0, 4) : currentYear,
@@ -37,6 +62,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
       selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
     });
   }, [date]);
+
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
     selectedDate.selectedYear,

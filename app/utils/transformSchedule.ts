@@ -1,8 +1,8 @@
 import { getDate } from './calculateDay';
 
-export function transformSchedules(schedules: any[]) {
+export function transformSchedules(schedules: any[] = []) {
   const returnSchedules: any[] = [];
-
+  console.log('Type', schedules);
   schedules.forEach((schedule: { startTime: string; endTime: string }) => {
     const startTime = new Date(schedule.startTime);
     const endTime = new Date(schedule.endTime);
