@@ -10,14 +10,17 @@ interface AddButtonProps {
 }
 const ScheduleAddBtn = ({ onClick }: AddButtonProps) => {
   const currentUrl = usePathname();
-  const isAccountPage = currentUrl.includes('account');
+  const isAccountPage = currentUrl.includes('/account');
 
   if (isAccountPage) return null;
 
   return (
     <button
-      className='fixed bottom-[80px] right-[25px] z-10 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-full drop-shadow-floatBtn hover:shadow-xl transition-shadow flex items-center justify-center h-12 w-12'
-      style={{ boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.16)' }}
+      className='absolute bottom-6 right-6 z-10
+      bg-blue-500 hover:bg-blue-400
+      text-white font-bold
+      rounded-full shadow-level3
+      transition-all flex items-center justify-center h-12 w-12'
       onClick={onClick}
     >
       <IconPlus />
