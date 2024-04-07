@@ -1,25 +1,25 @@
-
 'use client';
 
 import Breadcrumb from '@/components/Account/Breadcrumb';
 import UserForm from '@/components/Account/UserForm';
-import { useState } from 'react';
-import Link from 'next/link';
-import { Container } from './styled';
+
+import { useRecoilValue } from 'recoil';
+import { stepState } from '@/recoil/Account/atoms';
+
+import PetInfoForm from '@/components/Account/PetInfoForm';
+import CompletedPage from '@/components/Account/CompletedPage';
+import { Fragment } from 'react';
 
 const AccountPage = () => {
-  const [step, setStep] = useState(0);
+  const step = useRecoilValue(stepState);
 
   return (
-    <Container>
+    <Fragment>
       <Breadcrumb step={step} />
-
       {step === 0 && <UserForm />}
-
-      <p>
-        이미 계정이 있으신가요?<Link href='/login'>로그인</Link>
-      </p>
-    </Container>
+      {step === 1 && <PetInfoForm />}
+      {step === 2 && <CompletedPage />}
+    </Fragment>
   );
 };
 

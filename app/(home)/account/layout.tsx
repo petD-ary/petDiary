@@ -1,11 +1,13 @@
-import Heading from '@/components/Account/Heading';
+import AccountHeader from '@/components/Account/AccountHeader';
+import Container from '@/components/Container';
+import { Fragment } from 'react';
 
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <Heading title='회원가입' />
-      {children}
-    </div>
+    <Fragment>
+      <AccountHeader />
+      <Container>{children}</Container>
+    </Fragment>
   );
 };
 

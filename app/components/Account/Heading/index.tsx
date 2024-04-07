@@ -1,29 +1,18 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { IconWrapper, TitleWrapper } from './styled';
-import Image from 'next/image';
-import backBtn from '@/assets/images/backBtn.png';
 
-const Heading = ({ title }: { title: string }) => {
-  const router = useRouter();
+import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 
+interface HeadingProps {
+  title: string;
+  subTitle: string;
+}
+
+const Heading = ({ title, subTitle }: HeadingProps) => {
   return (
-    <TitleWrapper>
-      <IconWrapper onClick={() => router.back()}>
-        <div>
-          <Image
-            src={backBtn}
-            alt='뒤로 가기'
-            fill
-            sizes='100%'
-            style={{ objectFit: 'contain' }}
-            priority
-          />
-        </div>
-      </IconWrapper>
-      <h2>{title}</h2>
-    </TitleWrapper>
+    <div className='flex flex-col gap-2 pt-4 pb-6'>
+      <h2 className={`text-text-title ${Title.title2}`}>{title}</h2>
+      <p className={`text-text-secondary ${SubTitle.subTitle3}`}>{subTitle}</p>
+    </div>
   );
 };
 

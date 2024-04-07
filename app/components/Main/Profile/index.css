@@ -1,0 +1,14 @@
+.swiper-wrapper {
+  display: flex !important;
+  width: 200% !important;
+}
+
+.swiper-pagination {
+  position: relative;
+  padding: 0.5em;
+  @apply mt-5;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-primary-500;
+}

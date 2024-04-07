@@ -1,84 +1,84 @@
 'use client';
 import Input from '@/components/Input';
-import { FormEvent, useState } from 'react';
-import styled from 'styled-components';
+import { nicknameState, stepState } from '@/recoil/Account/atoms';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import Heading from '../Heading';
+import Button from '@/components/Button';
+import getNicknameValidation from './getNicknameValidation';
 
-const AccountForm = styled.form`
-  width: 100%;
-  padding: 48px 0 64px;
-
-  & button[type='submit'] {
-    width: 100%;
-    background: #000;
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 20px 0;
-    margin-top: 60px;
-  }
-`;
-
+interface AccountProps {
+  userId: string;
+  email: string;
+  password: string;
+  passwordCheck: string;
+}
 const UserForm = () => {
-  const [userId, setUserId] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordCheck, setPasswordCheck] = useState<string>('');
-  const [err, setErr] = useState<boolean>(false);
-  const [errMsg, setErrMsg] = useState<string>();
+  const setStep = useSetRecoilState(stepState);
+  const [nickname, setNickname] = useRecoilState(nicknameState);
 
-  const correctPassword = (pw: string, pwCheck: string) => {
-    if (pw.length > 6)
-      if (pw !== pwCheck) {
-        setErr(true);
-      } else {
-        setErr(false);
-      }
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError(null);
+    setNickname(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleCheckNickname = (str: string) => {
+    let checkSpc = /[~!@#$%^&*()_+|<>?:{}]/;
+
+    if (checkSpc.test(str)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    correctPassword(password, passwordCheck);
+
+    if (handleCheckNickname(nickname)) {
+      return setError('특수문자 ~!@#$%^&*()_제외');
+    } else {
+      const nicknameCheck = await getNicknameValidation(nickname);
+
+      if (nicknameCheck.message) {
+        return setError('이미 등록되어 있는 닉네임 입니다.');
+      } else {
+        return setStep((prev) => prev + 1);
+      }
+    }
   };
 
   return (
-    <AccountForm onSubmit={(e) => handleSubmit(e)}>
-      <Input
-        label='아이디*'
-        type='text'
-        value={userId}
-        setValue={(value: string) => setUserId(value)}
-        placeholder='아이디를 입력해 주세요'
-        required
-        button='중복 확인'
-      />
-      <Input
-        label='이메일*'
-        type='text'
-        value={email}
-        setValue={(value: string) => setEmail(value)}
-        placeholder='이메일을 입력해 주세요'
-        required
-      />
-      <Input
-        label='비밀번호*'
-        type='password'
-        value={password}
-        setValue={(value: string) => setPassword(value)}
-        placeholder='비밀번호를 입력해 주세요'
-        required
-        desc='6자 이상의 숫자와 특수문자를 포함해주세요'
-      />
-      <Input
-        label='비밀번호 확인*'
-        type='password'
-        value={passwordCheck}
-        setValue={(value: string) => setPasswordCheck(value)}
-        placeholder='비밀번호를 한번 더 입력해 주세요'
-        required
-      />
-      <button type='submit'>다음 단계로</button>
-    </AccountForm>
+    <>
+      <Heading title='닉네임 설정' subTitle='닉네임을 입력해 주세요' />
+      <form onSubmit={(e) => handleSubmit(e)} className='w-full pt-6 pb-16'>
+        <div className='flex flex-col pt-6 pb-3'>
+          <Input isRequired name='nickname'>
+            <Input.Label>닉네임</Input.Label>
+            <Input.TextInput
+              value={nickname}
+              error={error !== null && nickname !== ''}
+              placeholder='닉네임을 입력해 주세요'
+              onChange={handleChange}
+            />
+            <Input.ValidIcon error={error} />
+            <Input.Error>{error}</Input.Error>
+          </Input>
+        </div>
+
+        <div className='flex flex-col pt-6 pb-3'>
+          <Button
+            isDisabled={nickname !== '' ? false : true}
+            variant='contained'
+            type='submit'
+          >
+            다음
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 
