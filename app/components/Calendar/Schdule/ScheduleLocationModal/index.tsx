@@ -6,6 +6,7 @@ import IconSearch from '@/assets/images/icon-search.svg';
 import { getSearchPlace } from '@/api/map';
 import useGeolocation from '@/hooks/useGeolocation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import useSearchPlace from '@/api/useSearchPlace';
 
 interface ScheduleLocationModalProps {
   schedule: ScheduleState;
@@ -37,7 +38,12 @@ const ScheduleLocationModal = ({
 
   const [page, setPage] = useState(1);
   const [placeList, setPlaceList] = useState<PlaceListState>();
-  console.log('🚀 ~ placeList:', placeList);
+
+  const { data } = useSearchPlace({
+    geolocation: geolocation.position,
+    search: schedule.address,
+  });
+  console.log('🚀 ~ data:', data);
 
   const [observe, unobserve] = useIntersectionObserver(() =>
     setPage((prev) => prev + 1),
@@ -62,13 +68,14 @@ const ScheduleLocationModal = ({
   useEffect(() => {
     if (page === 1) observe(target);
 
-    const N = placeList?.documents?.length;
-    // const totalCount = placeList?.totalCount;
+    const N = placeList?.documents.length;
+    const totalCount = placeList?.meta?.total_count;
 
-    // if (0 === N || totalCount <= N) {
-    //   unobserve(target);
-    // }
+    if (0 === N || (totalCount && N && totalCount <= N)) {
+      unobserve(target);
+    }
   }, [placeList]);
+  console.log('🚀 ~ placeList:', placeList);
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_LOCATION} variant={MODAL_VARIANT.SLIDE}>

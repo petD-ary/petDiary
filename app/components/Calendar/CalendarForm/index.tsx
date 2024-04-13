@@ -79,7 +79,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
         selectedDate={selectedDate}
       />
 
-      <div className='bg-white pb-4 lg:pb-8'>
+      <div className='pb-4 lg:pb-8'>
         {/* 주 */}
         <div className='flex justify-around'>
           {WEEK_DAYS.map((day, index) => (

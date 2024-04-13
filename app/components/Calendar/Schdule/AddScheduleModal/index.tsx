@@ -1,11 +1,14 @@
 'use client';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { convertKoreanDateFormat } from '@/utils/calculateDay';
 import Input from '@/components/Input';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
 import { useModal } from '@/hooks/useModal';
 import ScheduleLocationModal from '../ScheduleLocationModal';
+import TimeFormatter from './TimeFormatter';
+import CalendarForm from '../../CalendarForm';
+import { handleformattedDate } from '@/components/Account/PetInfoForm';
+import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
 export interface ScheduleState {
   title: string;
@@ -15,8 +18,8 @@ export interface ScheduleState {
   alarm: string;
   repeat: 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
   repeatCount: number;
-  startTime: string | Date;
-  endTime: string | Date;
+  startTime: { date: string; time: string };
+  endTime: { date: string; time: string };
   memo: string;
 }
 
@@ -32,10 +35,13 @@ export const SCHEDULE_TYPE = {
   END_TIME: 'endTime',
   MEMO: 'memo',
 };
+
 const AddScheduleModal = () => {
   const { addModal } = useModal();
   const today = new Date();
-  const setEndTime = new Date().setMinutes(today.getMinutes() + 30);
+  const setStartTime = scheduleDateFormat(today);
+  const endTime = new Date().setMinutes(today.getMinutes() + 30);
+  const setEndTime = scheduleDateFormat(new Date(endTime));
 
   const [schedule, setSchedule] = useState<ScheduleState>({
     title: '',
@@ -45,9 +51,13 @@ const AddScheduleModal = () => {
     alarm: '',
     repeat: 'none',
     repeatCount: 0,
-    startTime: today,
-    endTime: new Date(setEndTime),
+    startTime: setStartTime,
+    endTime: setEndTime,
     memo: '',
+  });
+  const [isSetTimeOpen, setIsSetTimeOpen] = useState({
+    start: false,
+    end: false,
   });
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +83,7 @@ const AddScheduleModal = () => {
         setSchedule={(e) => handleChangeValue(e)}
       />
       <form
-        className='pt-6 pb-10 px-5 flex flex-col gap-8'
+        className='pt-6 pb-10 px-5 flex flex-col gap-8 overflow-y-scroll h-full'
         onSubmit={(e) => handleSubmit(e)}
       >
         <Input name={SCHEDULE_TYPE.TITLE} isRequired>
@@ -101,9 +111,49 @@ const AddScheduleModal = () => {
           <Input.Label>알림</Input.Label>
         </Input>
 
-        <Input name={SCHEDULE_TYPE.ADDRESS}>
+        <div>
           <Input.Label>시간 설정</Input.Label>
-        </Input>
+          <ul>
+            <li
+              onClick={() =>
+                setIsSetTimeOpen((prev) => ({ ...prev, start: !prev.start }))
+              }
+              className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-t-lg  ${isSetTimeOpen.start ? '' : 'border-b-0'}`}
+            >
+              <span>시작</span>
+              <TimeFormatter
+                time={`${schedule.startTime.date + schedule.startTime.time}`}
+                selected={isSetTimeOpen.start}
+              />
+            </li>
+            {isSetTimeOpen.start && (
+              <li className='bg-grayColor-10'>
+                <Input name={SCHEDULE_TYPE.ADDRESS}>
+                  <CalendarForm
+                    date={handleformattedDate(
+                      new Date(schedule.startTime.date),
+                    )}
+                    headerType='center'
+                  />
+                  <Input.Label>시간 설정</Input.Label>
+                  <input type='text' />
+                </Input>
+              </li>
+            )}
+            <li
+              onClick={() =>
+                setIsSetTimeOpen((prev) => ({ ...prev, end: !prev.start }))
+              }
+              className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-b-lg`}
+            >
+              <span>종료</span>
+              <TimeFormatter
+                time={`${schedule.endTime.date + schedule.endTime.time}`}
+                selected={isSetTimeOpen.end}
+              />
+            </li>
+          </ul>
+        </div>
 
         <Input name={SCHEDULE_TYPE.ADDRESS}>
           <Input.Label>반복 알림</Input.Label>

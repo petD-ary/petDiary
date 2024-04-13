@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
 import Script from 'next/script';
+import QueryWrapper from '@/components/QueryWrapper';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -21,17 +22,20 @@ export default async function RootLayout({
     <html lang='ko'>
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <ConfigProvider theme={{ hashed: false }}>
-          <RecoilRootWrapper>
-            <div className='w-screen h-screen m-0 relative'>
-              <HeadingComponent />
-              <div className='h-[calc(100%-120px)]'>{children}</div>
-              <Navbar />
-            </div>
-          </RecoilRootWrapper>
+          <QueryWrapper>
+            <RecoilRootWrapper>
+              <div className='w-screen h-screen m-0 relative'>
+                <HeadingComponent />
+                <div className='h-[calc(100%-120px)]'>{children}</div>
+                <Navbar />
+              </div>
+            </RecoilRootWrapper>
+          </QueryWrapper>
         </ConfigProvider>
         <Script
           type='text/javascript'
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY}`}
+          strategy='beforeInteractive'
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY}&libraries=clusterer&autoload=false`}
         />
       </body>
     </html>
