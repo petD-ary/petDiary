@@ -2,19 +2,25 @@
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
+import { scheduleDataState } from '@/recoil/Schedule/atom';
 
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 
 const ScheduleList = () => {
-  const { data, isSuccess } = useGetSchedules(
-    '20240501T000000Z',
-    '20240601T000000Z',
-  );
-  if (isSuccess)
+  const scheduleData = useRecoilValue(scheduleDataState);
+  useEffect(() => {
+    console.log(
+      scheduleData,
+      'scheduleDatascheduleDatascheduleDatascheduleData',
+    );
+  });
+  if (scheduleData.isSuccess)
     return (
       <div>
-        {transformSchedules(data)?.map(
+        {transformSchedules(scheduleData.data)?.map(
           (schedule: {
             isFirst: boolean;
             isAllDay: boolean;

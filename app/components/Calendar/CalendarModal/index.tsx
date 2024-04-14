@@ -1,5 +1,5 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { selectedDateState } from '@/recoil/calendar/atoms';
+import { selectedDateState } from '@/recoil/Calendar/atoms';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import DateScrollPicker from './DateScrollPicker';

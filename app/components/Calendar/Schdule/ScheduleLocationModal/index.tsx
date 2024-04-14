@@ -37,7 +37,6 @@ const ScheduleLocationModal = ({
 
   const [page, setPage] = useState(1);
   const [placeList, setPlaceList] = useState<PlaceListState>();
-  console.log('🚀 ~ placeList:', placeList);
 
   const [observe, unobserve] = useIntersectionObserver(() =>
     setPage((prev) => prev + 1),
