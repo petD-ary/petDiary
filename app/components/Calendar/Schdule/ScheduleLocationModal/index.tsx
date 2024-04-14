@@ -1,5 +1,5 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { SCHEDULE_TYPE, ScheduleState } from '../AddScheduleModal';
 import Input from '@/components/Input';
 import IconSearch from '@/assets/images/icon-search.svg';
@@ -7,21 +7,26 @@ import { getSearchPlace } from '@/api/map';
 import useGeolocation from '@/hooks/useGeolocation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useSearchPlace from '@/api/useSearchPlace';
+import MapComponent from '@/components/Map';
+import CustomPin from '@/components/Map/CustomPin';
+import { highlight } from '@/utils/highlight';
 
 interface ScheduleLocationModalProps {
   schedule: ScheduleState;
   setSchedule: (e: any) => void;
 }
 
+interface DocumentType {
+  id: string;
+  place_name: string;
+  address_name: string;
+  road_address_name: string;
+  x: string;
+  y: string;
+}
+
 export interface PlaceListState {
-  documents: {
-    id: string;
-    place_name: string;
-    address_name: string;
-    road_address_name: string;
-    x: string;
-    y: string;
-  }[];
+  documents: DocumentType[];
   meta: {
     is_end: boolean;
     pageable_count: number;
@@ -34,56 +39,29 @@ const ScheduleLocationModal = ({
   setSchedule,
 }: ScheduleLocationModalProps) => {
   const geolocation = useGeolocation();
-  const target = useRef(null);
 
-  const [page, setPage] = useState(1);
   const [placeList, setPlaceList] = useState<PlaceListState>();
 
-  const { data } = useSearchPlace({
+  const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,
     search: schedule.address,
   });
-  console.log('🚀 ~ data:', data);
 
-  const [observe, unobserve] = useIntersectionObserver(() =>
-    setPage((prev) => prev + 1),
+  const placeData = useMemo(
+    () => (data ? data.pages.flatMap((doc) => (doc ? doc.documents : [])) : []),
+    [data],
   );
 
-  const handleSearchLocation = async (e: FormEvent) => {
-    e.preventDefault();
+  const target = useIntersectionObserver((entry, observer) => {
+    observer.unobserve(entry.target);
 
-    if (!geolocation?.position) return alert('위치 제공을 활성화해주세요');
-
-    if (schedule.address === '') return;
-
-    const response = await getSearchPlace(
-      geolocation.position,
-      schedule.address,
-      page,
-    );
-
-    response && setPlaceList(response);
-  };
-
-  useEffect(() => {
-    if (page === 1) observe(target);
-
-    const N = placeList?.documents.length;
-    const totalCount = placeList?.meta?.total_count;
-
-    if (0 === N || (totalCount && N && totalCount <= N)) {
-      unobserve(target);
-    }
-  }, [placeList]);
-  console.log('🚀 ~ placeList:', placeList);
+    if (hasNextPage && !isFetching) fetchNextPage();
+  });
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_LOCATION} variant={MODAL_VARIANT.SLIDE}>
       <Modal.Header title='일정 위치 검색' titleType='left' />
-      <form
-        onSubmit={(e) => handleSearchLocation(e)}
-        className='px-5 py-4 bg-white'
-      >
+      <form onSubmit={(e) => e.preventDefault()} className='px-5 py-4 bg-white'>
         <Input name={SCHEDULE_TYPE.ADDRESS}>
           <Input.TextInput
             placeholder='위치를 검색해 주세요'
@@ -95,27 +73,46 @@ const ScheduleLocationModal = ({
           </button>
         </Input>
       </form>
-      <div className='bg-extra-divice-bg w-full h-[calc(100%-198px)]'>
-        {/* <MapComponent /> */}
-        <ul className='bg-white px-5 last:[&>li]:border-b-0 h-full overflow-y-scroll scrollbar-none'>
-          {placeList &&
-            placeList?.documents?.map(
-              ({ id, road_address_name, address_name, place_name, x, y }) => (
-                <li
-                  key={id}
-                  className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers '
-                >
-                  <div className='text-text-primary text-subTitle2 font-semibold'>
-                    {place_name}
-                  </div>
-                  <div className='text-text-secondary text-body1 font-medium'>
-                    {road_address_name ?? address_name}
-                  </div>
-                </li>
-              ),
-            )}
-          <div ref={target}></div>
-        </ul>
+
+      <div className='bg-extra-device-bg w-full h-full overflow-y-scroll scrollbar-none'>
+        <div className='bg-white px-5'>
+          {placeData.length > 0 && (
+            <div className='pb-3'>
+              <MapComponent>
+                {placeData.length > 0 &&
+                  placeData?.map((placeData) => (
+                    <CustomPin
+                      key={placeData.id}
+                      position={{
+                        lat: Number(placeData?.y),
+                        lng: Number(placeData?.x),
+                      }}
+                    />
+                  ))}
+              </MapComponent>
+            </div>
+          )}
+
+          <ul className='last:[&>li]:border-b-0 h-full'>
+            {placeData &&
+              placeData.map(
+                ({ id, road_address_name, address_name, place_name, x, y }) => (
+                  <li
+                    key={id}
+                    className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers '
+                  >
+                    <div className='text-text-primary text-subTitle2 font-semibold'>
+                      {highlight(schedule.address, place_name)}
+                    </div>
+                    <div className='text-text-secondary text-body1 font-medium'>
+                      {road_address_name ?? address_name}
+                    </div>
+                  </li>
+                ),
+              )}
+            <div ref={target}></div>
+          </ul>
+        </div>
       </div>
     </Modal>
   );

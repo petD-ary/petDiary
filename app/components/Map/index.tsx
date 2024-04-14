@@ -105,8 +105,8 @@ const MapComponent = ({ children, ...props }: MapProps) => {
     <Map
       id='map'
       center={position}
-      className='w-full h-full'
-      level={props.level ? props.level : 3}
+      className='w-full h-[180px] border border-grayColor-100 rounded-md'
+      level={5}
       {...props}
     >
       <MarkerClusterer

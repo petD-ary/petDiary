@@ -20,16 +20,18 @@ const Calendar = () => {
   };
 
   return (
-    <div className='h-full bg-extra-divice-bg -mx-[20px]'>
+    <div className='h-full bg-extra-device-bg -mx-[20px] overflow-y-scroll scrollbar-none'>
       <ScheduleAddBtn onClick={() => addModal(MODAL_TYPE.SCHEDULE_ADD)} />
       <CalendarModal setSelectedDate={setSelectedDate} />
       <AddScheduleModal />
 
-      <CalendarForm
-        handleDayClick={(day: Date) => handleSelectedDateClick(day)}
-      >
-        <CalendarForm.Header headerType='left' />
-      </CalendarForm>
+      <div className='bg-white'>
+        <CalendarForm
+          handleDayClick={(day: Date) => handleSelectedDateClick(day)}
+        >
+          <CalendarForm.Header headerType='left' />
+        </CalendarForm>
+      </div>
     </div>
   );
 };

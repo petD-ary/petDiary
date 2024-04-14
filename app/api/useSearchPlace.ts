@@ -5,19 +5,18 @@ import { Coordinates } from '@/hooks/useGeolocation';
 interface SearchPlaceProps {
   geolocation: Coordinates | null;
   search: string;
-  page?: number;
 }
 
 const useSearchPlace = (data: SearchPlaceProps) => {
   return useInfiniteQuery(
-    ['searchPlace'],
+    ['searchPlace', data.search],
     ({ pageParam = 1 }) =>
       getSearchPlace(data.geolocation, data.search, pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
-        !lastPage?.meta.is_end ? true : false;
+        const nextPage = allPages.length + 1;
+        return lastPage?.meta.is_end ? nextPage : undefined;
       },
-      staleTime: 1,
     },
   );
 };

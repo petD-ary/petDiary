@@ -73,7 +73,6 @@ const AddScheduleModal = () => {
     e.preventDefault();
   };
 
-  console.log('🚀 ~ AddScheduleModal ~ schedule:', schedule);
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_ADD} variant={MODAL_VARIANT.ALL}>
       <Modal.Header title='새로운 일정' titleType='left' />
@@ -83,7 +82,7 @@ const AddScheduleModal = () => {
         setSchedule={(e) => handleChangeValue(e)}
       />
       <form
-        className='pt-6 pb-10 px-5 flex flex-col gap-8 overflow-y-scroll h-full'
+        className='pt-6 pb-10 px-5 flex flex-col gap-8 overflow-y-scroll h-[calc(100%-107px)] scrollbar-none'
         onSubmit={(e) => handleSubmit(e)}
       >
         <Input name={SCHEDULE_TYPE.TITLE} isRequired>
