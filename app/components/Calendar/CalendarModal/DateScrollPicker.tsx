@@ -34,11 +34,14 @@ const DateScrollPicker: React.FC<DateScrollPickerProps> = ({
   const initialYearIndex = years.findIndex(
     (year) => year === temporarySelectedDate.selectedYear,
   );
+
   const initialMonthIndex = temporarySelectedDate.selectedMonth - 1;
+
   // 드래그 할 때 가운데랄 표시하기 위함 : 활성화됨(검은 글씨로)
   const [activeYearIndex, setActiveYearIndex] = useState(
     initialYearIndex >= 0 ? initialYearIndex : 0,
   );
+
   const [activeMonthIndex, setActiveMonthIndex] = useState(
     initialMonthIndex >= 0 ? initialMonthIndex : 0,
   );
@@ -51,6 +54,7 @@ const DateScrollPicker: React.FC<DateScrollPickerProps> = ({
   const handleMonthChange = (month: any) => {
     setTemporarySelectedDate((prev) => ({ ...prev, selectedMonth: month }));
   };
+
   // 슬라이드 했을 때도 년도 변경 : 가운데로 오면 변경됨
   const handleYearSlideChange = (swiper: any) => {
     const activeIndex = swiper.activeIndex;

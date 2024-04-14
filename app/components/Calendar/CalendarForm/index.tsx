@@ -39,6 +39,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
     selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
+
   const setScheduleData = useSetRecoilState(scheduleDataState);
 
   const { startDay, endDay } = useCalendar(
