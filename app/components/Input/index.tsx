@@ -52,7 +52,7 @@ const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
         onChange={onChange}
         className={`${InputClass}
       disabled:text-text-disable
-      border border-text-dividers active:border-active-border transition-colors
+      border border-text-dividers focus:border-extra-active transition-colors caret-secondary-200
     ${error !== null && error ? '!border-error focus:!border-error' : ''}
     `}
         required={isRequired}
