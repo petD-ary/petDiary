@@ -1,13 +1,11 @@
-import { Fragment } from 'react';
-
-const TimeFormatter = ({
-  time,
-  selected,
-}: {
-  time: string | Date;
+interface TimeFormatterProps {
+  time: { date: string; time: { hh: string; mm: string } };
   selected: boolean;
-}) => {
-  const date = new Date(time);
+}
+
+const TimeFormatter = ({ time, selected }: TimeFormatterProps) => {
+  const timeToChangeDateForm = `${time.date} ${time.time.hh}:${time.time.mm}:00`;
+  const date = new Date(timeToChangeDateForm);
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');

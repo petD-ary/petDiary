@@ -18,8 +18,8 @@ export interface ScheduleState {
   alarm: string;
   repeat: 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
   repeatCount: number;
-  startTime: { date: string; time: string };
-  endTime: { date: string; time: string };
+  startTime: { date: string; time: { hh: string; mm: string } };
+  endTime: { date: string; time: { hh: string; mm: string } };
   memo: string;
 }
 
@@ -55,6 +55,32 @@ const AddScheduleModal = () => {
     endTime: setEndTime,
     memo: '',
   });
+
+  const handleChangeDate = (day: Date, type: 'startTime' | 'endTime') => {
+    setSchedule((prev) => ({
+      ...prev,
+      [type]: { ...prev[type], date: handleformattedDate(day) },
+    }));
+  };
+
+  const handleChangeTime = (
+    time: string,
+    type: 'startTime' | 'endTime',
+    variant: 'hh' | 'mm',
+  ) => {
+    if (time.length > 2) return;
+    if (variant === 'hh') {
+      Number(time) > 23 ? (time = '00') : time;
+    }
+    if (variant === 'mm') {
+      Number(time) > 60 ? (time = '00') : time;
+    }
+    setSchedule((prev) => ({
+      ...prev,
+      [type]: { ...prev[type], time: { ...prev[type].time, [variant]: time } },
+    }));
+  };
+
   const [isSetTimeOpen, setIsSetTimeOpen] = useState({
     start: false,
     end: false,
@@ -79,7 +105,7 @@ const AddScheduleModal = () => {
 
       <ScheduleLocationModal
         schedule={schedule}
-        setSchedule={(e) => handleChangeValue(e)}
+        setSchedule={(value) => setSchedule(value)}
       />
       <form
         className='pt-6 pb-10 px-5 flex flex-col gap-8 overflow-y-scroll h-[calc(100%-107px)] scrollbar-none'
@@ -98,11 +124,16 @@ const AddScheduleModal = () => {
           <Input.Label>위치</Input.Label>
           <button
             type='button'
-            className='w-full flex gap-1 items-center body1 text-text-title py-[15px] px-3 border border-extra-border rounded-lg'
+            className='w-full flex gap-1 justify-between items-center body1 text-text-title py-[15px] pl-3 pr-4 border border-extra-border rounded-lg'
             onClick={() => addModal(MODAL_TYPE.SCHEDULE_LOCATION)}
           >
-            <IconLocation />
-            일정 위치 검색
+            <span className='flex gap-1 items-center'>
+              <IconLocation />
+              {schedule.address === '' ? '일정 위치 검색' : schedule.address}
+            </span>
+            {schedule.address !== '' && (
+              <span className='text-primary-700'>변경</span>
+            )}
           </button>
         </Input>
 
@@ -121,7 +152,7 @@ const AddScheduleModal = () => {
             >
               <span>시작</span>
               <TimeFormatter
-                time={`${schedule.startTime.date + schedule.startTime.time}`}
+                time={schedule.startTime}
                 selected={isSetTimeOpen.start}
               />
             </li>
@@ -132,10 +163,37 @@ const AddScheduleModal = () => {
                     date={handleformattedDate(
                       new Date(schedule.startTime.date),
                     )}
+                    handleDayClick={(day: Date) =>
+                      handleChangeDate(day, 'startTime')
+                    }
                     headerType='center'
                   />
-                  <Input.Label>시간 설정</Input.Label>
-                  <input type='text' />
+                  <div className='px-3 pb-5'>
+                    <Input.Label>시간 설정</Input.Label>
+                    <div className='bg-white group-focus:border-extra-active flex justify-center border border-extra-border rounded-md overflow-hidden px-[6px] py-4'>
+                      <input
+                        type='text'
+                        value={schedule.startTime.time.hh}
+                        onChange={(e) =>
+                          handleChangeTime(e.target.value, 'startTime', 'hh')
+                        }
+                        placeholder='hh'
+                        max={2}
+                        className='w-8 text-center group'
+                      />
+                      {`:`}
+                      <input
+                        type='text'
+                        value={schedule.startTime.time.mm}
+                        onChange={(e) =>
+                          handleChangeTime(e.target.value, 'startTime', 'mm')
+                        }
+                        placeholder='mm'
+                        className='w-8 text-center'
+                        max={2}
+                      />
+                    </div>
+                  </div>
                 </Input>
               </li>
             )}
@@ -147,7 +205,7 @@ const AddScheduleModal = () => {
             >
               <span>종료</span>
               <TimeFormatter
-                time={`${schedule.endTime.date + schedule.endTime.time}`}
+                time={schedule.endTime}
                 selected={isSetTimeOpen.end}
               />
             </li>

@@ -7,7 +7,7 @@ const scheduleDateFormat = (date: string | Date) => {
   const hour = resultDate.getHours().toString().padStart(2, '0');
   const minutes = resultDate.getMinutes() < 30 ? '00' : '30';
 
-  return { date: `${year}-${month}-${day}`, time: ` ${hour}:${minutes}:00` };
+  return { date: `${year}-${month}-${day}`, time: { hh: hour, mm: minutes } };
 };
 
 export default scheduleDateFormat;
