@@ -15,7 +15,7 @@ const useSearchPlace = (data: SearchPlaceProps) => {
     {
       getNextPageParam: (lastPage, allPages) => {
         const nextPage = allPages.length + 1;
-        return lastPage?.meta.is_end ? nextPage : undefined;
+        return !lastPage?.meta.is_end ? nextPage : false;
       },
     },
   );
