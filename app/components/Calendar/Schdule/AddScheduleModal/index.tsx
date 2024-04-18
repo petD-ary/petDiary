@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import Input from '@/components/Input';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
@@ -40,8 +40,12 @@ const AddScheduleModal = () => {
   const { addModal } = useModal();
   const today = new Date();
   const setStartTime = scheduleDateFormat(today);
-  const endTime = new Date().setMinutes(today.getMinutes() + 30);
-  const setEndTime = scheduleDateFormat(new Date(endTime));
+  const setEndTime = useMemo(() => {
+    const startStr = `${schedule.startTime.date + ' ' + schedule.startTime.time.hh}:${schedule.startTime.time.mm}:00`;
+    const startDate = new Date(startStr);
+    const endTime = new Date().setMinutes(startDate.getMinutes() + 30);
+    return scheduleDateFormat(new Date(endTime));
+  }, []);
 
   const [schedule, setSchedule] = useState<ScheduleState>({
     title: '',
