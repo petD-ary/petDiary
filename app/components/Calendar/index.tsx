@@ -7,7 +7,7 @@ import CalendarModal from './CalendarModal';
 import ScheduleAddBtn from './ScheduleAddBtn';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '../Modal';
-import AddScheduleModal from './Schdule/AddScheduleModal';
+import AddScheduleModal from '@/components/Calendar/Schedule/AddScheduleModal';
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState('');

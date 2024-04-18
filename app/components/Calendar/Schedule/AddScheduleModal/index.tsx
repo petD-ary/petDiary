@@ -1,14 +1,16 @@
 'use client';
-import React, { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import Input from '@/components/Input';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
 import { useModal } from '@/hooks/useModal';
 import ScheduleLocationModal from '../ScheduleLocationModal';
 import TimeFormatter from './TimeFormatter';
-import CalendarForm from '../../CalendarForm';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
+import useToast from '@/hooks/useToast';
+import PickCalendar from './PickCalendar';
+import SetDateObj from './SetDateObj';
 
 export interface ScheduleState {
   title: string;
@@ -38,14 +40,12 @@ export const SCHEDULE_TYPE = {
 
 const AddScheduleModal = () => {
   const { addModal } = useModal();
+  const { addToast, setToasts } = useToast();
+  const [error, setError] = useState(true);
   const today = new Date();
   const setStartTime = scheduleDateFormat(today);
-  const setEndTime = useMemo(() => {
-    const startStr = `${schedule.startTime.date + ' ' + schedule.startTime.time.hh}:${schedule.startTime.time.mm}:00`;
-    const startDate = new Date(startStr);
-    const endTime = new Date().setMinutes(startDate.getMinutes() + 30);
-    return scheduleDateFormat(new Date(endTime));
-  }, []);
+  const endTime = new Date().setMinutes(today.getMinutes() + 30);
+  const setEndTime = scheduleDateFormat(new Date(endTime));
 
   const [schedule, setSchedule] = useState<ScheduleState>({
     title: '',
@@ -67,18 +67,36 @@ const AddScheduleModal = () => {
     }));
   };
 
+  useEffect(() => {
+    const start = SetDateObj(schedule.startTime);
+    const end = SetDateObj(schedule.endTime);
+    if (start >= end) {
+      setToasts('시간 설정을 다시 확인해주세요');
+    }
+  }, [schedule.startTime, schedule.endTime]);
+
   const handleChangeTime = (
     time: string,
     type: 'startTime' | 'endTime',
     variant: 'hh' | 'mm',
   ) => {
-    if (time.length > 2) return;
     if (variant === 'hh') {
       Number(time) > 23 ? (time = '00') : time;
     }
     if (variant === 'mm') {
       Number(time) > 60 ? (time = '00') : time;
     }
+
+    if (type === 'startTime') {
+      const hour = '';
+      const minute = '';
+
+      setSchedule((prev) => ({
+        ...prev,
+        endTime: { ...prev.endTime, time: { hh: hour, mm: minute } },
+      }));
+    }
+
     setSchedule((prev) => ({
       ...prev,
       [type]: { ...prev[type], time: { ...prev[type].time, [variant]: time } },
@@ -150,7 +168,10 @@ const AddScheduleModal = () => {
           <ul>
             <li
               onClick={() =>
-                setIsSetTimeOpen((prev) => ({ ...prev, start: !prev.start }))
+                setIsSetTimeOpen((prev) => ({
+                  start: !prev.start,
+                  end: false,
+                }))
               }
               className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-t-lg  ${isSetTimeOpen.start ? '' : 'border-b-0'}`}
             >
@@ -161,49 +182,19 @@ const AddScheduleModal = () => {
               />
             </li>
             {isSetTimeOpen.start && (
-              <li className='bg-grayColor-10'>
-                <Input name={SCHEDULE_TYPE.ADDRESS}>
-                  <CalendarForm
-                    date={handleformattedDate(
-                      new Date(schedule.startTime.date),
-                    )}
-                    handleDayClick={(day: Date) =>
-                      handleChangeDate(day, 'startTime')
-                    }
-                    headerType='center'
-                  />
-                  <div className='px-3 pb-5'>
-                    <Input.Label>시간 설정</Input.Label>
-                    <div className='bg-white group-focus:border-extra-active flex justify-center border border-extra-border rounded-md overflow-hidden px-[6px] py-4'>
-                      <input
-                        type='text'
-                        value={schedule.startTime.time.hh}
-                        onChange={(e) =>
-                          handleChangeTime(e.target.value, 'startTime', 'hh')
-                        }
-                        placeholder='hh'
-                        max={2}
-                        className='w-8 text-center group'
-                      />
-                      {`:`}
-                      <input
-                        type='text'
-                        value={schedule.startTime.time.mm}
-                        onChange={(e) =>
-                          handleChangeTime(e.target.value, 'startTime', 'mm')
-                        }
-                        placeholder='mm'
-                        className='w-8 text-center'
-                        max={2}
-                      />
-                    </div>
-                  </div>
-                </Input>
-              </li>
+              <PickCalendar
+                type='startTime'
+                scheduleTime={schedule.startTime}
+                handleChangeDate={handleChangeDate}
+                handleChangeTime={handleChangeTime}
+              />
             )}
             <li
               onClick={() =>
-                setIsSetTimeOpen((prev) => ({ ...prev, end: !prev.start }))
+                setIsSetTimeOpen((prev) => ({
+                  start: false,
+                  end: !prev.end,
+                }))
               }
               className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-b-lg`}
             >
@@ -213,6 +204,14 @@ const AddScheduleModal = () => {
                 selected={isSetTimeOpen.end}
               />
             </li>
+            {isSetTimeOpen.end && (
+              <PickCalendar
+                type='endTime'
+                scheduleTime={schedule.endTime}
+                handleChangeDate={handleChangeDate}
+                handleChangeTime={handleChangeTime}
+              />
+            )}
           </ul>
         </div>
 
