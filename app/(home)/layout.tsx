@@ -7,6 +7,7 @@ import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
 import Script from 'next/script';
 import QueryWrapper from '@/components/QueryWrapper';
+import ToastProvider from '@/components/Toast/ToastProvider';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -24,6 +25,7 @@ export default async function RootLayout({
         <ConfigProvider theme={{ hashed: false }}>
           <QueryWrapper>
             <RecoilRootWrapper>
+              <ToastProvider />
               <div className='w-screen h-screen m-0 relative'>
                 <HeadingComponent />
                 <div className='h-[calc(100%-120px)]'>{children}</div>
