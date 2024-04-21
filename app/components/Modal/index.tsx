@@ -191,8 +191,8 @@ interface ModalButtonProps {
 const ModalButton: React.FC<ModalButtonProps> = ({ children, onClick }) => {
   const { removeModal } = useModal();
 
-  const handleClick = (event: MouseEvent) => {
-    if (onClick) {
+  const handleClick = (event?: MouseEvent) => {
+    if (onClick && event) {
       onClick(event);
       removeModal();
     }
@@ -201,7 +201,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ children, onClick }) => {
 
   return (
     <div className='py-3 px-5 bg-white w-full shadow-[0_-4px_12px_0_rgba(0_,0_,0_,0.04)]'>
-      <Button onClick={handleClick} variant='contained'>
+      <Button onClick={() => handleClick()} variant='contained'>
         {children}
       </Button>
     </div>
