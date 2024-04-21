@@ -3,8 +3,6 @@ import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedDateState } from '@/recoil/calendar/atoms';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
@@ -12,31 +10,57 @@ import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import CalendarModal from '../CalendarModal';
+import { usePathname } from 'next/navigation';
+import { useGetSchedules } from '@/hooks/queries/useSchedules';
+import { useSetRecoilState } from 'recoil';
+import { scheduleDataState } from '@/recoil/Schedule/atom';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-// calendar
+export function formatDateToYYYYMMDDTHHMMSSZ(date: Date): string {
+  const isoString = date.toISOString();
+  return isoString.replace(
+    /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).\d{3}Z/,
+    '$1$2$3T$4$5$6Z',
+  );
+}
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear().toString();
+const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+const currentDay = currentDate.getDate().toString().padStart(2, '0');
 
 const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
 
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear().toString();
-  const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-  const currentDay = currentDate.getDate().toString().padStart(2, '0');
+  const pathname = usePathname();
 
   const [selectedDate, setSelectedDate] = useState({
     selectedYear: date ? date.slice(0, 4) : currentYear,
     selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
     selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
+
+  const setScheduleData = useSetRecoilState(scheduleDataState);
+
+  const { startDay, endDay } = useCalendar(
+    selectedDate.selectedYear,
+    selectedDate.selectedMonth,
+  );
+
+  const { data, isSuccess } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
+
   useEffect(() => {
     setSelectedDate({
       selectedYear: date ? date.slice(0, 4) : currentYear,
       selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
       selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
     });
-  }, [date]);
+    setScheduleData({ data, isSuccess });
+  }, [date, data, isSuccess, setScheduleData]);
+
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
     selectedDate.selectedYear,
@@ -73,9 +97,23 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     day.getFullYear() == selectedDate.selectedYear &&
     day.getMonth() === selectedDate.selectedMonth - 1;
 
+  // 일정 표시 함수
+
+  const hasSchedule = (day: Date) => {
+    if (!data) return false;
+    return data.some(
+      (schedule: {
+        startTime: string | number | Date;
+        endTime: string | number | Date;
+      }) =>
+        isSameDay(new Date(schedule.startTime), day) ||
+        (new Date(schedule.startTime) < day &&
+          new Date(schedule.endTime) >= day),
+    );
+  };
   return (
     <div
-      className={`relative after:block w-full h-full ${window.location.pathname === '/calendar' ? 'bg-white' : ''}`}
+      className={`relative after:block w-full h-full ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
     >
       <CalendarModal setSelectedDate={setSelectedDate} />
       <Header
@@ -83,60 +121,69 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
       />
-      {/* 주 */}
-      <div className='flex justify-around'>
-        {WEEK_DAYS.map((day, index) => (
-          <div
-            key={day}
-            className={`py-[16px] flex text-center ${
-              [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
-            }`}
-          >
-            <div className={`px-2 `}>{day}</div>
-          </div>
-        ))}
-      </div>
-      {/* 일 */}
-      <div>
-        {weeks.map((week) => {
-          return (
-            <div key={String(week)} className=' flex justify-around '>
-              {week.map((day) => {
-                return (
-                  <div
-                    key={String(day)}
-                    className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
+
+      <div className='bg-white pb-4 lg:pb-8'>
+        {/* 주 */}
+        <div className='flex justify-around'>
+          {WEEK_DAYS.map((day, index) => (
+            <div
+              key={day}
+              className={`py-[16px] flex text-center ${
+                [0].includes(index) ? 'text-primary-400' : 'text-gray-600'
+              }`}
+            >
+              <div className={`px-2 `}>{day}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* 일 */}
+        <div>
+          {weeks.map((week) => {
+            return (
+              <div key={String(week)} className=' flex justify-around '>
+                {week.map((day) => {
+                  return (
+                    <div
+                      key={String(day)}
+                      className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
                   ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isToday(day) ? 'bg-primary-600/30' : ''}
                   ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
                   `}
-                    onClick={() => isCurrentMonth(day) && handleDayClick(day)}
-                  >
-                    <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>
-                      <div
-                        className={
-                          isToday(day) ? 'text-primary-600  font-medium' : ''
-                        }
-                      >
-                        {day.getDate()}
-                      </div>
-                      <div
-                        className={`px-4 ${
-                          isToday(day)
-                            ? 'visible text-primary-600 font-bold'
-                            : 'invisible'
-                        } `}
-                      >
-                        {/* 오늘 */}
+                      onClick={() => isCurrentMonth(day) && handleDayClick(day)}
+                    >
+                      <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>
+                        <div
+                          className={
+                            isToday(day) ? 'text-primary-600  font-medium' : ''
+                          }
+                        >
+                          <div
+                            className={`absolute top-2 right-2 ${
+                              hasSchedule(day) ? 'bg-accent' : '' // 일정이 있는 경우 동그라미의 배경색을 설정합니다.
+                            } h-2 w-2 rounded-full`}
+                          ></div>
+                          {day.getDate()}
+                        </div>
+                        <div
+                          className={`px-4 ${
+                            isToday(day)
+                              ? 'visible text-primary-600 font-bold'
+                              : 'invisible'
+                          } `}
+                        >
+                          {/* 오늘 */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -146,8 +193,6 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
 
 const Header = ({
   headerType = 'left',
-  onPrevMonth,
-  onNextMonth,
   selectedDate,
   setSelectedDate,
 }: {
@@ -159,7 +204,10 @@ const Header = ({
 }) => {
   const { addModal } = useModal();
 
+  const pathname = usePathname();
+
   const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth.toString().padStart(2, '0')}월`;
+
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
   // 일정 추가 부분에서 이전 함수 다음 함수 분리 필요
   const handlePrevMonth = () => {
@@ -191,10 +239,12 @@ const Header = ({
   if (headerType === 'left') {
     return (
       <div
-        onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
-        className='px-[20px] py-[14px] flex mb-3 border-y border-t-1 border-b-8 border-gray-100  bg-white cursor-pointer '
+        className={`px-[20px] py-[14px] flex mb-2 bg-white ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
       >
-        <div className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full'>
+        <div
+          onClick={() => addModal(MODAL_TYPE.WHEEL_CALENDAR)}
+          className='flex items-center gap-2 px-3 py-[7px] bg-primary-50 border border-primary-100 rounded-full cursor-pointer'
+        >
           <div className={`${SubTitle.subTitle2} `}>{displayYYDate}</div>
           <IconDown />
         </div>
@@ -203,7 +253,7 @@ const Header = ({
   }
   if (headerType === 'center') {
     return (
-      <div className='px-[20px] py-[20px]  cursor-pointer'>
+      <div className='px-[20px] py-[20px] cursor-pointer'>
         <div className='flex items-center justify-between'>
           <IconLeft onClick={handlePrevMonth} />
           <div

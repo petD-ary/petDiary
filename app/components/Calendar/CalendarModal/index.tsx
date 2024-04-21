@@ -1,15 +1,15 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { selectedDateState } from '@/recoil/calendar/atoms';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
+
 import DateScrollPicker from './DateScrollPicker';
 
 const CalendarModal = ({ setSelectedDate }: { setSelectedDate: any }) => {
   const [temporarySelectedDate, setTemporarySelectedDate] = useState({
     selectedYear: new Date().getFullYear(),
-    selectedMonth: new Date().getMonth(),
+    selectedMonth: new Date().getMonth() + 1,
     selectedDay: new Date().getDay(),
   });
+
   const handleConfirmButtonClick = () => {
     setSelectedDate(temporarySelectedDate);
   };

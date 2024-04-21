@@ -1,3 +1,4 @@
+import { PlaceListState } from '@/components/Calendar/Schdule/ScheduleLocationModal';
 import { Coordinates } from '@/hooks/useGeolocation';
 import { mapAxios } from '@/libs/axios';
 
@@ -16,7 +17,7 @@ export const getSearchPlace = async (
       },
     });
 
-    return response;
+    return response.data as PlaceListState;
   } catch (e) {
     console.log('🚀 ~ getSearchPlace ~ e:', e);
   }
