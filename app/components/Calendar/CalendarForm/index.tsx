@@ -112,9 +112,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     );
   };
   return (
-    <div
-      className={`relative after:block w-full h-full ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
-    >
+    <div className='relative after:block w-full h-full'>
       <CalendarModal setSelectedDate={setSelectedDate} />
       <Header
         headerType={headerType}
@@ -146,7 +144,7 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
                   return (
                     <div
                       key={String(day)}
-                      className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full
+                      className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full cursor-pointer
                   ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
                   ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
                   ${isToday(day) ? 'bg-primary-600/30' : ''}
@@ -162,7 +160,9 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
                         >
                           <div
                             className={`absolute top-2 right-2 ${
-                              hasSchedule(day) ? 'bg-accent' : '' // 일정이 있는 경우 동그라미의 배경색을 설정합니다.
+                              headerType === 'left' && hasSchedule(day)
+                                ? 'bg-accent'
+                                : '' // 일정이 있는 경우 동그라미의 배경색을 설정합니다.
                             } h-2 w-2 rounded-full`}
                           ></div>
                           {day.getDate()}

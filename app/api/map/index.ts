@@ -9,6 +9,8 @@ export const getSearchPlace = async (
 ) => {
   const url = `/search/keyword.json?page=${page}&size=15${geolocation ? `&y=${geolocation.lat}` : ''}${geolocation ? `&x=${geolocation.lng}` : ''}`;
 
+  if (search === undefined || search === '') return;
+
   try {
     const response = await mapAxios.get(url, {
       params: { query: search },
