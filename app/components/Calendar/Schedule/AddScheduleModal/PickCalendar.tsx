@@ -1,8 +1,8 @@
 import React from 'react';
 import CalendarForm from '../../CalendarForm';
-import { SCHEDULE_TYPE } from '.';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
 import Input from '@/components/Input';
+import { SCHEDULE_TYPE } from '../../Schdule/constants';
 
 export type DateType = 'startTime' | 'endTime';
 

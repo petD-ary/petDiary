@@ -67,4 +67,21 @@
     justify-content: center;
     height: 40px;
   }
+
+  input[type=range] { 
+    @apply w-full h-2 mt-4 mb-4 appearance-none rounded-full;
+}
+
+input[type=range]::-webkit-slider-thumb { 
+  -webkit-appearance: none;
+  background: #ffffff;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.15); 
+  height: 20px; 
+  width: 20px;   
+border-radius:20px;
+}
+
+
+
 }

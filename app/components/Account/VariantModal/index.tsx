@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import VariantList from './VariantList';
 
 import IconSearch from '@/assets/images/icon-search@24.svg';
@@ -64,7 +64,7 @@ const VariantModal = () => {
           ))}
       </ul>
 
-      <Modal.Button children='선택'/>
+      <Modal.Button children='선택' />
     </Modal>
   );
 };

@@ -27,8 +27,6 @@
     "react-kakao-login": "^2.1.1",
     "react-kakao-maps-sdk": "^1.1.26",
     "react-query": "^3.39.3",
-    "react-swipeable": "^7.0.1",
-    "react-use-gesture": "^9.1.3",
     "recoil": "^0.7.7",
     "request-promise": "^4.2.6",
     "swiper": "^11.0.7"

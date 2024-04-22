@@ -1,13 +1,14 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import RecoilRootWrapper from '@/components/RecoilRootWrapper';
-import pretendard from '@/components/Pretendard';
-import Navbar from '@/components/Navbar';
-import HeadingComponent from '@/components/Heading';
 import { ConfigProvider } from 'antd';
 import Script from 'next/script';
-import QueryWrapper from '@/components/QueryWrapper';
 import ToastProvider from '@/components/Toast/ToastProvider';
+
+import Navbar from '@/components/Navbar';
+import pretendard from '@/components/Pretendard';
+import HeadingComponent from '@/components/Heading';
+import QueryWrapper from '@/components/Wrapper/QueryWrapper';
+import RecoilRootWrapper from '@/components/Wrapper/RecoilRootWrapper';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',

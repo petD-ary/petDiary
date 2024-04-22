@@ -1,9 +1,7 @@
+import { useMemo, useState } from 'react';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import React, { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { SCHEDULE_TYPE, ScheduleState } from '../AddScheduleModal';
 import Input from '@/components/Input';
 import IconSearch from '@/assets/images/icon-search.svg';
-import { getSearchPlace } from '@/api/map';
 import useGeolocation from '@/hooks/useGeolocation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useSearchPlace from '@/api/useSearchPlace';
@@ -11,6 +9,8 @@ import MapComponent from '@/components/Map';
 import CustomPin from '@/components/Map/CustomPin';
 import { highlight } from '@/utils/highlight';
 import { useModal } from '@/hooks/useModal';
+import { SCHEDULE_TYPE } from '../../Schdule/constants';
+import { ScheduleState } from '../../Schdule/type';
 
 interface ScheduleLocationModalProps {
   schedule: ScheduleState;
@@ -42,8 +42,6 @@ const ScheduleLocationModal = ({
   const geolocation = useGeolocation();
   const { removeModal } = useModal();
   const [searchValue, setSearchValue] = useState<string>('');
-
-  const [placeList, setPlaceList] = useState<PlaceListState>();
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,

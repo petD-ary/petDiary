@@ -3,8 +3,6 @@ import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectedDateState } from '@/recoil/calendar/atoms';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
@@ -13,26 +11,55 @@ import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import CalendarModal from '../CalendarModal';
 import { usePathname } from 'next/navigation';
+import { useGetSchedules } from '@/hooks/queries/useSchedules';
+import { useSetRecoilState } from 'recoil';
+import { scheduleDataState } from '@/recoil/Schedule/atom';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-// calendar
+export function formatDateToYYYYMMDDTHHMMSSZ(date: Date): string {
+  const isoString = date.toISOString();
+  return isoString.replace(
+    /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).\d{3}Z/,
+    '$1$2$3T$4$5$6Z',
+  );
+}
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear().toString();
+const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+const currentDay = currentDate.getDate().toString().padStart(2, '0');
 
 const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
   // 선택된 날짜와 선택된 날짜 업데이트
-  //const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
   const pathname = usePathname();
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear().toString();
-  const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-  const currentDay = currentDate.getDate().toString().padStart(2, '0');
 
   const [selectedDate, setSelectedDate] = useState({
     selectedYear: date ? date.slice(0, 4) : currentYear,
     selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
     selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
   });
+
+  const setScheduleData = useSetRecoilState(scheduleDataState);
+
+  const { startDay, endDay } = useCalendar(
+    selectedDate.selectedYear,
+    selectedDate.selectedMonth,
+  );
+
+  const { data, isSuccess } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
+
+  useEffect(() => {
+    setSelectedDate({
+      selectedYear: date ? date.slice(0, 4) : currentYear,
+      selectedMonth: date ? date.slice(5, 7).padStart(2, '0') : currentMonth,
+      selectedDay: date ? date.slice(8, 10).padStart(2, '0') : currentDay,
+    });
+    setScheduleData({ data, isSuccess });
+  }, [date, data, isSuccess, setScheduleData]);
 
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
@@ -70,8 +97,24 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
     day.getFullYear() == selectedDate.selectedYear &&
     day.getMonth() === selectedDate.selectedMonth - 1;
 
+  // 일정 표시 함수
+
+  const hasSchedule = (day: Date) => {
+    if (!data) return false;
+    return data.some(
+      (schedule: {
+        startTime: string | number | Date;
+        endTime: string | number | Date;
+      }) =>
+        isSameDay(new Date(schedule.startTime), day) ||
+        (new Date(schedule.startTime) < day &&
+          new Date(schedule.endTime) >= day),
+    );
+  };
   return (
-    <div className='relative after:block w-full'>
+    <div
+      className={`relative after:block w-full h-full ${pathname.includes('/calendar') ? 'bg-white' : ''}`}
+    >
       <CalendarModal setSelectedDate={setSelectedDate} />
       <Header
         headerType={headerType}
@@ -117,6 +160,11 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
                             isToday(day) ? 'text-primary-600  font-medium' : ''
                           }
                         >
+                          <div
+                            className={`absolute top-2 right-2 ${
+                              hasSchedule(day) ? 'bg-accent' : '' // 일정이 있는 경우 동그라미의 배경색을 설정합니다.
+                            } h-2 w-2 rounded-full`}
+                          ></div>
                           {day.getDate()}
                         </div>
                         <div
@@ -145,8 +193,6 @@ const CalendarForm = ({ headerType, handleDayClick, date }: any) => {
 
 const Header = ({
   headerType = 'left',
-  onPrevMonth,
-  onNextMonth,
   selectedDate,
   setSelectedDate,
 }: {
@@ -160,7 +206,8 @@ const Header = ({
 
   const pathname = usePathname();
 
-  const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth}월`;
+  const displayYYDate = `${selectedDate.selectedYear.toString().slice(2)}년, ${selectedDate.selectedMonth.toString().padStart(2, '0')}월`;
+
   const displayYYYYDate = `${selectedDate.selectedYear}. ${selectedDate.selectedMonth.toString().padStart(2, '0')}`;
   // 일정 추가 부분에서 이전 함수 다음 함수 분리 필요
   const handlePrevMonth = () => {
