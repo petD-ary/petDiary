@@ -41,7 +41,7 @@ const AddScheduleModal = () => {
     address: '',
     lat: 0,
     lng: 0,
-    alarm: '반복 안함',
+    alarm: '안함',
     repeat: 'none',
     repeatCount: 0,
     startTime: setStartTime,
@@ -177,7 +177,7 @@ const AddScheduleModal = () => {
           <Input.Label>알림</Input.Label>
           <div
             onClick={() => addModal(MODAL_TYPE.SCHEDULE_ALARM)}
-            className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-text-dividers focus:border-text-border transition-colors'
+            className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-extra-border focus:border-extra-active transition-colors'
           >
             <p className={`flex justify-between items-center ${Body.body1}`}>
               {schedule.alarm === '' ? '안함' : schedule.alarm}
@@ -244,7 +244,7 @@ const AddScheduleModal = () => {
           <Input.Label>반복 알림</Input.Label>
           <div
             onClick={() => addModal(MODAL_TYPE.SCHEDULE_REPEAT)}
-            className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-text-dividers focus:border-text-border transition-colors'
+            className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-extra-border focus:border-extra-active transition-colors'
           >
             <p className={`flex justify-between items-center ${Body.body1}`}>
               {repeatValue.content}
@@ -282,9 +282,7 @@ const AddScheduleModal = () => {
               </div>
             </div>
           </Input>
-        ) : (
-          ''
-        )}
+        ) : null}
         <Input name={SCHEDULE_TYPE.MEMO}>
           <Input.Label>메모</Input.Label>
           <Input.TextArea
