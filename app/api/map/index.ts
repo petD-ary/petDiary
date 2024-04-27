@@ -1,4 +1,4 @@
-import { PlaceListState } from '@/components/Calendar/Schdule/ScheduleLocationModal';
+import { PlaceListState } from '@/components/Calendar/Schedule/ScheduleLocationModal';
 import { Coordinates } from '@/hooks/useGeolocation';
 import { mapAxios } from '@/libs/axios';
 

@@ -1,17 +1,20 @@
 import { Body } from '@/constants/Typography/TypographyList';
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
-import { ScheduleState } from '@/components/Calendar/Schdule/type';
+import {
+  AlarmListProps,
+  ScheduleState,
+} from '@/components/Calendar/Schedule/type';
 
 interface AlarmProps {
-  content: string;
+  alarm: AlarmListProps;
   schedule: ScheduleState;
   setSchedule: React.Dispatch<React.SetStateAction<ScheduleState>>;
 }
 
-const AlarmList = ({ content, schedule, setSchedule }: AlarmProps) => {
+const AlarmList = ({ alarm, schedule, setSchedule }: AlarmProps) => {
   const handleItemClick = () => {
-    setSchedule((prev: ScheduleState) => ({ ...prev, alarm: content }));
+    setSchedule((prev: ScheduleState) => ({ ...prev, alarm: alarm.key }));
   };
 
   return (
@@ -22,9 +25,9 @@ const AlarmList = ({ content, schedule, setSchedule }: AlarmProps) => {
       text-text-primary cursor-pointer
       `}
     >
-      <p className={`${Body.body1}`}>{content}</p>
+      <p className={`${Body.body1}`}>{alarm.content}</p>
       <span>
-        {schedule.alarm === content ? <IconRadio /> : <IconRadioDisabled />}
+        {schedule.alarm === alarm.key ? <IconRadio /> : <IconRadioDisabled />}
       </span>
     </li>
   );

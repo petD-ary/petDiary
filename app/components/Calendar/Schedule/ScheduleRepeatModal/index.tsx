@@ -1,8 +1,8 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import React from 'react';
 import RepeatList from './RepeatList';
-import { repeatList } from '../../Schdule/constants';
-import { ScheduleState } from '../../Schdule/type';
+import { repeatList } from '../constants';
+import { ScheduleState } from '../type';
 
 interface ScheduleRepeatModalProps {
   schedule: ScheduleState;

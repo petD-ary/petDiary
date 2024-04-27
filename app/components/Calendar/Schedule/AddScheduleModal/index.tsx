@@ -17,16 +17,17 @@ import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import useToast from '@/hooks/useToast';
 import PickCalendar from './PickCalendar';
 import SetDateObj from './SetDateObj';
-import { ScheduleState } from '../../Schdule/type';
-import { SCHEDULE_TYPE, repeatList } from '../../Schdule/constants';
+import { ScheduleState } from '../type';
+import { SCHEDULE_TYPE, alarmList, repeatList } from '../constants';
 import ScheduleAlarmModal from '../ScheduleAlarmModal';
 import ScheduleRepeatModal from '../ScheduleRepeatModal';
 import IconDown from '@/assets/images/icon-down.svg';
 import { Body } from '@/constants/Typography/TypographyList';
 import Button from '@/components/Button';
+import { addSchedules } from '@/api/schedule';
 
 const AddScheduleModal = () => {
-  const { addModal } = useModal();
+  const { addModal, removeModal } = useModal();
   const { setToasts } = useToast();
 
   const today = new Date();
@@ -41,7 +42,7 @@ const AddScheduleModal = () => {
     address: '',
     lat: 0,
     lng: 0,
-    alarm: '안함',
+    alarm: 'none',
     repeat: 'none',
     repeatCount: 0,
     startTime: setStartTime,
@@ -70,8 +71,8 @@ const AddScheduleModal = () => {
     return `linear-gradient(to right, #9213E0 ${progress}%, #FBF6FE ${progress}%)`;
   };
 
-  console.log('🚀 ~ AddScheduleModal ~ schedule:', schedule);
   useEffect(() => {
+    // 일정 시작 시간보다 종료 시간을 이르게 설정할 경우 토스트 팝업
     const start = SetDateObj(schedule.startTime);
     const end = SetDateObj(schedule.endTime);
     if (start >= end) {
@@ -123,14 +124,42 @@ const AddScheduleModal = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const postData = {
+      ...schedule,
+      startTime: `${SetDateObj(schedule.startTime).toISOString()}`,
+      endTime: `${SetDateObj(schedule.endTime).toISOString()}`,
+    };
+
+    const response = await addSchedules(postData);
+    if (response?.status === 201) {
+      setSchedule({
+        title: '',
+        address: '',
+        lat: 0,
+        lng: 0,
+        alarm: 'none',
+        repeat: 'none',
+        repeatCount: 0,
+        startTime: setStartTime,
+        endTime: setEndTime,
+        memo: '',
+      });
+      removeModal();
+    }
   };
 
   const repeatValue = useMemo(() => {
     const value = repeatList.filter(({ key }) => key === schedule.repeat);
     return value[0];
   }, [schedule.repeat]);
+
+  const alarmValue = useMemo(() => {
+    const value = alarmList.filter(({ key }) => key === schedule.alarm);
+    return value[0];
+  }, [schedule.alarm]);
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_ADD} variant={MODAL_VARIANT.ALL}>
@@ -180,7 +209,7 @@ const AddScheduleModal = () => {
             className='w-full p-4 cursor-pointer rounded-lg border text-text-title border-extra-border focus:border-extra-active transition-colors'
           >
             <p className={`flex justify-between items-center ${Body.body1}`}>
-              {schedule.alarm === '' ? '안함' : schedule.alarm}
+              {alarmValue.content}
               <span>
                 <IconDown />
               </span>

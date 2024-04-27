@@ -1,22 +1,15 @@
 'use client';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
 
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 const ScheduleList = () => {
   const scheduleData = useRecoilValue(scheduleDataState);
-  useEffect(() => {
-    console.log(
-      scheduleData,
-      'scheduleDatascheduleDatascheduleDatascheduleData',
-    );
-  });
+
   if (scheduleData.isSuccess)
     return (
       <div>

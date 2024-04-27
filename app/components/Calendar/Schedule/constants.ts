@@ -1,4 +1,4 @@
-import { RepeatList } from './type';
+import { AlarmListProps, RepeatList } from './type';
 
 export const SCHEDULE_TYPE = {
   TITLE: 'title',
@@ -20,4 +20,12 @@ export const repeatList: RepeatList[] = [
   { key: 'biweekly', content: '2주마다' },
   { key: 'monthly', content: '매월' },
   { key: 'yearly', content: '매년' },
+];
+
+export const alarmList: AlarmListProps[] = [
+  { key: 'none', content: '안함' },
+  { key: '24h', content: '하루 전' },
+  { key: '10m', content: '10분 전' },
+  { key: '30m', content: '30분 전' },
+  { key: '1h', content: '1시간 전' },
 ];

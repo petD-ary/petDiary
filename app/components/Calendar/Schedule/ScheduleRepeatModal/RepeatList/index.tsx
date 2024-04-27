@@ -1,7 +1,7 @@
 import { Body } from '@/constants/Typography/TypographyList';
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
-import { ScheduleState } from '@/components/Calendar/Schdule/type';
+import { ScheduleState } from '@/components/Calendar/Schedule/type';
 
 interface RepeatProps {
   content: '반복 안함' | '매일' | '매주' | '2주마다' | '매월' | '매년';

@@ -1,14 +1,13 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import React from 'react';
 import AlarmList from './AlarmList';
-import { ScheduleState } from '../../Schdule/type';
+import { ScheduleState } from '../type';
+import { alarmList } from '../constants';
 
 interface ScheduleAlarmModalProps {
   schedule: ScheduleState;
   setSchedule: (e: any) => void;
 }
-
-const alarmList = ['안함', '하루 전', '10분 전', '30분 전', '1시간 전'];
 
 const ScheduleAlarmModal = ({
   schedule,
@@ -21,8 +20,8 @@ const ScheduleAlarmModal = ({
         {alarmList.map((item) => {
           return (
             <AlarmList
-              key={item}
-              content={item}
+              key={item.key}
+              alarm={item}
               schedule={schedule}
               setSchedule={setSchedule}
             />

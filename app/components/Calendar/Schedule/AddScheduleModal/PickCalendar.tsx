@@ -2,7 +2,7 @@ import React from 'react';
 import CalendarForm from '../../CalendarForm';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
 import Input from '@/components/Input';
-import { SCHEDULE_TYPE } from '../../Schdule/constants';
+import { SCHEDULE_TYPE } from '../constants';
 
 export type DateType = 'startTime' | 'endTime';
 

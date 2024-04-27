@@ -9,8 +9,8 @@ import MapComponent from '@/components/Map';
 import CustomPin from '@/components/Map/CustomPin';
 import { highlight } from '@/utils/highlight';
 import { useModal } from '@/hooks/useModal';
-import { SCHEDULE_TYPE } from '../../Schdule/constants';
-import { ScheduleState } from '../../Schdule/type';
+import { SCHEDULE_TYPE } from '../constants';
+import { ScheduleState } from '../type';
 
 interface ScheduleLocationModalProps {
   schedule: ScheduleState;
