@@ -129,8 +129,8 @@ const AddScheduleModal = () => {
 
     const postData = {
       ...schedule,
-      startTime: `${SetDateObj(schedule.startTime).toISOString()}`,
-      endTime: `${SetDateObj(schedule.endTime).toISOString()}`,
+      startTime: SetDateObj(schedule.startTime).toISOString(),
+      endTime: SetDateObj(schedule.endTime).toISOString(),
     };
 
     const response = await addSchedules(postData);

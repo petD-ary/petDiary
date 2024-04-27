@@ -2,7 +2,7 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
@@ -38,6 +38,14 @@ const CalendarForm = ({ headerType }: any) => {
     selectedDate.selectedMonth,
   );
 
+  console.log(
+    '🚀 ~ CalendarForm ~ startDay:',
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+  );
+  console.log(
+    '🚀 ~ CalendarForm ~ endDay:',
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
   const { data, isSuccess } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),
     formatDateToYYYYMMDDTHHMMSSZ(endDay),

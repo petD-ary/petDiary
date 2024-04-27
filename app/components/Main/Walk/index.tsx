@@ -27,7 +27,6 @@ const Walk = () => {
 
           const stateResult = getAirQuality(pm10Value, pm25Value);
           const stateImgResult = getAirQualityImage(stateResult);
-          console.log(stateResult, stateImgResult);
           setState({ state: stateResult, img: stateImgResult });
         }
       }

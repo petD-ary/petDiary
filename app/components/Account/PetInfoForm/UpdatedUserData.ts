@@ -18,13 +18,10 @@ export interface UpdatedUserDataProps {
 
 const updatedUserData = async (data: UpdatedUserDataProps) => {
   try {
-    await axios
-      .post('/users/info', data)
-      .then((response) => console.log('response :', response));
+    await axios.post('/users/info', data);
   } catch (error) {
     return console.log('🚀 ~ UpdatedUserData ~ error:', error);
   }
-
 };
 
 export default updatedUserData;
