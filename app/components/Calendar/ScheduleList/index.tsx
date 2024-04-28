@@ -12,7 +12,7 @@ const ScheduleList = () => {
 
   if (scheduleData.isSuccess)
     return (
-      <div>
+      <div className='border-b border-extra-deviders'>
         {transformSchedules(scheduleData.data)?.map(
           (schedule: {
             isFirst: boolean;
@@ -23,9 +23,10 @@ const ScheduleList = () => {
             title: string;
             address: string;
             endTime: string;
+            id: number;
           }) => {
             return (
-              <div className='flex mb-1'>
+              <div className='flex mb-1' key={schedule.id}>
                 <div className='w-24 px-6 py-3 flex flex-col justify-center items-center'>
                   {schedule.isFirst ? (
                     <>

@@ -5,14 +5,16 @@ import {
   AlarmListProps,
   ScheduleState,
 } from '@/components/Calendar/Schedule/type';
+import { useRecoilState } from 'recoil';
+import { scheduleFormState } from '@/recoil/Schedule/atom';
 
 interface AlarmProps {
   alarm: AlarmListProps;
-  schedule: ScheduleState;
-  setSchedule: React.Dispatch<React.SetStateAction<ScheduleState>>;
 }
 
-const AlarmList = ({ alarm, schedule, setSchedule }: AlarmProps) => {
+const AlarmList = ({ alarm }: AlarmProps) => {
+  const [schedule, setSchedule] = useRecoilState(scheduleFormState);
+
   const handleItemClick = () => {
     setSchedule((prev: ScheduleState) => ({ ...prev, alarm: alarm.key }));
   };

@@ -10,12 +10,8 @@ import CustomPin from '@/components/Map/CustomPin';
 import { highlight } from '@/utils/highlight';
 import { useModal } from '@/hooks/useModal';
 import { SCHEDULE_TYPE } from '../constants';
-import { ScheduleState } from '../type';
-
-interface ScheduleLocationModalProps {
-  schedule: ScheduleState;
-  setSchedule: (e: any) => void;
-}
+import { useRecoilState } from 'recoil';
+import { scheduleFormState } from '@/recoil/Schedule/atom';
 
 interface DocumentType {
   id: string;
@@ -35,13 +31,11 @@ export interface PlaceListState {
   };
 }
 
-const ScheduleLocationModal = ({
-  schedule,
-  setSchedule,
-}: ScheduleLocationModalProps) => {
+const ScheduleLocationModal = () => {
   const geolocation = useGeolocation();
   const { removeModal } = useModal();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [schedule, setSchedule] = useRecoilState(scheduleFormState);
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,
@@ -67,8 +61,8 @@ const ScheduleLocationModal = ({
     setSchedule({
       ...schedule,
       address: place.place_name,
-      lat: place.x,
-      lng: place.y,
+      lat: Number(place.x),
+      lng: Number(place.y),
     });
     setSearchValue('');
     removeModal();

@@ -3,7 +3,7 @@ interface SetDateObjProps {
   time: { hh: string; mm: string };
 }
 
-const SetDateObj = (day: SetDateObjProps) => {
+const setDateObj = (day: SetDateObjProps) => {
   const {
     date,
     time: { hh, mm },
@@ -13,4 +13,4 @@ const SetDateObj = (day: SetDateObjProps) => {
   return new Date(dateStr);
 };
 
-export default SetDateObj;
+export default setDateObj;

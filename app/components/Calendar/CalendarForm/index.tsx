@@ -2,18 +2,18 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
-import CalendarModal from '../CalendarModal';
+import CalendarModal, { TemporarySelectedDateState } from '../CalendarModal';
 import { usePathname } from 'next/navigation';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { selectedDateState } from '@/recoil/calendar/atoms';
 
 const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
@@ -26,7 +26,17 @@ export function formatDateToYYYYMMDDTHHMMSSZ(date: Date): string {
   );
 }
 
-const CalendarForm = ({ headerType }: any) => {
+interface CalendarFormProps {
+  headerType?: 'left' | 'center';
+  handleDayClick?: (date: Date) => void;
+  initDate?: Date;
+}
+
+const CalendarForm = ({
+  headerType = 'left',
+  handleDayClick,
+  initDate,
+}: CalendarFormProps) => {
   // 선택된 날짜와 선택된 날짜 업데이트
 
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
@@ -38,18 +48,21 @@ const CalendarForm = ({ headerType }: any) => {
     selectedDate.selectedMonth,
   );
 
-  console.log(
-    '🚀 ~ CalendarForm ~ startDay:',
-    formatDateToYYYYMMDDTHHMMSSZ(startDay),
-  );
-  console.log(
-    '🚀 ~ CalendarForm ~ endDay:',
-    formatDateToYYYYMMDDTHHMMSSZ(endDay),
-  );
   const { data, isSuccess } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),
     formatDateToYYYYMMDDTHHMMSSZ(endDay),
   );
+
+  useEffect(() => {
+    // 설정일이 있을 경우 해당 일을 기준으로 세팅
+    if (initDate) {
+      setSelectedDate({
+        selectedYear: initDate.getFullYear(),
+        selectedMonth: initDate.getMonth() + 1,
+        selectedDay: initDate.getDate(),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     setScheduleData({ data, isSuccess });
@@ -145,13 +158,12 @@ const CalendarForm = ({ headerType }: any) => {
                   ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
                   `}
                       onClick={() => {
-                        console.log('onClick: ' + isSelectDay(day));
-                        isCurrentMonth(day) &&
-                          setSelectedDate({
-                            selectedYear: day.getFullYear(),
-                            selectedMonth: day.getMonth() + 1,
-                            selectedDay: day.getDate(),
-                          });
+                        handleDayClick && handleDayClick(day);
+                        setSelectedDate({
+                          selectedYear: day.getFullYear(),
+                          selectedMonth: day.getMonth() + 1,
+                          selectedDay: day.getDate(),
+                        });
                       }}
                     >
                       <div className='max-w-[60px] max-h-[60px] absolute w-full h-full flex flex-col justify-center items-center'>

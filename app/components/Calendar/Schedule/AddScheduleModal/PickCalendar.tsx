@@ -26,7 +26,7 @@ const PickCalendar = ({
     <li className='bg-grayColor-10'>
       <Input name={SCHEDULE_TYPE.ADDRESS}>
         <CalendarForm
-          date={handleformattedDate(new Date(scheduleTime.date))}
+          initDate={new Date(scheduleTime.date)}
           handleDayClick={(day: Date) => handleChangeDate(day, type)}
           headerType='center'
         />

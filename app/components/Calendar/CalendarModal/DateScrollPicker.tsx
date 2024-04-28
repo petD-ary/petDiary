@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Title } from '@/constants/Typography/TypographyList';
 import { useRecoilState } from 'recoil';
