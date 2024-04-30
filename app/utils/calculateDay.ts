@@ -97,3 +97,93 @@ export const convertKoreanDateFormat = (dateStr: string): string => {
 
   return `${year}년 ${month}월 ${day}일`;
 };
+
+/**
+ * 주어진 날짜를 일로 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - 일은 1부터 시작하며, 10 미만인 경우 앞에 0을 붙입니다.
+ */
+export const getDate = (dateStr: any): string => {
+  const date = new Date(convertKST(dateStr));
+
+  return padZero(date.getDate());
+};
+
+/**
+ * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 요일을 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - ('일', '월', '화', '수', '목', '금', '토')
+ */
+export const getDay = (dateStr: string): string => {
+  const date = new Date(convertKST(dateStr));
+
+  const dayList: { [key: number]: string } = {
+    0: '일',
+    1: '월',
+    2: '화',
+    3: '수',
+    4: '목',
+    5: '금',
+    6: '토',
+  };
+
+  return dayList[date.getDay()];
+};
+
+/**
+ * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 시간을 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - 'HH:MM' 형식의 문자열
+ */
+export const getHours = (dateStr: string): string => {
+  const date = new Date(convertKST(dateStr));
+
+  return `${padZero(date.getHours())}:${padZero(date.getMinutes())}`;
+};
+
+/**
+ * 10 미만인 경우 앞에 0을 붙입니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param number - 변환하려는 숫자.
+ * @return {string} - 10 미만인 경우 앞에 0을 붙입니다.
+ */
+const padZero = (number: number): string => {
+  return number < 10 ? `0${number}` : `${number}`;
+};
+
+/**
+ * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 날짜 문자열을 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ */
+export const convertKST = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(date.getTime() - kstOffset);
+
+  return kstDate.toString();
+};
+
+/**
+ * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 날짜 문자열을 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ */
+export const reverseKST = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(date.getTime() + kstOffset);
+
+  return kstDate.toString();
+};

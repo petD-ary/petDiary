@@ -1,7 +1,11 @@
 import Calendar from '@/components/Calendar';
 
 const CalendarPage = () => {
-  return <Calendar />;
+  return (
+    <>
+      <Calendar />
+    </>
+  );
 };
 
 export default CalendarPage;

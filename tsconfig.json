@@ -23,7 +23,8 @@
       "@/*": ["./app/*"],
       "@components/*": ["src/components/*"],
       "@styled/*": ["src/styled/*"]
-    }
+    },
+    "types": ["kakao.maps.d.ts"]
   },
   "include": [
     "next-env.d.ts",

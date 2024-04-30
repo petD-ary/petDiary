@@ -1,30 +1,39 @@
-import { RefObject, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-const useIntersectionObserver = (callback: () => void) => {
-  const observer = useRef(
-    new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            callback();
-          }
-        });
-      },
-      { threshold: 1 },
-    ),
+const useIntersectionObserver = (
+  onIntersect: (
+    entry: IntersectionObserverEntry,
+    observer: IntersectionObserver,
+  ) => void,
+  options?: IntersectionObserverInit,
+) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  /**
+   * target 요소가 교차되었을 때 실행할 함수
+   *
+   * @param entries IntersectionObserverEntry 객체의 리스트
+   * @param observer 콜백함수가 호출되는 IntersectionObserver
+   */
+  const callback = useCallback(
+    (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) onIntersect(entry, observer);
+      });
+    },
+    [onIntersect],
   );
 
-  const observe = (element: RefObject<Element>) => {
-    if (element.current === null) return;
-    observer.current.observe(element.current);
-  };
+  useEffect(() => {
+    if (!ref.current) return;
 
-  const unobserve = (element: RefObject<HTMLDivElement>) => {
-    if (element.current === null) return;
-    observer.current.unobserve(element.current);
-  };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(ref.current);
 
-  return [observe, unobserve];
+    return () => observer.disconnect();
+  }, [ref, options, callback]);
+
+  return ref;
 };
 
 export default useIntersectionObserver;

@@ -26,6 +26,16 @@ export interface TextInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
   required?: boolean;
+  className?: string;
+}
+export interface TextAreaInputProps {
+  value?: string;
+  maxLength: number;
+  placeholder: string;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  error?: boolean;
+  required?: boolean;
+  className?: string;
 }
 
 export interface DateInputProps {
@@ -44,4 +54,10 @@ export interface CheckInputProps {
   name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+}
+
+export interface SliderInputProps {
+  value?: number;
+  style: any;
+  onChange: any;
 }

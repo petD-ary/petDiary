@@ -87,9 +87,9 @@ module.exports = {
         extra: {
           active: 'rgba(0, 0, 0, 0.25)',
           border: 'rgba(0, 0, 0, 0.15)',
-          dividers: 'rgba(0, 0, 0, 0.06)',
+          deviders: 'rgba(0, 0, 0, 0.06)',
           'btn-bg': 'rgba(0, 0, 0, 0.08)',
-          'divice-bg': '#F6F7F9',
+          'device-bg': '#F6F7F9',
           tableHeader: 'rgba(0, 0, 0, 0.02)',
         },
         backgroundColor: '#fbfbfb',
@@ -104,7 +104,7 @@ module.exports = {
         'slide-up': 'slide-up 0.4s ease-out',
       },
       dropShadow: {
-        'floatBtn': '0px 8px 16px 0px rgba(0, 0, 0, 0.16)',
+        floatBtn: '0px 8px 16px 0px rgba(0, 0, 0, 0.16)',
       },
     },
   },

@@ -5,11 +5,13 @@ import {
   InputContextProps,
   InputProps,
   LabelProps,
+  SliderInputProps,
+  TextAreaInputProps,
   TextInputProps,
 } from './type';
 import IconError from '@/assets/images/icon-error.svg';
 import { Body, Caption } from '../../constants/Typography/TypographyList';
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 import useInputContext from '@/hooks/useInputContext';
 
 export const defaultInputContext: InputContextProps = {
@@ -42,7 +44,7 @@ const Label = ({ children }: LabelProps) => {
 };
 
 const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
-  const { isRequired, isDisabled, isValid, name } = useInputContext();
+  const { isRequired, isDisabled, name } = useInputContext();
   return (
     <label htmlFor={name}>
       <input
@@ -52,7 +54,7 @@ const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
         onChange={onChange}
         className={`${InputClass}
       disabled:text-text-disable
-      border border-text-dividers active:border-active-border transition-colors
+      border border-extra-border focus:border-extra-active transition-colors caret-secondary-200
     ${error !== null && error ? '!border-error focus:!border-error' : ''}
     `}
         required={isRequired}
@@ -73,6 +75,47 @@ const ValidIcon = ({ error }: { error?: string | null }) => {
   );
 };
 
+const TextArea = ({
+  value,
+  onChange,
+  error,
+  maxLength,
+  className = '',
+  ...rest
+}: TextAreaInputProps & {
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}) => {
+  const { name } = useInputContext();
+  const [charCount, setCharCount] = useState(value ? value.length : 0);
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue = event.target.value;
+    const inputLength = inputValue.length;
+    setCharCount(inputLength);
+    onChange(event);
+  };
+
+  return (
+    <label htmlFor={name} className='relative'>
+      <textarea
+        value={value}
+        name={name}
+        onChange={handleChange}
+        className={`${InputClass} 
+            disabled:text-text-disable 
+            border border-extra-border 
+            active:border-extra-active
+            focus:border-extra-active transition-colors 
+            outline-none ${className}`}
+        style={{ resize: 'none' }}
+        maxLength={maxLength}
+        {...rest}
+      />
+      <div className='absolute bottom-5 right-5 text-body1 text-text-secondary'>{`${charCount}/${maxLength}`}</div>
+    </label>
+  );
+};
+
 const Date = ({ value, onChange, disabled, ...rest }: DateInputProps) => {
   const { isRequired, name } = useInputContext();
   return (
@@ -85,7 +128,7 @@ const Date = ({ value, onChange, disabled, ...rest }: DateInputProps) => {
         disabled={disabled}
         required={isRequired}
         className={`disabled:opacity-50
-    border border-text-dividers active:border-text-border transition-colors ${InputClass}`}
+    border border-extra-border active:border-extra-active transition-colors ${InputClass}`}
         {...rest}
       />
     </label>
@@ -161,6 +204,34 @@ const CheckOnlyOne = ({
   );
 };
 
+const RepeatSlider = ({ value, onChange, style }: SliderInputProps) => {
+  return (
+    <div className='flex flex-col items-center'>
+      <div className='flex justify-between w-full'>
+        <span className='text-caption1'>반복 횟수 설정</span>
+        <span className='text-caption1 text-purple-500'>{value}회</span>
+      </div>
+      <div className='relative w-full'>
+        <input
+          type='range'
+          min='0'
+          max='50'
+          step='1'
+          value={value}
+          onChange={onChange}
+          className='rangeInput'
+          style={{ background: style }}
+        />
+      </div>
+      <div className='flex justify-between w-full text-caption1 text-neutral-500'>
+        <span>없음</span>
+        <span>25회</span>
+        <span>50회</span>
+      </div>
+    </div>
+  );
+};
+
 const Success = ({ children }: LabelProps) => (
   <p className={`text-success pl-[3px] pt-[6px] ${Caption.caption2}`}>
     {children}
@@ -179,11 +250,13 @@ const Error = ({ children }: LabelProps) => (
 
 Input.Label = Label;
 Input.TextInput = Text;
+Input.TextArea = TextArea;
 Input.DateInput = Date;
 Input.CheckInput = Check;
 Input.ValidIcon = ValidIcon;
 
 Input.CheckOnlyOneInput = CheckOnlyOne;
+Input.RepeatSliderInput = RepeatSlider;
 
 Input.Success = Success;
 Input.Error = Error;

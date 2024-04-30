@@ -1,12 +1,7 @@
 import Container from '@/components/Container';
-import { Fragment } from 'react';
 
 const calenderLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Fragment>
-      <Container>{children}</Container>
-    </Fragment>
-  );
+  return <Container className='h-full relative'>{children}</Container>;
 };
 
 export default calenderLayout;
