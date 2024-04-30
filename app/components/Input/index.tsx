@@ -44,7 +44,7 @@ const Label = ({ children }: LabelProps) => {
 };
 
 const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
-  const { isRequired, isDisabled, isValid, name } = useInputContext();
+  const { isRequired, isDisabled, name } = useInputContext();
   return (
     <label htmlFor={name}>
       <input
@@ -54,7 +54,7 @@ const Text = ({ value, onChange, error, ...rest }: TextInputProps) => {
         onChange={onChange}
         className={`${InputClass}
       disabled:text-text-disable
-      border border-text-dividers active:border-active-border transition-colors
+      border border-extra-border focus:border-extra-active transition-colors caret-secondary-200
     ${error !== null && error ? '!border-error focus:!border-error' : ''}
     `}
         required={isRequired}
@@ -80,6 +80,7 @@ const TextArea = ({
   onChange,
   error,
   maxLength,
+  className = '',
   ...rest
 }: TextAreaInputProps & {
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -102,10 +103,10 @@ const TextArea = ({
         onChange={handleChange}
         className={`${InputClass} 
             disabled:text-text-disable 
-            border border-text-dividers 
-            active:border-active-border 
-            focus:border-text-dividers transition-colors 
-            outline-none `}
+            border border-extra-border 
+            active:border-extra-active
+            focus:border-extra-active transition-colors 
+            outline-none ${className}`}
         style={{ resize: 'none' }}
         maxLength={maxLength}
         {...rest}
@@ -127,7 +128,7 @@ const Date = ({ value, onChange, disabled, ...rest }: DateInputProps) => {
         disabled={disabled}
         required={isRequired}
         className={`disabled:opacity-50
-    border border-text-dividers active:border-text-border transition-colors ${InputClass}`}
+    border border-extra-border active:border-extra-active transition-colors ${InputClass}`}
         {...rest}
       />
     </label>
@@ -218,7 +219,7 @@ const RepeatSlider = ({ value, onChange, style }: SliderInputProps) => {
           step='1'
           value={value}
           onChange={onChange}
-          className='rangeInput '
+          className='rangeInput'
           style={{ background: style }}
         />
       </div>

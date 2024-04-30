@@ -1,17 +1,22 @@
 import { Body } from '@/constants/Typography/TypographyList';
-import { ScheduleState } from '../../AddScheduleModal';
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
+import {
+  AlarmListProps,
+  ScheduleState,
+} from '@/components/Calendar/Schedule/type';
+import { useRecoilState } from 'recoil';
+import { scheduleFormState } from '@/recoil/Schedule/atom';
 
 interface AlarmProps {
-  content: string;
-  schedule: ScheduleState;
-  setSchedule: React.Dispatch<React.SetStateAction<ScheduleState>>;
+  alarm: AlarmListProps;
 }
 
-const AlarmList = ({ content, schedule, setSchedule }: AlarmProps) => {
+const AlarmList = ({ alarm }: AlarmProps) => {
+  const [schedule, setSchedule] = useRecoilState(scheduleFormState);
+
   const handleItemClick = () => {
-    setSchedule((prev: ScheduleState) => ({ ...prev, alarm: content }));
+    setSchedule((prev: ScheduleState) => ({ ...prev, alarm: alarm.key }));
   };
 
   return (
@@ -22,9 +27,9 @@ const AlarmList = ({ content, schedule, setSchedule }: AlarmProps) => {
       text-text-primary cursor-pointer
       `}
     >
-      <p className={`${Body.body1}`}>{content}</p>
+      <p className={`${Body.body1}`}>{alarm.content}</p>
       <span>
-        {schedule.alarm === content ? <IconRadio /> : <IconRadioDisabled />}
+        {schedule.alarm === alarm.key ? <IconRadio /> : <IconRadioDisabled />}
       </span>
     </li>
   );

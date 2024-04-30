@@ -1,25 +1,18 @@
 'use client';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
 
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 const ScheduleList = () => {
   const scheduleData = useRecoilValue(scheduleDataState);
-  useEffect(() => {
-    console.log(
-      scheduleData,
-      'scheduleDatascheduleDatascheduleDatascheduleData',
-    );
-  });
+
   if (scheduleData.isSuccess)
     return (
-      <div>
+      <div className='border-b border-extra-deviders'>
         {transformSchedules(scheduleData.data)?.map(
           (schedule: {
             isFirst: boolean;
@@ -30,9 +23,10 @@ const ScheduleList = () => {
             title: string;
             address: string;
             endTime: string;
+            id: number;
           }) => {
             return (
-              <div className='flex mb-1'>
+              <div className='flex mb-1' key={schedule.id}>
                 <div className='w-24 px-6 py-3 flex flex-col justify-center items-center'>
                   {schedule.isFirst ? (
                     <>

@@ -168,7 +168,22 @@ const padZero = (number: number): string => {
 export const convertKST = (dateStr: string): string => {
   const date = new Date(dateStr);
   const kstOffset = 9 * 60 * 60 * 1000;
-  const KstDate = new Date(date.getTime() - kstOffset);
+  const kstDate = new Date(date.getTime() - kstOffset);
 
-  return KstDate.toString();
+  return kstDate.toString();
+};
+
+/**
+ * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 날짜 문자열을 반환합니다.
+ * 주히님 태어나신 날짜: 9월 24일.
+ *
+ * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ */
+export const reverseKST = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(date.getTime() + kstOffset);
+
+  return kstDate.toString();
 };

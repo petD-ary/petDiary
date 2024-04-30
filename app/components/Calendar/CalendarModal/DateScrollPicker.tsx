@@ -1,28 +1,12 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Title } from '@/constants/Typography/TypographyList';
+import { useRecoilState } from 'recoil';
+import { selectedDateState } from '@/recoil/calendar/atoms';
 
-interface DateScrollPickerProps {
-  temporarySelectedDate: any;
-  setTemporarySelectedDate: Dispatch<
-    SetStateAction<{
-      selectedYear: number;
-      selectedMonth: number;
-      selectedDay: number;
-    }>
-  >;
-}
+const DateScrollPicker: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
-const DateScrollPicker: React.FC<DateScrollPickerProps> = ({
-  temporarySelectedDate,
-  setTemporarySelectedDate,
-}) => {
   // 현재 냔도에서 일단 70년까지
   const years = Array.from(
     { length: 70 },
@@ -32,10 +16,10 @@ const DateScrollPicker: React.FC<DateScrollPickerProps> = ({
 
   // 선택된 년도와 월에 대한 초기값 설정 : 선택했떤거 표시
   const initialYearIndex = years.findIndex(
-    (year) => year === temporarySelectedDate.selectedYear,
+    (year) => year === selectedDate.selectedYear,
   );
 
-  const initialMonthIndex = temporarySelectedDate.selectedMonth - 1;
+  const initialMonthIndex = selectedDate.selectedMonth - 1;
 
   // 드래그 할 때 가운데랄 표시하기 위함 : 활성화됨(검은 글씨로)
   const [activeYearIndex, setActiveYearIndex] = useState(
@@ -48,11 +32,11 @@ const DateScrollPicker: React.FC<DateScrollPickerProps> = ({
 
   // 선택된 년도랑 월을 업데이트
   const handleYearChange = (year: any) => {
-    setTemporarySelectedDate((prev) => ({ ...prev, selectedYear: year }));
+    setSelectedDate((prev) => ({ ...prev, selectedYear: year }));
   };
 
   const handleMonthChange = (month: any) => {
-    setTemporarySelectedDate((prev) => ({ ...prev, selectedMonth: month }));
+    setSelectedDate((prev) => ({ ...prev, selectedMonth: month }));
   };
 
   // 슬라이드 했을 때도 년도 변경 : 가운데로 오면 변경됨

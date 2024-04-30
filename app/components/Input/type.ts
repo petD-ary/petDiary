@@ -26,6 +26,7 @@ export interface TextInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
   required?: boolean;
+  className?: string;
 }
 export interface TextAreaInputProps {
   value?: string;
@@ -34,6 +35,7 @@ export interface TextAreaInputProps {
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   error?: boolean;
   required?: boolean;
+  className?: string;
 }
 
 export interface DateInputProps {
