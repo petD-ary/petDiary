@@ -152,11 +152,11 @@ const CalendarForm = ({
                     <div
                       key={String(day)}
                       className={`max-w-[60px] max-h-[60px] rounded-[4px] relative after:pb-[100%] after:block w-full h-full cursor-pointer
-                  ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
-                  ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
-                  ${isToday(day) ? 'bg-primary-600/30' : ''}
-                  ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
-                  `}
+                        ${isWeekend(day) ? 'text-error' : 'text-gray-800'} 
+                        ${isSelectDay(day) ? 'bg-primary-600 text-grayColor-10' : ''}
+                        ${isToday(day) ? 'bg-primary-600/30' : ''}
+                        ${!isCurrentMonth(day) ? 'text-opacity-20' : ''}
+                      `}
                       onClick={() => {
                         handleDayClick && handleDayClick(day);
                         setSelectedDate({
