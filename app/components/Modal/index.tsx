@@ -15,6 +15,7 @@ export const MODAL_TYPE = {
   PET_EDIT_LIST: 'petEditList',
   PET_ADD: 'petAdd',
   PET_EDIT: 'petEdit',
+  PET_DELETE: 'petDelete',
   CALENDAR: 'calendar',
   WHEEL_CALENDAR: 'wheelCalendar',
   SCHEDULE_ADD: 'scheduleAdd',

@@ -13,7 +13,7 @@ import { CalendarInput } from '../Input/calendar/CalendarInput';
 import CalendarForm from '../Calendar/CalendarForm';
 import { handleformattedDate } from '../Account/PetInfoForm';
 
-const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
+const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
   const { addModal } = useModal();
   const [showCalendar, setShowCalendar] = useState({
     birthday: false,
@@ -56,16 +56,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
   const [unknownBirthday, setUnknownBirthday] =
     useRecoilState(unknownBirthdayState);
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
-  const {
-    adoptionDate,
-    birthday,
-    breed,
-    gender,
-    name,
-    neutered,
-    petType,
-    weight,
-  } = petInfo;
+  const { breed, gender, name, neutered, petType, weight } = petInfo;
 
   useEffect(() => {
     if (unknownBirthday) {
@@ -162,8 +153,8 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           </Input.CheckInput>
         </Input>
       </div>
-      {/* 아이 생일 */}
 
+      {/* 아이 생일 */}
       <div className='flex flex-col gap-3'>
         <CalendarInput
           label={'아이 생일'}
@@ -175,12 +166,9 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           <div className='bg-grayColor-10 rounded-lg'>
             <CalendarForm
               handleDayClick={(day: Date) => handleBirthClick(day)}
-              showCalendar={showCalendar}
-              date={petInfo.birthday}
+              initDate={new Date(petInfo.birthday)}
               headerType='center'
-            >
-              <CalendarForm.Header />
-            </CalendarForm>
+            />
           </div>
         )}
         <Input name={INPUT_TYPE.BIRTHDAY}>
@@ -202,17 +190,15 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           label={'가족이 된 날'}
           selectedDate={petInfo.adoptionDate}
           onClick={handleToggleFamilyCalendar}
+          disabled={showCalendar.family}
         />
         {showCalendar.family && (
           <div className='bg-grayColor-10 rounded-lg'>
             <CalendarForm
               handleDayClick={(day: Date) => handleAdoptionlick(day)}
-              showCalendar={showCalendar}
-              date={petInfo.adoptionDate}
+              initDate={new Date(petInfo.adoptionDate)}
               headerType='center'
-            >
-              <CalendarForm.Header />
-            </CalendarForm>
+            />
           </div>
         )}
       </div>
@@ -231,6 +217,15 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         </p>
       </Input>
 
+      {deleteBtn && (
+        <Button
+          variant='delete'
+          type='button'
+          onClick={() => addModal(MODAL_TYPE.PET_DELETE)}
+        >
+          떠나보내기
+        </Button>
+      )}
       <Button variant='contained' type='submit' isDisabled={!breed || !name}>
         {submitValue}
       </Button>
