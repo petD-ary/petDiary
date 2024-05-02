@@ -166,7 +166,11 @@ const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
           <div className='bg-grayColor-10 rounded-lg'>
             <CalendarForm
               handleDayClick={(day: Date) => handleBirthClick(day)}
-              initDate={new Date(petInfo.birthday)}
+              initDate={
+                petInfo.birthday !== ''
+                  ? new Date(petInfo.birthday)
+                  : new Date()
+              }
               headerType='center'
             />
           </div>
@@ -196,7 +200,11 @@ const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
           <div className='bg-grayColor-10 rounded-lg'>
             <CalendarForm
               handleDayClick={(day: Date) => handleAdoptionlick(day)}
-              initDate={new Date(petInfo.adoptionDate)}
+              initDate={
+                petInfo.adoptionDate !== ''
+                  ? new Date(petInfo.adoptionDate)
+                  : new Date()
+              }
               headerType='center'
             />
           </div>
