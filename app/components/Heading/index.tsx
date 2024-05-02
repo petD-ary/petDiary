@@ -11,7 +11,6 @@ import {
   BackHeader,
   BackCloseHeader,
 } from './TypeHeader';
-import Container from '@/components/Container';
 
 // 헤더 유형별 컴포넌트 정의
 const HeaderElement = {
