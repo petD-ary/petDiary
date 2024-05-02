@@ -2,17 +2,17 @@
 import useCalendar from '@/hooks/useCalendar';
 import { isSameDay } from 'date-fns';
 
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
-import CalendarModal, { TemporarySelectedDateState } from '../CalendarModal';
+import CalendarModal from '../CalendarModal';
 import { usePathname } from 'next/navigation';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { scheduleDataState } from '@/recoil/Schedule/atom';
+import { scheduleListState } from '@/recoil/Schedule/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { selectedDateState } from '@/recoil/calendar/atoms';
 
@@ -41,17 +41,13 @@ const CalendarForm = ({
 
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
 
-  const setScheduleData = useSetRecoilState(scheduleDataState);
+  const setScheduleList = useSetRecoilState(scheduleListState);
 
-  const { startDay, endDay } = useCalendar(
-    selectedDate.selectedYear,
-    selectedDate.selectedMonth,
-  );
-
-  const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(startDay),
-    formatDateToYYYYMMDDTHHMMSSZ(endDay),
-  );
+  useEffect(() => {
+    if (headerType !== 'center') {
+      setScheduleList({ startDay: startDay, endDay: endDay });
+    }
+  }, [headerType]);
 
   useEffect(() => {
     // 설정일이 있을 경우 해당 일을 기준으로 세팅
@@ -64,9 +60,15 @@ const CalendarForm = ({
     }
   }, []);
 
-  useEffect(() => {
-    setScheduleData({ data, isSuccess });
-  }, [selectedDate, data, isSuccess, setScheduleData]);
+  const { startDay, endDay } = useCalendar(
+    selectedDate.selectedYear,
+    selectedDate.selectedMonth,
+  );
+
+  const { data } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
 
   // 현재 선택된 연도와 월을 기준으로 주 계산
   const weeks = useCalendar(
@@ -118,6 +120,7 @@ const CalendarForm = ({
           new Date(schedule.endTime) >= day),
     );
   };
+
   return (
     <div className='relative after:block w-full h-full'>
       <CalendarModal />

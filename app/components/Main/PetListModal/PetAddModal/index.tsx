@@ -15,7 +15,7 @@ const PetAddModal = () => {
     try {
       await addPetData(petInfo);
     } finally {
-      // removeModal();
+      removeModal();
     }
   };
 

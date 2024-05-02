@@ -10,6 +10,14 @@ export const scheduleDataState = atom({
   },
 });
 
+export const scheduleListState = atom({
+  key: 'scheduleListState',
+  default: {
+    startDay: new Date(),
+    endDay: new Date(),
+  },
+});
+
 const today = new Date();
 const setStartTime = scheduleDateFormat(today);
 const endTime = new Date().setMinutes(today.getMinutes() + 30);

@@ -1,19 +1,34 @@
 'use client';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { scheduleDataState } from '@/recoil/Schedule/atom';
+import { useGetSchedules } from '@/hooks/queries/useSchedules';
+import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
 
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import { useRecoilValue } from 'recoil';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '../CalendarForm';
+import { useEffect } from 'react';
 
 const ScheduleList = () => {
-  const scheduleData = useRecoilValue(scheduleDataState);
+  const { startDay, endDay } = useRecoilValue(scheduleListState);
 
-  if (scheduleData.isSuccess)
+  const { data, isSuccess, refetch, isLoading, isFetching } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(startDay),
+    formatDateToYYYYMMDDTHHMMSSZ(endDay),
+  );
+
+  useEffect(() => {
+    if (!isLoading && !isFetching) {
+      refetch();
+    }
+  }, [startDay, endDay]);
+  // const scheduleData = useRecoilValue(scheduleDataState);
+
+  if (isSuccess)
     return (
       <div className='border-b border-extra-deviders'>
-        {transformSchedules(scheduleData.data)?.map(
+        {transformSchedules(data)?.map(
           (schedule: {
             isFirst: boolean;
             isAllDay: boolean;
