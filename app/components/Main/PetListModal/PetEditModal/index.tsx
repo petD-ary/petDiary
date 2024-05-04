@@ -1,4 +1,3 @@
-import updatedPetData from '@/api/updatedPetData';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
 import { useModal } from '@/hooks/useModal';
@@ -11,6 +10,7 @@ import IconAddImg from '@/assets/images/icon-addImg.svg';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
 import PetDeleteModal from '../PetDeleteModal';
+import { updatePet } from '@/apis/petData';
 
 const PetEditModal = ({ data }: { data: PetData }) => {
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
@@ -47,16 +47,19 @@ const PetEditModal = ({ data }: { data: PetData }) => {
         formData.append('file', image);
       }
 
-      await updatedPetData(formData);
+      await updatePet(formData);
     } finally {
       removeModal();
     }
   };
 
   const imageSource = useMemo(() => {
-    if (preview) return preview;
-    return data.imageUrl ?? petInfo.petType === '고양이' ? cat.src : dog.src;
-  }, [preview, petInfo.petType]);
+    const defaultImage = petInfo.petType === '고양이' ? cat.src : dog.src;
+
+    if (preview !== null) return preview;
+
+    return data.imageUrl ? data.imageUrl : defaultImage;
+  }, [preview, data.imageUrl, petInfo.petType]);
 
   useEffect(() => {
     const petInfo = {

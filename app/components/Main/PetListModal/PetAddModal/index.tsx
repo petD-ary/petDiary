@@ -1,4 +1,4 @@
-import { addPetData } from '@/api/addPetData';
+import { addPet } from '@/apis/petData';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
 import { useModal } from '@/hooks/useModal';
@@ -12,11 +12,8 @@ const PetAddModal = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await addPetData(petInfo);
-    } finally {
-      removeModal();
-    }
+    const response = await addPet(petInfo);
+    if (response) return removeModal();
   };
 
   return (

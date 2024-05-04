@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from 'react-query';
-import { getSearchPlace } from './map';
+import { getSearchPlace } from '../../apis/map';
 import { Coordinates } from '@/hooks/useGeolocation';
 
 interface SearchPlaceProps {
