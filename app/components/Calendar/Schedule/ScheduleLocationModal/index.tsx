@@ -4,7 +4,7 @@ import Input from '@/components/Input';
 import IconSearch from '@/assets/images/icon-search.svg';
 import useGeolocation from '@/hooks/useGeolocation';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import useSearchPlace from '@/api/useSearchPlace';
+import useSearchPlace from '@/hooks/queries/useSearchPlace';
 import MapComponent from '@/components/Map';
 import CustomPin from '@/components/Map/CustomPin';
 import { highlight } from '@/utils/highlight';

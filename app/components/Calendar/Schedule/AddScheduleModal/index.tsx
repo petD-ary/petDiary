@@ -2,11 +2,11 @@
 import React, { FormEvent } from 'react';
 import { useModal } from '@/hooks/useModal';
 import setDateObj from './setDateObj';
-import { addSchedules } from '@/api/schedule';
+import { addSchedules } from '@/apis/schedules';
 import ScheduleForm from '../ScheduleForm';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { convertKST, reverseKST } from '@/utils/calculateDay';
+import { reverseKST } from '@/utils/calculateDay';
 
 const AddScheduleModal = () => {
   const { removeModal } = useModal();
@@ -23,11 +23,10 @@ const AddScheduleModal = () => {
       endTime: reverseKST(setDateObj(schedule.endTime).toISOString()),
     };
 
-    const response = await addSchedules(postData);
-    if (response?.status === 201) {
+    await addSchedules(postData).finally(() => {
       setSchedule();
       removeModal();
-    }
+    });
   };
 
   return <ScheduleForm type='add' handleSubmit={(e) => handleSubmit(e)} />;

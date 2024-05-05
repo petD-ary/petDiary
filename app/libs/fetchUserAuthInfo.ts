@@ -1,12 +1,11 @@
-import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
-import { instance } from './axios';
+import axios from './axios';
+import getToken from '@/utils/getToken';
 
 export async function getUser() {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('accessToken');
+  const accessToken = getToken('accessToken');
+
   try {
-    const response = await instance('/users', {
+    const response = await axios('/users', {
       headers: { cookie: `accessToken=${accessToken?.value}` },
     });
     return response.data;
