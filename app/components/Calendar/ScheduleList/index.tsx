@@ -8,7 +8,7 @@ import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
-import ScheduleDetailModal from '../ScheduleModal';
+import ScheduleModal from '../ScheduleModal';
 import { TransformedScheduleData } from '../Schedule/type';
 
 const ScheduleList = () => {
@@ -19,7 +19,7 @@ const ScheduleList = () => {
   if (scheduleData.isSuccess)
     return (
       <div className='border-b border-extra-deviders'>
-        <ScheduleDetailModal />
+        <ScheduleModal />
 
         {transformSchedules(scheduleData.data)
           ?.filter(

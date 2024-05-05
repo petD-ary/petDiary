@@ -1,14 +1,16 @@
-import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { useState } from 'react';
-import ScheduleDetail from './ScheduleDetail';
+
+import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
+import DaySchedules from './DaySchedules';
+import MonthSchedules from './MonthSchedules';
 
 const tabName = [
-  { name: '일정 상세', value: 'detail' },
-  { name: '전체 일정', value: 'whole' },
+  { name: '일일 일정', value: 'oneDay' },
+  { name: '월별 일정', value: 'oneMonth' },
 ];
 
-const ScheduleDetailModal = () => {
-  const [tab, setTab] = useState('detail');
+const ScheduleModal = () => {
+  const [tab, setTab] = useState('oneDay');
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_DETAIL} variant={MODAL_VARIANT.ALL}>
@@ -36,9 +38,9 @@ const ScheduleDetailModal = () => {
         <div className='absolute w-full h-[1.5px] bg-gray-100' />
       </div>
 
-      {tab === 'detail' ? <ScheduleDetail /> : <div>전체 일정</div>}
+      {tab === 'oneDay' ? <DaySchedules /> : <MonthSchedules />}
     </Modal>
   );
 };
 
-export default ScheduleDetailModal;
+export default ScheduleModal;

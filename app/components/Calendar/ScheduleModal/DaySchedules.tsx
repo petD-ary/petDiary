@@ -8,9 +8,9 @@ import { getDate, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Button from '@/components/Button';
 import { TransformedScheduleData } from '../Schedule/type';
-import { alarmList, repeatList } from '../Schedule/constants';
+import { repeatList } from '../Schedule/constants';
 
-const ScheduleDetail = () => {
+const DaySchedules = () => {
   const scheduleData = useRecoilValue(scheduleDataState);
   const [selectedDate] = useRecoilState(selectedDateState);
 
@@ -23,7 +23,6 @@ const ScheduleDetail = () => {
               Number(getDate(schedule.startTime)) === selectedDate.selectedDay,
           )
           .map((schedule: TransformedScheduleData) => {
-            console.log(schedule);
             return (
               <div className='flex mb-1 bg-white' key={schedule.id}>
                 <div className='px-5 py-6 w-full'>
@@ -74,4 +73,4 @@ const ScheduleDetail = () => {
     );
 };
 
-export default ScheduleDetail;
+export default DaySchedules;
