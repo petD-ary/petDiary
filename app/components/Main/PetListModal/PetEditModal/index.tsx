@@ -37,20 +37,18 @@ const PetEditModal = ({ data }: { data: PetData }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const formData = new FormData();
-      formData.append('id', String(data.id));
-      Object.entries(petInfo).forEach(([key, value]) => {
-        formData.append(key, String(value));
-      });
-      if (image !== null) {
-        formData.append('file', image);
-      }
-
-      await updatePet(formData);
-    } finally {
-      removeModal();
+    const formData = new FormData();
+    formData.append('id', String(data.id));
+    Object.entries(petInfo).forEach(([key, value]) => {
+      if (value === '' || !value) return;
+      formData.append(key, String(value));
+    });
+    if (image !== null) {
+      formData.append('file', image);
     }
+
+    const res = await updatePet(formData);
+    if (res?.status === 200) removeModal();
   };
 
   const imageSource = useMemo(() => {

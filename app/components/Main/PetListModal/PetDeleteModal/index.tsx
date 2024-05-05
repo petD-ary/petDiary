@@ -9,7 +9,10 @@ const PetDeleteModal = ({ petId }: { petId: number }) => {
 
   const handleDeletePet = async () => {
     const response = await deletePet(petId);
-    if (response.status === 200) {
+    if (response?.status === 200) {
+      // 삭제 확인 모달 종료
+      removeModal();
+      // 반려동물 수정 모달 종료
       removeModal();
     }
   };

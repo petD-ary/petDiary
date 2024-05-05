@@ -20,11 +20,10 @@ const fetchApi = async <T>(
       ...(method === 'GET' ? {} : { data: data }),
       ...(headers ? { headers: headers } : {}),
     };
-    const response = await axios(config);
-    return response.data;
+    return await axios(config);
   } catch (error) {
     console.log(`🚀 ~ fetchApi url: ${url}, error: ${error}`);
-    return error;
+    return undefined;
   }
 };
 

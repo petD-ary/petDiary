@@ -13,7 +13,7 @@ const PetAddModal = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await addPet(petInfo);
-    if (response) return removeModal();
+    if (response?.status === 201) return removeModal();
   };
 
   return (

@@ -1,6 +1,5 @@
 import { PetObjProps } from '@/components/Account/PetInfoForm';
 import fetchApi from '../fetchApi';
-import getToken from '@/utils/getToken';
 
 export const deletePet = async (id: number) => {
   return await fetchApi('/pets', 'DELETE', { id: id });
@@ -11,10 +10,7 @@ export const addPet = async (data: PetObjProps) => {
 };
 
 export const updatePet = async (data: FormData) => {
-  const accessToken = getToken('accessToken');
-
-  return await fetchApi('/pets', 'POST', data, {
-    Authorization: `Bearer ${accessToken?.value}`,
+  return await fetchApi('/pets', 'PUT', data, {
     'Content-Type': 'multipart/form-data',
   });
 };
