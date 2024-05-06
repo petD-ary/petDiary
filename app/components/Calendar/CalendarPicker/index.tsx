@@ -88,10 +88,7 @@ const Calendar = ({
   );
 };
 
-export const YYYYMMPicker = ({
-  type = 'left',
-  className = '',
-}: YYYYMMPickerProps) => {
+const YYYYMMPicker = ({ type = 'left', className = '' }: YYYYMMPickerProps) => {
   const { selectedDate, setSelectedDate } = useCalendarContext();
   const { addModal } = useModal();
 
