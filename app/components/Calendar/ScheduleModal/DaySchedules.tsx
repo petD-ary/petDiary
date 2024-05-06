@@ -1,26 +1,114 @@
 'use client';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
-import { Body, Caption } from '@/constants/Typography/TypographyList';
+import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
 import { selectedDateState } from '@/recoil/calendar/atoms';
-import { getDate, getHours } from '@/utils/calculateDay';
+import { getDate, getHours, padZero } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Button from '@/components/Button';
 import { TransformedScheduleData } from '../Schedule/type';
 import { repeatList } from '../Schedule/constants';
 
+const WEEKDAY_SHORTHAND_ENGLISH = [
+  'SUN',
+  'MON',
+  'TUE',
+  'WED',
+  'THU',
+  'FRI',
+  'SAT',
+];
+const CENTER_OFFSET = 365;
+const createDateRange = (currentDate: Date) => {
+  return Array.from({ length: CENTER_OFFSET * 2 + 1 }, (_, index) => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(currentDate.getDate() + index - CENTER_OFFSET);
+    return newDate;
+  });
+};
+
 const DaySchedules = () => {
   const scheduleData = useRecoilValue(scheduleDataState);
-  const [selectedDate] = useRecoilState(selectedDateState);
+  const { selectedYear, selectedMonth, selectedDay } =
+    useRecoilValue(selectedDateState);
+  const [date, setDate] = useState(
+    new Date(selectedYear, selectedMonth - 1, selectedDay),
+  );
+  const [dateIndex, setDateIndex] = useState(CENTER_OFFSET);
+  const [dateRange, _] = useState<Date[]>(createDateRange(date));
+
+  const handleSlideChange = (swiper: { activeIndex: number }) => {
+    if (dateRange.length === 0) {
+      return;
+    }
+
+    const index = swiper.activeIndex;
+    const newCenterDate = dateRange[index];
+    setDateIndex(index);
+    setDate(newCenterDate);
+  };
+
+  const setDateColorClass = (date: Date, index: number) => {
+    let colorClass = '';
+
+    if (
+      index === dateIndex ||
+      index === dateIndex - 1 ||
+      index === dateIndex + 1
+    ) {
+      colorClass = 'text-black';
+    } else if (index === dateIndex - 2 || index === dateIndex + 2) {
+      colorClass = 'text-gray-600';
+    } else {
+      colorClass = 'text-gray-400';
+    }
+
+    return date.getDay() === 0 ? 'text-error' : colorClass;
+  };
 
   if (scheduleData.isSuccess)
     return (
       <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
+        <div className='flex flex-col items-center pt-6 pb-2 bg-white mb-1'>
+          <div
+            className={`${Title.title3}`}
+          >{`${date.getFullYear()}.${padZero(date.getMonth() + 1)}`}</div>
+          <div className='flex w-[356px]'>
+            <Swiper
+              onSlideChange={handleSlideChange}
+              slidesPerView={7}
+              centeredSlides={true}
+              initialSlide={365}
+              loop={false}
+              spaceBetween={8}
+            >
+              {dateRange.map((date, index) => (
+                <SwiperSlide key={index} className='flex justify-center'>
+                  <div className='flex flex-col items-center w-11 py-3'>
+                    <div
+                      className={`${Caption.caption2} ${setDateColorClass(date, index)}`}
+                    >
+                      {WEEKDAY_SHORTHAND_ENGLISH[date.getDay()]}
+                    </div>
+                    <div
+                      className={`${Body.body2} ${setDateColorClass(date, index)}`}
+                    >
+                      {padZero(date.getDate())}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
         {transformSchedules(scheduleData.data)
           ?.filter(
             (schedule) =>
-              Number(getDate(schedule.startTime)) === selectedDate.selectedDay,
+              Number(getDate(schedule.startTime)) === date.getDate(),
           )
           .map((schedule: TransformedScheduleData) => {
             return (
