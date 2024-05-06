@@ -1,4 +1,4 @@
-import { ScheduleData } from '@/components/Calendar/Schedule/type';
+import { ScheduleData } from '@/components/Schedule/type';
 import fetchApi from '../fetchApi';
 
 export const getSchedules = async (from: string, to: string) => {

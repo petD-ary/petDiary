@@ -1,7 +1,7 @@
 import { Body } from '@/constants/Typography/TypographyList';
 import IconRadio from '@/assets/images/buttons-radio-m.svg';
 import IconRadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
-import { ScheduleState } from '@/components/Calendar/Schedule/type';
+import { ScheduleState } from '@/components/Schedule/type';
 import { useRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 

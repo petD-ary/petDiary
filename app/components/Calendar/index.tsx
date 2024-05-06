@@ -1,13 +1,13 @@
 'use client';
 
-import CalendarForm from './CalendarForm';
-import ScheduleAddBtn from './ScheduleAddBtn';
 import { useModal } from '@/hooks/useModal';
-import { MODAL_TYPE } from '../Modal';
-import AddScheduleModal from '@/components/Calendar/Schedule/AddScheduleModal';
-import ScheduleList from './ScheduleList';
+import { MODAL_TYPE } from '@/components/Modal';
+import ScheduleAddBtn from '@/components/Schedule/ScheduleAddBtn';
+import AddScheduleModal from '@/components/Schedule/AddScheduleModal';
+import ScheduleList from '@/components/Schedule/ScheduleList';
+import Calendar from './CalendarPicker';
 
-const Calendar = () => {
+const CalendarComponent = () => {
   const { addModal } = useModal();
 
   return (
@@ -16,8 +16,11 @@ const Calendar = () => {
 
       <AddScheduleModal />
 
-      <div className='bg-white mb-2'>
-        <CalendarForm />
+      <div className='mb-2'>
+        <Calendar viewSchedule>
+          <Calendar.YYYYMMPicker />
+          <Calendar.Date className='bg-white' />
+        </Calendar>
       </div>
       <div className='bg-white'>
         <ScheduleList />
@@ -26,4 +29,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default CalendarComponent;
