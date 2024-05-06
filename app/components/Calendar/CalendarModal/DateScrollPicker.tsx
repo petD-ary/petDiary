@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Title } from '@/constants/Typography/TypographyList';
-import { useRecoilState } from 'recoil';
-import { selectedDateState } from '@/recoil/calendar/atoms';
 
-const DateScrollPicker: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
+import { Title } from '@/constants/Typography/TypographyList';
+import useCalendarContext from '@/hooks/useCalendarContext';
+
+const DateScrollPicker = () => {
+  const { selectedDate, setSelectedDate } = useCalendarContext();
+  const { year, month, date } = selectedDate;
 
   // 현재 냔도에서 일단 70년까지
   const years = Array.from(
@@ -15,11 +16,9 @@ const DateScrollPicker: React.FC = () => {
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   // 선택된 년도와 월에 대한 초기값 설정 : 선택했떤거 표시
-  const initialYearIndex = years.findIndex(
-    (year) => year === selectedDate.selectedYear,
-  );
+  const initialYearIndex = years.findIndex((target) => target === year);
 
-  const initialMonthIndex = selectedDate.selectedMonth - 1;
+  const initialMonthIndex = month - 1;
 
   // 드래그 할 때 가운데랄 표시하기 위함 : 활성화됨(검은 글씨로)
   const [activeYearIndex, setActiveYearIndex] = useState(
@@ -31,12 +30,14 @@ const DateScrollPicker: React.FC = () => {
   );
 
   // 선택된 년도랑 월을 업데이트
-  const handleYearChange = (year: any) => {
-    setSelectedDate((prev) => ({ ...prev, selectedYear: year }));
+  const handleYearChange = (updateYear: any) => {
+    const updateDate = new Date(updateYear, month, date);
+    setSelectedDate(updateDate);
   };
 
-  const handleMonthChange = (month: any) => {
-    setSelectedDate((prev) => ({ ...prev, selectedMonth: month }));
+  const handleMonthChange = (updateMonth: any) => {
+    const updateDate = new Date(year, updateMonth - 1, date);
+    setSelectedDate(updateDate);
   };
 
   // 슬라이드 했을 때도 년도 변경 : 가운데로 오면 변경됨
@@ -91,13 +92,13 @@ const DateScrollPicker: React.FC = () => {
     if (swiperRefYear.current) {
       swiperRefYear.current.slideTo(activeYearIndex);
     }
-  }, [activeYearIndex]);
+  }, []);
 
   useEffect(() => {
     if (swiperRefMonth.current) {
       swiperRefMonth.current.slideTo(activeMonthIndex);
     }
-  }, [activeMonthIndex]);
+  }, []);
 
   return (
     <div className='flex mb-7'>
