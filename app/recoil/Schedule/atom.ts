@@ -1,4 +1,4 @@
-import { ScheduleState } from '@/components/Calendar/Schedule/type';
+import { ScheduleState } from '@/components/Schedule/type';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import { atom } from 'recoil';
 

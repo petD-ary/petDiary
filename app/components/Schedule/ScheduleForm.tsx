@@ -19,7 +19,7 @@ import PickCalendar from './AddScheduleModal/PickCalendar';
 import Button from '@/components/Button';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { selectedDateState } from '@/recoil/calendar/atoms';
+import { selectedDateState } from '@/recoil/Calendar/atoms';
 
 interface ScheduleFormProps {
   type: 'add' | 'update';

@@ -7,7 +7,7 @@ import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import { useRecoilValue } from 'recoil';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '../CalendarForm';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { useEffect } from 'react';
 
 const ScheduleList = () => {
@@ -23,7 +23,6 @@ const ScheduleList = () => {
       refetch();
     }
   }, [startDay, endDay]);
-  // const scheduleData = useRecoilValue(scheduleDataState);
 
   if (isSuccess)
     return (

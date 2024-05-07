@@ -1,17 +1,18 @@
+import React, { ChangeEvent, useEffect, useState } from 'react';
+
 import Input from '@/components/Input';
 import { useModal } from '@/hooks/useModal';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import IconDown from '@/assets/images/icon-down.svg';
+import { Body } from '@/constants/Typography/TypographyList';
+import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
+import VariantModal from '../Account/VariantModal';
 import Button from '../Button';
 import { MODAL_TYPE } from '../Modal';
-import { Body } from '@/constants/Typography/TypographyList';
-import VariantModal from '../Account/VariantModal';
-import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
+import { CalendarInput } from '../Input/calendar/CalendarInput';
+import { handleformattedDate } from '../Account/PetInfoForm';
+import Calendar from '../Calendar/CalendarPicker';
 import { useRecoilState } from 'recoil';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
-import { CalendarInput } from '../Input/calendar/CalendarInput';
-import CalendarForm from '../Calendar/CalendarForm';
-import { handleformattedDate } from '../Account/PetInfoForm';
+import IconDown from '@/assets/images/icon-down.svg';
 
 const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
   const { addModal } = useModal();
@@ -164,15 +165,18 @@ const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
         />
         {showCalendar.birthday && (
           <div className='bg-grayColor-10 rounded-lg'>
-            <CalendarForm
-              handleDayClick={(day: Date) => handleBirthClick(day)}
+            <Calendar
               initDate={
                 petInfo.birthday !== ''
                   ? new Date(petInfo.birthday)
                   : new Date()
               }
-              headerType='center'
-            />
+            >
+              <Calendar.YYYYMMPicker type='center' />
+              <Calendar.Date
+                handleClickDay={(day: Date) => handleBirthClick(day)}
+              />
+            </Calendar>
           </div>
         )}
         <Input name={INPUT_TYPE.BIRTHDAY}>
@@ -198,15 +202,18 @@ const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
         />
         {showCalendar.family && (
           <div className='bg-grayColor-10 rounded-lg'>
-            <CalendarForm
-              handleDayClick={(day: Date) => handleAdoptionlick(day)}
+            <Calendar
               initDate={
                 petInfo.adoptionDate !== ''
                   ? new Date(petInfo.adoptionDate)
                   : new Date()
               }
-              headerType='center'
-            />
+            >
+              <Calendar.YYYYMMPicker type='center' />
+              <Calendar.Date
+                handleClickDay={(day: Date) => handleAdoptionlick(day)}
+              />
+            </Calendar>
           </div>
         )}
       </div>
