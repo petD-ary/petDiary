@@ -36,6 +36,14 @@ export const CalendarContext = createContext<CalendarContextProps>(
   defaultCalendarContext,
 );
 
+/**
+ * DatePicker, Calendar를 반환
+ * @param children <Calendar.YYYYMMPicker />, <Calendar.Date />
+ * @param initDate (선택)기본 값은 당일(선택일을 변경할 수 있음)
+ * @param setUpdateDate (선택)캘린더 선택 시, 해당 일자 업데이트 함수
+ * @param viewSchedule (선택)일정 표시 여부, 기본값 - false
+ * @param className (선택)캘린더 wrapper className 추가 가능(크기 및 배경 색상, 위치관련 추천)
+ */
 const Calendar = ({
   children,
   initDate,
@@ -105,10 +113,10 @@ const YYYYMMPicker = ({ type = 'left', className = '' }: YYYYMMPickerProps) => {
     const updatedDate = { ...selectedDate };
     let { year, month } = updatedDate;
 
-    month = parseInt(String(month), 10) - 1;
+    month -= 1;
 
     if (month === 0) {
-      year = parseInt(String(year), 10) - 1;
+      year -= 1;
       month = 12;
     }
 
@@ -121,10 +129,10 @@ const YYYYMMPicker = ({ type = 'left', className = '' }: YYYYMMPickerProps) => {
     const updatedDate = { ...selectedDate };
     let { year, month } = updatedDate;
 
-    month = parseInt(String(month), 10) + 1;
+    month += 1;
 
     if (month === 13) {
-      year = parseInt(String(year), 10) + 1;
+      year += 1;
       month = 1;
     }
 
@@ -177,9 +185,6 @@ const DateContainer = ({
 
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
-  // 현재 선택된 연도와 월을 기준으로 주 계산
-  const weeks = useCalendar(year, month).weeks;
-
   // 해당 날짜가 오늘인지 확인하는 함수
   const isToday = (day: Date) => {
     // 오늘 날짜
@@ -200,13 +205,13 @@ const DateContainer = ({
   // 주말 여부를 확인하는 함수
   const isSunDay = (day: Date) => {
     const dayOfWeek = day.getDay();
-    // 0번째가 일요일임
+    // 0번째가 일요일
     return dayOfWeek === 0;
   };
   // 주말 여부를 확인하는 함수
   const isSaturDay = (day: Date) => {
     const dayOfWeek = day.getDay();
-    // 0번째가 일요일임
+    // 6번째가 토요일
     return dayOfWeek === 6;
   };
 
@@ -214,7 +219,7 @@ const DateContainer = ({
   const isCurrentMonth = (day: Date) =>
     day.getFullYear() == year && day.getMonth() === month - 1;
 
-  const { startDay, endDay } = useCalendar(year, month);
+  const { startDay, endDay, weeks } = useCalendar(year, month);
 
   const { data } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),
@@ -225,10 +230,7 @@ const DateContainer = ({
   const hasSchedule = (day: Date) => {
     if (!data) return false;
     return data.some(
-      (schedule: {
-        startTime: string | number | Date;
-        endTime: string | number | Date;
-      }) =>
+      (schedule: { startTime: string; endTime: string }) =>
         isSameDay(new Date(schedule.startTime), day) ||
         (new Date(schedule.startTime) < day &&
           new Date(schedule.endTime) >= day),
