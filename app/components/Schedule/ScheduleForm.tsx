@@ -1,10 +1,17 @@
 import { useModal } from '@/hooks/useModal';
 import useToast from '@/hooks/useToast';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FocusEvent,
+  FormEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { ScheduleData } from './type';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
-import setDateObj from './AddScheduleModal/setDateObj';
+import convertObjToDate from './AddScheduleModal/convertObjToDate';
 import { SCHEDULE_TYPE, alarmList, repeatList } from './constants';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import ScheduleLocationModal from './ScheduleLocationModal';
@@ -17,9 +24,8 @@ import { Body } from '@/constants/Typography/TypographyList';
 import TimeFormatter from './AddScheduleModal/TimeFormatter';
 import PickCalendar from './AddScheduleModal/PickCalendar';
 import Button from '@/components/Button';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { selectedDateState } from '@/recoil/Calendar/atoms';
 
 interface ScheduleFormProps {
   type: 'add' | 'update';
@@ -31,7 +37,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
   const { setToasts } = useToast();
 
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
-  const resetSelectedDate = useResetRecoilState(selectedDateState);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -64,10 +70,13 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
 
   useEffect(() => {
     // 일정 시작 시간보다 종료 시간을 이르게 설정할 경우 토스트 팝업
-    const start = setDateObj(schedule.startTime);
-    const end = setDateObj(schedule.endTime);
+    const start = convertObjToDate(schedule.startTime);
+    const end = convertObjToDate(schedule.endTime);
     if (start >= end) {
       setToasts('시간 설정을 다시 확인해주세요');
+      setError(true);
+    } else {
+      setError(false);
     }
   }, [schedule.startTime, schedule.endTime]);
 
@@ -81,16 +90,6 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
     }
     if (variant === 'mm') {
       Number(time) > 60 ? (time = '00') : time;
-    }
-
-    if (type === 'startTime') {
-      const hour = '';
-      const minute = '';
-
-      setSchedule((prev) => ({
-        ...prev,
-        endTime: { ...prev.endTime, time: { hh: hour, mm: minute } },
-      }));
     }
 
     setSchedule((prev) => ({
@@ -124,6 +123,25 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
     const value = alarmList.filter(({ key }) => key === schedule.alarm);
     return value[0];
   }, [schedule.alarm]);
+
+  const handleAutoSetEndTime = () => {
+    setSchedule((prev) => {
+      const startTime = convertObjToDate(prev.startTime);
+      const setEndTime = startTime.setMinutes(startTime.getMinutes() + 30);
+      const updatedEndTime = new Date(setEndTime);
+
+      return {
+        ...prev,
+        endTime: {
+          date: `${updatedEndTime.getFullYear()}-${updatedEndTime.getMonth() + 1}-${updatedEndTime.getDate()}`,
+          time: {
+            hh: String(updatedEndTime.getHours()),
+            mm: String(updatedEndTime.getMinutes()),
+          },
+        },
+      };
+    });
+  };
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_ADD} variant={MODAL_VARIANT.ALL}>
@@ -190,7 +208,6 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
                   start: !prev.start,
                   end: false,
                 }));
-                resetSelectedDate();
               }}
               className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-t-lg  ${isSetTimeOpen.start ? '' : 'border-b-0'}`}
             >
@@ -206,6 +223,8 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
                 scheduleTime={schedule.startTime}
                 handleChangeDate={handleChangeDate}
                 handleChangeTime={handleChangeTime}
+                handleAutoSetEndTime={handleAutoSetEndTime}
+                error={error}
               />
             )}
             <li
@@ -214,7 +233,6 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
                   start: false,
                   end: !prev.end,
                 }));
-                resetSelectedDate();
               }}
               className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-b-lg`}
             >
@@ -230,6 +248,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
                 scheduleTime={schedule.endTime}
                 handleChangeDate={handleChangeDate}
                 handleChangeTime={handleChangeTime}
+                error={error}
               />
             )}
           </ul>
