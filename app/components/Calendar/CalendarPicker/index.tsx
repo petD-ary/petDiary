@@ -21,6 +21,8 @@ import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
+import { useSetRecoilState } from 'recoil';
+import { scheduleListState } from '@/recoil/Schedule/atom';
 
 export const defaultCalendarContext: CalendarContextProps = {
   viewSchedule: false,
@@ -214,6 +216,14 @@ const DateContainer = ({
     day.getFullYear() == year && day.getMonth() === month - 1;
 
   const { startDay, endDay, weeks } = useCalendar(year, month);
+
+  const setScheduleListDate = useSetRecoilState(scheduleListState);
+
+  useEffect(() => {
+    if (viewSchedule) {
+      setScheduleListDate({ startDay: startDay, endDay: endDay });
+    }
+  }, [year, month, date]);
 
   const { data } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),

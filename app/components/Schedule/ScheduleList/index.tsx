@@ -2,7 +2,7 @@
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
+import { scheduleListState } from '@/recoil/Schedule/atom';
 
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
