@@ -37,7 +37,6 @@ const ScheduleLocationModal = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
   const [selectedPin, setSelectedPin] = useState<null | string>(null);
-  console.log('🚀 ~ ScheduleLocationModal ~ selectedPin:', selectedPin);
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,
@@ -69,6 +68,7 @@ const ScheduleLocationModal = () => {
       lng: Number(place.y),
     });
     setSearchValue('');
+    setSelectedPin(null);
     removeModal();
   };
 
