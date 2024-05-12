@@ -29,10 +29,6 @@ const PickCalendar = ({
   handleAutoSetEndTime,
   error,
 }: PickCalendarProps) => {
-  console.log(
-    '🚀 ~ scheduleTime:',
-    convertObjToDate(scheduleTime).toLocaleString(),
-  );
   return (
     <li className='bg-grayColor-10'>
       <Input name={SCHEDULE_TYPE.ADDRESS}>
