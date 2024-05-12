@@ -208,12 +208,6 @@ const DateContainer = ({
     // 0번째가 일요일
     return dayOfWeek === 0;
   };
-  // 주말 여부를 확인하는 함수
-  const isSaturDay = (day: Date) => {
-    const dayOfWeek = day.getDay();
-    // 6번째가 토요일
-    return dayOfWeek === 6;
-  };
 
   // 해당 날짜가 현재 월에 속하는지 확인하는 함수
   const isCurrentMonth = (day: Date) =>
@@ -242,7 +236,6 @@ const DateContainer = ({
       isToday: isToday(day),
       isSelected: isSelectDay(day),
       isSunDay: isSunDay(day),
-      isSaturDay: isSaturDay(day),
       isCurrentMonth: isCurrentMonth(day),
     };
 
@@ -258,7 +251,6 @@ const DateContainer = ({
               key={day}
               className={`py-[16px] flex text-center
               ${[0].includes(index) ? '!text-error' : 'text-gray-600'}
-              ${[6].includes(index) ? '!text-secondary-400' : 'text-gray-600'}
               `}
             >
               <div className={`px-2 `}>{day}</div>

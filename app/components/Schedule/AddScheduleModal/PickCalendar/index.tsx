@@ -4,6 +4,7 @@ import Input from '@/components/Input';
 import { SCHEDULE_TYPE } from '../../constants';
 import Calendar from '../../../Calendar/CalendarPicker';
 import './style.css';
+import convertObjToDate from '../convertObjToDate';
 
 export type DateType = 'startTime' | 'endTime';
 
@@ -28,13 +29,22 @@ const PickCalendar = ({
   handleAutoSetEndTime,
   error,
 }: PickCalendarProps) => {
+  console.log(
+    '🚀 ~ scheduleTime:',
+    convertObjToDate(scheduleTime).toLocaleString(),
+  );
   return (
     <li className='bg-grayColor-10'>
       <Input name={SCHEDULE_TYPE.ADDRESS}>
-        <Calendar>
+        <Calendar
+          initDate={scheduleTime ? convertObjToDate(scheduleTime) : undefined}
+        >
           <Calendar.YYYYMMPicker type='center' />
           <Calendar.Date
-            handleClickDay={(day: Date) => handleChangeDate(day, type)}
+            handleClickDay={(day: Date) => {
+              handleChangeDate(day, type);
+              handleAutoSetEndTime && handleAutoSetEndTime();
+            }}
           />
         </Calendar>
 

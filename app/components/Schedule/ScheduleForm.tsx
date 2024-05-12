@@ -5,6 +5,7 @@ import {
   ChangeEvent,
   FocusEvent,
   FormEvent,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -124,7 +125,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
     return value[0];
   }, [schedule.alarm]);
 
-  const handleAutoSetEndTime = () => {
+  const handleAutoSetEndTime = useCallback(() => {
     setSchedule((prev) => {
       const startTime = convertObjToDate(prev.startTime);
       const setEndTime = startTime.setMinutes(startTime.getMinutes() + 30);
@@ -141,7 +142,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
         },
       };
     });
-  };
+  }, [handleChangeTime]);
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_ADD} variant={MODAL_VARIANT.ALL}>
