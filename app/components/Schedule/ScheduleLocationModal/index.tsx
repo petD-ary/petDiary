@@ -36,16 +36,19 @@ const ScheduleLocationModal = () => {
   const { removeModal } = useModal();
   const [searchValue, setSearchValue] = useState<string>('');
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
+  const [selectedPin, setSelectedPin] = useState<null | string>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,
     search: searchValue,
   });
 
-  const placeData = useMemo(
-    () => (data ? data.pages.flatMap((doc) => (doc ? doc.documents : [])) : []),
-    [data],
-  );
+  const placeData = useMemo(() => {
+    const result = data
+      ? data.pages.flatMap((doc) => (doc ? doc.documents : []))
+      : [];
+    return result;
+  }, [data, selectedPin]);
 
   const target = useIntersectionObserver((entry, observer) => {
     observer.unobserve(entry.target);
@@ -65,6 +68,7 @@ const ScheduleLocationModal = () => {
       lng: Number(place.y),
     });
     setSearchValue('');
+    setSelectedPin(null);
     removeModal();
   };
 
@@ -88,7 +92,7 @@ const ScheduleLocationModal = () => {
         <div className='bg-white px-5'>
           {placeData.length > 0 && (
             <div className='pb-3'>
-              <MapComponent>
+              <MapComponent onClick={() => setSelectedPin(null)}>
                 {placeData.length > 0 &&
                   placeData?.map((placeData) => (
                     <CustomPin
@@ -97,6 +101,7 @@ const ScheduleLocationModal = () => {
                         lat: Number(placeData?.y),
                         lng: Number(placeData?.x),
                       }}
+                      onClick={() => setSelectedPin(placeData.id)}
                     />
                   ))}
               </MapComponent>
@@ -104,9 +109,24 @@ const ScheduleLocationModal = () => {
           )}
 
           <ul className='[&>li]:last:border-b-0 h-full mb-5'>
-            {placeData &&
-              placeData.map(
-                ({ id, road_address_name, address_name, place_name, x, y }) => (
+            {placeData.map(
+              ({ id, road_address_name, address_name, place_name, x, y }) =>
+                selectedPin !== null ? (
+                  selectedPin === id ? (
+                    <li
+                      key={id}
+                      onClick={() => handleClickPlace({ x, y, place_name })}
+                      className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers '
+                    >
+                      <div className='text-text-primary text-subTitle2 font-semibold'>
+                        {highlight(searchValue, place_name)}
+                      </div>
+                      <div className='text-text-secondary text-body1 font-medium'>
+                        {road_address_name ?? address_name}
+                      </div>
+                    </li>
+                  ) : null
+                ) : (
                   <li
                     key={id}
                     onClick={() => handleClickPlace({ x, y, place_name })}
@@ -120,7 +140,7 @@ const ScheduleLocationModal = () => {
                     </div>
                   </li>
                 ),
-              )}
+            )}
             <div ref={target}></div>
           </ul>
         </div>

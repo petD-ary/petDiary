@@ -33,9 +33,9 @@ const DateComponent = ({
       w-full h-full flex justify-center items-center
       relative after:pb-[100%] after:block
       cursor-pointer
-      ${isToday ? '!bg-primary-50 [&]:!text-gray-800 font-medium' : ''}
+      ${isToday ? '!bg-primary-200/50 [&]:!text-gray-800 font-medium' : ''}
       ${isSaturDay ? '!text-secondary-400' : 'text-gray-800'}
-      ${isSelected ? 'bg-primary-600 [&]:!text-grayColor-10' : ''}
+      ${isSelected ? 'bg-primary-600 !text-grayColor-10' : ''}
       ${isSunDay ? '!text-error' : 'text-gray-800'} 
   ${!isCurrentMonth ? '!text-opacity-20' : ''}
   `}

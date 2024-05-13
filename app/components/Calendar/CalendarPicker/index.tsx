@@ -21,6 +21,8 @@ import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
+import { useSetRecoilState } from 'recoil';
+import { scheduleListState } from '@/recoil/Schedule/atom';
 
 export const defaultCalendarContext: CalendarContextProps = {
   viewSchedule: false,
@@ -208,18 +210,20 @@ const DateContainer = ({
     // 0번째가 일요일
     return dayOfWeek === 0;
   };
-  // 주말 여부를 확인하는 함수
-  const isSaturDay = (day: Date) => {
-    const dayOfWeek = day.getDay();
-    // 6번째가 토요일
-    return dayOfWeek === 6;
-  };
 
   // 해당 날짜가 현재 월에 속하는지 확인하는 함수
   const isCurrentMonth = (day: Date) =>
     day.getFullYear() == year && day.getMonth() === month - 1;
 
   const { startDay, endDay, weeks } = useCalendar(year, month);
+
+  const setScheduleListDate = useSetRecoilState(scheduleListState);
+
+  useEffect(() => {
+    if (viewSchedule) {
+      setScheduleListDate({ startDay: startDay, endDay: endDay });
+    }
+  }, [year, month, date]);
 
   const { data } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),
@@ -242,7 +246,6 @@ const DateContainer = ({
       isToday: isToday(day),
       isSelected: isSelectDay(day),
       isSunDay: isSunDay(day),
-      isSaturDay: isSaturDay(day),
       isCurrentMonth: isCurrentMonth(day),
     };
 
@@ -258,7 +261,6 @@ const DateContainer = ({
               key={day}
               className={`py-[16px] flex text-center
               ${[0].includes(index) ? '!text-error' : 'text-gray-600'}
-              ${[6].includes(index) ? '!text-secondary-400' : 'text-gray-600'}
               `}
             >
               <div className={`px-2 `}>{day}</div>

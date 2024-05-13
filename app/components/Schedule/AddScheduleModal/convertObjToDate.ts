@@ -1,4 +1,4 @@
-interface SetDateObjProps {
+interface ConvertObjToDateProps {
   date: string;
   time: { hh: string; mm: string };
 }
@@ -8,7 +8,7 @@ interface SetDateObjProps {
  * @param day selectedDate 객체
  * @return {Date} Date 객체로 변환 후 반환
  */
-const setDateObj = (day: SetDateObjProps) => {
+const convertObjToDate = (day: ConvertObjToDateProps) => {
   const {
     date,
     time: { hh, mm },
@@ -18,4 +18,4 @@ const setDateObj = (day: SetDateObjProps) => {
   return new Date(dateStr);
 };
 
-export default setDateObj;
+export default convertObjToDate;
