@@ -4,8 +4,10 @@ export interface ToastProps {
   id: Key;
   message: string;
 }
-
+/** @type {number} 토스트 유지 시간 */
 const TOAST_DURATION = 2000;
+
+/** @type {number} 토스트 애니메이션 시간 */
 const ANIMATION_DURATION = 350;
 
 const Toast = ({ id, message }: ToastProps) => {

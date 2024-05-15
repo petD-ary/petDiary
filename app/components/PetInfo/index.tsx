@@ -1,19 +1,20 @@
+import React, { ChangeEvent, useEffect, useState } from 'react';
+
 import Input from '@/components/Input';
 import { useModal } from '@/hooks/useModal';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import IconDown from '@/assets/images/icon-down.svg';
+import { Body } from '@/constants/Typography/TypographyList';
+import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
+import VariantModal from '../Account/VariantModal';
 import Button from '../Button';
 import { MODAL_TYPE } from '../Modal';
-import { Body } from '@/constants/Typography/TypographyList';
-import VariantModal from '../Account/VariantModal';
-import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
+import { CalendarInput } from '../Input/calendar/CalendarInput';
+import { handleformattedDate } from '../Account/PetInfoForm';
+import Calendar from '../Calendar/CalendarPicker';
 import { useRecoilState } from 'recoil';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
-import { CalendarInput } from '../Input/calendar/CalendarInput';
-import CalendarForm from '../Calendar/CalendarForm';
-import { handleformattedDate } from '../Account/PetInfoForm';
+import IconDown from '@/assets/images/icon-down.svg';
 
-const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
+const PetInfo = ({ handleSubmit, submitValue, deleteBtn }: PetInfoProps) => {
   const { addModal } = useModal();
   const [showCalendar, setShowCalendar] = useState({
     birthday: false,
@@ -56,16 +57,7 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
   const [unknownBirthday, setUnknownBirthday] =
     useRecoilState(unknownBirthdayState);
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
-  const {
-    adoptionDate,
-    birthday,
-    breed,
-    gender,
-    name,
-    neutered,
-    petType,
-    weight,
-  } = petInfo;
+  const { breed, gender, name, neutered, petType, weight } = petInfo;
 
   useEffect(() => {
     if (unknownBirthday) {
@@ -162,8 +154,8 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           </Input.CheckInput>
         </Input>
       </div>
-      {/* 아이 생일 */}
 
+      {/* 아이 생일 */}
       <div className='flex flex-col gap-3'>
         <CalendarInput
           label={'아이 생일'}
@@ -173,14 +165,18 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         />
         {showCalendar.birthday && (
           <div className='bg-grayColor-10 rounded-lg'>
-            <CalendarForm
-              handleDayClick={(day: Date) => handleBirthClick(day)}
-              showCalendar={showCalendar}
-              date={petInfo.birthday}
-              headerType='center'
+            <Calendar
+              initDate={
+                petInfo.birthday !== ''
+                  ? new Date(petInfo.birthday)
+                  : new Date()
+              }
             >
-              <CalendarForm.Header />
-            </CalendarForm>
+              <Calendar.YYYYMMPicker type='center' />
+              <Calendar.Date
+                handleClickDay={(day: Date) => handleBirthClick(day)}
+              />
+            </Calendar>
           </div>
         )}
         <Input name={INPUT_TYPE.BIRTHDAY}>
@@ -202,17 +198,22 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
           label={'가족이 된 날'}
           selectedDate={petInfo.adoptionDate}
           onClick={handleToggleFamilyCalendar}
+          disabled={showCalendar.family}
         />
         {showCalendar.family && (
           <div className='bg-grayColor-10 rounded-lg'>
-            <CalendarForm
-              handleDayClick={(day: Date) => handleAdoptionlick(day)}
-              showCalendar={showCalendar}
-              date={petInfo.adoptionDate}
-              headerType='center'
+            <Calendar
+              initDate={
+                petInfo.adoptionDate !== ''
+                  ? new Date(petInfo.adoptionDate)
+                  : new Date()
+              }
             >
-              <CalendarForm.Header />
-            </CalendarForm>
+              <Calendar.YYYYMMPicker type='center' />
+              <Calendar.Date
+                handleClickDay={(day: Date) => handleAdoptionlick(day)}
+              />
+            </Calendar>
           </div>
         )}
       </div>
@@ -231,6 +232,15 @@ const PetInfo = ({ handleSubmit, submitValue }: PetInfoProps) => {
         </p>
       </Input>
 
+      {deleteBtn && (
+        <Button
+          variant='delete'
+          type='button'
+          onClick={() => addModal(MODAL_TYPE.PET_DELETE)}
+        >
+          떠나보내기
+        </Button>
+      )}
       <Button variant='contained' type='submit' isDisabled={!breed || !name}>
         {submitValue}
       </Button>

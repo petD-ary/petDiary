@@ -5,6 +5,7 @@ export type PetObjValue = string | boolean;
 export interface PetInfoProps {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   submitValue: string;
+  deleteBtn?: () => void;
 }
 
 interface InputType {
