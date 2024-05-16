@@ -3,7 +3,7 @@
 import { MouseEvent, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import IconClose from '@/assets/images/Icon-x.svg';
+import IconClose from '@/assets/images/icon-x.svg';
 import Button from '@/components/Button';
 import { Title } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/useModal';

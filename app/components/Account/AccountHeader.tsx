@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import IconBtnWrapper from '../Button/IconBtnWrapper';
 
-import IconX from '@/assets/images/Icon-x.svg';
+import IconX from '@/assets/images/icon-x.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 
 const AccountHeader = () => {

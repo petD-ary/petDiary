@@ -3,7 +3,7 @@ import Image from 'next/image';
 import normal from '@/assets/images/status/normal.png';
 import bad from '@/assets/images/status/bad.png';
 import veryBad from '@/assets/images/status/veryBad.png';
-import IconInfo from '@/assets/images/Icon-info.svg';
+import IconInfo from '@/assets/images/icon-info.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
