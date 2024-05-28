@@ -1,17 +1,18 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import Input from '@/components/Input';
 import IconSearch from '@/assets/images/icon-search.svg';
-import useGeolocation from '@/hooks/useGeolocation';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import useGeolocation from '@/hooks/util/useGeolocation';
+import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
 import useSearchPlace from '@/hooks/queries/useSearchPlace';
 import MapComponent from '@/components/Map';
 import CustomPin from '@/components/Map/CustomPin';
 import { highlight } from '@/utils/highlight';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { SCHEDULE_TYPE } from '../constants';
 import { useRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
+import useDebounceSearch from '@/hooks/util/useDebounceSearch';
 
 interface DocumentType {
   id: string;
@@ -38,9 +39,11 @@ const ScheduleLocationModal = () => {
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
   const [selectedPin, setSelectedPin] = useState<null | string>(null);
 
+  const debouncedSearch = useDebounceSearch(searchValue, 100);
+
   const { data, fetchNextPage, hasNextPage, isFetching } = useSearchPlace({
     geolocation: geolocation.position,
-    search: searchValue,
+    search: debouncedSearch,
   });
 
   const placeData = useMemo(() => {
@@ -74,7 +77,14 @@ const ScheduleLocationModal = () => {
 
   return (
     <Modal type={MODAL_TYPE.SCHEDULE_LOCATION} variant={MODAL_VARIANT.SLIDE}>
-      <Modal.Header title='일정 위치 검색' titleType='left' />
+      <Modal.Header
+        title='일정 위치 검색'
+        titleType='left'
+        onClick={() => {
+          setSearchValue('');
+          setSelectedPin(null);
+        }}
+      />
       <form onSubmit={(e) => e.preventDefault()} className='px-5 py-4 bg-white'>
         <Input name={SCHEDULE_TYPE.ADDRESS}>
           <Input.TextInput
@@ -102,6 +112,7 @@ const ScheduleLocationModal = () => {
                         lng: Number(placeData?.x),
                       }}
                       onClick={() => setSelectedPin(placeData.id)}
+                      isSelected={selectedPin === placeData.id}
                     />
                   ))}
               </MapComponent>
@@ -116,7 +127,7 @@ const ScheduleLocationModal = () => {
                     <li
                       key={id}
                       onClick={() => handleClickPlace({ x, y, place_name })}
-                      className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers '
+                      className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers cursor-pointer'
                     >
                       <div className='text-text-primary text-subTitle2 font-semibold'>
                         {highlight(searchValue, place_name)}

@@ -12,7 +12,7 @@ import {
   TextInputProps,
 } from './type';
 import { Body, Caption } from '../../constants/Typography/TypographyList';
-import useInputContext from '@/hooks/useInputContext';
+import useInputContext from '@/hooks/context/useInputContext';
 import IconError from '@/assets/images/icon-error.svg';
 
 export const defaultInputContext: InputContextProps = {

@@ -1,5 +1,5 @@
-import { useModal } from '@/hooks/useModal';
-import useToast from '@/hooks/useToast';
+import { useModal } from '@/hooks/view/useModal';
+import useToast from '@/hooks/view/useToast';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import {
   ChangeEvent,

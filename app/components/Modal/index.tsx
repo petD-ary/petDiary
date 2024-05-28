@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import IconClose from '@/assets/images/icon-x.svg';
 import Button from '@/components/Button';
 import { Title } from '@/constants/Typography/TypographyList';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 
 export const MODAL_TYPE = {
   BREED: 'breed',
@@ -138,17 +138,25 @@ const Header = ({
   title,
   desc,
   titleType = 'left',
+  onClick,
 }: {
   title: string;
   desc?: string | number;
   titleType?: 'center' | 'left' | 'left-X';
+  onClick?: () => void;
 }) => {
   const { removeModal } = useModal();
   if (titleType === 'left')
     return (
       <div>
         <div className='px-2 py-1 flex justify-end'>
-          <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
+          <div
+            className='p-3 cursor-pointer'
+            onClick={() => {
+              onClick && onClick();
+              removeModal();
+            }}
+          >
             <IconClose />
           </div>
         </div>

@@ -1,13 +1,11 @@
 'use client';
 
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleAddBtn from '@/components/Schedule/ScheduleAddBtn';
 import AddScheduleModal from '@/components/Schedule/AddScheduleModal';
 import ScheduleList from '@/components/Schedule/ScheduleList';
 import Calendar from './CalendarPicker';
-import { useState } from 'react';
-import useCalendar from '@/hooks/useCalendar';
 
 const CalendarComponent = () => {
   const { addModal } = useModal();

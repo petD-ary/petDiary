@@ -5,7 +5,7 @@ import { PetData } from '@/types/petData';
 import { getPetData } from '@/utils/getPetData';
 import PetEditCard from './PetListCard';
 import Button from '@/components/Button';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import PetEditModal from './PetEditModal';
 import PetAddModal from './PetAddModal';
 

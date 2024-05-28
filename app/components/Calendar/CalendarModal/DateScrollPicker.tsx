@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Title } from '@/constants/Typography/TypographyList';
-import useCalendarContext from '@/hooks/useCalendarContext';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
 
 const DateScrollPicker = () => {
   const { selectedDate, setSelectedDate } = useCalendarContext();

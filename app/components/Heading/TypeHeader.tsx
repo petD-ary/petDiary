@@ -10,7 +10,7 @@ import IconLeft from '@/assets/images/icon-left.svg';
 import IconSearch from '@/assets/images/icon-search.svg';
 import IconEdit from '@/assets/images/icon-edit.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '../Modal';
 
 //Close

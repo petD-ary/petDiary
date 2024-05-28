@@ -1,6 +1,6 @@
 'use client';
 
-import useGeolocation from '@/hooks/useGeolocation';
+import useGeolocation from '@/hooks/util/useGeolocation';
 import { Map, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useMemo } from 'react';
 

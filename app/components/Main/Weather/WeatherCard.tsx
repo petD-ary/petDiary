@@ -3,7 +3,7 @@ import Image from 'next/image';
 import IconArrowRight from '@/assets/images/icon-arrow-right.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { DataState } from '.';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 
 interface CardType {

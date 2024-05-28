@@ -1,7 +1,7 @@
 import { addPet } from '@/apis/petData';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { petInfoState } from '@/recoil/Account/atoms';
 import { FormEvent } from 'react';
 import { useRecoilValue } from 'recoil';

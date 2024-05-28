@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import Input from '@/components/Input';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { Body } from '@/constants/Typography/TypographyList';
 import { INPUT_TYPE, PetInfoProps, PetObjValue } from './type';
 import VariantModal from '../Account/VariantModal';
