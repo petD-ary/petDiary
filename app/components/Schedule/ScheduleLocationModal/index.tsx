@@ -141,7 +141,7 @@ const ScheduleLocationModal = () => {
                   <li
                     key={id}
                     onClick={() => handleClickPlace({ x, y, place_name })}
-                    className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers '
+                    className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers cursor-pointer'
                   >
                     <div className='text-text-primary text-subTitle2 font-semibold'>
                       {highlight(searchValue, place_name)}
