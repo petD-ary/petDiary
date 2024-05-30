@@ -12,6 +12,7 @@ import IconEdit from '@/assets/images/icon-edit.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '../Modal';
+import { useRouter } from 'next/navigation';
 
 //Close
 export const CloseHeader = () => (
@@ -24,9 +25,14 @@ export const CloseHeader = () => (
 
 //Back
 export const BackHeader = () => {
+  const router = useRouter();
   return (
     <div className='header'>
-      <IconBtnWrapper onClick={() => {}}>
+      <IconBtnWrapper
+        onClick={() => {
+          router.back();
+        }}
+      >
         <IconLeft />
       </IconBtnWrapper>
     </div>
