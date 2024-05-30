@@ -23,7 +23,13 @@ export const MODAL_TYPE = {
   SCHEDULE_REPEAT: 'scheduleRepeat',
   SCHEDULE_ALARM: 'alarm',
   WALKING_INFO: 'workingInfo',
+  INFO_FILTER_PET_TYPE: 'infoFilterPetType',
+  INFO_FILTER_IMPORTANCE: 'infoFilterImportance',
+  INFO_FILTER_SIGNAL: 'infoFilterSignal',
+  INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
+  INFO_FILTER_RISK: 'infoFilterRisk',
 };
+
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
@@ -91,7 +97,7 @@ const ModalContainer = ({
       <div
         onClick={(e) => e.stopPropagation()}
         className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(100%_-_56px)]
-      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg bg-white flex flex-col'
       >
         {children}
       </div>
@@ -103,7 +109,7 @@ const ModalContainer = ({
       <div
         onClick={(e) => e.stopPropagation()}
         className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl 
-      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg bg-white flex flex-col'
       >
         {children}
       </div>
