@@ -57,10 +57,6 @@ const DiseaseDetailPage = () => {
   };
   return (
     <div className='bg-extra-device-bg h-full'>
-      {/* <Link href='/info' className='flex justify-between py-1 px-2 bg-white'>
-        <IconBack />
-      </Link> */}
-
       <div className='pt-5 px-5 bg-white'>
         <div className='py-4'>
           <h3 className='text-title2 font-semibold text-text-title'>
