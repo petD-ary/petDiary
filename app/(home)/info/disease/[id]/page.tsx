@@ -1,7 +1,5 @@
 'use client';
 import React from 'react';
-import IconBack from '@/assets/images/info/icon-back.svg';
-import Link from 'next/link';
 
 const DetailListUi = ({
   title,

@@ -13,13 +13,15 @@ const Knowledge = () => {
 
   const scrollToTop = () => {
     ref.current?.scrollTo({ top: 0, behavior: 'smooth' });
-    console.log('🚀 ~ scrollToTop ~ ref:', ref);
   };
 
   return (
     <Fragment>
       <BreadCrumbs isSelected={tab} setTab={(tab) => setTab(tab)} />
-      <div className='w-full h-[calc(100%-170px)]' ref={ref}>
+      <div
+        className='w-full h-[calc(100%-108px)] overflow-y-scroll scrollbar-none'
+        ref={ref}
+      >
         {tab === 'disease' && <Disease />}
       </div>
       <GoTopBtn onClick={scrollToTop} />

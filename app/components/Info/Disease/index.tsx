@@ -40,7 +40,7 @@ const Disease = () => {
         <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
       </div>
 
-      <div className='h-full last:[&_>_div]:border-none overflow-y-scroll scrollbar-none'>
+      <div className='last:[&_>_div]:border-none'>
         {!isLoading &&
           data?.map((data: DiseaseProps) => (
             <Link
