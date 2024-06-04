@@ -3,7 +3,7 @@ import { MODAL_TYPE } from '../../Modal';
 import { useModal } from '@/hooks/view/useModal';
 import { useRecoilValue } from 'recoil';
 import { filterState } from '@/recoil/Info/atoms';
-import { filterList } from './filterModalList';
+import { filterList, signalDepth } from './filterModalList';
 import IconArrowDown from '@/assets/images/info/icon-arrowDown.svg';
 
 const Filter = ({
@@ -20,6 +20,9 @@ const Filter = ({
   )[0];
 
   const selectedOption = useMemo(() => {
+    if (modalType === MODAL_TYPE.INFO_FILTER_SIGNAL_DEPTH)
+      return signalDepth.filter((item) => item.value === isSelected[filter])[0];
+
     return filterData.option.filter(
       (item) => item.value === isSelected[filter],
     )[0];
@@ -32,11 +35,12 @@ const Filter = ({
       border border-extra-border rounded-[4px]
       text-text-primary text-caption1 font-semibold
       flex justify-between items-center
-      w-[90px] h-[32px] px-3 py-2
+      px-3 py-2 h-[32px]
+      ${selectedOption.desc.length > 4 ? '' : 'w-[90px]'}
       `}
     >
       {selectedOption.desc}
-      <span>
+      <span className='pl-3'>
         <IconArrowDown />
       </span>
     </div>
