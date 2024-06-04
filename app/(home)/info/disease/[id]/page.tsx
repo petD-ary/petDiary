@@ -26,7 +26,7 @@ const DetailListUi = ({
   );
 };
 
-const DiseaseDetailPage = () => {
+const DiseaseDetailPage = ({ params: { id } }: { params: { id: number } }) => {
   const dummyData = {
     cause:
       '세포의 과증식인지 종양 발생이 원인인지는 불분명하나 음식의 변화, 편식, 환경오염, 알레르기에 노출 그리고 유전적 변화 비정상적인 면역 반응 등이 관여한다고 알려져 있습니다. ',
