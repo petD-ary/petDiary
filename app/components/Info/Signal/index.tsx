@@ -5,14 +5,14 @@ import ModalRisk from '../Modal/ModalRisk';
 import ModalSignal from '../Modal/ModalSignal';
 import ModalSignalDepth from '../Modal/ModalSignalDepth';
 import { useRecoilValue } from 'recoil';
-import { filterState } from '@/recoil/Info/atoms';
+import { alignState, filterState } from '@/recoil/Info/atoms';
 import Label from '@/components/Label';
 import Link from 'next/link';
 import Align from '../Align';
 
 const Signal = () => {
   const { signal } = useRecoilValue(filterState);
-  // const { risk } = useRecoilValue(alignState);
+  const { risk } = useRecoilValue(alignState);
   // const { data, isLoading } = useDisease({ petType, risk });
   return (
     <Fragment>
