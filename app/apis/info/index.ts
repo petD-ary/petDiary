@@ -5,3 +5,9 @@ export const getKnowledgeDisease = async () => {
   const res = await fetchApi(url, 'GET');
   return res ? res.data : res;
 };
+
+export const getKnowledgeDiseaseDetail = async (id: number) => {
+  const url = `/knowledges/disease/${id}`;
+  const res = await fetchApi(url, 'GET');
+  return res ? res.data : false;
+};

@@ -10,7 +10,7 @@ import ModalRisk from '../Filter/Modal/ModalRisk';
 import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
 
-interface DiseaseProps {
+export interface DiseaseProps {
   id: number;
   createdAt: string;
   cause: string;
