@@ -28,6 +28,7 @@ export const MODAL_TYPE = {
   INFO_FILTER_SIGNAL: 'infoFilterSignal',
   INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
   INFO_FILTER_RISK: 'infoFilterRisk',
+  SEARCH: 'search',
 };
 
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];

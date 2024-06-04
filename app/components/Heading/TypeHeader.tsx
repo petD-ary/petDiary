@@ -74,6 +74,8 @@ export const AlertHeader = () => {
 
 //Interactive
 export const InteractiveHeader = () => {
+  const { addModal } = useModal();
+
   return (
     <div className='header justify-between'>
       <Link href='/' className='px-3'>
@@ -88,7 +90,11 @@ export const InteractiveHeader = () => {
         <IconBtnWrapper onClick={() => {}}>
           <IconBell />
         </IconBtnWrapper>
-        <IconBtnWrapper onClick={() => {}}>
+        <IconBtnWrapper
+          onClick={() => {
+            addModal(MODAL_TYPE.SEARCH);
+          }}
+        >
           <IconSearch />
         </IconBtnWrapper>
       </div>
