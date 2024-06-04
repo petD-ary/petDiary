@@ -1,26 +1,26 @@
-import { alignState, filterState } from '@/recoil/Info/atoms';
+import { filterState } from '@/recoil/Info/atoms';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
-const AlignUi = ({
+const FilterOption = ({
   option,
   type,
 }: {
   option: { desc: string; value: string };
-  type: 'risk' | 'importance';
+  type: 'petType' | 'signal' | 'signalDepth';
 }) => {
-  const [align, setAlign] = useRecoilState(alignState);
+  const [filter, setFilter] = useRecoilState(filterState);
   return (
     <div
-      onClick={() => setAlign((prev) => ({ ...prev, [type]: option.value }))}
+      onClick={() => setFilter((prev) => ({ ...prev, [type]: option.value }))}
       className='px-3 py-4 border-b border-extra-deviders flex justify-between'
     >
       <span>{option.desc}</span>
-      {align[type] === option.value ? <Radio /> : <RadioDisabled />}
+      {filter[type] === option.value ? <Radio /> : <RadioDisabled />}
     </div>
   );
 };
 
-export default AlignUi;
+export default FilterOption;
