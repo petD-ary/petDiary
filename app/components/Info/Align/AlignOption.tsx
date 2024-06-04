@@ -15,7 +15,7 @@ const AlignOption = ({
   return (
     <div
       onClick={() => setAlign((prev) => ({ ...prev, [type]: option.value }))}
-      className='px-3 py-4 border-b border-extra-deviders flex justify-between'
+      className='cursor-pointer px-3 py-4 border-b border-extra-deviders flex justify-between'
     >
       <span>{option.desc}</span>
       {align[type] === option.value ? <Radio /> : <RadioDisabled />}
