@@ -1,4 +1,4 @@
-import { Coordinates } from '@/hooks/useGeolocation';
+import { Coordinates } from '@/hooks/util/useGeolocation';
 import axios from 'axios';
 import { RegionState } from './index';
 

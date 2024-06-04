@@ -7,7 +7,7 @@ import Walk from '@/components/Main/Walk';
 
 export default function Home() {
   return (
-    <Container className='bg-extra-device-bg h-[calc(100dvh-120px)] overflow-y-auto'>
+    <Container className='bg-extra-device-bg h-[calc(100dvh-120px)] overflow-y-auto px-5'>
       <div className='grid grid-cols-1 grid-rows-none gap-3 justify-center items-start'>
         <PetEditModal />
         <Profile />

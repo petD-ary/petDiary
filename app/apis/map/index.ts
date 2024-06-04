@@ -1,5 +1,5 @@
 import { PlaceListState } from '@/components/Schedule/ScheduleLocationModal';
-import { Coordinates } from '@/hooks/useGeolocation';
+import { Coordinates } from '@/hooks/util/useGeolocation';
 import { mapAxios } from '@/libs/axios';
 
 export const getSearchPlace = async (
@@ -7,7 +7,7 @@ export const getSearchPlace = async (
   search: string,
   page: number,
 ) => {
-  const url = `/search/keyword.json?page=${page}&size=15${geolocation ? `&y=${geolocation.lat}` : ''}${geolocation ? `&x=${geolocation.lng}` : ''}`;
+  const url = `/search/keyword.json?page=${page}&size=15${geolocation ? `&y=${geolocation.lat}` : ''}${geolocation ? `&x=${geolocation.lng}` : ''}${geolocation && `&radius=4000`}`;
 
   if (search === undefined || search === '') return;
 

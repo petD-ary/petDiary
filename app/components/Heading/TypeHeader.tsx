@@ -4,14 +4,15 @@ import React from 'react';
 import Image from 'next/image';
 import logo from '@/assets/images/logo/pd_logo.png';
 import IconBtnWrapper from '../Button/IconBtnWrapper';
-import IconX from '@/assets/images/Icon-x.svg';
-import IconBell from '@/assets/images/Icon-bell.svg';
+import IconX from '@/assets/images/icon-x.svg';
+import IconBell from '@/assets/images/icon-bell.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconSearch from '@/assets/images/icon-search.svg';
 import IconEdit from '@/assets/images/icon-edit.svg';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '../Modal';
+import { useRouter } from 'next/navigation';
 
 //Close
 export const CloseHeader = () => (
@@ -24,9 +25,14 @@ export const CloseHeader = () => (
 
 //Back
 export const BackHeader = () => {
+  const router = useRouter();
   return (
     <div className='header'>
-      <IconBtnWrapper onClick={() => {}}>
+      <IconBtnWrapper
+        onClick={() => {
+          router.back();
+        }}
+      >
         <IconLeft />
       </IconBtnWrapper>
     </div>

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -10,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'petdiary-bucket.s3.ap-southeast-2.amazonaws.com',
+        hostname: 'petdiary-bucket.s3.ap-northeast-2.amazonaws.com',
       },
     ],
   },
@@ -22,7 +23,7 @@ const nextConfig = {
       },
       {
         source: '/api/:path*',
-        destination: 'http://54.252.147.64:5001/api/:path*',
+        destination: 'http://api.petdiary.kr/api/:path*',
       },
     ];
   },

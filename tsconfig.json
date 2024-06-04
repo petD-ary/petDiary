@@ -32,7 +32,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/components/Account/PetInfoForm/styled.js",
-    // "app/components/Account/PetInfoForm/**/*.ts",
     "app/components/Login/naver.js"
   ],
   "exclude": ["node_modules"]
