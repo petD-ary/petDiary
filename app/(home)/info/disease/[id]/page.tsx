@@ -1,30 +1,6 @@
 'use client';
 import React from 'react';
-
-const DetailListUi = ({
-  title,
-  desc,
-}: {
-  title: string;
-  desc: string | { id: number; symptom: string }[];
-}) => {
-  return (
-    <div className='border-b border-extra-deviders py-4'>
-      <h4 className='text-button font-semibold text-text-title pb-2'>
-        {title}
-      </h4>
-      <p className='text-body2 text-text-secondary'>
-        {typeof desc === 'string'
-          ? desc
-          : desc.map((item) => (
-              <span key={item.id} className='block pb-1'>
-                {item.symptom}
-              </span>
-            ))}
-      </p>
-    </div>
-  );
-};
+import DetailList from '@/components/Info/DetailList';
 
 const DiseaseDetailPage = ({ params: { id } }: { params: { id: number } }) => {
   const dummyData = {
@@ -76,13 +52,10 @@ const DiseaseDetailPage = ({ params: { id } }: { params: { id: number } }) => {
       </div>
 
       <div className='bg-white px-5 last:[&_>_div]:border-none'>
-        <DetailListUi title='원인' desc={dummyData.cause} />
-        <DetailListUi title='증상' desc={dummyData.prevention} />
-        <DetailListUi title='예방법' desc={dummyData.treatment} />
-        <DetailListUi
-          title='좋은 영양소'
-          desc={dummyData.managementNecessity}
-        />
+        <DetailList title='원인' desc={dummyData.cause} />
+        <DetailList title='증상' desc={dummyData.prevention} />
+        <DetailList title='예방법' desc={dummyData.treatment} />
+        <DetailList title='좋은 영양소' desc={dummyData.managementNecessity} />
       </div>
     </div>
   );
