@@ -69,14 +69,7 @@ export const filterList = [
     modalType: MODAL_TYPE.INFO_FILTER_SIGNAL,
     option: [
       { desc: '전체', value: 'all' },
-      {
-        desc: '대변',
-        value: 'poop',
-        depth: [
-          { desc: '색상', value: 'color' },
-          { desc: '형태', value: 'form' },
-        ],
-      },
+      { desc: '대변', value: 'poop' },
       { desc: '소변', value: 'pee' },
       { desc: '구토', value: 'throwUp' },
       { desc: '몸무게', value: 'weight' },
@@ -103,4 +96,9 @@ export const alignList = [
       { desc: '필수', value: 'essential' },
     ],
   },
+];
+
+export const signalDepth = [
+  { desc: '색상', value: 'color' },
+  { desc: '형태', value: 'form' },
 ];

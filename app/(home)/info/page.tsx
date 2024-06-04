@@ -3,6 +3,7 @@ import { Fragment, useRef, useState } from 'react';
 import BreadCrumbs from '@/components/Info/BreadCrumbs';
 import Disease from '@/components/Info/Disease';
 import GoTopBtn from '@/components/Info/GoTopBtn';
+import Signal from '@/components/Info/Signal';
 
 export type InfoTab = 'disease' | 'signal' | 'riskFood' | 'safeFood';
 
@@ -23,6 +24,7 @@ const Knowledge = () => {
         ref={ref}
       >
         {tab === 'disease' && <Disease />}
+        {tab === 'signal' && <Signal />}
       </div>
       <GoTopBtn onClick={scrollToTop} />
     </Fragment>
