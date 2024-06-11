@@ -16,11 +16,11 @@ const DetailTitle = ({ title, summary, type, tag }: DetailTitleProps) => {
           {summary}
         </p>
         <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
-          <span>{type}</span>
+          <span>{type === 'dog' ? '강아지' : '고양이'}</span>
           <Label
             variant={tag === '높음' ? 'red' : tag === '보통' ? 'blue' : 'green'}
           >
-            위험도 {tag}
+            {tag === '높음' ? '위험' : tag === '보통' ? '주의' : '양호'}
           </Label>
         </div>
       </div>

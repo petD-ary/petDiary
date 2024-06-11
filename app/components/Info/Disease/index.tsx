@@ -1,35 +1,53 @@
 'use client';
-import React, { Fragment } from 'react';
-import ModalPetType from '../Filter/Modal/ModalPetType';
-import { useRecoilState } from 'recoil';
-import { filterState } from '@/recoil/Info/atoms';
+import React, { Fragment, useMemo } from 'react';
+import ModalPetType from '../Modal/ModalPetType';
+import { useRecoilValue } from 'recoil';
+import { alignState, filterState } from '@/recoil/Info/atoms';
 import { MODAL_TYPE } from '@/components/Modal';
 import Filter from '../Filter';
 import Align from '../Align';
-import ModalRisk from '../Filter/Modal/ModalRisk';
+import ModalRisk from '../Modal/ModalRisk';
 import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
+import Label from '@/components/Label';
+import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
 
 export interface DiseaseProps {
   id: number;
   createdAt: string;
   cause: string;
   diagnosisName: string;
-  managementNecessity: '높음' | '낮음';
-  petType: '강아지' | '고양이';
+  managementNecessity: '높음' | '보통' | '낮음';
+  petType: 'dog' | 'cat';
   prevention: string;
   recommendedNutrients: string;
-  riskLevel: '높음' | '낮음';
+  riskLevel: '높음' | '보통' | '낮음';
   summary: string;
-  symptons: { id: number; sympton: string }[];
+  symptoms: { id: number; symptom: string }[];
   treatment: string;
   updatedAt: string;
   vulnerableBreed: string;
 }
 
 const Disease = () => {
-  const [filter, setFilter] = useRecoilState(filterState);
-  const { data, isLoading } = useDisease();
+  const { petType } = useRecoilValue(filterState);
+  const { risk } = useRecoilValue(alignState);
+  const { data, isLoading, hasNextPage, isFetching, fetchNextPage } =
+    useDisease({
+      petType,
+      risk,
+    });
+
+  const diseaseData = useMemo(() => {
+    const result = data?.pages.flatMap((doc) => (doc ? [...doc.data] : []));
+    return result;
+  }, [data]);
+
+  const target = useIntersectionObserver((entry, observer) => {
+    observer.unobserve(entry.target);
+
+    if (hasNextPage && !isFetching) fetchNextPage();
+  });
 
   return (
     <Fragment>
@@ -40,9 +58,9 @@ const Disease = () => {
         <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
       </div>
 
-      <div className='last:[&_>_div]:border-none'>
+      <div className='last:[&_>_div]:border-none pb-2'>
         {!isLoading &&
-          data?.map((data: DiseaseProps) => (
+          diseaseData?.map((data: DiseaseProps) => (
             <Link
               href={`/info/disease/${data.id}`}
               key={data.id}
@@ -52,17 +70,27 @@ const Disease = () => {
                 {data.diagnosisName}
               </h3>
               <p className='text-body2 text-text-secondary'>{data.summary}</p>
-              <div className='flex items-center gap-1 text-caption2 font-medium text-text-primary'>
-                <span>{data.petType}</span>
-                <span>·</span>
-                <span
-                  className={`rounded px-1 py-[2px] ${data.riskLevel === '높음' ? 'bg-error/5 text-error' : 'bg-success/5 text-success'}`}
+              <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
+                <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
+                <Label
+                  variant={
+                    data.riskLevel === '높음'
+                      ? 'red'
+                      : data.riskLevel === '보통'
+                        ? 'blue'
+                        : 'green'
+                  }
                 >
-                  {data.riskLevel}
-                </span>
+                  {data.riskLevel === '높음'
+                    ? '위험'
+                    : data.riskLevel === '보통'
+                      ? '주의'
+                      : '양호'}
+                </Label>
               </div>
             </Link>
           ))}
+        <div ref={target} />
       </div>
     </Fragment>
   );
