@@ -10,7 +10,7 @@ export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
     ({ pageParam = 100000 }) =>
       getKnowledgeDisease(query.risk, pageParam, size, query.petType),
     {
-      getNextPageParam: (lastPage, allPages) => {
+      getNextPageParam: (lastPage) => {
         const nextPage = lastPage.data[lastPage.data.length - 1].cursor;
         return !lastPage.isEnd ? nextPage : false;
       },

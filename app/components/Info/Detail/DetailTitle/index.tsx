@@ -4,7 +4,7 @@ interface DetailTitleProps {
   title: string;
   summary: string;
   type: string;
-  tag: '높음' | '보통' | '낮음';
+  tag: '3' | '2' | '1';
 }
 
 const DetailTitle = ({ title, summary, type, tag }: DetailTitleProps) => {
@@ -17,10 +17,8 @@ const DetailTitle = ({ title, summary, type, tag }: DetailTitleProps) => {
         </p>
         <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
           <span>{type === 'dog' ? '강아지' : '고양이'}</span>
-          <Label
-            variant={tag === '높음' ? 'red' : tag === '보통' ? 'blue' : 'green'}
-          >
-            {tag === '높음' ? '위험' : tag === '보통' ? '주의' : '양호'}
+          <Label variant={tag === '3' ? 'red' : tag === '2' ? 'blue' : 'green'}>
+            {tag === '3' ? '위험' : tag === '2' ? '주의' : '양호'}
           </Label>
         </div>
       </div>
