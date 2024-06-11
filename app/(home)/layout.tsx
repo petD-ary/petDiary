@@ -31,7 +31,7 @@ export default async function RootLayout({
               <div className='w-screen h-screen m-0 relative'>
                 <HeadingComponent />
                 <SearchModal />
-                <div className='h-[calc(100%-120px)]'>{children}</div>
+                <div className='h-[calc(100%-116px)]'>{children}</div>
                 <Navbar />
               </div>
             </RecoilRootWrapper>

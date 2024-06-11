@@ -51,8 +51,8 @@ const Signal = () => {
                     data.riskLevel === '높음'
                       ? 'red'
                       : data.riskLevel === '보통'
-                        ? 'green'
-                        : 'blue'
+                        ? 'blue'
+                        : 'green'
                   }
                 >
                   {data.riskLevel}
