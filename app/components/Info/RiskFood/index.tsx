@@ -18,10 +18,8 @@ const RiskFood = () => {
   return (
     <Fragment>
       <ModalPetType />
-      <ModalRisk />
       <div className='flex justify-between items-center pt-3 px-5 md:pt-5 md:pb-2'>
         <Filter modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE} filter='petType' />
-        <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
       </div>
 
       <div className='last:[&_>_div]:border-none'>
@@ -43,8 +41,8 @@ const RiskFood = () => {
                 data.riskLevel === '높음'
                   ? 'red'
                   : data.riskLevel === '보통'
-                    ? 'green'
-                    : 'blue'
+                    ? 'blue'
+                    : 'green'
               }
             >
               {data.riskLevel}
