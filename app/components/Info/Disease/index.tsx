@@ -21,7 +21,7 @@ export interface DiseaseProps {
   petType: 'dog' | 'cat';
   prevention: string;
   recommendedNutrients: string;
-  riskLevel: '높음' | '보통' | '낮음';
+  riskLevel: '3' | '2' | '1';
   summary: string;
   symptoms: { id: number; symptom: string }[];
   treatment: string;
@@ -74,16 +74,16 @@ const Disease = () => {
                 <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
                 <Label
                   variant={
-                    data.riskLevel === '높음'
+                    data.riskLevel === '3'
                       ? 'red'
-                      : data.riskLevel === '보통'
+                      : data.riskLevel === '2'
                         ? 'blue'
                         : 'green'
                   }
                 >
-                  {data.riskLevel === '높음'
+                  {data.riskLevel === '3'
                     ? '위험'
-                    : data.riskLevel === '보통'
+                    : data.riskLevel === '2'
                       ? '주의'
                       : '양호'}
                 </Label>

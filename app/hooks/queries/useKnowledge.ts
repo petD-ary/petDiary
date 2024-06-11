@@ -4,14 +4,15 @@ import { PetType, RiskType } from '@/recoil/Info/atoms';
 import { useInfiniteQuery } from 'react-query';
 
 export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
+  const size = 15;
   return useInfiniteQuery(
     [queryDiseaseKey, query.petType, query.risk],
-    ({ pageParam = 1 }) =>
-      getKnowledgeDisease(query.risk, pageParam, 15, query.petType),
+    ({ pageParam = 100000 }) =>
+      getKnowledgeDisease(query.risk, pageParam, size, query.petType),
     {
       getNextPageParam: (lastPage, allPages) => {
-        const nextPage = allPages.length + 1;
-        return !lastPage?.isEnd ? nextPage : false;
+        const nextPage = lastPage.data[lastPage.data.length - 1].cursor;
+        return !lastPage.isEnd ? nextPage : false;
       },
       staleTime: 0,
       cacheTime: 5 * 60 * 1000,
