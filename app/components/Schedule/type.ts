@@ -24,6 +24,14 @@ export interface ScheduleData {
   memo: string;
 }
 
+export interface TransformedScheduleData extends ScheduleData {
+  id: number;
+  isFirst: boolean;
+  isAllDay: boolean;
+  isStartDay: boolean;
+  isEndDay: boolean;
+}
+
 export type AlarmType = 'none' | '24h' | '10m' | '30m' | '1h';
 
 export type RepeatType =

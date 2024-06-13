@@ -20,10 +20,10 @@ const CalendarComponent = () => {
         <Calendar viewSchedule>
           <Calendar.YYYYMMPicker />
           <Calendar.Date className='bg-white' />
+          <div className='bg-white'>
+            <ScheduleList />
+          </div>
         </Calendar>
-      </div>
-      <div className='bg-white'>
-        <ScheduleList />
       </div>
     </div>
   );
