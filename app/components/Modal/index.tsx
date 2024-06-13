@@ -15,12 +15,14 @@ export const MODAL_TYPE = {
   PET_EDIT_LIST: 'petEditList',
   PET_ADD: 'petAdd',
   PET_EDIT: 'petEdit',
+  PET_DELETE: 'petDelete',
   CALENDAR: 'calendar',
   WHEEL_CALENDAR: 'wheelCalendar',
   SCHEDULE_ADD: 'scheduleAdd',
   SCHEDULE_LOCATION: 'scheduleLocation',
   SCHEDULE_REPEAT: 'scheduleRepeat',
   SCHEDULE_ALARM: 'alarm',
+  SCHEDULE_DETAIL: 'scheduleDetail',
   WALKING_INFO: 'workingInfo',
 };
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
@@ -124,7 +126,7 @@ const ModalContainer = ({
     return (
       <div
         onClick={(e) => e.stopPropagation()}
-        className='w-full h-full px-5  bg-white mx-auto absolute left-1/2 -translate-x-1/2 top-0 '
+        className='w-full h-full bg-white mx-auto absolute left-1/2 -translate-x-1/2 top-0 '
       >
         {children}
       </div>

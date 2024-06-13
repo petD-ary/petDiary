@@ -1,4 +1,3 @@
-import updatedPetData from '@/api/updatedPetData';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
 import { useModal } from '@/hooks/useModal';
@@ -10,13 +9,15 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import IconAddImg from '@/assets/images/icon-addImg.svg';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
+import PetDeleteModal from '../PetDeleteModal';
+import { updatePet } from '@/apis/petData';
 
 const PetEditModal = ({ data }: { data: PetData }) => {
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
   const setUnknownBirthday = useSetRecoilState(unknownBirthdayState);
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const { removeModal } = useModal();
+  const { addModal, removeModal } = useModal();
 
   const handleChangeImage = (event: ChangeEvent) => {
     const target = event.target as HTMLInputElement;
@@ -36,26 +37,27 @@ const PetEditModal = ({ data }: { data: PetData }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const formData = new FormData();
-      formData.append('id', String(data.id));
-      Object.entries(petInfo).forEach(([key, value]) => {
-        formData.append(key, String(value));
-      });
-      if (image !== null) {
-        formData.append('file', image);
-      }
-
-      await updatedPetData(formData);
-    } finally {
-      removeModal();
+    const formData = new FormData();
+    formData.append('id', String(data.id));
+    Object.entries(petInfo).forEach(([key, value]) => {
+      if (value === '' || !value) return;
+      formData.append(key, String(value));
+    });
+    if (image !== null) {
+      formData.append('file', image);
     }
+
+    const res = await updatePet(formData);
+    if (res?.status === 200) removeModal();
   };
 
   const imageSource = useMemo(() => {
-    if (preview) return preview;
-    return data.imageUrl ?? petInfo.petType === '고양이' ? cat.src : dog.src;
-  }, [preview, petInfo.petType]);
+    const defaultImage = petInfo.petType === '고양이' ? cat.src : dog.src;
+
+    if (preview !== null) return preview;
+
+    return data.imageUrl ? data.imageUrl : defaultImage;
+  }, [preview, data.imageUrl, petInfo.petType]);
 
   useEffect(() => {
     const petInfo = {
@@ -102,8 +104,13 @@ const PetEditModal = ({ data }: { data: PetData }) => {
             <IconAddImg className='absolute -right-1 bottom-1 z-10' />
           </label>
         </form>
-        <PetInfo handleSubmit={handleSubmit} submitValue='저장' />
+        <PetInfo
+          handleSubmit={handleSubmit}
+          submitValue='저장'
+          deleteBtn={() => addModal(MODAL_TYPE.PET_DELETE)}
+        />
       </div>
+      <PetDeleteModal petId={data.id} />
     </Modal>
   );
 };

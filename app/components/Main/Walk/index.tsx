@@ -1,5 +1,5 @@
 'use client';
-import { walkingIndex } from '@/api/walkingIndex';
+import { walkingIndex } from '@/apis/walkingIndex';
 import useGeolocation from '@/hooks/useGeolocation';
 import { getAirQuality, getAirQualityImage } from '@/utils/getAirQuality';
 
