@@ -22,6 +22,7 @@ export const MODAL_TYPE = {
   SCHEDULE_LOCATION: 'scheduleLocation',
   SCHEDULE_REPEAT: 'scheduleRepeat',
   SCHEDULE_ALARM: 'alarm',
+  SCHEDULE_DETAIL: 'scheduleDetail',
   WALKING_INFO: 'workingInfo',
   INFO_FILTER_PET_TYPE: 'infoFilterPetType',
   INFO_FILTER_IMPORTANCE: 'infoFilterImportance',

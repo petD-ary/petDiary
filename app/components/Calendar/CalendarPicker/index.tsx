@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useEffect, useMemo, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { isSameDay } from 'date-fns';
 
 import {
@@ -12,7 +13,8 @@ import {
 import DateComponent from './Date';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import useCalendar from '@/hooks/util/useCalendar';
+import useCalendar from '@/hooks/useCalendar';
+import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
@@ -21,8 +23,6 @@ import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
-import { useSetRecoilState } from 'recoil';
-import { scheduleListState } from '@/recoil/Schedule/atom';
 
 export const defaultCalendarContext: CalendarContextProps = {
   viewSchedule: false,
@@ -184,6 +184,7 @@ const DateContainer = ({
     viewSchedule,
     setSelectedDate,
   } = useCalendarContext();
+  const setScheduleData = useSetRecoilState(scheduleDataState);
 
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -225,10 +226,14 @@ const DateContainer = ({
     }
   }, [year, month, date]);
 
-  const { data } = useGetSchedules(
+  const { data, isSuccess } = useGetSchedules(
     formatDateToYYYYMMDDTHHMMSSZ(startDay),
     formatDateToYYYYMMDDTHHMMSSZ(endDay),
   );
+
+  useEffect(() => {
+    setScheduleData({ data, isSuccess });
+  }, [data, isSuccess, setScheduleData]);
 
   // 일정 표시 함수
   const hasSchedule = (day: Date) => {

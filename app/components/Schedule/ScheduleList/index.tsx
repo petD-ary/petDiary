@@ -1,46 +1,41 @@
 'use client';
+import { useRecoilValue } from 'recoil';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { scheduleListState } from '@/recoil/Schedule/atom';
-
+import { scheduleDataState } from '@/recoil/Schedule/atom';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import { useRecoilValue } from 'recoil';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
-import { useEffect } from 'react';
+import { useModal } from '@/hooks/useModal';
+import { MODAL_TYPE } from '@/components/Modal';
+import ScheduleModal from '@/components/Schedule/ScheduleModal';
+import useCalendarContext from '@/hooks/useCalendarContext';
+import { TransformedScheduleData } from '../type';
 
 const ScheduleList = () => {
-  const { startDay, endDay } = useRecoilValue(scheduleListState);
+  const { data, isSuccess } = useRecoilValue(scheduleDataState);
+  const { addModal } = useModal();
+  const {
+    selectedDate: { year, month, date },
+  } = useCalendarContext();
 
-  const { data, isSuccess, refetch, isLoading, isFetching } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(startDay),
-    formatDateToYYYYMMDDTHHMMSSZ(endDay),
-  );
+  return (
+    <div className='border-b border-extra-deviders'>
+      <ScheduleModal />
 
-  useEffect(() => {
-    if (!isLoading && !isFetching) {
-      refetch();
-    }
-  }, [startDay, endDay]);
-
-  if (isSuccess)
-    return (
-      <div className='border-b border-extra-deviders'>
-        {transformSchedules(data)?.map(
-          (schedule: {
-            isFirst: boolean;
-            isAllDay: boolean;
-            isStartDay: boolean;
-            isEndDay: boolean;
-            startTime: string;
-            title: string;
-            address: string;
-            endTime: string;
-            id: number;
-          }) => {
+      {isSuccess &&
+        transformSchedules(data)
+          ?.filter(
+            (schedule) =>
+              Number(getDate(schedule.startTime)) ===
+              new Date(year, month, date).getDate(),
+          )
+          .map((schedule: TransformedScheduleData, index: number) => {
             return (
-              <div className='flex mb-1' key={schedule.id}>
+              <div
+                className='flex mb-1 cursor-pointer'
+                key={index}
+                onClick={() => addModal(MODAL_TYPE.SCHEDULE_DETAIL)}
+              >
                 <div className='w-24 px-6 py-3 flex flex-col justify-center items-center'>
                   {schedule.isFirst ? (
                     <>
@@ -69,10 +64,9 @@ const ScheduleList = () => {
                 </div>
               </div>
             );
-          },
-        )}
-      </div>
-    );
+          })}
+    </div>
+  );
 };
 
 export default ScheduleList;
