@@ -1,6 +1,4 @@
 'use client';
-import { createContext, useState } from 'react';
-
 import {
   CheckInputProps,
   DateInputProps,
@@ -11,9 +9,10 @@ import {
   TextAreaInputProps,
   TextInputProps,
 } from './type';
-import { Body, Caption } from '../../constants/Typography/TypographyList';
-import useInputContext from '@/hooks/useInputContext';
 import IconError from '@/assets/images/icon-error.svg';
+import { Body, Caption } from '../../constants/Typography/TypographyList';
+import { createContext, useState } from 'react';
+import useInputContext from '@/hooks/useInputContext';
 
 export const defaultInputContext: InputContextProps = {
   isValid: false,

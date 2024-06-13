@@ -7,7 +7,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   isDisabled?: boolean;
   onClick?: () => void;
-  variant: 'contained' | 'blueContained' | 'outlined' | 'reset' | 'delete';
+  variant: 'contained' | 'blueContained' | 'outlined';
   size?: 'S' | 'M' | 'L';
   textType?: 'button1' | 'button2';
 }
@@ -49,20 +49,6 @@ const Button = ({
   ${
     rest.variant === 'blueContained'
       ? 'bg-blue-50 text-blue-500 border-blue-100'
-      : ''
-  }
-  ${
-    rest.variant === 'delete'
-      ? `text-error border-error/50
-  active:bg-error active:text-white active:border-error
-  hover:bg-error hover:text-white hover:border-error`
-      : ''
-  }
-  ${
-    rest.variant === 'reset'
-      ? `text-text-primary border-extra-border
-  active:bg-grayColor-10 active:border-extra-active
-  hover:bg-grayColor-10 hover:border-extra-active`
       : ''
   }
   ${textType === 'button1' ? `${Btn.button1}` : ''}

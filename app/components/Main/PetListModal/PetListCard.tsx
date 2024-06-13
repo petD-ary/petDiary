@@ -14,7 +14,6 @@ import {
 } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
-import { useMemo } from 'react';
 
 const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   return (
@@ -36,21 +35,31 @@ const PetListCard = ({
 }) => {
   const { addModal } = useModal();
 
-  const imageUrl = useMemo(() => {
-    const defaultImage = data.petType === '고양이' ? cat : dog;
-    return data.imageUrl ? data.imageUrl : defaultImage;
-  }, []);
-
   return (
     <div className='border border-extra-dividers rounded-[4px] p-4 flex justify-between items-center gap-3'>
       <div className='rounded-full overflow-hidden w-12 h-12'>
-        <Image
-          src={imageUrl}
-          alt='profile'
-          width={80}
-          height={80}
-          priority={!data.imageUrl}
-        />
+        {data.imageUrl ? (
+          <Image
+            src={data.imageUrl ?? data.petType === '고양이' ? cat : dog}
+            alt='profile'
+            width={80}
+            height={80}
+            priority={!data.imageUrl}
+          />
+        ) : (
+          <picture>
+            <source
+              srcSet={data.petType === '고양이' ? catPng.src : dogPng.src}
+            />
+            <Image
+              src={data.petType === '고양이' ? cat : dog}
+              alt='profile'
+              width={80}
+              height={80}
+              priority
+            />
+          </picture>
+        )}
       </div>
       <div className='flex-grow'>
         <p

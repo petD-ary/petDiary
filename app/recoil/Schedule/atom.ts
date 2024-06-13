@@ -1,4 +1,4 @@
-import { ScheduleState } from '@/components/Schedule/type';
+import { ScheduleState } from '@/components/Calendar/Schedule/type';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import { atom } from 'recoil';
 
@@ -7,14 +7,6 @@ export const scheduleDataState = atom({
   default: {
     data: [],
     isSuccess: false,
-  },
-});
-
-export const scheduleListState = atom({
-  key: 'scheduleListState',
-  default: {
-    startDay: new Date(),
-    endDay: new Date(),
   },
 });
 

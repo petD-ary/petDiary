@@ -1,5 +1,12 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
+
 import DateScrollPicker from './DateScrollPicker';
+
+export interface TemporarySelectedDateState {
+  selectedYear: number;
+  selectedMonth: number;
+  selectedDay: number;
+}
 
 const CalendarModal = () => {
   return (

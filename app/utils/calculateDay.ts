@@ -154,7 +154,7 @@ export const getHours = (dateStr: string): string => {
  * @param number - 변환하려는 숫자.
  * @return {string} - 10 미만인 경우 앞에 0을 붙입니다.
  */
-export const padZero = (number: number): string => {
+const padZero = (number: number): string => {
   return number < 10 ? `0${number}` : `${number}`;
 };
 

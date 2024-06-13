@@ -3,7 +3,7 @@ import { querySchedulesKey } from '@/constants/queryKey';
 import { useQuery } from 'react-query';
 
 export const useGetSchedules = (from: string, to: string) => {
-  return useQuery([querySchedulesKey, from, to], () => getSchedules(from, to), {
+  return useQuery([querySchedulesKey], () => getSchedules(from, to), {
     staleTime: 0,
     cacheTime: 5 * 60 * 1000, // 5분
     refetchOnMount: true,

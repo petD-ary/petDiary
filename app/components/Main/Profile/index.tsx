@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Mousewheel } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -19,7 +19,7 @@ import './index.css';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import DDayIcon from './DDayIcon';
 
-const Profile = () => {
+const Profile = ({ user }: any) => {
   const [petData, setPetData] = useState<PetData[]>([]);
 
   useEffect(() => {
@@ -39,11 +39,7 @@ const Profile = () => {
     <Fragment>
       <MainAnimalHeader petCount={petData?.length} />
       <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
-        <Swiper
-          pagination={true}
-          mousewheel={true}
-          modules={[Pagination, Mousewheel]}
-        >
+        <Swiper pagination={true} modules={[Pagination]}>
           {petData?.map((item) => {
             return (
               <SwiperSlide key={item.id}>
