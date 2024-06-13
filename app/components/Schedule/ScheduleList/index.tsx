@@ -18,12 +18,12 @@ const ScheduleList = () => {
     selectedDate: { year, month, date },
   } = useCalendarContext();
 
-  if (isSuccess)
-    return (
-      <div className='border-b border-extra-deviders'>
-        <ScheduleModal />
+  return (
+    <div className='border-b border-extra-deviders'>
+      <ScheduleModal />
 
-        {transformSchedules(data)
+      {isSuccess &&
+        transformSchedules(data)
           ?.filter(
             (schedule) =>
               Number(getDate(schedule.startTime)) ===
@@ -65,8 +65,8 @@ const ScheduleList = () => {
               </div>
             );
           })}
-      </div>
-    );
+    </div>
+  );
 };
 
 export default ScheduleList;

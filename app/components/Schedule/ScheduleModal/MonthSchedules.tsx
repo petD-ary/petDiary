@@ -1,24 +1,33 @@
 'use client';
-import { useRecoilValue } from 'recoil';
 
-import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
-import { scheduleDataState } from '@/recoil/Schedule/atom';
+import useCalendarContext from '@/hooks/useCalendarContext';
+import { useGetSchedules } from '@/hooks/queries/useSchedules';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Button from '@/components/Button';
+import Calendar from '@/components/Calendar/CalendarPicker';
+import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
 import { TransformedScheduleData } from '../type';
 import { repeatList } from '../constants';
 
 const MonthSchedules = () => {
-  const scheduleData = useRecoilValue(scheduleDataState);
+  const {
+    selectedDate: { year: yyyy, month: mm, date: dd },
+  } = useCalendarContext();
+  const { data, isSuccess } = useGetSchedules(
+    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, dd)),
+    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm, 0)),
+  );
 
-  if (scheduleData.isSuccess)
-    return (
-      <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
-        {transformSchedules(scheduleData.data).map(
-          (schedule: TransformedScheduleData) => {
+  return (
+    <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
+      <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
+      {isSuccess &&
+        transformSchedules(data).map(
+          (schedule: TransformedScheduleData, index: number) => {
             return (
-              <div>
+              <div key={index}>
                 {schedule.isFirst ? (
                   <div className='flex gap-2 items-center px-5 py-3'>
                     <div className={`${Title.title3}`}>
@@ -76,8 +85,8 @@ const MonthSchedules = () => {
             );
           },
         )}
-      </div>
-    );
+    </div>
+  );
 };
 
 export default MonthSchedules;
