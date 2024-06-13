@@ -11,7 +11,7 @@ const CalendarComponent = () => {
   const { addModal } = useModal();
 
   return (
-    <div className='h-full bg-extra-device-bg -mx-[20px] overflow-y-scroll scrollbar-none'>
+    <div className='h-full bg-extra-device-bg overflow-y-scroll scrollbar-none'>
       <ScheduleAddBtn onClick={() => addModal(MODAL_TYPE.SCHEDULE_ADD)} />
 
       <AddScheduleModal />
