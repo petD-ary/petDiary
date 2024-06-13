@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-import useCalendarContext from '@/hooks/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
-import { getDate, getHours, padZero } from '@/utils/calculateDay';
+import { getHours, padZero } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Button from '@/components/Button';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { TransformedScheduleData } from '../type';
 import { repeatList } from '../constants';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
 
 const WEEKDAY_SHORTHAND_ENGLISH = [
   'SUN',

@@ -1,6 +1,5 @@
 'use client';
 
-import useCalendarContext from '@/hooks/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
@@ -10,13 +9,14 @@ import Calendar from '@/components/Calendar/CalendarPicker';
 import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
 import { TransformedScheduleData } from '../type';
 import { repeatList } from '../constants';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
 
 const MonthSchedules = () => {
   const {
-    selectedDate: { year: yyyy, month: mm, date: dd },
+    selectedDate: { year: yyyy, month: mm },
   } = useCalendarContext();
   const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, dd)),
+    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, 1)),
     formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm, 0)),
   );
 

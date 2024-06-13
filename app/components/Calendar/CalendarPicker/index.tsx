@@ -13,7 +13,7 @@ import {
 import DateComponent from './Date';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import useCalendar from '@/hooks/useCalendar';
+import useCalendar from '@/hooks/util/useCalendar';
 import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
 import { useModal } from '@/hooks/view/useModal';
