@@ -30,7 +30,7 @@ const headerMap: HeaderMap = {
   '/calendar': HeaderElement.Interactive,
   '/info': HeaderElement.Interactive,
   '/info/disease': HeaderElement.Back,
-  '/myPage': HeaderElement.Interactive,
+  '/mypage': HeaderElement.Alert,
   //  경로 추가
 };
 
