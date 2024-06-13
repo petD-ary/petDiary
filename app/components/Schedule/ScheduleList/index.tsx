@@ -1,20 +1,22 @@
 'use client';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
-import { selectedDateState } from '@/recoil/calendar/atoms';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleModal from '@/components/Schedule/ScheduleModal';
+import useCalendarContext from '@/hooks/useCalendarContext';
 import { TransformedScheduleData } from '../type';
 
 const ScheduleList = () => {
   const { data, isSuccess } = useRecoilValue(scheduleDataState);
-  const [selectedDate] = useRecoilState(selectedDateState);
   const { addModal } = useModal();
+  const {
+    selectedDate: { year, month, date },
+  } = useCalendarContext();
 
   if (isSuccess)
     return (
@@ -24,13 +26,14 @@ const ScheduleList = () => {
         {transformSchedules(data)
           ?.filter(
             (schedule) =>
-              Number(getDate(schedule.startTime)) === selectedDate.selectedDay,
+              Number(getDate(schedule.startTime)) ===
+              new Date(year, month, date).getDate(),
           )
-          .map((schedule: TransformedScheduleData) => {
+          .map((schedule: TransformedScheduleData, index: number) => {
             return (
               <div
                 className='flex mb-1 cursor-pointer'
-                key={schedule.id}
+                key={index}
                 onClick={() => addModal(MODAL_TYPE.SCHEDULE_DETAIL)}
               >
                 <div className='w-24 px-6 py-3 flex flex-col justify-center items-center'>
