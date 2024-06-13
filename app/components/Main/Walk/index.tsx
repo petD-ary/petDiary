@@ -1,6 +1,6 @@
 'use client';
 import { walkingIndex } from '@/apis/walkingIndex';
-import useGeolocation from '@/hooks/useGeolocation';
+import useGeolocation from '@/hooks/util/useGeolocation';
 import { getAirQuality, getAirQualityImage } from '@/utils/getAirQuality';
 
 import React, { useEffect, useState } from 'react';

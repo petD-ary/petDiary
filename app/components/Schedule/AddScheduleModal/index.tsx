@@ -1,6 +1,6 @@
 'use client';
 import React, { FormEvent } from 'react';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import convertObjToDate from './convertObjToDate';
 import { addSchedules } from '@/apis/schedules';
 import ScheduleForm from '../ScheduleForm';

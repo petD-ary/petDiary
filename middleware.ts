@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  const cookieStore = cookies();
+  /* const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
 
   const loginConditions =
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
     //   return NextResponse.redirect(url.pathname);
     // }
     return NextResponse.next();
-  }
+  } */
 }
 
 export const config = {

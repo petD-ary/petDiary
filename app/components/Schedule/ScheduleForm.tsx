@@ -1,5 +1,5 @@
-import { useModal } from '@/hooks/useModal';
-import useToast from '@/hooks/useToast';
+import { useModal } from '@/hooks/view/useModal';
+import useToast from '@/hooks/view/useToast';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import {
   ChangeEvent,
@@ -25,7 +25,7 @@ import { Body } from '@/constants/Typography/TypographyList';
 import TimeFormatter from './AddScheduleModal/TimeFormatter';
 import PickCalendar from './AddScheduleModal/PickCalendar';
 import Button from '@/components/Button';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 
 interface ScheduleFormProps {
@@ -38,6 +38,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
   const { setToasts } = useToast();
 
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
+  const resestSchedule = useResetRecoilState(scheduleFormState);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -74,8 +75,11 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
     const start = convertObjToDate(schedule.startTime);
     const end = convertObjToDate(schedule.endTime);
     if (start >= end) {
-      setToasts('시간 설정을 다시 확인해주세요');
-      setError(true);
+      const toastHandler = setTimeout(() => {
+        setToasts('시간 설정을 다시 확인해주세요');
+        setError(true);
+      }, 1000);
+      return () => clearTimeout(toastHandler);
     } else {
       setError(false);
     }
@@ -95,7 +99,10 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
 
     setSchedule((prev) => ({
       ...prev,
-      [type]: { ...prev[type], time: { ...prev[type].time, [variant]: time } },
+      [type]: {
+        ...prev[type],
+        time: { ...prev[type].time, [variant]: time },
+      },
     }));
   };
 
@@ -136,8 +143,8 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
         endTime: {
           date: `${updatedEndTime.getFullYear()}-${updatedEndTime.getMonth() + 1}-${updatedEndTime.getDate()}`,
           time: {
-            hh: String(updatedEndTime.getHours()),
-            mm: String(updatedEndTime.getMinutes()),
+            hh: String(updatedEndTime.getHours()).padStart(2, '0'),
+            mm: String(updatedEndTime.getMinutes()).padStart(2, '0'),
           },
         },
       };
@@ -149,6 +156,9 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
       <Modal.Header
         title={type === 'add' ? '새로운 일정' : '일정 수정'}
         titleType='left'
+        onClick={() => {
+          resestSchedule();
+        }}
       />
 
       <ScheduleLocationModal />

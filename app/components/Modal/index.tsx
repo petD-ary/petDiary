@@ -3,10 +3,10 @@
 import { MouseEvent, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import IconClose from '@/assets/images/Icon-x.svg';
+import IconClose from '@/assets/images/icon-x.svg';
 import Button from '@/components/Button';
 import { Title } from '@/constants/Typography/TypographyList';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 
 export const MODAL_TYPE = {
   BREED: 'breed',
@@ -24,7 +24,13 @@ export const MODAL_TYPE = {
   SCHEDULE_ALARM: 'alarm',
   SCHEDULE_DETAIL: 'scheduleDetail',
   WALKING_INFO: 'workingInfo',
+  INFO_FILTER_PET_TYPE: 'infoFilterPetType',
+  INFO_FILTER_IMPORTANCE: 'infoFilterImportance',
+  INFO_FILTER_SIGNAL: 'infoFilterSignal',
+  INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
+  INFO_FILTER_RISK: 'infoFilterRisk',
 };
+
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];
 
 export const MODAL_VARIANT = {
@@ -92,7 +98,7 @@ const ModalContainer = ({
       <div
         onClick={(e) => e.stopPropagation()}
         className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl h-[calc(100%_-_56px)]
-      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg bg-white flex flex-col'
       >
         {children}
       </div>
@@ -104,7 +110,7 @@ const ModalContainer = ({
       <div
         onClick={(e) => e.stopPropagation()}
         className='animate-slide-up absolute left-1/2 -translate-x-1/2 bottom-0 w-full md:max-w-3xl 
-      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg rounded-r-lg bg-white flex flex-col'
+      shadow-[0_-10px_60px_rgba(0,0,0,0.15)] rounded-t-lg bg-white flex flex-col'
       >
         {children}
       </div>
@@ -139,17 +145,25 @@ const Header = ({
   title,
   desc,
   titleType = 'left',
+  onClick,
 }: {
   title: string;
   desc?: string | number;
   titleType?: 'center' | 'left' | 'left-X';
+  onClick?: () => void;
 }) => {
   const { removeModal } = useModal();
   if (titleType === 'left')
     return (
       <div>
         <div className='px-2 py-1 flex justify-end'>
-          <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
+          <div
+            className='p-3 cursor-pointer'
+            onClick={() => {
+              onClick && onClick();
+              removeModal();
+            }}
+          >
             <IconClose />
           </div>
         </div>

@@ -1,6 +1,6 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
 import { PetData } from '@/types/petData';
 import Image from 'next/image';

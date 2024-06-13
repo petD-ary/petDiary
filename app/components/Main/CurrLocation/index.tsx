@@ -1,5 +1,5 @@
 'use client';
-import useGeolocation from '@/hooks/useGeolocation';
+import useGeolocation from '@/hooks/util/useGeolocation';
 import { useEffect, useState } from 'react';
 import getAddress from './getAddress';
 import IconLocation from '@/assets/images/icon-location.svg';

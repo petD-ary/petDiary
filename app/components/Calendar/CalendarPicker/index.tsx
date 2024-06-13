@@ -11,12 +11,12 @@ import {
   YYYYMMPickerProps,
 } from './type';
 import DateComponent from './Date';
-import useCalendarContext from '@/hooks/useCalendarContext';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import useCalendar from '@/hooks/useCalendar';
 import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import CalendarModal from '../CalendarModal';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';

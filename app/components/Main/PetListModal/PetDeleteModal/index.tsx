@@ -1,7 +1,7 @@
 import { deletePet } from '@/apis/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import React from 'react';
 
 const PetDeleteModal = ({ petId }: { petId: number }) => {

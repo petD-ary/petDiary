@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleAddBtn from '@/components/Schedule/ScheduleAddBtn';
 import AddScheduleModal from '@/components/Schedule/AddScheduleModal';

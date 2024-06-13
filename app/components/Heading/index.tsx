@@ -25,14 +25,12 @@ const HeaderElement = {
 
 // 현재 경로에 따른 헤더 컴포넌트 매핑
 const headerMap: HeaderMap = {
-  '/반려정보1': HeaderElement.Close,
-  '/반려정보2': HeaderElement.Back,
   '/login': HeaderElement.Home,
-  '/반려정보3': HeaderElement.BackClose,
   '/': HeaderElement.Alert,
   '/calendar': HeaderElement.Interactive,
   '/info': HeaderElement.Interactive,
-  '/myPage': HeaderElement.Interactive,
+  '/info/disease': HeaderElement.Back,
+  '/mypage': HeaderElement.Alert,
   //  경로 추가
 };
 
@@ -50,7 +48,16 @@ const Heading = ({ children }: { children: ReactNode }) => {
 
 const Content = () => {
   const pathname = usePathname();
-  const HeaderComponent = headerMap[pathname] || HeaderElement.Default; // 경로에 해당하는 헤더 컴포넌트 또는 기본값
+  const headerMapKeys = Object.keys(headerMap);
+  const headerKey = headerMapKeys
+    .filter((key) =>
+      pathname === '/' || key === '/'
+        ? pathname === key
+        : pathname.includes(key),
+    )
+    .reverse()[0];
+  const headerType = headerMap[headerKey];
+  const HeaderComponent = headerType || HeaderElement.Default; // 경로에 해당하는 헤더 컴포넌트 또는 기본값
 
   if (pathname.includes('/account')) return null;
   return <HeaderComponent />;

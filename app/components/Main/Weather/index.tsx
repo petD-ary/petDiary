@@ -1,6 +1,6 @@
 'use client';
 import WeatherCard from './WeatherCard';
-import useGeolocation from '@/hooks/useGeolocation';
+import useGeolocation from '@/hooks/util/useGeolocation';
 import { Fragment, useEffect, useState } from 'react';
 import getWeatherData from './getWeatherData';
 import WeatherModal from './WeatherModal';

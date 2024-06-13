@@ -12,7 +12,7 @@ import {
   Extra,
   SubTitle,
 } from '@/constants/Typography/TypographyList';
-import { useModal } from '@/hooks/useModal';
+import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import { useMemo } from 'react';
 

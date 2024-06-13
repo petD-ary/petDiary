@@ -66,7 +66,10 @@ const PickCalendar = ({
             <input
               type='number'
               value={scheduleTime.time.mm}
-              onChange={(e) => handleChangeTime(e.target.value, type, 'mm')}
+              onChange={(e) => {
+                handleChangeTime(e.target.value, type, 'mm');
+                handleAutoSetEndTime && handleAutoSetEndTime();
+              }}
               placeholder='mm'
               maxLength={2}
               onBlur={() => handleAutoSetEndTime && handleAutoSetEndTime()}
