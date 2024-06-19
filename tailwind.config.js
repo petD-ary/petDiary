@@ -75,6 +75,7 @@ module.exports = {
         },
         error: '#E04E45',
         accent: '#E7820B',
+        accent2: '#E70BA9',
         success: '#03A400',
         helpMessage: '#787878',
         text: {

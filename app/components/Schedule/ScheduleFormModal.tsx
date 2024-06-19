@@ -1,18 +1,17 @@
-import { useModal } from '@/hooks/view/useModal';
 import useToast from '@/hooks/view/useToast';
-import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import {
   ChangeEvent,
-  FocusEvent,
   FormEvent,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import { ScheduleData } from './type';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { scheduleFormState } from '@/recoil/Schedule/atom';
+import { useModal } from '@/hooks/view/useModal';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
-import convertObjToDate from './AddScheduleModal/convertObjToDate';
+import convertObjToDate from './AddSchedule/convertObjToDate';
 import { SCHEDULE_TYPE, alarmList, repeatList } from './constants';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import ScheduleLocationModal from './ScheduleLocationModal';
@@ -22,32 +21,27 @@ import Input from '@/components/Input';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
 import { Body } from '@/constants/Typography/TypographyList';
-import TimeFormatter from './AddScheduleModal/TimeFormatter';
-import PickCalendar from './AddScheduleModal/PickCalendar';
+import TimeFormatter from './AddSchedule/TimeFormatter';
+import PickCalendar from './AddSchedule/PickCalendar';
 import Button from '@/components/Button';
-import { useRecoilState, useResetRecoilState } from 'recoil';
-import { scheduleFormState } from '@/recoil/Schedule/atom';
 
 interface ScheduleFormProps {
   type: 'add' | 'update';
   handleSubmit: (event: FormEvent) => Promise<void>;
-  data?: ScheduleData;
+  handleDelete?: () => Promise<void>;
 }
-const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
+
+const ScheduleForm = ({
+  type,
+  handleSubmit,
+  handleDelete,
+}: ScheduleFormProps) => {
   const { addModal } = useModal();
   const { setToasts } = useToast();
 
   const [schedule, setSchedule] = useRecoilState(scheduleFormState);
   const resestSchedule = useResetRecoilState(scheduleFormState);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (data) {
-      const start = scheduleDateFormat(data.startTime);
-      const end = scheduleDateFormat(data.endTime);
-      setSchedule({ ...data, startTime: start, endTime: end });
-    }
-  }, []);
 
   const handleChangeDate = (day: Date, type: 'startTime' | 'endTime') => {
     setSchedule((prev) => ({
@@ -152,7 +146,10 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
   }, [handleChangeTime]);
 
   return (
-    <Modal type={MODAL_TYPE.SCHEDULE_ADD} variant={MODAL_VARIANT.ALL}>
+    <Modal
+      type={type === 'add' ? MODAL_TYPE.SCHEDULE_ADD : MODAL_TYPE.SCHEDULE_EDIT}
+      variant={MODAL_VARIANT.ALL}
+    >
       <Modal.Header
         title={type === 'add' ? '새로운 일정' : '일정 수정'}
         titleType='left'
@@ -178,7 +175,7 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
           />
         </Input>
 
-        <Input name={SCHEDULE_TYPE.ADDRESS}>
+        <Input name={SCHEDULE_TYPE.PLACE}>
           <Input.Label>위치</Input.Label>
           <button
             type='button'
@@ -187,9 +184,9 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
           >
             <span className='flex gap-1 items-center'>
               <IconLocation />
-              {schedule.address === '' ? '일정 위치 검색' : schedule.address}
+              {schedule.place === '' ? '일정 위치 검색' : schedule.place}
             </span>
-            {schedule.address !== '' && (
+            {schedule.place !== '' && (
               <span className='text-primary-700'>변경</span>
             )}
           </button>
@@ -318,22 +315,29 @@ const ScheduleForm = ({ type, handleSubmit, data }: ScheduleFormProps) => {
             className='h-[150px]'
           />
         </Input>
-        {type === 'update' && (
+        <div className='flex gap-4'>
+          {type === 'update' && (
+            <Button
+              onClick={() => {
+                if (schedule.repeat === 'none') {
+                  return handleDelete && handleDelete();
+                }
+                return addModal(MODAL_TYPE.SCHEDULE_DELETE_OPTION);
+              }}
+              variant='delete'
+              isDisabled={schedule.title === ''}
+            >
+              일정 삭제
+            </Button>
+          )}
           <Button
             type='submit'
             variant='contained'
             isDisabled={schedule.title === ''}
           >
-            일정 삭제
+            {type === 'add' ? '추가' : '수정'}
           </Button>
-        )}
-        <Button
-          type='submit'
-          variant='contained'
-          isDisabled={schedule.title === ''}
-        >
-          {type === 'add' ? '추가' : '수정'}
-        </Button>
+        </div>
       </form>
     </Modal>
   );

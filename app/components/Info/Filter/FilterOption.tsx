@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
-const FilterUi = ({
+const FilterOption = ({
   option,
   type,
 }: {
@@ -12,10 +12,11 @@ const FilterUi = ({
   type: 'petType' | 'signal' | 'signalDepth';
 }) => {
   const [filter, setFilter] = useRecoilState(filterState);
+
   return (
     <div
       onClick={() => setFilter((prev) => ({ ...prev, [type]: option.value }))}
-      className='px-3 py-4 border-b border-extra-deviders flex justify-between'
+      className='cursor-pointer px-3 py-4 border-b border-extra-deviders flex justify-between'
     >
       <span>{option.desc}</span>
       {filter[type] === option.value ? <Radio /> : <RadioDisabled />}
@@ -23,4 +24,4 @@ const FilterUi = ({
   );
 };
 
-export default FilterUi;
+export default FilterOption;

@@ -48,7 +48,8 @@ const Button = ({
   }
   ${
     rest.variant === 'blueContained'
-      ? 'bg-blue-50 text-blue-500 border-blue-100'
+      ? `bg-secondary-50 text-secondary-500 border-secondary-100
+      hover:border-secondary-200 active:border-secondary-200`
       : ''
   }
   ${

@@ -2,7 +2,7 @@ import { AlarmListProps, RepeatList } from './type';
 
 export const SCHEDULE_TYPE = {
   TITLE: 'title',
-  ADDRESS: 'address',
+  PLACE: 'place',
   LAT: 'lat',
   LNG: 'lng',
   ALARM: 'alarm',

@@ -1,28 +1,54 @@
 'use client';
+import { useState } from 'react';
 
-import useCalendarContext from '@/hooks/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
-import { getDate, getDay, getHours } from '@/utils/calculateDay';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
+import { convertKST, getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Button from '@/components/Button';
 import Calendar from '@/components/Calendar/CalendarPicker';
 import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
-import { TransformedScheduleData } from '../type';
+import { EditScheduleData, TransformedScheduleData } from '../type';
 import { repeatList } from '../constants';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
+import ScheduleDetail from './ScheduleDetail';
+import EditScheduleModal from '../EditSchedule';
+import { useSetRecoilState } from 'recoil';
+import { scheduleFormState } from '@/recoil/Schedule/atom';
+import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
 const MonthSchedules = () => {
   const {
-    selectedDate: { year: yyyy, month: mm, date: dd },
+    selectedDate: { year: yyyy, month: mm },
   } = useCalendarContext();
   const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, dd)),
+    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, 1)),
     formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm, 0)),
   );
+  const [modify, setModify] = useState<EditScheduleData | null>(null);
+  const setSchedule = useSetRecoilState(scheduleFormState);
+
+  const handleEditData = (schedule: TransformedScheduleData) => {
+    const start = scheduleDateFormat(convertKST(schedule.startTime));
+    const end = scheduleDateFormat(convertKST(schedule.endTime));
+    setModify(schedule);
+    delete schedule.id;
+    delete schedule.repeatIndex;
+    delete schedule.scheduleId;
+    delete schedule.userId;
+    delete schedule.isAllDay;
+    delete schedule.isEndDay;
+    delete schedule.isFirst;
+    delete schedule.isStartDay;
+    setSchedule({ ...schedule, startTime: start, endTime: end });
+  };
 
   return (
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
+
+      <EditScheduleModal data={modify} />
+
       {isSuccess &&
         transformSchedules(data).map(
           (schedule: TransformedScheduleData, index: number) => {
@@ -38,49 +64,10 @@ const MonthSchedules = () => {
                     </div>
                   </div>
                 ) : null}
-                <div className='flex mb-1 bg-white' key={schedule.id}>
-                  <div className='px-5 py-6 w-full'>
-                    <div className={`mb-4 flex`}>
-                      <div className='w-full'>
-                        <div className={`${Body.body2} mb-3`}>
-                          <span className='w-[18px] inline-block text-center'>
-                            •
-                          </span>
-                          <span>{schedule.title}</span>
-                        </div>
-                        <div className={`${Caption.caption2} ms-[18px] mb-3`}>
-                          {schedule.address}
-                        </div>
-                        <div className={`${Body.body4} ms-[18px]`}>
-                          {schedule.memo}
-                        </div>
-                      </div>
-                      <div>
-                        <Button
-                          className={`${Caption.caption1} py-[6px] px-3 rounded-full text-nowrap`}
-                          children={'수정'}
-                          variant={'blueContained'}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <span
-                        className={`${Caption.caption1} py-[6px] px-3 me-3 ms-[18px] bg-primary-50 text-primary-800 rounded text-nowrap`}
-                      >
-                        {schedule.isAllDay
-                          ? '하루 종일'
-                          : `${schedule.isStartDay ? getHours(schedule.startTime) : ''} ~ ${schedule.isEndDay ? getHours(schedule.endTime) : ''}`}
-                      </span>
-                      <span
-                        className={`${Caption.caption1} py-[6px] px-3 bg-blue-50 text-blue-800 rounded text-nowrap`}
-                      >
-                        {repeatList.find((item) => item.key === schedule.repeat)
-                          ?.content || '반복 안함'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <ScheduleDetail
+                  schedule={schedule}
+                  handleEditData={() => handleEditData(schedule)}
+                />
               </div>
             );
           },

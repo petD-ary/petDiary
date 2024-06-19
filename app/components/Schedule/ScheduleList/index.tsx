@@ -3,12 +3,12 @@ import { useRecoilValue } from 'recoil';
 
 import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { scheduleDataState } from '@/recoil/Schedule/atom';
+import { useModal } from '@/hooks/view/useModal';
+import useCalendarContext from '@/hooks/context/useCalendarContext';
 import { getDate, getDay, getHours } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import { useModal } from '@/hooks/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleModal from '@/components/Schedule/ScheduleModal';
-import useCalendarContext from '@/hooks/useCalendarContext';
 import { TransformedScheduleData } from '../type';
 
 const ScheduleList = () => {
@@ -51,9 +51,7 @@ const ScheduleList = () => {
                 <div className='border-l px-3 py-3 w-full'>
                   <div>{schedule.title}</div>
                   <div className={`${Caption.caption3} flex justify-between`}>
-                    <div className='text-text-secondary'>
-                      {schedule.address}
-                    </div>
+                    <div className='text-text-secondary'>{schedule.place}</div>
 
                     <div>
                       {schedule.isAllDay

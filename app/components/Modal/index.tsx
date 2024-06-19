@@ -19,6 +19,9 @@ export const MODAL_TYPE = {
   CALENDAR: 'calendar',
   WHEEL_CALENDAR: 'wheelCalendar',
   SCHEDULE_ADD: 'scheduleAdd',
+  SCHEDULE_EDIT: 'scheduleEdit',
+  SCHEDULE_EDIT_OPTION: 'scheduleEditOption',
+  SCHEDULE_DELETE_OPTION: 'scheduleDeleteOption',
   SCHEDULE_LOCATION: 'scheduleLocation',
   SCHEDULE_REPEAT: 'scheduleRepeat',
   SCHEDULE_ALARM: 'alarm',
@@ -29,6 +32,7 @@ export const MODAL_TYPE = {
   INFO_FILTER_SIGNAL: 'infoFilterSignal',
   INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
   INFO_FILTER_RISK: 'infoFilterRisk',
+  SEARCH: 'search',
 };
 
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];

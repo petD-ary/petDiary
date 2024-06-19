@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
-const AlignUi = ({
+const AlignOption = ({
   option,
   type,
 }: {
@@ -15,7 +15,7 @@ const AlignUi = ({
   return (
     <div
       onClick={() => setAlign((prev) => ({ ...prev, [type]: option.value }))}
-      className='px-3 py-4 border-b border-extra-deviders flex justify-between'
+      className='cursor-pointer px-3 py-4 border-b border-extra-deviders flex justify-between'
     >
       <span>{option.desc}</span>
       {align[type] === option.value ? <Radio /> : <RadioDisabled />}
@@ -23,4 +23,4 @@ const AlignUi = ({
   );
 };
 
-export default AlignUi;
+export default AlignOption;
