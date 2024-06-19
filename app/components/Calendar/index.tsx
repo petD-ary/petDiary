@@ -16,11 +16,11 @@ const CalendarComponent = () => {
 
       <AddScheduleModal />
 
-      <div className='mb-2'>
+      <div>
         <Calendar viewSchedule>
           <Calendar.YYYYMMPicker />
           <Calendar.Date className='bg-white' />
-          <div className='bg-white'>
+          <div className='bg-white mt-2'>
             <ScheduleList />
           </div>
         </Calendar>

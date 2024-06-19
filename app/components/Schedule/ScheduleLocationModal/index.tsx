@@ -63,12 +63,14 @@ const ScheduleLocationModal = () => {
     x: string;
     y: string;
     place_name: string;
+    road_address_name: string;
   }) => {
     setSchedule({
       ...schedule,
-      address: place.place_name,
-      lat: Number(place.x),
-      lng: Number(place.y),
+      place: place.place_name,
+      address: place.road_address_name,
+      lat: Number(place.y),
+      lng: Number(place.x),
     });
     setSearchValue('');
     setSelectedPin(null);
@@ -86,7 +88,7 @@ const ScheduleLocationModal = () => {
         }}
       />
       <form onSubmit={(e) => e.preventDefault()} className='px-5 py-4 bg-white'>
-        <Input name={SCHEDULE_TYPE.ADDRESS}>
+        <Input name={SCHEDULE_TYPE.PLACE}>
           <Input.TextInput
             placeholder='위치를 검색해 주세요'
             value={searchValue}
@@ -126,7 +128,14 @@ const ScheduleLocationModal = () => {
                   selectedPin === id ? (
                     <li
                       key={id}
-                      onClick={() => handleClickPlace({ x, y, place_name })}
+                      onClick={() =>
+                        handleClickPlace({
+                          x,
+                          y,
+                          place_name,
+                          road_address_name: road_address_name ?? address_name,
+                        })
+                      }
                       className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers cursor-pointer'
                     >
                       <div className='text-text-primary text-subTitle2 font-semibold'>
@@ -140,7 +149,14 @@ const ScheduleLocationModal = () => {
                 ) : (
                   <li
                     key={id}
-                    onClick={() => handleClickPlace({ x, y, place_name })}
+                    onClick={() =>
+                      handleClickPlace({
+                        x,
+                        y,
+                        place_name,
+                        road_address_name: road_address_name ?? address_name,
+                      })
+                    }
                     className='flex flex-col gap-[6px] py-4 border-b border-extra-dividers cursor-pointer'
                   >
                     <div className='text-text-primary text-subTitle2 font-semibold'>

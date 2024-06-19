@@ -2,16 +2,19 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useSetRecoilState } from 'recoil';
 
+import { scheduleFormState } from '@/recoil/Schedule/atom';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
-import { getHours, padZero } from '@/utils/calculateDay';
+import { convertKST, padZero } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import Button from '@/components/Button';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
-import { TransformedScheduleData } from '../type';
-import { repeatList } from '../constants';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
+import { EditScheduleData, TransformedScheduleData } from '../type';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
+import EditScheduleModal from '../EditScheduleModal';
+import ScheduleDetail from './ScheduleDetail';
+import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
 const WEEKDAY_SHORTHAND_ENGLISH = [
   'SUN',
@@ -39,11 +42,16 @@ const DaySchedules = () => {
   const [dateIndex, setDateIndex] = useState(CENTER_OFFSET);
   const [dateRange, _] = useState<Date[]>(createDateRange(date));
   const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(date),
     formatDateToYYYYMMDDTHHMMSSZ(
       new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
     ),
+    formatDateToYYYYMMDDTHHMMSSZ(
+      new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2),
+    ),
   );
+
+  const [modify, setModify] = useState<EditScheduleData | null>(null);
+  const setSchedule = useSetRecoilState(scheduleFormState);
 
   const handleSlideChange = (swiper: { activeIndex: number }) => {
     if (dateRange.length === 0) {
@@ -74,8 +82,24 @@ const DaySchedules = () => {
     return date.getDay() === 0 ? 'text-error' : colorClassName;
   };
 
+  const handleEditData = (schedule: TransformedScheduleData) => {
+    const start = scheduleDateFormat(convertKST(schedule.startTime));
+    const end = scheduleDateFormat(convertKST(schedule.endTime));
+    setModify(schedule);
+    delete schedule.id;
+    delete schedule.repeatIndex;
+    delete schedule.scheduleId;
+    delete schedule.userId;
+    delete schedule.isAllDay;
+    delete schedule.isEndDay;
+    delete schedule.isFirst;
+    delete schedule.isStartDay;
+    setSchedule({ ...schedule, startTime: start, endTime: end });
+  };
+
   return (
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
+      {/* 날짜 설정 슬라이더 */}
       <div className='flex flex-col items-center pt-6 pb-2 bg-white mb-1'>
         <div
           className={`${Title.title3}`}
@@ -111,52 +135,18 @@ const DaySchedules = () => {
           <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-10 border rounded-full border-blue-400'></div>
         </div>
       </div>
-      {isSuccess &&
-        transformSchedules(data).map((schedule: TransformedScheduleData) => {
-          return (
-            <div className='flex mb-1 bg-white' key={schedule.id}>
-              <div className='px-5 py-6 w-full'>
-                <div className={`mb-4 flex`}>
-                  <div className='w-full'>
-                    <div className={`${Body.body2} mb-3`}>
-                      <span className='w-[18px] inline-block text-center'>
-                        •
-                      </span>
-                      <span>{schedule.title}</span>
-                    </div>
-                    <div className={`${Caption.caption2} ms-[18px] mb-3`}>
-                      {schedule.address}
-                    </div>
-                    <div className={`${Body.body4} ms-[18px]`}>
-                      {schedule.memo}
-                    </div>
-                  </div>
-                  <div>
-                    <Button
-                      className={`${Caption.caption1} py-[6px] px-3 rounded-full text-nowrap`}
-                      children={'수정'}
-                      variant={'blueContained'}
-                    />
-                  </div>
-                </div>
 
-                <div>
-                  <span
-                    className={`${Caption.caption1} py-[6px] px-3 me-3 ms-[18px] bg-primary-50 text-primary-800 rounded text-nowrap`}
-                  >
-                    {schedule.isAllDay
-                      ? '하루 종일'
-                      : `${schedule.isStartDay ? getHours(schedule.startTime) : ''} ~ ${schedule.isEndDay ? getHours(schedule.endTime) : ''}`}
-                  </span>
-                  <span
-                    className={`${Caption.caption1} py-[6px] px-3 bg-blue-50 text-blue-800 rounded text-nowrap`}
-                  >
-                    {repeatList.find((item) => item.key === schedule.repeat)
-                      ?.content || '반복 안함'}
-                  </span>
-                </div>
-              </div>
-            </div>
+      <EditScheduleModal data={modify} />
+
+      {/* 일일 일정 리스트 */}
+      {isSuccess &&
+        transformSchedules(data)?.map((schedule: TransformedScheduleData) => {
+          return (
+            <ScheduleDetail
+              key={schedule.id}
+              schedule={schedule}
+              handleEditData={() => handleEditData(schedule)}
+            />
           );
         })}
     </div>

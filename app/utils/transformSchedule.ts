@@ -1,4 +1,5 @@
-import { getDate } from './calculateDay';
+import { start } from 'repl';
+import { convertKST, getDate, reverseKST } from './calculateDay';
 
 export function transformSchedules(schedules: any[] = []) {
   const returnSchedules: any[] = [];
@@ -63,7 +64,6 @@ export function transformSchedules(schedules: any[] = []) {
   returnSchedules.sort(
     (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
   );
-
   // 날짜별 첫 번째 일정에 isFirst: true 추가
   let lastDate = '';
   returnSchedules.forEach((schedule) => {

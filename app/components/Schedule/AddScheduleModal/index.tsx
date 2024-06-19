@@ -11,7 +11,7 @@ import { reverseKST } from '@/utils/calculateDay';
 const AddScheduleModal = () => {
   const { removeModal } = useModal();
   const schedule = useRecoilValue(scheduleFormState);
-  const setSchedule = useResetRecoilState(scheduleFormState);
+  const resetSchedule = useResetRecoilState(scheduleFormState);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const AddScheduleModal = () => {
     };
 
     await addSchedules(postData).finally(() => {
-      setSchedule();
+      resetSchedule();
       removeModal();
     });
   };

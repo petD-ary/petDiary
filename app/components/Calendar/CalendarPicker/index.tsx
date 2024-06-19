@@ -15,7 +15,7 @@ import useCalendarContext from '@/hooks/context/useCalendarContext';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import useCalendar from '@/hooks/util/useCalendar';
 import { scheduleDataState, scheduleListState } from '@/recoil/Schedule/atom';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/formatDateToYYYYMMDDTHHMMSSZ';
+import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import CalendarModal from '../CalendarModal';
@@ -23,6 +23,7 @@ import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
+import { convertKST, reverseKST } from '@/utils/calculateDay';
 
 export const defaultCalendarContext: CalendarContextProps = {
   viewSchedule: false,
@@ -240,9 +241,9 @@ const DateContainer = ({
     if (!data) return false;
     return data.some(
       (schedule: { startTime: string; endTime: string }) =>
-        isSameDay(new Date(schedule.startTime), day) ||
-        (new Date(schedule.startTime) < day &&
-          new Date(schedule.endTime) >= day),
+        isSameDay(new Date(convertKST(schedule.startTime)), day) ||
+        (new Date(convertKST(schedule.startTime)) < day &&
+          new Date(convertKST(schedule.endTime)) >= day),
     );
   };
 

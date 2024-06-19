@@ -51,9 +51,7 @@ const ScheduleList = () => {
                 <div className='border-l px-3 py-3 w-full'>
                   <div>{schedule.title}</div>
                   <div className={`${Caption.caption3} flex justify-between`}>
-                    <div className='text-text-secondary'>
-                      {schedule.address}
-                    </div>
+                    <div className='text-text-secondary'>{schedule.place}</div>
 
                     <div>
                       {schedule.isAllDay

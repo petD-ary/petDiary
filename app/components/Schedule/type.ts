@@ -1,5 +1,6 @@
 export interface ScheduleState {
   title: string;
+  place: string;
   address: string;
   lat: number;
   lng: number;
@@ -11,8 +12,9 @@ export interface ScheduleState {
   memo: string;
 }
 
-export interface ScheduleData {
+export interface AddScheduleData {
   title: string;
+  place: string;
   address: string;
   lat: number;
   lng: number;
@@ -24,12 +26,22 @@ export interface ScheduleData {
   memo: string;
 }
 
-export interface TransformedScheduleData extends ScheduleData {
-  id: number;
-  isFirst: boolean;
-  isAllDay: boolean;
-  isStartDay: boolean;
-  isEndDay: boolean;
+export interface EditScheduleData extends AddScheduleData {
+  id?: number;
+  userId?: number;
+  repeatIndex?: number;
+  scheduleId?: number;
+}
+
+export interface TransformedScheduleData extends AddScheduleData {
+  id?: number;
+  isFirst?: boolean;
+  isAllDay?: boolean;
+  isStartDay?: boolean;
+  isEndDay?: boolean;
+  userId?: number;
+  repeatIndex?: number;
+  scheduleId?: number;
 }
 
 export type AlarmType = 'none' | '24h' | '10m' | '30m' | '1h';
