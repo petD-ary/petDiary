@@ -8,11 +8,11 @@ export const getKnowledgeDisease = async (
 ) => {
   const url = `/knowledges/disease?sort=riskLevel,${sort}${petType === 'all' ? '' : `&petType=${petType}`}&size=${size}&cursor=${cursor}`;
   const res = await fetchApi(url, 'GET');
-  return res ? res.data : res;
+  return res?.data;
 };
 
 export const getKnowledgeDiseaseDetail = async (id: number) => {
   const url = `/knowledges/disease/${id}`;
   const res = await fetchApi(url, 'GET');
-  return res ? res.data : false;
+  return res?.data;
 };

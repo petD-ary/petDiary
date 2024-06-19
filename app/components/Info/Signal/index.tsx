@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import Filter from '../Filter';
 import { MODAL_TYPE } from '@/components/Modal';
-import ModalRisk from '../Modal/ModalRisk';
-import ModalSignal from '../Modal/ModalSignal';
-import ModalSignalDepth from '../Modal/ModalSignalDepth';
+import RiskModal from '../Modal/RiskModal';
+import SignalModal from '../Modal/SignalModal';
+import SignalDepthModal from '../Modal/SignalDepthModal';
 import { useRecoilValue } from 'recoil';
 import { alignState, filterState } from '@/recoil/Info/atoms';
 import Label from '@/components/Label';
@@ -16,9 +16,9 @@ const Signal = () => {
   // const { data, isLoading } = useDisease({ petType, risk });
   return (
     <Fragment>
-      <ModalSignal />
-      <ModalSignalDepth />
-      <ModalRisk />
+      <SignalModal />
+      <SignalDepthModal />
+      <RiskModal />
       <div className='flex justify-between items-center pt-3 px-5 md:pt-5 md:pb-2'>
         <div className='flex gap-3'>
           <Filter modalType={MODAL_TYPE.INFO_FILTER_SIGNAL} filter='signal' />

@@ -1,12 +1,12 @@
 'use client';
 import React, { Fragment, useMemo } from 'react';
-import ModalPetType from '../Modal/ModalPetType';
+import ModalPetType from '../Modal/PetTypeModal';
 import { useRecoilValue } from 'recoil';
 import { alignState, filterState } from '@/recoil/Info/atoms';
 import { MODAL_TYPE } from '@/components/Modal';
 import Filter from '../Filter';
 import Align from '../Align';
-import ModalRisk from '../Modal/ModalRisk';
+import ModalRisk from '../Modal/RiskModal';
 import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
 import Label from '@/components/Label';

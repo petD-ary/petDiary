@@ -3,7 +3,7 @@ import React from 'react';
 import { alignList } from '../Filter/filterModalList';
 import AlignOption from '../Align/AlignOption';
 
-const ModalImportance = () => {
+const ImportanceModal = () => {
   const modalData = alignList.filter(
     (item) => item.modalType === MODAL_TYPE.INFO_FILTER_IMPORTANCE,
   )[0];
@@ -22,4 +22,4 @@ const ModalImportance = () => {
   );
 };
 
-export default ModalImportance;
+export default ImportanceModal;

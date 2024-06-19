@@ -7,8 +7,8 @@ import Align from '../Align';
 import Filter from '../Filter';
 import { Fragment } from 'react';
 import { alignState, filterState } from '@/recoil/Info/atoms';
-import ModalPetType from '../Modal/ModalPetType';
-import ModalRisk from '../Modal/ModalRisk';
+import ModalPetType from '../Modal/PetTypeModal';
+import ModalRisk from '../Modal/RiskModal';
 
 const RiskFood = () => {
   const { petType } = useRecoilValue(filterState);

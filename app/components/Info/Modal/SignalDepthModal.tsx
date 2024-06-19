@@ -3,7 +3,7 @@ import { signalDepth } from '../Filter/filterModalList';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import FilterList from '../Filter/FilterOption';
 
-const ModalSignalDepth = () => {
+const SignalDepthModal = () => {
   return (
     <Modal
       type={MODAL_TYPE.INFO_FILTER_SIGNAL_DEPTH}
@@ -19,4 +19,4 @@ const ModalSignalDepth = () => {
   );
 };
 
-export default ModalSignalDepth;
+export default SignalDepthModal;

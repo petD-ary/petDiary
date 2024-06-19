@@ -12,7 +12,7 @@ const DiseaseDetailPage = ({ params: { id } }: { params: { id: number } }) => {
   useEffect(() => {
     const getDetailContent = async () => {
       const res = await getKnowledgeDiseaseDetail(id);
-      return res && setContent(res);
+      setContent(res);
     };
     getDetailContent();
   }, []);

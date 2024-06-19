@@ -3,7 +3,7 @@ import React from 'react';
 import { alignList } from '../Filter/filterModalList';
 import AlignOption from '../Align/AlignOption';
 
-const ModalRisk = () => {
+const RiskModal = () => {
   const modalData = alignList.filter(
     (item) => item.modalType === MODAL_TYPE.INFO_FILTER_RISK,
   )[0];
@@ -23,4 +23,4 @@ const ModalRisk = () => {
   );
 };
 
-export default ModalRisk;
+export default RiskModal;
