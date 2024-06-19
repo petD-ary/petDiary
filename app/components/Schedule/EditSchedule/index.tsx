@@ -3,20 +3,19 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import { reverseKST } from '@/utils/calculateDay';
-import convertObjToDate from '../AddScheduleModal/convertObjToDate';
-import { EditScheduleData } from '../type';
+import convertObjToDate from '../AddSchedule/convertObjToDate';
 import {
   deleteSchedules,
   ScheduleOption,
   updateSchedules,
 } from '@/apis/schedules';
-import ScheduleForm from '../ScheduleForm';
+import ScheduleForm from '../ScheduleFormModal';
 import { useModal } from '@/hooks/view/useModal';
 import EditOptionModal from './EditOptionModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import DeleteOptionModal from './DeleteOptionModal';
 
-const EditScheduleModal = ({ data }: { data: EditScheduleData | null }) => {
+const EditScheduleModal = () => {
   const { removeModal, addModal } = useModal();
   const schedule = useRecoilValue(scheduleFormState);
   const resetSchedule = useResetRecoilState(scheduleFormState);
@@ -28,7 +27,6 @@ const EditScheduleModal = ({ data }: { data: EditScheduleData | null }) => {
       return addModal(MODAL_TYPE.SCHEDULE_EDIT_OPTION);
     }
     const postData = {
-      ...data,
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
       startTime: reverseKST(convertObjToDate(schedule.startTime).toISOString()),
@@ -41,9 +39,9 @@ const EditScheduleModal = ({ data }: { data: EditScheduleData | null }) => {
     });
   };
 
-  const handleDelete = async (option: ScheduleOption) => {
-    if (data?.id) {
-      await deleteSchedules(option, data.id);
+  const handleDelete = async (option?: ScheduleOption) => {
+    if (schedule.id) {
+      await deleteSchedules(option ?? 'none', schedule.id);
       removeModal();
     }
     removeModal();
@@ -51,7 +49,6 @@ const EditScheduleModal = ({ data }: { data: EditScheduleData | null }) => {
 
   const handleUpdatedSchedule = async (options: ScheduleOption) => {
     const postData = {
-      ...data,
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
       startTime: reverseKST(convertObjToDate(schedule.startTime).toISOString()),
@@ -73,7 +70,11 @@ const EditScheduleModal = ({ data }: { data: EditScheduleData | null }) => {
       <EditOptionModal
         handleUpdatedSchedule={(option) => handleUpdatedSchedule(option)}
       />
-      <ScheduleForm type='update' handleSubmit={(e) => handleSubmit(e)} />
+      <ScheduleForm
+        type='update'
+        handleSubmit={(e) => handleSubmit(e)}
+        handleDelete={() => handleDelete()}
+      />
     </>
   );
 };

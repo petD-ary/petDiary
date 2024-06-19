@@ -12,7 +12,7 @@ import { transformSchedules } from '@/utils/transformSchedule';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
 import { EditScheduleData, TransformedScheduleData } from '../type';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
-import EditScheduleModal from '../EditScheduleModal';
+import EditScheduleModal from '../EditSchedule';
 import ScheduleDetail from './ScheduleDetail';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
@@ -50,7 +50,6 @@ const DaySchedules = () => {
     ),
   );
 
-  const [modify, setModify] = useState<EditScheduleData | null>(null);
   const setSchedule = useSetRecoilState(scheduleFormState);
 
   const handleSlideChange = (swiper: { activeIndex: number }) => {
@@ -85,15 +84,6 @@ const DaySchedules = () => {
   const handleEditData = (schedule: TransformedScheduleData) => {
     const start = scheduleDateFormat(convertKST(schedule.startTime));
     const end = scheduleDateFormat(convertKST(schedule.endTime));
-    setModify(schedule);
-    delete schedule.id;
-    delete schedule.repeatIndex;
-    delete schedule.scheduleId;
-    delete schedule.userId;
-    delete schedule.isAllDay;
-    delete schedule.isEndDay;
-    delete schedule.isFirst;
-    delete schedule.isStartDay;
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
 
@@ -136,7 +126,7 @@ const DaySchedules = () => {
         </div>
       </div>
 
-      <EditScheduleModal data={modify} />
+      <EditScheduleModal />
 
       {/* 일일 일정 리스트 */}
       {isSuccess &&

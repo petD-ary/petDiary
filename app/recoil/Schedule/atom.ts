@@ -1,4 +1,4 @@
-import convertObjToDate from '@/components/Schedule/AddScheduleModal/convertObjToDate';
+import convertObjToDate from '@/components/Schedule/AddSchedule/convertObjToDate';
 import { EditScheduleData, ScheduleState } from '@/components/Schedule/type';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import { atom } from 'recoil';

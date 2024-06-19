@@ -11,7 +11,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import { useModal } from '@/hooks/view/useModal';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
-import convertObjToDate from './AddScheduleModal/convertObjToDate';
+import convertObjToDate from './AddSchedule/convertObjToDate';
 import { SCHEDULE_TYPE, alarmList, repeatList } from './constants';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import ScheduleLocationModal from './ScheduleLocationModal';
@@ -21,8 +21,8 @@ import Input from '@/components/Input';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
 import { Body } from '@/constants/Typography/TypographyList';
-import TimeFormatter from './AddScheduleModal/TimeFormatter';
-import PickCalendar from './AddScheduleModal/PickCalendar';
+import TimeFormatter from './AddSchedule/TimeFormatter';
+import PickCalendar from './AddSchedule/PickCalendar';
 import Button from '@/components/Button';
 
 interface ScheduleFormProps {

@@ -12,7 +12,7 @@ import { EditScheduleData, TransformedScheduleData } from '../type';
 import { repeatList } from '../constants';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import ScheduleDetail from './ScheduleDetail';
-import EditScheduleModal from '../EditScheduleModal';
+import EditScheduleModal from '../EditSchedule';
 import { useSetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';

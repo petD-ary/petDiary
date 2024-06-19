@@ -1,4 +1,5 @@
 export interface ScheduleState {
+  id?: number;
   title: string;
   place: string;
   address: string;

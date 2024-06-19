@@ -3,7 +3,7 @@
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleAddBtn from '@/components/Schedule/ScheduleAddBtn';
-import AddScheduleModal from '@/components/Schedule/AddScheduleModal';
+import AddScheduleModal from '@/components/Schedule/AddSchedule';
 import ScheduleList from '@/components/Schedule/ScheduleList';
 import Calendar from './CalendarPicker';
 
