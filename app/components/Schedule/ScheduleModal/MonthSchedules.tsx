@@ -47,7 +47,7 @@ const MonthSchedules = () => {
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
 
-      <EditScheduleModal data={modify} />
+      <EditScheduleModal />
 
       {isSuccess &&
         transformSchedules(data).map(
