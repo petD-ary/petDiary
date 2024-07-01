@@ -36,15 +36,7 @@ const SafeFood = () => {
           <p className='text-body2 text-text-secondary'>{data.summary}</p>
           <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
             <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
-            <Label
-              variant={
-                data.riskLevel === '높음'
-                  ? 'red'
-                  : data.riskLevel === '보통'
-                    ? 'blue'
-                    : 'green'
-              }
-            >
+            <Label>
               {data.riskLevel}
             </Label>
           </div>

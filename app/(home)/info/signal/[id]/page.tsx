@@ -3,7 +3,7 @@ import React from 'react';
 
 import Loading from '@/components/Loading';
 import { useSignalDetail } from '@/hooks/queries/useKnowledge';
-import Label from '@/components/Label';
+import Label from '@/components/Info/Label';
 
 const SignalDetailPage = ({ params: { id } }: { params: { id: number } }) => {
   const { data: signal, isLoading } = useSignalDetail(id);
@@ -28,21 +28,7 @@ const SignalDetailPage = ({ params: { id } }: { params: { id: number } }) => {
             <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
               {/* <span>{type === 'dog' ? '강아지' : '고양이'}</span> */}
               {signal.tag ? (
-                <Label
-                  variant={
-                    signal.tag[0][Object.keys(signal.tag[0])[0]] === '위험' ||
-                    signal.tag[0][Object.keys(signal.tag[0])[0]] === '빠름'
-                      ? 'red'
-                      : signal.tag[0][Object.keys(signal.tag[0])[0]] ===
-                            '주의' ||
-                          signal.tag[0][Object.keys(signal.tag[0])[0]] ===
-                            '적정'
-                        ? 'blue'
-                        : 'green'
-                  }
-                >
-                  {signal.tag[0][Object.keys(signal.tag[0])[0]]}
-                </Label>
+                <Label>{signal.tag[0][Object.keys(signal.tag[0])[0]]}</Label>
               ) : null}
             </div>
           </div>
