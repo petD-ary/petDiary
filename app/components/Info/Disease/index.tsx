@@ -9,7 +9,7 @@ import Align from '../Align';
 import ModalRisk from '../Modal/RiskModal';
 import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
-import Label from '@/components/Label';
+import Label from '@/components/Info/Label';
 import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
 
 export interface DiseaseProps {
@@ -72,15 +72,7 @@ const Disease = () => {
               <p className='text-body2 text-text-secondary'>{data.summary}</p>
               <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
                 <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
-                <Label
-                  variant={
-                    data.riskLevel === '3'
-                      ? 'red'
-                      : data.riskLevel === '2'
-                        ? 'blue'
-                        : 'green'
-                  }
-                >
+                <Label>
                   {data.riskLevel === '3'
                     ? '위험'
                     : data.riskLevel === '2'
