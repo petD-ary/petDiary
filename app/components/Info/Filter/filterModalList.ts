@@ -1,8 +1,14 @@
 import { InfoTab } from '@/(home)/info/page';
 import { MODAL_TYPE } from '@/components/Modal';
+import {
+  ImportanceType,
+  PetType,
+  RiskType,
+  SignalType,
+  signalDepthType,
+} from '@/recoil/Info/atoms';
 
 type FilterType = 'petType' | 'signal' | 'signalDepth';
-type SubTabType = 'Color' | 'Shape';
 type AlignType = 'importance' | 'risk';
 
 interface FilterByTabType {
@@ -53,7 +59,11 @@ export const filterByTab: FilterByTabType[] = [
   },
 ];
 
-export const filterList = [
+export const filterList: {
+  title: string;
+  modalType: MODAL_TYPE;
+  option: { desc: string; value: PetType | SignalType }[];
+}[] = [
   {
     title: '반려동물 구분',
     modalType: MODAL_TYPE.INFO_FILTER_PET_TYPE,
@@ -78,7 +88,11 @@ export const filterList = [
   },
 ];
 
-export const alignList = [
+export const alignList: {
+  title: string;
+  modalType: MODAL_TYPE;
+  option: { desc: string; value: RiskType | ImportanceType }[];
+}[] = [
   {
     title: '필터',
     modalType: MODAL_TYPE.INFO_FILTER_RISK,
@@ -97,7 +111,7 @@ export const alignList = [
   },
 ];
 
-export const signalDepth = [
+export const signalDepth: { desc: string; value: signalDepthType }[] = [
   { desc: '색상', value: 'Color' },
   { desc: '형태', value: 'Shape' },
 ];
