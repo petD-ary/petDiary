@@ -2,7 +2,7 @@ import { InfoTab } from '@/(home)/info/page';
 import { MODAL_TYPE } from '@/components/Modal';
 
 type FilterType = 'petType' | 'signal' | 'signalDepth';
-type SubTabType = 'color' | 'form';
+type SubTabType = 'Color' | 'Shape';
 type AlignType = 'importance' | 'risk';
 
 interface FilterByTabType {
@@ -68,7 +68,6 @@ export const filterList = [
     title: '신호',
     modalType: MODAL_TYPE.INFO_FILTER_SIGNAL,
     option: [
-      { desc: '전체', value: 'all' },
       { desc: '대변', value: 'poop' },
       { desc: '소변', value: 'pee' },
       { desc: '구토', value: 'throwUp' },
@@ -99,6 +98,6 @@ export const alignList = [
 ];
 
 export const signalDepth = [
-  { desc: '색상', value: 'color' },
-  { desc: '형태', value: 'form' },
+  { desc: '색상', value: 'Color' },
+  { desc: '형태', value: 'Shape' },
 ];
