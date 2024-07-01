@@ -30,7 +30,7 @@ export type SignalType =
 export const getKnowledgeSignal = async (type: SignalType) => {
   const url = `/knowledges/signal?type=${type}`;
   const res = await fetchApi(url, 'GET');
-  return res?.data;
+  return res?.data as SignalProps[];
 };
 
 export const getKnowledgeSignalDetail = async (id: number) => {

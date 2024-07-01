@@ -15,7 +15,8 @@ import useDebounceSearch from '@/hooks/util/useDebounceSearch';
 export type InfoTab = 'disease' | 'signal' | 'riskFood' | 'safeFood';
 
 const Knowledge = () => {
-  const prevTab = sessionStorage.getItem('tab');
+  const prevTab =
+    typeof window !== 'undefined' ? sessionStorage.getItem('tab') : null;
   const [tab, setTab] = useState<InfoTab | string>(prevTab ?? 'disease');
   const resetFilter = useResetRecoilState(filterState);
   const resetAlign = useResetRecoilState(alignState);
