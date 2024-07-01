@@ -74,7 +74,7 @@ export const filterList = [
       { desc: '구토', value: 'throwUp' },
       { desc: '몸무게', value: 'weight' },
       { desc: '음수량', value: 'drinkAmount' },
-      { desc: '수면 시 호흡 수', value: 'breadingDuringSleep' },
+      { desc: '수면 시 호흡 수', value: 'breathingDuringSleep' },
     ],
   },
 ];

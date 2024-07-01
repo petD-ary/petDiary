@@ -79,7 +79,7 @@ const ScheduleDetail = ({
           </ScheduleTag>
         </div>
 
-        {schedule.lat && schedule.lng && (
+        {schedule.lat && schedule.lng ? (
           <>
             <MapComponent position={{ lat: schedule.lat, lng: schedule.lng }}>
               <CustomPin
@@ -104,7 +104,7 @@ const ScheduleDetail = ({
               </div>
             </div>
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );
