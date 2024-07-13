@@ -73,3 +73,8 @@ export const searchDisease = async ({
   const res = await fetchApi(url, 'GET');
   return res?.data;
 };
+
+export const searchSignal = async (type: string, search: string) => {
+  const url = `/knowledges/signal?type=${type}&search=${search}`;
+  return (await fetchApi(url, 'GET'))?.data;
+};

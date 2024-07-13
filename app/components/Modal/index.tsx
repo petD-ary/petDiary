@@ -32,7 +32,10 @@ export const MODAL_TYPE = {
   INFO_FILTER_SIGNAL: 'infoFilterSignal',
   INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
   INFO_FILTER_RISK: 'infoFilterRisk',
-  SEARCH: 'search',
+  INFO_SEARCH_DISEASE: 'infoSearchDisease',
+  INFO_SEARCH_SIGNAL: 'infoSearchSignal',
+  INFO_SEARCH_RISK: 'infoSearchRisk',
+  INFO_SEARCH_SAFE: 'infoSearchSafe',
 };
 
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];

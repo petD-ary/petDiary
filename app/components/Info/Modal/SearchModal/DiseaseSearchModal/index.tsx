@@ -1,32 +1,25 @@
 'use client';
-import React, { FormEvent, useEffect, useMemo, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import Modal, { MODAL_TYPE, MODAL_VARIANT } from '../../../Modal';
+import Modal, { MODAL_TYPE, MODAL_VARIANT } from '../../../../Modal';
 import useDebounceSearch from '@/hooks/util/useDebounceSearch';
-import Input from '../../../Input';
-import { InfoTab } from '@/(home)/info/page';
+import Input from '../../../../Input';
 import {
   searchDisease,
   searchDiseaseSymptom,
   SearchSymptoms,
 } from '@/apis/info';
-import { DiseaseProps } from '../../Disease';
-import Label from '../../Label';
+import { DiseaseProps } from '../../../Disease';
+import Label from '../../../Label';
 import { useModal } from '@/hooks/view/useModal';
 import IconSearch from '@/assets/images/icon-search.svg';
+import NoResult from '../NoResult';
 
-const SearchModal = ({ tab }: { tab: InfoTab }) => {
+const DiseaseSearchModal = () => {
   const [search, setSearch] = useState('');
   const [symptoms, setSymptoms] = useState<SearchSymptoms[] | null>(null);
   const [searchResult, setSearchResult] = useState<any[] | null>(null);
-
-  const title = useMemo(() => {
-    if (tab === 'disease') return '질병 사전';
-    if (tab === 'signal') return '행동 신호';
-    if (tab === 'riskFood') return '위험 음식';
-    if (tab === 'safeFood') return '안심 음식';
-  }, [tab]);
 
   const searchDebounce = useDebounceSearch(search, 300);
 
@@ -80,7 +73,7 @@ const SearchModal = ({ tab }: { tab: InfoTab }) => {
   };
 
   return (
-    <Modal type={MODAL_TYPE.SEARCH} variant={MODAL_VARIANT.SLIDE}>
+    <Modal type={MODAL_TYPE.INFO_SEARCH_DISEASE} variant={MODAL_VARIANT.SLIDE}>
       <Modal.Header
         title=''
         titleType='left-X'
@@ -91,7 +84,7 @@ const SearchModal = ({ tab }: { tab: InfoTab }) => {
       />
       <div className='px-5'>
         <h3 className='text-grayColor-900 text-title3 font-semibold py-3 leading-normal'>
-          <span className='text-primary-500'>{title}</span>에 대해
+          <span className='text-primary-500'>질병 사전</span>에 대해
           <br />
           궁금한 내용을 검색해주세요
         </h3>
@@ -103,8 +96,8 @@ const SearchModal = ({ tab }: { tab: InfoTab }) => {
                 setSearch(e.target.value);
                 if (e.target.value === '') {
                   setSymptoms(null);
-                  setSearchResult(null);
                 }
+                setSearchResult(null);
               }}
               placeholder='내용검색'
             />
@@ -129,8 +122,12 @@ const SearchModal = ({ tab }: { tab: InfoTab }) => {
               />
             ))}
           {searchResult !== null &&
-            searchResult.map((result: DiseaseProps) => (
-              <SearchResult key={result.id} data={result} />
+            (searchResult.length > 0 ? (
+              searchResult.map((result: DiseaseProps) => (
+                <SearchResult key={result.id} data={result} />
+              ))
+            ) : (
+              <NoResult search={search} />
             ))}
         </ul>
       </div>
@@ -138,7 +135,7 @@ const SearchModal = ({ tab }: { tab: InfoTab }) => {
   );
 };
 
-export default SearchModal;
+export default DiseaseSearchModal;
 
 const RecommendSearchResult = ({
   symptom,
