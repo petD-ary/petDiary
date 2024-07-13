@@ -11,6 +11,7 @@ import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
 import Label from '@/components/Info/Label';
 import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
+import GoToSearch from '../Modal/SearchModal/GoToSearch';
 
 export interface DiseaseProps {
   id: number;
@@ -38,7 +39,7 @@ const Disease = () => {
       risk,
     });
 
-  const diseaseData = useMemo(() => {
+  const diseaseData: DiseaseProps[] | undefined = useMemo(() => {
     const result = data?.pages.flatMap((doc) => (doc ? [...doc.data] : []));
     return result;
   }, [data]);
@@ -53,9 +54,15 @@ const Disease = () => {
     <Fragment>
       <ModalPetType />
       <ModalRisk />
-      <div className='flex justify-between items-center pt-3 px-5 md:pt-5 md:pb-2'>
-        <Filter modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE} filter='petType' />
-        <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
+      <div className='pt-3 px-5 md:pt-5 md:pb-2'>
+        <div className='flex justify-between items-center pb-4'>
+          <Filter
+            modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE}
+            filter='petType'
+          />
+          <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
+        </div>
+        <GoToSearch tab='disease' />
       </div>
 
       <div className='last:[&_>_div]:border-none pb-2'>

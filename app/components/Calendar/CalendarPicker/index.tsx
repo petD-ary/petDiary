@@ -23,7 +23,7 @@ import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLeft from '@/assets/images/icon-left.svg';
 import IconRight from '@/assets/images/icon-right.svg';
-import { convertKST, reverseKST } from '@/utils/calculateDay';
+import { convertKST } from '@/utils/calculateDay';
 
 export const defaultCalendarContext: CalendarContextProps = {
   viewSchedule: false,

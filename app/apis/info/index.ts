@@ -38,3 +38,38 @@ export const getKnowledgeSignalDetail = async (id: number) => {
   const res = await fetchApi(url, 'GET');
   return res?.data as SignalProps;
 };
+
+export interface SearchSymptoms {
+  id: string;
+  symptom: string;
+}
+
+export const searchDiseaseSymptom = async (search: string) => {
+  if (search === '') return null;
+
+  const url = `/knowledges/disease/symptom?search=${search}`;
+  const res = await fetchApi(url, 'GET');
+  return res?.data as SearchSymptoms[];
+};
+
+export const searchDisease = async ({
+  sort,
+  cursor,
+  symptomSearch,
+  symptomId,
+  size = 15,
+}: {
+  sort: 'high' | 'low';
+  cursor: number;
+  symptomSearch?: string;
+  symptomId?: string;
+  size?: number;
+}) => {
+  if (symptomSearch && symptomId) return;
+
+  const url = symptomSearch
+    ? `/knowledges/disease?sort=riskLevel,${sort}&size=${size}&cursor=${cursor}&symptomSearch=${symptomSearch}`
+    : `/knowledges/disease?sort=riskLevel,${sort}&size=${size}&cursor=${cursor}&symptomId=${symptomId}`;
+  const res = await fetchApi(url, 'GET');
+  return res?.data;
+};
