@@ -1,9 +1,8 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import DetailList from '@/components/Info/Detail/DetailList';
 import DetailTitle from '@/components/Info/Detail/DetailTitle';
-import { getKnowledgeDiseaseDetail } from '@/apis/info';
-import { DiseaseProps } from '@/components/Info/Disease';
 import Loading from '@/components/Loading';
 import { useDiseaseDetail } from '@/hooks/queries/useKnowledge';
 

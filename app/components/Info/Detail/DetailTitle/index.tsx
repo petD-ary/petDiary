@@ -19,7 +19,7 @@ const DetailTitle = ({ title, summary, type, tag }: DetailTitleProps) => {
         </p>
         <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
           <span>{type === 'dog' ? '강아지' : '고양이'}</span>
-          <Label>{tag}</Label>
+          <Label>{tag === '3' ? '위험' : tag === '2' ? '주의' : '양호'}</Label>
         </div>
       </div>
     </div>

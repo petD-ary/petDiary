@@ -70,7 +70,6 @@ const Signal = () => {
               const petType = data.tag?.filter(
                 (item) => Object.keys(item)[0] === '반려동물 타입',
               )[0];
-              console.log('🚀 ~ Signal ~ petType:', petType);
               return (
                 <Link
                   href={`/info/signal/${data.id}`}
