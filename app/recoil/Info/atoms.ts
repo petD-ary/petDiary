@@ -2,14 +2,13 @@ import { atom } from 'recoil';
 
 export type PetType = 'all' | 'dog' | 'cat';
 export type SignalType =
-  | 'all'
   | 'poop'
   | 'pee'
   | 'throwUp'
   | 'weight'
   | 'drinkAmount'
-  | 'breadingDuringSleep';
-export type signalDepthType = 'color' | 'form';
+  | 'breathingDuringSleep';
+export type signalDepthType = 'Color' | 'Shape';
 export type ImportanceType = 'recommend' | 'essential';
 export type RiskType = 'high' | 'low';
 
@@ -28,8 +27,8 @@ export const filterState = atom<FilterState>({
   key: 'filterState',
   default: {
     petType: 'all',
-    signal: 'all',
-    signalDepth: 'color',
+    signal: 'poop',
+    signalDepth: 'Color',
   },
 });
 

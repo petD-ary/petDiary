@@ -1,5 +1,7 @@
-import Label from '@/components/Label';
 import React from 'react';
+
+import Label from '@/components/Info/Label';
+
 interface DetailTitleProps {
   title: string;
   summary: string;
@@ -17,9 +19,7 @@ const DetailTitle = ({ title, summary, type, tag }: DetailTitleProps) => {
         </p>
         <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
           <span>{type === 'dog' ? '강아지' : '고양이'}</span>
-          <Label variant={tag === '3' ? 'red' : tag === '2' ? 'blue' : 'green'}>
-            {tag === '3' ? '위험' : tag === '2' ? '주의' : '양호'}
-          </Label>
+          <Label>{tag === '3' ? '위험' : tag === '2' ? '주의' : '양호'}</Label>
         </div>
       </div>
     </div>

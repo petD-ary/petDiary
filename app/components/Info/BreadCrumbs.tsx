@@ -15,8 +15,8 @@ const BreadCrumbs = ({
   isSelected,
   setTab,
 }: {
-  isSelected: InfoTab;
-  setTab: (tab: InfoTab) => void;
+  isSelected: InfoTab | string;
+  setTab: (tab: InfoTab | string) => void;
 }) => {
   const infoBreadcrumbs: InfoBreadcrumbs[] = [
     { type: 'disease', Icon: IconDiease, desc: '질병 사전' },

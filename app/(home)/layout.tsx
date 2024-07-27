@@ -9,7 +9,6 @@ import pretendard from '@/components/Pretendard';
 import HeadingComponent from '@/components/Heading';
 import QueryWrapper from '@/components/Wrapper/QueryWrapper';
 import RecoilRootWrapper from '@/components/Wrapper/RecoilRootWrapper';
-import SearchModal from '@/components/SearchModal';
 
 export const metadata: Metadata = {
   title: '반려동물 앱',
@@ -30,7 +29,6 @@ export default async function RootLayout({
               <ToastProvider />
               <div className='w-screen h-screen m-0 relative'>
                 <HeadingComponent />
-                <SearchModal />
                 <div className='h-[calc(100%-116px)]'>{children}</div>
                 <Navbar />
               </div>

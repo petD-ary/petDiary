@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
+import { useRecoilValue } from 'recoil';
+
 import { MODAL_TYPE } from '../../Modal';
 import { useModal } from '@/hooks/view/useModal';
-import { useRecoilValue } from 'recoil';
 import { filterState } from '@/recoil/Info/atoms';
 import { filterList, signalDepth } from './filterModalList';
 import IconArrowDown from '@/assets/images/info/icon-arrowDown.svg';
