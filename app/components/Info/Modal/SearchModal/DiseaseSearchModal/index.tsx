@@ -79,6 +79,7 @@ const DiseaseSearchModal = () => {
         titleType='left-X'
         onClick={() => {
           setSearch('');
+          setSearchResult(null);
           setSymptoms(null);
         }}
       />

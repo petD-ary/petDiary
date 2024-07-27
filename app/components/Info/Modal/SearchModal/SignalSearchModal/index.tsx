@@ -45,7 +45,14 @@ const SignalSearchModal = () => {
 
   return (
     <Modal type={MODAL_TYPE.INFO_SEARCH_SIGNAL} variant={MODAL_VARIANT.SLIDE}>
-      <Modal.Header title='' titleType='left-X' />
+      <Modal.Header
+        title=''
+        titleType='left-X'
+        onClick={() => {
+          setSearch('');
+          setResult(null);
+        }}
+      />
       <div className='px-5'>
         <h3 className='text-grayColor-900 text-title3 font-semibold py-3 leading-normal'>
           <span className='text-primary-500'>

@@ -188,7 +188,13 @@ const Header = ({
       <div className='px-2 py-1 flex justify-between items-center'>
         <div className='w-12' />
         <p className={`text-grayColor-900 ${Title.title3}`}>{title}</p>
-        <div className='p-3 cursor-pointer' onClick={() => removeModal()}>
+        <div
+          className='p-3 cursor-pointer'
+          onClick={() => {
+            onClick && onClick();
+            removeModal();
+          }}
+        >
           <IconClose />
         </div>
       </div>
@@ -198,7 +204,13 @@ const Header = ({
     return (
       <div className='pl-4 pr-2 py-1 flex justify-between items-center'>
         <p className={`text-grayColor-900 ${Title.title3}`}>{title}</p>
-        <div className='p-[10px] cursor-pointer' onClick={() => removeModal()}>
+        <div
+          className='p-[10px] cursor-pointer'
+          onClick={() => {
+            onClick && onClick();
+            removeModal();
+          }}
+        >
           <IconClose />
         </div>
       </div>

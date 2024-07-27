@@ -1,5 +1,4 @@
-import { start } from 'repl';
-import { convertKST, getDate, reverseKST } from './calculateDay';
+import { getDate } from './calculateDay';
 
 export function transformSchedules(schedules: any[] = []) {
   const returnSchedules: any[] = [];
