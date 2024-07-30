@@ -1,27 +1,40 @@
-import { start } from 'repl';
-import { convertKST, getDate, reverseKST } from './calculateDay';
+import { TransformedScheduleData } from '@/components/Schedule/type';
 
-export function transformSchedules(schedules: any[] = []) {
-  const returnSchedules: any[] = [];
+/**
+ *
+ * @param schedules
+ * @returns
+ */
+export function transformSchedules(schedules: TransformedScheduleData[] = []) {
+  const returnSchedules: TransformedScheduleData[] = [];
 
   schedules.forEach((schedule: { startTime: string; endTime: string }) => {
     const startTime = new Date(schedule.startTime);
     const endTime = new Date(schedule.endTime);
-    const startDay = new Date(
-      startTime.getFullYear(),
-      startTime.getMonth(),
-      startTime.getDate() + 1,
+    const startMidnight = new Date(
+      Date.UTC(
+        startTime.getUTCFullYear(),
+        startTime.getUTCMonth(),
+        startTime.getUTCDate(),
+      ),
     );
-    const endDay = new Date(
-      endTime.getFullYear(),
-      endTime.getMonth(),
-      endTime.getDate() + 1,
+    const endMidnight = new Date(
+      Date.UTC(
+        endTime.getUTCFullYear(),
+        endTime.getUTCMonth(),
+        endTime.getUTCDate(),
+      ),
     );
 
     // 일정이 같은 날에 시작하고 끝나는 경우
-    if (getDate(schedule.startTime) === getDate(schedule.endTime)) {
+    if (
+      startTime.getUTCDate() === endTime.getUTCDate() ||
+      (endTime.getUTCHours() === 0 &&
+        endTime.getUTCMinutes() === 0 &&
+        endTime.getUTCDate() - startTime.getUTCDate() === 1)
+    ) {
       returnSchedules.push({
-        ...schedule,
+        ...(schedule as TransformedScheduleData),
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -29,30 +42,32 @@ export function transformSchedules(schedules: any[] = []) {
     } else {
       // 첫째 날 처리
       returnSchedules.push({
-        ...schedule,
+        ...(schedule as TransformedScheduleData),
+        endTime: getNextDate(startMidnight).toISOString(),
         isStartDay: true,
         isAllDay: false,
         isEndDay: false,
       });
 
       // 중간 전체 날짜 처리
-      let currentDay = new Date(startDay.getTime() + 86400000); // 다음 날로 이동
-      while (currentDay.getTime() < endDay.getTime()) {
+      let currentMidnight = getNextDate(startMidnight);
+      while (currentMidnight.getTime() < endMidnight.getTime()) {
         returnSchedules.push({
-          ...schedule,
-          startTime: currentDay.toISOString(),
+          ...(schedule as TransformedScheduleData),
+          startTime: currentMidnight.toISOString(),
+          endTime: getNextDate(currentMidnight).toISOString(),
           isStartDay: false,
           isAllDay: true,
           isEndDay: false,
         });
-        currentDay = new Date(currentDay.getTime() + 86400000); // 다음 날로 이동
+        currentMidnight = getNextDate(currentMidnight);
       }
 
       // 마지막 날 처리
-      if (currentDay.getTime() === endDay.getTime()) {
+      if (currentMidnight.getTime() === endMidnight.getTime()) {
         returnSchedules.push({
-          ...schedule,
-          startTime: currentDay.toISOString(),
+          ...(schedule as TransformedScheduleData),
+          startTime: currentMidnight.toISOString(),
           isStartDay: false,
           isAllDay: false,
           isEndDay: true,
@@ -61,13 +76,15 @@ export function transformSchedules(schedules: any[] = []) {
     }
   });
 
+  // startTime 을 기준으로 정렬
   returnSchedules.sort(
     (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
   );
+
   // 날짜별 첫 번째 일정에 isFirst: true 추가
-  let lastDate = '';
+  let lastDate = 0;
   returnSchedules.forEach((schedule) => {
-    const scheduleDate = getDate(schedule.startTime);
+    const scheduleDate = new Date(schedule.startTime).getUTCDate();
     if (scheduleDate !== lastDate) {
       schedule.isFirst = true;
       lastDate = scheduleDate;
@@ -78,3 +95,7 @@ export function transformSchedules(schedules: any[] = []) {
 
   return returnSchedules;
 }
+
+const getNextDate = (date: Date) => {
+  return new Date(date.getTime() + 86400000);
+};
