@@ -31,7 +31,7 @@ const PickCalendar = ({
 }: PickCalendarProps) => {
   return (
     <li className='bg-grayColor-10'>
-      <Input name={SCHEDULE_TYPE.ADDRESS}>
+      <Input name={SCHEDULE_TYPE.PLACE}>
         <Calendar
           initDate={scheduleTime ? convertObjToDate(scheduleTime) : undefined}
         >
