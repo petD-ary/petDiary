@@ -7,10 +7,9 @@ import { useSetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
-import { convertKST, padZero } from '@/utils/calculateDay';
+import { padZero } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
-import { EditScheduleData, TransformedScheduleData } from '../type';
+import { TransformedScheduleData } from '../type';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import EditScheduleModal from '../EditSchedule';
 import ScheduleDetail from './ScheduleDetail';
@@ -42,12 +41,8 @@ const DaySchedules = () => {
   const [dateIndex, setDateIndex] = useState(CENTER_OFFSET);
   const [dateRange, _] = useState<Date[]>(createDateRange(date));
   const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(
-      new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
-    ),
-    formatDateToYYYYMMDDTHHMMSSZ(
-      new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2),
-    ),
+    new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+    new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
   );
 
   const setSchedule = useSetRecoilState(scheduleFormState);
@@ -82,10 +77,22 @@ const DaySchedules = () => {
   };
 
   const handleEditData = (schedule: TransformedScheduleData) => {
-    const start = scheduleDateFormat(convertKST(schedule.startTime));
-    const end = scheduleDateFormat(convertKST(schedule.endTime));
+    const start = scheduleDateFormat(schedule.startTime);
+    const end = scheduleDateFormat(schedule.endTime);
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
+  console.log(
+    '🚀 ~ DaySchedules ~ transformSchedules(data):',
+    transformSchedules(data),
+  );
+  console.log(
+    '🚀 ~ DaySchedules ~ selectedDate:',
+    new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+  );
+  console.log(
+    '🚀 ~ DaySchedules ~ selectedDate ~ end:',
+    new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
+  );
 
   return (
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
@@ -131,13 +138,20 @@ const DaySchedules = () => {
       {/* 일일 일정 리스트 */}
       {isSuccess &&
         transformSchedules(data)?.map((schedule: TransformedScheduleData) => {
-          return (
-            <ScheduleDetail
-              key={schedule.id}
-              schedule={schedule}
-              handleEditData={() => handleEditData(schedule)}
-            />
-          );
+          if (
+            new Date(date.getFullYear(), date.getMonth(), date.getDate()) <=
+              new Date(schedule.startTime) &&
+            new Date(schedule.startTime) <=
+              new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+          )
+            return (
+              <ScheduleDetail
+                key={schedule.id}
+                schedule={schedule}
+                handleEditData={() => handleEditData(schedule)}
+              />
+            );
+          return;
         })}
     </div>
   );

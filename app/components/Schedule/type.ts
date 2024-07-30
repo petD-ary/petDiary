@@ -43,6 +43,7 @@ export interface TransformedScheduleData extends AddScheduleData {
   userId?: number;
   repeatIndex?: number;
   scheduleId?: number;
+  timeZone: string;
 }
 
 export type AlarmType = 'none' | '24h' | '10m' | '30m' | '1h';
