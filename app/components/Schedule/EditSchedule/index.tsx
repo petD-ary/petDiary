@@ -29,7 +29,6 @@ const EditScheduleModal = () => {
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
       startTime: convertObjToDate(schedule.startTime).toISOString(),
-
       endTime: convertObjToDate(schedule.endTime).toISOString(),
     };
 

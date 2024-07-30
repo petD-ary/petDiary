@@ -81,18 +81,6 @@ const DaySchedules = () => {
     const end = scheduleDateFormat(schedule.endTime);
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
-  console.log(
-    '🚀 ~ DaySchedules ~ transformSchedules(data):',
-    transformSchedules(data),
-  );
-  console.log(
-    '🚀 ~ DaySchedules ~ selectedDate:',
-    new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-  );
-  console.log(
-    '🚀 ~ DaySchedules ~ selectedDate ~ end:',
-    new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
-  );
 
   return (
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
@@ -141,7 +129,7 @@ const DaySchedules = () => {
           if (
             new Date(date.getFullYear(), date.getMonth(), date.getDate()) <=
               new Date(schedule.startTime) &&
-            new Date(schedule.startTime) <=
+            new Date(schedule.startTime) <
               new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
           )
             return (
