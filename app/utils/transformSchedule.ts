@@ -1,7 +1,12 @@
 import { TransformedScheduleData } from '@/components/Schedule/type';
-import { convertUTC } from './calculateDay';
+import { convertUTC, getOffsetByTimeZone } from './calculateDay';
 
 /**
+ * 일정 데이터 변환
+ *
+ * 여러 날에 걸쳐진 일정을 날짜마다 분리
+ *
+ * `isStartDay`, `isAllDay`, `isEndDay`, `isFirst` 추가
  *
  * @param schedules
  * @returns
@@ -11,20 +16,11 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
 
   schedules.forEach(
     (schedule: { startTime: string; endTime: string; timeZone: string }) => {
-      const startTime = new Date(
-        convertUTC(schedule.startTime, schedule.timeZone),
-      );
-      const endTime = new Date(convertUTC(schedule.endTime, schedule.timeZone));
-      const startMidnight = new Date(
-        startTime.getFullYear(),
-        startTime.getMonth(),
-        startTime.getDate() - 1,
-      );
-      const endMidnight = new Date(
-        endTime.getFullYear(),
-        endTime.getMonth(),
-        endTime.getDate() - 1,
-      );
+      const startTime = new Date(schedule.startTime);
+      const endTime = new Date(schedule.endTime);
+      const timeZone = schedule.timeZone;
+      const startMidnight = getMidnightByTimeZone(startTime, timeZone);
+      const endMidnight = getMidnightByTimeZone(endTime, timeZone);
 
       // 일정이 같은 날에 시작하고 끝나는 경우
       if (
@@ -43,19 +39,20 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
         // 첫째 날 처리
         returnSchedules.push({
           ...(schedule as TransformedScheduleData),
-          endTime: getNextDate(startMidnight).toString(),
+          startTime: formatDate(startTime),
+          endTime: formatDate(startMidnight),
           isStartDay: true,
           isAllDay: false,
           isEndDay: false,
         });
 
         // 중간 전체 날짜 처리
-        let currentMidnight = getNextDate(startMidnight);
-        while (currentMidnight.getTime() < endMidnight.getTime()) {
+        let currentMidnight = startMidnight;
+        while (getNextDate(currentMidnight).getTime() < endMidnight.getTime()) {
           returnSchedules.push({
             ...(schedule as TransformedScheduleData),
-            startTime: currentMidnight.toISOString(),
-            endTime: getNextDate(currentMidnight).toString(),
+            startTime: formatDate(currentMidnight),
+            endTime: formatDate(getNextDate(currentMidnight)),
             isStartDay: false,
             isAllDay: true,
             isEndDay: false,
@@ -64,15 +61,14 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
         }
 
         // 마지막 날 처리
-        if (currentMidnight.getTime() === endMidnight.getTime()) {
-          returnSchedules.push({
-            ...(schedule as TransformedScheduleData),
-            startTime: currentMidnight.toString(),
-            isStartDay: false,
-            isAllDay: false,
-            isEndDay: true,
-          });
-        }
+        returnSchedules.push({
+          ...(schedule as TransformedScheduleData),
+          startTime: formatDate(currentMidnight),
+          endTime: formatDate(endTime),
+          isStartDay: false,
+          isAllDay: false,
+          isEndDay: true,
+        });
       }
     },
   );
@@ -99,4 +95,54 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
 
 const getNextDate = (date: Date) => {
   return new Date(date.getTime() + 86400000);
+};
+
+/**
+ * timeZone 에 맞게 날짜 자정 시각 반환
+ */
+export const getMidnightByTimeZone = (
+  dateString: string | Date,
+  timeZone: string,
+) => {
+  const timeZoneOffset = getOffsetByTimeZone(timeZone);
+  const date = new Date(dateString);
+
+  // 원래 날짜에서 자정 시각을 UTC로 계산합니다.
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate() + 1;
+
+  const utcMidnight = new Date(Date.UTC(year, month, day));
+  const timezoneAdjustedMidnight = new Date(
+    utcMidnight.getTime() - timeZoneOffset,
+  );
+
+  return timezoneAdjustedMidnight;
+};
+
+/**
+ * Date 객체를 'YYYY-MM-DDTHH:mm:ss.sss±HH:mm' 형식의 문자열로 포맷
+ * jest 에서 Date 객체 작성 및 보기 편하게 하기 위함
+ *
+ * @param {Date} date - 포맷할 Date 객체
+ * @returns {string} 포맷된 날짜 문자열
+ */
+const formatDate = (date: Date) => {
+  const pad = (num: number) => String(num).padStart(2, '0');
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+  const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
+
+  const timezoneOffset = -date.getTimezoneOffset();
+  const sign = timezoneOffset >= 0 ? '+' : '-';
+  const absOffset = Math.abs(timezoneOffset);
+  const offsetHours = pad(Math.floor(absOffset / 60));
+  const offsetMinutes = pad(absOffset % 60);
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}${sign}${offsetHours}:${offsetMinutes}`;
 };

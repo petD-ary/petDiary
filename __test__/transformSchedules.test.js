@@ -1,17 +1,23 @@
-import { transformSchedules } from '../app/utils/transformSchedule';
+import {
+  transformSchedules,
+  getMidnightByTimeZone,
+} from '../app/utils/transformSchedule';
 
 describe('new Date() 테스트', () => {
   test('자정 시각 생성', () => {
-    const dateString = '2024-07-10T08:00:00.000Z';
-    const date = new Date(dateString);
-    const newDate = new Date(
-      Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
+    const dateString = 'Jul 10 2024 01:30:00 GMT+0900';
+    const expectedDateString = 'Jul 11 2024 00:00:00 GMT+0900';
+    const timeZone = 'Asia/Seoul';
+    const timezoneAdjustedMidnight = getMidnightByTimeZone(
+      dateString,
+      timeZone,
     );
 
-    const expectedDateString = '2024-07-10T00:00:00.000Z';
+    // 예상 날짜를 설정합니다.
     const expectedDate = new Date(expectedDateString);
 
-    expect(expectedDate).toEqual(newDate);
+    // 두 날짜를 비교합니다.
+    expect(timezoneAdjustedMidnight).toStrictEqual(expectedDate);
   });
 });
 
@@ -20,15 +26,17 @@ describe('transformSchedules 함수 테스트', () => {
     const schedules = [
       {
         id: 1,
-        startTime: '2024-07-09T23:30:00.000Z',
-        endTime: '2024-07-10T01:00:00.000Z',
+        startTime: '2024-07-09T23:30:00.000+09:00',
+        endTime: '2024-07-10T01:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
     ];
     const expectedSchedules = [
       {
         id: 1,
-        startTime: '2024-07-09T23:30:00.000Z',
-        endTime: '2024-07-10T00:00:00.000Z',
+        startTime: '2024-07-09T23:30:00.000+09:00',
+        endTime: '2024-07-10T00:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: true,
@@ -36,8 +44,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 1,
-        startTime: '2024-07-10T00:00:00.000Z',
-        endTime: '2024-07-10T01:00:00.000Z',
+        startTime: '2024-07-10T00:00:00.000+09:00',
+        endTime: '2024-07-10T01:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: false,
@@ -52,15 +61,17 @@ describe('transformSchedules 함수 테스트', () => {
     const schedules = [
       {
         id: 1,
-        startTime: '2024-07-09T01:30:00.000Z',
-        endTime: '2024-07-10T23:00:00.000Z',
+        startTime: '2024-07-09T01:30:00.000+09:00',
+        endTime: '2024-07-10T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
     ];
     const expectedSchedules = [
       {
         id: 1,
-        startTime: '2024-07-09T01:30:00.000Z',
-        endTime: '2024-07-10T00:00:00.000Z',
+        startTime: '2024-07-09T01:30:00.000+09:00',
+        endTime: '2024-07-10T00:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: true,
@@ -68,8 +79,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 1,
-        startTime: '2024-07-10T00:00:00.000Z',
-        endTime: '2024-07-10T23:00:00.000Z',
+        startTime: '2024-07-10T00:00:00.000+09:00',
+        endTime: '2024-07-10T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: false,
@@ -84,15 +96,17 @@ describe('transformSchedules 함수 테스트', () => {
     const schedules = [
       {
         id: 1,
-        startTime: '2024-07-09T23:30:00.000Z',
-        endTime: '2024-07-11T01:00:00.000Z',
+        startTime: '2024-07-09T23:30:00.000+09:00',
+        endTime: '2024-07-11T01:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
     ];
     const expectedSchedules = [
       {
         id: 1,
-        startTime: '2024-07-09T23:30:00.000Z',
-        endTime: '2024-07-10T00:00:00.000Z',
+        startTime: '2024-07-09T23:30:00.000+09:00',
+        endTime: '2024-07-10T00:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: true,
@@ -100,8 +114,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 1,
-        startTime: '2024-07-10T00:00:00.000Z',
-        endTime: '2024-07-11T00:00:00.000Z',
+        startTime: '2024-07-10T00:00:00.000+09:00',
+        endTime: '2024-07-11T00:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: true,
         isFirst: true,
         isStartDay: false,
@@ -109,8 +124,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 1,
-        startTime: '2024-07-11T00:00:00.000Z',
-        endTime: '2024-07-11T01:00:00.000Z',
+        startTime: '2024-07-11T00:00:00.000+09:00',
+        endTime: '2024-07-11T01:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isAllDay: false,
         isFirst: true,
         isStartDay: false,
@@ -125,45 +141,53 @@ describe('transformSchedules 함수 테스트', () => {
     const schedules = [
       {
         id: 1,
-        startTime: '2024-07-09T05:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T05:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 2,
-        startTime: '2024-07-09T03:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T03:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 3,
-        startTime: '2024-07-09T08:31:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T08:31:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 4,
-        startTime: '2024-07-09T08:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T08:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 5,
-        startTime: '2024-07-09T23:50:00.000Z',
-        endTime: '2024-07-09T23:55:00.000Z',
+        startTime: '2024-07-09T23:50:00.000+09:00',
+        endTime: '2024-07-09T23:55:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 6,
-        startTime: '2024-07-09T11:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T11:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
       {
         id: 7,
-        startTime: '2024-07-09T01:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T01:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
       },
     ];
     const expectedSchedules = [
       {
         id: 7,
-        startTime: '2024-07-09T01:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T01:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -171,8 +195,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 2,
-        startTime: '2024-07-09T03:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T03:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -180,8 +205,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 1,
-        startTime: '2024-07-09T05:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T05:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -189,8 +215,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 4,
-        startTime: '2024-07-09T08:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T08:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -198,8 +225,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 3,
-        startTime: '2024-07-09T08:31:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T08:31:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -207,8 +235,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 6,
-        startTime: '2024-07-09T11:30:00.000Z',
-        endTime: '2024-07-09T23:00:00.000Z',
+        startTime: '2024-07-09T11:30:00.000+09:00',
+        endTime: '2024-07-09T23:00:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
@@ -216,8 +245,9 @@ describe('transformSchedules 함수 테스트', () => {
       },
       {
         id: 5,
-        startTime: '2024-07-09T23:50:00.000Z',
-        endTime: '2024-07-09T23:55:00.000Z',
+        startTime: '2024-07-09T23:50:00.000+09:00',
+        endTime: '2024-07-09T23:55:00.000+09:00',
+        timeZone: 'Asia/Seoul',
         isStartDay: true,
         isAllDay: false,
         isEndDay: true,
