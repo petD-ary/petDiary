@@ -2,7 +2,6 @@ import React, { FormEvent } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { reverseKST } from '@/utils/calculateDay';
 import convertObjToDate from '../AddSchedule/convertObjToDate';
 import {
   deleteSchedules,
@@ -29,8 +28,8 @@ const EditScheduleModal = () => {
     const postData = {
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
-      startTime: reverseKST(convertObjToDate(schedule.startTime).toISOString()),
-      endTime: reverseKST(convertObjToDate(schedule.endTime).toISOString()),
+      startTime: convertObjToDate(schedule.startTime).toISOString(),
+      endTime: convertObjToDate(schedule.endTime).toISOString(),
     };
 
     await updateSchedules('none', postData).finally(() => {
@@ -51,8 +50,8 @@ const EditScheduleModal = () => {
     const postData = {
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
-      startTime: reverseKST(convertObjToDate(schedule.startTime).toISOString()),
-      endTime: reverseKST(convertObjToDate(schedule.endTime).toISOString()),
+      startTime: convertObjToDate(schedule.startTime).toISOString(),
+      endTime: convertObjToDate(schedule.endTime).toISOString(),
     };
 
     await updateSchedules(options, postData).finally(() => {

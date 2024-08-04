@@ -3,7 +3,7 @@ import React from 'react';
 import IconClipboard from '@/assets/images/schedule/icon_clipboard.svg';
 import { Body, Caption } from '@/constants/Typography/TypographyList';
 import { formatDateToYYMMDD } from '@/utils/dateFormat';
-import { convertKST, getHours } from '@/utils/calculateDay';
+import { getHours } from '@/utils/calculateDay';
 import { repeatList } from '../../constants';
 import CustomPin from '@/components/Map/CustomPin';
 import { useModal } from '@/hooks/view/useModal';
@@ -63,9 +63,9 @@ const ScheduleDetail = ({
         <div className='flex gap-3 items-center ms-[18px] mb-5'>
           {/* 시간 설정 */}
           <ScheduleTag variant='secondary'>
-            {formatDateToYYMMDD(convertKST(schedule.startTime)) +
+            {formatDateToYYMMDD(schedule.startTime) +
               '-' +
-              formatDateToYYMMDD(convertKST(schedule.endTime))}
+              formatDateToYYMMDD(schedule.endTime)}
           </ScheduleTag>
           {/* 반복 여부 */}
           <ScheduleTag variant='primary'>

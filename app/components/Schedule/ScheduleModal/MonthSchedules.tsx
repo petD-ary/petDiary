@@ -3,13 +3,11 @@ import { useState } from 'react';
 
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
 import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
-import { convertKST, getDate, getDay, getHours } from '@/utils/calculateDay';
+import { getDate, getDay } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import Button from '@/components/Button';
 import Calendar from '@/components/Calendar/CalendarPicker';
-import { Body, Caption, Title } from '@/constants/Typography/TypographyList';
+import { Caption, Title } from '@/constants/Typography/TypographyList';
 import { EditScheduleData, TransformedScheduleData } from '../type';
-import { repeatList } from '../constants';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import ScheduleDetail from './ScheduleDetail';
 import EditScheduleModal from '../EditSchedule';
@@ -22,16 +20,14 @@ const MonthSchedules = () => {
     selectedDate: { year: yyyy, month: mm },
   } = useCalendarContext();
   const { data, isSuccess } = useGetSchedules(
-    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm - 1, 1)),
-    formatDateToYYYYMMDDTHHMMSSZ(new Date(yyyy, mm, 0)),
+    new Date(yyyy, mm - 1, 1),
+    new Date(yyyy, mm, 0),
   );
-  const [modify, setModify] = useState<EditScheduleData | null>(null);
   const setSchedule = useSetRecoilState(scheduleFormState);
 
   const handleEditData = (schedule: TransformedScheduleData) => {
-    const start = scheduleDateFormat(convertKST(schedule.startTime));
-    const end = scheduleDateFormat(convertKST(schedule.endTime));
-    setModify(schedule);
+    const start = scheduleDateFormat(schedule.startTime);
+    const end = scheduleDateFormat(schedule.endTime);
     delete schedule.id;
     delete schedule.repeatIndex;
     delete schedule.scheduleId;
@@ -47,7 +43,7 @@ const MonthSchedules = () => {
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
 
-      <EditScheduleModal data={modify} />
+      <EditScheduleModal />
 
       {isSuccess &&
         transformSchedules(data).map(

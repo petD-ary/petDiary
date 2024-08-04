@@ -6,7 +6,6 @@ import { addSchedules } from '@/apis/schedules';
 import ScheduleForm from '../ScheduleFormModal';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { reverseKST } from '@/utils/calculateDay';
 
 const AddScheduleModal = () => {
   const { removeModal } = useModal();
@@ -19,8 +18,8 @@ const AddScheduleModal = () => {
     const postData = {
       ...schedule,
       repeatCount: schedule.repeatCount === 0 ? 1 : schedule.repeatCount,
-      startTime: reverseKST(convertObjToDate(schedule.startTime).toISOString()),
-      endTime: reverseKST(convertObjToDate(schedule.endTime).toISOString()),
+      startTime: convertObjToDate(schedule.startTime).toISOString(),
+      endTime: convertObjToDate(schedule.endTime).toISOString(),
     };
 
     await addSchedules(postData).finally(() => {
