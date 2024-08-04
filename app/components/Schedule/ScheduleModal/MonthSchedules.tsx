@@ -1,8 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
 import { getDate, getDay } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
 import Calendar from '@/components/Calendar/CalendarPicker';
@@ -11,7 +10,6 @@ import { EditScheduleData, TransformedScheduleData } from '../type';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import ScheduleDetail from './ScheduleDetail';
 import EditScheduleModal from '../EditSchedule';
-import { useSetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
@@ -28,14 +26,6 @@ const MonthSchedules = () => {
   const handleEditData = (schedule: TransformedScheduleData) => {
     const start = scheduleDateFormat(schedule.startTime);
     const end = scheduleDateFormat(schedule.endTime);
-    delete schedule.id;
-    delete schedule.repeatIndex;
-    delete schedule.scheduleId;
-    delete schedule.userId;
-    delete schedule.isAllDay;
-    delete schedule.isEndDay;
-    delete schedule.isFirst;
-    delete schedule.isStartDay;
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
 
@@ -62,7 +52,7 @@ const MonthSchedules = () => {
                 ) : null}
                 <ScheduleDetail
                   schedule={schedule}
-                  handleEditData={() => handleEditData(schedule)}
+                  handleEditData={(data) => handleEditData(data)}
                 />
               </div>
             );
