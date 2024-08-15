@@ -4,7 +4,7 @@ import BtnSocialLogin from '@/components/Button/BtnSocialLogin';
 
 import LoginImg from '@/assets/images/login/login-image.svg';
 
-import SocialLoginList from '@/components/Login/Constant';
+import socialLoginList from '@/components/Login/Constant';
 import Container from '@/components/Container';
 import { Btn, Caption } from '@/constants/Typography/TypographyList';
 
@@ -22,7 +22,7 @@ const LoginPage = () => {
       </div>
       <Container className='fixed left-1/2 bottom-0 -translate-x-1/2'>
         <div className='flex flex-col gap-2 py-5'>
-          {SocialLoginList.map(({ content, Icon, onClick, className }) => (
+          {socialLoginList.map(({ content, Icon, onClick, className }) => (
             <BtnSocialLogin
               className={`border ${className}`}
               onClick={onClick}
