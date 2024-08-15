@@ -159,60 +159,6 @@ export const padZero = (number: number): string => {
 };
 
 /**
- * UTC 시간대를 timeZone에 맞는 시간대로 변환 후 문자열로 반환
- *
- * @param {Date|string} date Date
- * @param {string} timeZone string
- * @returns {string} 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 timeZone 시간대 반환
- */
-export const applyTimeZone = (
-  date: Date | string,
-  timeZone: string,
-): string => {
-  const returnDate = new Date(date);
-  const offset = getOffsetByTimeZone(timeZone);
-
-  return new Date(returnDate.getTime() - offset).toString();
-};
-
-/**
- * timeZone에 맞는 시간대를 UTC 시간대로 변환 후 문자열로 반환
- *
- * @param {Date|string} date Date
- * @param {string} timeZone string
- * @returns {string} 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 시간대 반환
- */
-export const convertUTC = (date: Date | string, timeZone: string): string => {
-  const returnDate = new Date(date);
-  const offset = getOffsetByTimeZone(timeZone);
-
-  return new Date(returnDate.getTime() + offset).toString();
-};
-
-/**
- * 시간대에 따른 offset 값 반환
- *
- * @param {string} timeZone string
- * @returns {number} (number) 시간대에 따른 offset 값 반환
- */
-export const getOffsetByTimeZone = (timeZone: string): number => {
-  const now = new Date();
-  const timeZoneDate = new Date(now.toLocaleString('en-US', { timeZone }));
-  const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
-
-  return timeZoneDate.getTime() - utcDate.getTime();
-};
-
-/**
- * 현재 사용자의 시간대 반환
- *
- * @returns {string} 사용자 시간대를 문자열로 반환
- */
-export const getCurrentTimeZone = (): string => {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
-};
-
-/**
  * 주어진 UTC 날짜를 원하는 시간대로 변환하는 함수
  *
  * @param {Date|string} date - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열

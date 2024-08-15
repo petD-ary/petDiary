@@ -3,7 +3,7 @@ import KaKao from '@/assets/images/login/Kakao.svg';
 import Naver from '@/assets/images/login/Naver.svg';
 import { googleLogin, kakaoLogin, naverLogin } from '@/utils/socialLogin';
 
-const SocialLoginList = [
+const socialLoginList = [
   {
     content: '구글',
     Icon: Google,
@@ -24,4 +24,4 @@ const SocialLoginList = [
   },
 ];
 
-export default SocialLoginList;
+export default socialLoginList;

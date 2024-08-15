@@ -27,7 +27,7 @@ const HeaderElement = {
 const headerMap: HeaderMap = {
   '/login': HeaderElement.Home,
   '/': HeaderElement.Alert,
-  '/calendar': HeaderElement.Interactive,
+  '/calendar': HeaderElement.Alert,
   '/info': HeaderElement.Alert,
   '/info/disease': HeaderElement.Back,
   '/info/signal': HeaderElement.Back,
