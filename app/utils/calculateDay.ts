@@ -106,7 +106,7 @@ export const convertKoreanDateFormat = (dateStr: string): string => {
  * @return {string} - 일은 1부터 시작하며, 10 미만인 경우 앞에 0을 붙입니다.
  */
 export const getDate = (dateStr: any): string => {
-  const date = new Date(convertKST(dateStr));
+  const date = new Date(dateStr);
 
   return padZero(date.getDate());
 };
@@ -119,7 +119,7 @@ export const getDate = (dateStr: any): string => {
  * @return {string} - ('일', '월', '화', '수', '목', '금', '토')
  */
 export const getDay = (dateStr: string): string => {
-  const date = new Date(convertKST(dateStr));
+  const date = new Date(dateStr);
 
   const dayList: { [key: number]: string } = {
     0: '일',
@@ -142,7 +142,7 @@ export const getDay = (dateStr: string): string => {
  * @return {string} - 'HH:MM' 형식의 문자열
  */
 export const getHours = (dateStr: string): string => {
-  const date = new Date(convertKST(dateStr));
+  const date = new Date(dateStr);
 
   return `${padZero(date.getHours())}:${padZero(date.getMinutes())}`;
 };
@@ -159,26 +159,57 @@ export const padZero = (number: number): string => {
 };
 
 /**
- * 주어진 UTC 날짜 문자열을 기반으로 한국 시간대의 날짜 문자열을 반환합니다.
- * 주히님 태어나신 날짜: 9월 24일.
+ * UTC 시간대를 timeZone에 맞는 시간대로 변환 후 문자열로 반환
  *
- * @param dateStr - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
- * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ * @param {Date|string} date Date
+ * @param {string} timeZone string
+ * @returns {string} 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 timeZone 시간대 반환
  */
-export const convertKST = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const kstDate = new Date(date.getTime() - kstOffset);
+export const applyTimeZone = (
+  date: Date | string,
+  timeZone: string,
+): string => {
+  const returnDate = new Date(date);
+  const offset = getOffsetByTimeZone(timeZone);
 
-  return kstDate.toString();
+  return new Date(returnDate.getTime() - offset).toString();
 };
 
-export const reverseKST = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const kstDate = new Date(date.getTime() + kstOffset);
+/**
+ * timeZone에 맞는 시간대를 UTC 시간대로 변환 후 문자열로 반환
+ *
+ * @param {Date|string} date Date
+ * @param {string} timeZone string
+ * @returns {string} 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 시간대 반환
+ */
+export const convertUTC = (date: Date | string, timeZone: string): string => {
+  const returnDate = new Date(date);
+  const offset = getOffsetByTimeZone(timeZone);
 
-  return kstDate.toString();
+  return new Date(returnDate.getTime() + offset).toString();
+};
+
+/**
+ * 시간대에 따른 offset 값 반환
+ *
+ * @param {string} timeZone string
+ * @returns {number} (number) 시간대에 따른 offset 값 반환
+ */
+export const getOffsetByTimeZone = (timeZone: string): number => {
+  const now = new Date();
+  const timeZoneDate = new Date(now.toLocaleString('en-US', { timeZone }));
+  const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+
+  return timeZoneDate.getTime() - utcDate.getTime();
+};
+
+/**
+ * 현재 사용자의 시간대 반환
+ *
+ * @returns {string} 사용자 시간대를 문자열로 반환
+ */
+export const getCurrentTimeZone = (): string => {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
 
 /**
