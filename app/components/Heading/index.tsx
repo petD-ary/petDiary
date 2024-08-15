@@ -28,8 +28,9 @@ const headerMap: HeaderMap = {
   '/login': HeaderElement.Home,
   '/': HeaderElement.Alert,
   '/calendar': HeaderElement.Interactive,
-  '/info': HeaderElement.Interactive,
+  '/info': HeaderElement.Alert,
   '/info/disease': HeaderElement.Back,
+  '/info/signal': HeaderElement.Back,
   '/mypage': HeaderElement.Alert,
   //  경로 추가
 };

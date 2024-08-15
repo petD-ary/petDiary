@@ -211,3 +211,55 @@ export const getOffsetByTimeZone = (timeZone: string): number => {
 export const getCurrentTimeZone = (): string => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
+
+/**
+ * 주어진 UTC 날짜를 원하는 시간대로 변환하는 함수
+ *
+ * @param {Date|string} date - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ */
+export const applyTimeZone = (date: Date | string, timeZone: string) => {
+  date = new Date(date);
+  const offset = getOffsetByTimeZone(timeZone);
+  const returnDate = new Date(date.getTime() - offset);
+
+  return returnDate.toISOString();
+};
+
+/**
+ * 주어진 날짜를 UTC로 변환하는 함수
+ *
+ * @param {Date|string} date - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 한국 시간대 날짜 문자열
+ * @return {string} - 'YYYY-MM-DDTHH:MM:SS.000Z' 형식의 UTC 날짜 문자열
+ */
+export const convertUTC = (date: Date | string, timeZone: string): string => {
+  date = new Date(date);
+  const offset = getOffsetByTimeZone(timeZone);
+  const returnDate = new Date(date.getTime() + offset);
+
+  return returnDate.toISOString();
+};
+
+/**
+ * 원하는 시간대와 UTC의 offset 값을 분 단위로 반환하는 함수
+ *
+ * @param {string} timeZone // 'Asia/Seoul' 원하는 offset 시간대
+ * @returns {number} // timezone에 따른 분 단위의 offset 값 반환
+ */
+export const getOffsetByTimeZone = (timeZone: string): number => {
+  const now = new Date();
+
+  const timeZoneDate = new Date(now.toLocaleString('en-US', { timeZone }));
+  const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+
+  return timeZoneDate.getTime() - utcDate.getTime();
+};
+
+/**
+ * 사용자의 현재 시간대를 반환하는 함수
+ *
+ * @returns {string} // 사용자의 현재 시간대 반환
+ */
+export const getCurrentTimeZone = (): string => {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+};

@@ -1,24 +1,25 @@
-import { alignState, filterState } from '@/recoil/Info/atoms';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+
+import { ImportanceType, RiskType } from '@/recoil/Info/atoms';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
 const AlignOption = ({
+  isSelected,
+  onClick,
   option,
-  type,
 }: {
-  option: { desc: string; value: string };
-  type: 'risk' | 'importance';
+  isSelected: boolean;
+  onClick: (value: ImportanceType | RiskType) => void;
+  option: { desc: string; value: ImportanceType | RiskType };
 }) => {
-  const [align, setAlign] = useRecoilState(alignState);
   return (
     <div
-      onClick={() => setAlign((prev) => ({ ...prev, [type]: option.value }))}
+      onClick={() => onClick(option.value)}
       className='cursor-pointer px-3 py-4 border-b border-extra-deviders flex justify-between'
     >
       <span>{option.desc}</span>
-      {align[type] === option.value ? <Radio /> : <RadioDisabled />}
+      {isSelected ? <Radio /> : <RadioDisabled />}
     </div>
   );
 };

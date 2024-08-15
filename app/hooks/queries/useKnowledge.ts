@@ -1,7 +1,13 @@
-import { getKnowledgeDisease } from '@/apis/info';
+import {
+  SignalType,
+  getKnowledgeDisease,
+  getKnowledgeDiseaseDetail,
+  getKnowledgeSignal,
+  getKnowledgeSignalDetail,
+} from '@/apis/info';
 import { queryDiseaseKey } from '@/constants/queryKey';
 import { PetType, RiskType } from '@/recoil/Info/atoms';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
   const size = 15;
@@ -22,4 +28,41 @@ export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
       refetchInterval: 5 * 60 * 1000,
     },
   );
+};
+
+export const useDiseaseDetail = (id: number) => {
+  return useQuery([queryDiseaseKey], () => getKnowledgeDiseaseDetail(id), {
+    staleTime: 0,
+    cacheTime: 5 * 60 * 1000,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+    refetchInterval: 5 * 60 * 1000,
+  });
+};
+
+export const useSignal = (query: { type: SignalType }) => {
+  return useQuery(
+    [queryDiseaseKey, query.type],
+    () => getKnowledgeSignal(query.type),
+    {
+      staleTime: 0,
+      cacheTime: 5 * 60 * 1000,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 5 * 60 * 1000,
+    },
+  );
+};
+
+export const useSignalDetail = (id: number) => {
+  return useQuery([queryDiseaseKey], () => getKnowledgeSignalDetail(id), {
+    staleTime: 0,
+    cacheTime: 5 * 60 * 1000,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+    refetchInterval: 5 * 60 * 1000,
+  });
 };

@@ -1,23 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import DetailList from '@/components/Info/Detail/DetailList';
 import DetailTitle from '@/components/Info/Detail/DetailTitle';
-import { getKnowledgeDiseaseDetail } from '@/apis/info';
-import { DiseaseProps } from '@/components/Info/Disease';
 import Loading from '@/components/Loading';
+import { useDiseaseDetail } from '@/hooks/queries/useKnowledge';
 
 const DiseaseDetailPage = ({ params: { id } }: { params: { id: number } }) => {
-  const [content, setContent] = useState<DiseaseProps | null>(null);
+  const { data: content, isLoading } = useDiseaseDetail(id);
 
-  useEffect(() => {
-    const getDetailContent = async () => {
-      const res = await getKnowledgeDiseaseDetail(id);
-      setContent(res);
-    };
-    getDetailContent();
-  }, []);
-
-  if (content === null)
+  if (isLoading && !content)
     return (
       <div className='bg-extra-device-bg h-full flex justify-center items-center'>
         <Loading />

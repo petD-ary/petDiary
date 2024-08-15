@@ -9,8 +9,9 @@ import Align from '../Align';
 import ModalRisk from '../Modal/RiskModal';
 import { useDisease } from '@/hooks/queries/useKnowledge';
 import Link from 'next/link';
-import Label from '@/components/Label';
+import Label from '@/components/Info/Label';
 import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
+import GoToSearch from '../Modal/SearchModal/GoToSearch';
 
 export interface DiseaseProps {
   id: number;
@@ -38,7 +39,7 @@ const Disease = () => {
       risk,
     });
 
-  const diseaseData = useMemo(() => {
+  const diseaseData: DiseaseProps[] | undefined = useMemo(() => {
     const result = data?.pages.flatMap((doc) => (doc ? [...doc.data] : []));
     return result;
   }, [data]);
@@ -53,9 +54,15 @@ const Disease = () => {
     <Fragment>
       <ModalPetType />
       <ModalRisk />
-      <div className='flex justify-between items-center pt-3 px-5 md:pt-5 md:pb-2'>
-        <Filter modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE} filter='petType' />
-        <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
+      <div className='pt-3 px-5 md:pt-5 md:pb-2'>
+        <div className='flex justify-between items-center pb-4'>
+          <Filter
+            modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE}
+            filter='petType'
+          />
+          <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
+        </div>
+        <GoToSearch tab='disease' />
       </div>
 
       <div className='last:[&_>_div]:border-none pb-2'>
@@ -72,15 +79,7 @@ const Disease = () => {
               <p className='text-body2 text-text-secondary'>{data.summary}</p>
               <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
                 <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
-                <Label
-                  variant={
-                    data.riskLevel === '3'
-                      ? 'red'
-                      : data.riskLevel === '2'
-                        ? 'blue'
-                        : 'green'
-                  }
-                >
+                <Label>
                   {data.riskLevel === '3'
                     ? '위험'
                     : data.riskLevel === '2'
