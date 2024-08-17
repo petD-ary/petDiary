@@ -34,7 +34,7 @@ export const MODAL_TYPE = {
   INFO_FILTER_RISK: 'infoFilterRisk',
   INFO_SEARCH_DISEASE: 'infoSearchDisease',
   INFO_SEARCH_SIGNAL: 'infoSearchSignal',
-  INFO_SEARCH_RISK: 'infoSearchRisk',
+  INFO_SEARCH_DANGEROUS: 'infoSearchDangerous',
   INFO_SEARCH_SAFE: 'infoSearchSafe',
 };
 

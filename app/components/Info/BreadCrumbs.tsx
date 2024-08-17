@@ -6,7 +6,7 @@ import IconSafe from '@/assets/images/info/icon-safe.svg';
 import { InfoTab } from '@/(home)/info/page';
 
 interface InfoBreadcrumbs {
-  type: 'disease' | 'signal' | 'riskFood' | 'safeFood';
+  type: InfoTab;
   Icon: any;
   desc: string;
 }
@@ -21,7 +21,7 @@ const BreadCrumbs = ({
   const infoBreadcrumbs: InfoBreadcrumbs[] = [
     { type: 'disease', Icon: IconDiease, desc: '질병 사전' },
     { type: 'signal', Icon: IconAction, desc: '행동 신호' },
-    { type: 'riskFood', Icon: IconDanger, desc: '위험 음식' },
+    { type: 'dangerousFood', Icon: IconDanger, desc: '위험 음식' },
     { type: 'safeFood', Icon: IconSafe, desc: '안심 음식' },
   ];
 

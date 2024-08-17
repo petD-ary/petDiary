@@ -9,7 +9,7 @@ export type SignalType =
   | 'drinkAmount'
   | 'breathingDuringSleep';
 export type signalDepthType = 'Color' | 'Shape';
-export type ImportanceType = 'recommend' | 'essential';
+export type ImportanceType = 'high' | 'low';
 export type RiskType = 'high' | 'low';
 
 export interface FilterState {
@@ -35,7 +35,7 @@ export const filterState = atom<FilterState>({
 export const alignState = atom<AlignState>({
   key: 'alignState',
   default: {
-    importance: 'recommend',
+    importance: 'high',
     risk: 'high',
   },
 });

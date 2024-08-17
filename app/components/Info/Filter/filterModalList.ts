@@ -40,7 +40,7 @@ export const filterByTab: FilterByTabType[] = [
     ],
   },
   {
-    tab: 'riskFood',
+    tab: 'dangerousFood',
     filterDetail: [
       { modalType: MODAL_TYPE.INFO_FILTER_PET_TYPE, filterType: 'petType' },
     ],
@@ -105,8 +105,8 @@ export const alignList: {
     title: '필터',
     modalType: MODAL_TYPE.INFO_FILTER_IMPORTANCE,
     option: [
-      { desc: '권장', value: 'recommend' },
-      { desc: '필수', value: 'essential' },
+      { desc: '필수', value: 'high' },
+      { desc: '권장', value: 'low' },
     ],
   },
 ];
