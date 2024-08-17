@@ -61,14 +61,16 @@ const DangerousSearchModal = () => {
         </form>
       </div>
       <div className='bg-extra-device-bg h-full overflow-y-scroll scrollbar-none pb-2'>
-        <ul className='bg-white px-5 mt-2'>
+        <ul
+          className={`${result !== null && result.length === 0 ? '' : 'bg-white'} px-5 mt-2`}
+        >
           {result !== null &&
             (result.length > 0 ? (
               result.map((result: FoodProps) => {
                 return <SearchResult key={result.id} data={result} />;
               })
             ) : (
-              <NoResult search={search} />
+              <NoResult />
             ))}
         </ul>
       </div>
