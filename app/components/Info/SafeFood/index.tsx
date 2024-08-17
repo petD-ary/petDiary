@@ -1,47 +1,59 @@
 'use client';
-
+import { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { MODAL_TYPE } from '@/components/Modal';
 import Align from '../Align';
-import Filter from '../Filter';
-import { Fragment } from 'react';
-import { alignState, filterState } from '@/recoil/Info/atoms';
-import ModalPetType from '../Modal/PetTypeModal';
-import ModalRisk from '../Modal/RiskModal';
+import { alignState } from '@/recoil/Info/atoms';
+import { useFood } from '@/hooks/queries/useKnowledge';
+import ImportanceModal from '../Modal/ImportanceModal';
+import GoToSearch from '../Modal/SearchModal/GoToSearch';
+import { FoodProps } from '../DangerousFood';
+import Link from 'next/link';
+import Label from '../Label';
 
 const SafeFood = () => {
-  const { petType } = useRecoilValue(filterState);
-  const { risk } = useRecoilValue(alignState);
-  // const { data, isLoading } = useDisease({ petType, risk });
+  const { importance } = useRecoilValue(alignState);
+  const { data, isLoading } = useFood({ type: 'safeFood', sort: importance });
 
   return (
     <Fragment>
-      <ModalPetType />
-      <div className='flex justify-between items-center pt-3 px-5 md:pt-5 md:pb-2'>
-        <Filter modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE} filter='petType' />
+      <ImportanceModal />
+      <div className='pt-3 px-5 md:pt-5 md:pb-2'>
+        <div className='flex gap-3 justify-end items-center pb-4'>
+          <div className='min-h-8 min-w-8' />
+          <Align
+            modalType={MODAL_TYPE.INFO_FILTER_IMPORTANCE}
+            align='importance'
+          />
+        </div>
+        <GoToSearch tab='safeFood' />
       </div>
 
       <div className='last:[&_>_div]:border-none'>
-        {/* {!isLoading &&
-      data?.map((data: DiseaseProps) => (
-        <Link
-          href={`/info/disease/${data.id}`}
-          key={data.id}
-          className='cursor-pointer mx-5 py-4 border-b border-extra-deviders flex flex-col gap-2'
-        >
-          <h3 className='text-subTitle2 font-semibold text-text-title'>
-            {data.diagnosisName}
-          </h3>
-          <p className='text-body2 text-text-secondary'>{data.summary}</p>
-          <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
-            <span>{data.petType === 'dog' ? '강아지' : '고양이'}</span>
-            <Label>
-              {data.riskLevel}
-            </Label>
-          </div>
-        </Link>
-      ))} */}
+        {!isLoading &&
+          data?.map((data: FoodProps) => {
+            return (
+              <Link
+                href={`/info/safeFood/${data.id}`}
+                key={data.id}
+                className='mx-5 py-4 border-b border-extra-deviders flex flex-col gap-2'
+              >
+                <h3 className='text-subTitle2 font-semibold text-text-title'>
+                  {data.title[Object.keys(data.title)[0]]}
+                </h3>
+                <p className='text-body2 text-text-secondary'>
+                  {data.summary[Object.keys(data.summary)[0]]}
+                </p>
+                <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
+                  {data.petType && <span>{data.petType}</span>}
+                  {data.tag ? (
+                    <Label>{data.tag[Object.keys(data.tag)[0]]}</Label>
+                  ) : null}
+                </div>
+              </Link>
+            );
+          })}
       </div>
     </Fragment>
   );
