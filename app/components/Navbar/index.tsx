@@ -75,7 +75,7 @@ const Navbar = () => {
 
   return (
     <div className='absolute w-full md:max-w-3xl bottom-0 h-16 bg-white flex z-20 left-1/2 -translate-x-1/2'>
-      {NAVBAR.map(({ type, pathname, push, content, selectedIcon, icon }) => {
+      {NAVBAR.map(({ pathname, push, content, selectedIcon, icon }) => {
         const isSelected = pathname === nowPathname ? true : false;
         const Icon = isSelected ? selectedIcon : icon;
         return (
