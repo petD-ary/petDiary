@@ -2,8 +2,6 @@
 import React, { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { ProviderType } from '../Login/Constant';
-
 interface BtnSocialLoginProps {
   children: ReactNode;
   className?: string;
