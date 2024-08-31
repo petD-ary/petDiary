@@ -1,5 +1,7 @@
 import { SignalProps } from '@/components/Info/Signal';
 import fetchApi from '../fetchApi';
+import { FoodType } from '@/hooks/queries/useKnowledge';
+import { FoodProps } from '@/components/Info/DangerousFood';
 
 export const getKnowledgeDisease = async (
   sort: 'high' | 'low',
@@ -39,6 +41,21 @@ export const getKnowledgeSignalDetail = async (id: number) => {
   return res?.data as SignalProps;
 };
 
+export const getKnowledgeFood = async (
+  type: FoodType,
+  sort: 'high' | 'low',
+) => {
+  const url = `/knowledges/food?type=${type}&sort=cookedOrNot,${sort}`;
+  const res = await fetchApi(url, 'GET');
+  return res?.data as FoodProps[];
+};
+
+export const getKnowledgeFoodDetail = async (id: number) => {
+  const url = `/knowledges/food/${id}`;
+  const res = await fetchApi(url, 'GET');
+  return res?.data as FoodProps;
+};
+
 export interface SearchSymptoms {
   id: string;
   symptom: string;
@@ -76,5 +93,10 @@ export const searchDisease = async ({
 
 export const searchSignal = async (type: string, search: string) => {
   const url = `/knowledges/signal?type=${type}&search=${search}`;
+  return (await fetchApi(url, 'GET'))?.data;
+};
+
+export const searchFood = async (type: FoodType, search: string) => {
+  const url = `/knowledges/food?type=${type}&search=${search}`;
   return (await fetchApi(url, 'GET'))?.data;
 };

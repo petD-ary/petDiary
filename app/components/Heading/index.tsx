@@ -31,6 +31,8 @@ const headerMap: HeaderMap = {
   '/info': HeaderElement.Alert,
   '/info/disease': HeaderElement.Back,
   '/info/signal': HeaderElement.Back,
+  '/info/dangerousFood': HeaderElement.Back,
+  '/info/safeFood': HeaderElement.Back,
   '/mypage': HeaderElement.Alert,
   //  경로 추가
 };

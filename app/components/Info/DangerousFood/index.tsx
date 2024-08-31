@@ -1,33 +1,32 @@
 'use client';
 import { Fragment } from 'react';
-import { useRecoilValue } from 'recoil';
-
-import { MODAL_TYPE } from '@/components/Modal';
-import Align from '../Align';
-import { alignState } from '@/recoil/Info/atoms';
-import { useFood } from '@/hooks/queries/useKnowledge';
-import ImportanceModal from '../Modal/ImportanceModal';
-import GoToSearch from '../Modal/SearchModal/GoToSearch';
-import { FoodProps } from '../DangerousFood';
 import Link from 'next/link';
+
+import { useFood } from '@/hooks/queries/useKnowledge';
+import GoToSearch from '../Modal/SearchModal/GoToSearch';
 import Label from '../Label';
 
-const SafeFood = () => {
-  const { importance } = useRecoilValue(alignState);
-  const { data, isLoading } = useFood({ type: 'safeFood', sort: importance });
+export interface FoodProps {
+  id: number;
+  type: 'dangerousFood' | 'safeFood';
+  title: { [key: string]: string };
+  summary: { [key: string]: string };
+  petType: '강아지·고양이' | '강아지' | '고양이';
+  tag: { [key: string]: string } | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const DangerousFood = () => {
+  const { data, isLoading } = useFood({ type: 'dangerousFood' });
 
   return (
     <Fragment>
-      <ImportanceModal />
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
         <div className='flex gap-3 justify-end items-center pb-4'>
           <div className='min-h-8 min-w-8' />
-          <Align
-            modalType={MODAL_TYPE.INFO_FILTER_IMPORTANCE}
-            align='importance'
-          />
         </div>
-        <GoToSearch tab='safeFood' />
+        <GoToSearch tab='dangerousFood' />
       </div>
 
       <div className='last:[&_>_div]:border-none'>
@@ -35,7 +34,7 @@ const SafeFood = () => {
           data?.map((data: FoodProps) => {
             return (
               <Link
-                href={`/info/safeFood/${data.id}`}
+                href={`/info/dangerousFood/${data.id}`}
                 key={data.id}
                 className='mx-5 py-4 border-b border-extra-deviders flex flex-col gap-2'
               >
@@ -47,9 +46,7 @@ const SafeFood = () => {
                 </p>
                 <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
                   {data.petType && <span>{data.petType}</span>}
-                  {data.tag ? (
-                    <Label>{data.tag[Object.keys(data.tag)[0]]}</Label>
-                  ) : null}
+                  <Label>위험</Label>
                 </div>
               </Link>
             );
@@ -59,4 +56,4 @@ const SafeFood = () => {
   );
 };
 
-export default SafeFood;
+export default DangerousFood;

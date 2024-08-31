@@ -19,13 +19,13 @@ import NoResult from '../NoResult';
 const DiseaseSearchModal = () => {
   const [search, setSearch] = useState('');
   const [symptoms, setSymptoms] = useState<SearchSymptoms[] | null>(null);
-  const [searchResult, setSearchResult] = useState<any[] | null>(null);
+  const [result, setResult] = useState<any[] | null>(null);
 
   const searchDebounce = useDebounceSearch(search, 300);
 
   useEffect(() => {
     (async () => {
-      if (searchResult !== null) return;
+      if (result !== null) return;
 
       const recommendSymptoms = await searchDiseaseSymptom(searchDebounce);
       setSymptoms(recommendSymptoms);
@@ -48,7 +48,7 @@ const DiseaseSearchModal = () => {
     };
 
     const result = await searchDisease(searchOptions);
-    return setSearchResult(result.data);
+    return setResult(result.data);
   };
 
   const handleClickSymptom = async (symptom: {
@@ -69,7 +69,7 @@ const DiseaseSearchModal = () => {
     };
 
     const result = await searchDisease(searchOptions);
-    return setSearchResult(result.data);
+    return setResult(result.data);
   };
 
   return (
@@ -79,7 +79,7 @@ const DiseaseSearchModal = () => {
         titleType='left-X'
         onClick={() => {
           setSearch('');
-          setSearchResult(null);
+          setResult(null);
           setSymptoms(null);
         }}
       />
@@ -98,7 +98,7 @@ const DiseaseSearchModal = () => {
                 if (e.target.value === '') {
                   setSymptoms(null);
                 }
-                setSearchResult(null);
+                setResult(null);
               }}
               placeholder='내용검색'
             />
@@ -112,8 +112,10 @@ const DiseaseSearchModal = () => {
         </form>
       </div>
       <div className='bg-extra-device-bg h-full overflow-y-scroll scrollbar-none pb-2'>
-        <ul className='bg-white px-5 mt-2'>
-          {searchResult === null &&
+        <ul
+          className={`${result !== null && result.length === 0 ? '' : 'bg-white'} px-5 mt-2`}
+        >
+          {result === null &&
             symptoms !== null &&
             symptoms.map((symptom) => (
               <RecommendSearchResult
@@ -122,13 +124,13 @@ const DiseaseSearchModal = () => {
                 onClick={(value) => handleClickSymptom(value)}
               />
             ))}
-          {searchResult !== null &&
-            (searchResult.length > 0 ? (
-              searchResult.map((result: DiseaseProps) => (
+          {result !== null &&
+            (result.length > 0 ? (
+              result.map((result: DiseaseProps) => (
                 <SearchResult key={result.id} data={result} />
               ))
             ) : (
-              <NoResult search={search} />
+              <NoResult />
             ))}
         </ul>
       </div>
