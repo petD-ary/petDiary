@@ -2,11 +2,11 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ConfigProvider } from 'antd';
 import Script from 'next/script';
-import ToastProvider from '@/components/Toast/ToastProvider';
 
 import Navbar from '@/components/Navbar';
 import pretendard from '@/components/Pretendard';
 import HeadingComponent from '@/components/Heading';
+import ToastProvider from '@/components/Toast/ToastProvider';
 import QueryWrapper from '@/components/Wrapper/QueryWrapper';
 import RecoilRootWrapper from '@/components/Wrapper/RecoilRootWrapper';
 

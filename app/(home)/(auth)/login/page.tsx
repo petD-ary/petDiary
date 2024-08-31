@@ -22,10 +22,10 @@ const LoginPage = () => {
       </div>
       <Container className='fixed left-1/2 bottom-0 -translate-x-1/2'>
         <div className='flex flex-col gap-2 py-5'>
-          {socialLoginList.map(({ content, Icon, onClick, className }) => (
+          {socialLoginList.map(({ content, Icon, href, className }) => (
             <BtnSocialLogin
               className={`border ${className}`}
-              onClick={onClick}
+              href={href}
               key={content}
             >
               <div
