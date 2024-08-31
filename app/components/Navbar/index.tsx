@@ -63,7 +63,7 @@ const NAVBAR: NavItem[] = [
   },
 ];
 
-const NAVBAR_BLACKLIST = ['/login', '/account'];
+const NAVBAR_BLACKLIST = ['/login', '/account', '/auth'];
 
 const Navbar = () => {
   const nowPathname = usePathname();

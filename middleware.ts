@@ -13,7 +13,6 @@ export function middleware(request: NextRequest) {
     if (status?.value === 'temporary' && !request.url.includes('/account')) {
       return NextResponse.redirect(new URL('/account', request.url));
     }
-
     // 로그인 유저가 /login, /account 페이지 접근 시 홈으로 리다이렉션
     if (
       !status &&
@@ -22,26 +21,14 @@ export function middleware(request: NextRequest) {
     ) {
       return NextResponse.redirect(new URL('/', request.url));
     }
-
-    // if (
-    //   request.nextUrl.pathname.startsWith('/login') ||
-    //   request.nextUrl.pathname.startsWith('/account') ||
-    //   request.nextUrl.pathname === '/'
-    // ) {
-    //   if (
-    //     status?.value === 'temporary' &&
-    //     (request.nextUrl.pathname.startsWith('/login') ||
-    //       request.nextUrl.pathname === '/')
-    //   ) {
-    //     return NextResponse.redirect(new URL('/account', request.url));
-    //   }
-    //   return NextResponse.redirect(new URL('/', request.url));
-    // }
   }
 
   // 토큰 없이 로그인 페이지 외 페이지 접근 시 로그인으로 이동
   if (!refreshToken) {
-    if (!request.nextUrl.pathname.startsWith('/login')) {
+    if (
+      !request.nextUrl.pathname.startsWith('/login') &&
+      !request.nextUrl.pathname.startsWith('/auth')
+    ) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
   }
