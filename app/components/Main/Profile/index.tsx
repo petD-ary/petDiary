@@ -40,7 +40,9 @@ const Profile = () => {
       <MainAnimalHeader petCount={petData?.length} />
       <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
         <Swiper
-          pagination={true}
+          pagination={{
+            clickable: true,
+          }}
           mousewheel={true}
           modules={[Pagination, Mousewheel]}
         >
