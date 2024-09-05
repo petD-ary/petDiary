@@ -1,8 +1,6 @@
 'use client';
 import axios from '@/libs/axios';
-import { getToken } from '@/utils/getToken';
 import { RawAxiosRequestHeaders } from 'axios';
-import { reissueAccessToken } from './auth';
 
 /**
  * @param url
@@ -15,12 +13,6 @@ const fetchApi = async <T>(
   data?: T,
   headers?: RawAxiosRequestHeaders,
 ) => {
-  const accessToken = await getToken('accessToken');
-
-  if (!accessToken) {
-    await reissueAccessToken();
-  }
-
   try {
     const config = {
       method: method,
