@@ -24,7 +24,8 @@
       "@components/*": ["src/components/*"],
       "@styled/*": ["src/styled/*"]
     },
-    "types": ["kakao.maps.d.ts"]
+    "types": ["kakao.maps.d.ts"],
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "next-env.d.ts",
