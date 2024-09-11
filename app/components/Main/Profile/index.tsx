@@ -3,9 +3,10 @@
 import Image from 'next/image';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Mousewheel } from 'swiper/modules';
+import { Pagination, Mousewheel, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import { Extra, Title } from '@/constants/Typography/TypographyList';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
@@ -43,8 +44,10 @@ const Profile = () => {
           pagination={{
             clickable: true,
           }}
+          navigation={true}
           mousewheel={true}
-          modules={[Pagination, Mousewheel]}
+          modules={[Pagination, Mousewheel, Navigation]}
+          className='max-w-[375px]'
         >
           {petData?.map((item) => {
             return (
