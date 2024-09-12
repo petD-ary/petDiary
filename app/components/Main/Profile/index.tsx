@@ -32,7 +32,7 @@ const Profile = () => {
         {isSuccess && !petData && (
           <NoContent className=''>
             <NoContent.Desc>등록된 반려동물이 없어요</NoContent.Desc>
-            <NoContent.Button onClick={() => router.push('/pet-add')}>
+            <NoContent.Button onClick={() => router.push('/pet-info/add-pet')}>
               반려동물 추가하기
             </NoContent.Button>
           </NoContent>
