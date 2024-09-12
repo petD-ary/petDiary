@@ -2,7 +2,8 @@ import { Coordinates } from '@/hooks/util/useGeolocation';
 import axios from 'axios';
 import { RegionState } from './index';
 
-const getAddress = async (position: Coordinates) => {
+const getAddress = async (position: Coordinates | null) => {
+  if (position === null) return undefined;
   let result: null | RegionState = null;
 
   const URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${position.lng}&y=${position.lat}`;
