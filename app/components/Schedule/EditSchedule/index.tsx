@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { QueryObserverResult } from 'react-query';
 
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import convertObjToDate from '../AddSchedule/convertObjToDate';
@@ -14,7 +15,7 @@ import EditOptionModal from './EditOptionModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import DeleteOptionModal from './DeleteOptionModal';
 
-const EditScheduleModal = () => {
+const EditScheduleModal = ({ refetch }:{ refetch: () => Promise<QueryObserverResult<any, any>>; }) => {
   const { removeModal, addModal } = useModal();
   const schedule = useRecoilValue(scheduleFormState);
   const resetSchedule = useResetRecoilState(scheduleFormState);
@@ -33,6 +34,7 @@ const EditScheduleModal = () => {
     };
 
     await updateSchedules('none', postData).finally(() => {
+      refetch();
       resetSchedule();
       removeModal();
     });
@@ -43,6 +45,7 @@ const EditScheduleModal = () => {
       await deleteSchedules(option ?? 'none', schedule.id);
       removeModal();
     }
+    refetch();
     removeModal();
   };
 
@@ -56,6 +59,7 @@ const EditScheduleModal = () => {
 
     await updateSchedules(options, postData).finally(() => {
       removeModal();
+      refetch();
       resetSchedule();
       removeModal();
     });

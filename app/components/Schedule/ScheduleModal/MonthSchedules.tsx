@@ -19,7 +19,7 @@ const MonthSchedules = () => {
   const {
     selectedDate: { year: yyyy, month: mm },
   } = useCalendarContext();
-  const { data, isSuccess } = useGetSchedules(
+  const { data, isSuccess, refetch } = useGetSchedules(
     new Date(yyyy, mm - 1, 1),
     new Date(yyyy, mm, 0),
   );
@@ -43,7 +43,7 @@ const MonthSchedules = () => {
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
 
-      <EditScheduleModal />
+      <EditScheduleModal refetch={refetch} />
 
       {isSuccess &&
         transformSchedules(data).map(

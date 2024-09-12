@@ -217,7 +217,9 @@ const ScheduleForm = ({
                   end: false,
                 }));
               }}
-              className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-t-lg  ${isSetTimeOpen.start ? '' : 'border-b-0'}`}
+              className={`flex justify-between items-center px-3 py-2 border rounded-t-lg 
+                ${isSetTimeOpen.start ? 'bg-primary-50 border-primary-500' : 'border-b-0 border-extra-border'}`
+              }
             >
               <span>시작</span>
               <TimeFormatter
@@ -242,7 +244,9 @@ const ScheduleForm = ({
                   end: !prev.end,
                 }));
               }}
-              className={`flex justify-between items-center px-3 py-2 border border-extra-border rounded-b-lg`}
+              className={`flex justify-between items-center px-3 py-2 border
+                ${isSetTimeOpen.end ? 'bg-primary-50 border-primary-500' : 'border-extra-border rounded-b-lg'}`
+              }
             >
               <span>종료</span>
               <TimeFormatter
