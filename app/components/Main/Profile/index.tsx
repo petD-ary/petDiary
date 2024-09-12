@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Mousewheel, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -13,33 +13,30 @@ import dog from '@/assets/images/profile/dog/dog1x.webp';
 import dogPng from '@/assets/images/profile/dog/dog.png';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
 import catPng from '@/assets/images/profile/cat/cat.png';
-import { getPetData } from '@/utils/getPetData';
-import { PetData } from '@/types/petData';
 import { calculateAge } from '@/utils/calculateDay';
 import './index.css';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import DDayIcon from './DDayIcon';
+import { usePetData } from '@/hooks/queries/usePetData';
+import NoContent from '@/components/common/NoContent';
+import { useRouter } from 'next/navigation';
 
 const Profile = () => {
-  const [petData, setPetData] = useState<PetData[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const petData = await getPetData();
-        setPetData(petData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data: petData, isLoading, isSuccess } = usePetData();
+  const router = useRouter();
 
   return (
     <Fragment>
-      <MainAnimalHeader petCount={petData?.length} />
-      <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
+      <MainAnimalHeader petCount={petData?.length ?? 0} />
+      <div className='overflow-hidden h-[300px] bg-white rounded-xl shadow-level2'>
+        {isSuccess && !petData && (
+          <NoContent className=''>
+            <NoContent.Desc>등록된 반려동물이 없어요</NoContent.Desc>
+            <NoContent.Button onClick={() => router.push('/pet-add')}>
+              반려동물 추가하기
+            </NoContent.Button>
+          </NoContent>
+        )}
         <Swiper
           pagination={{
             clickable: true,
@@ -52,8 +49,8 @@ const Profile = () => {
           {petData?.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <div className='flex flex-col items-center gap-3 mb-4'>
-                  <div className='rounded-full overflow-hidden w-20 h-20 shadow-level1'>
+                <div className='flex flex-col items-center gap-3 pt-6 pb-4'>
+                  <div className='rounded-full border border-white overflow-hidden w-20 h-20 shadow-level1'>
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -61,6 +58,7 @@ const Profile = () => {
                         width={80}
                         height={80}
                         priority
+                        className='object-cover'
                       />
                     ) : (
                       <picture>
@@ -83,7 +81,7 @@ const Profile = () => {
                   <div className='flex flex-row items-center gap-2'>
                     {item.birthday && (
                       <div
-                        className={`px-2 py-1 ${Extra} text-primary-500 bg-primary-50`}
+                        className={`px-2 py-[6px] ${Extra} text-primary-500 bg-primary-50`}
                       >
                         {calculateAge(item.birthday)}살
                       </div>
@@ -91,7 +89,7 @@ const Profile = () => {
                     <div className={`${Title.title3}`}>{item.name}</div>
                   </div>
                 </div>
-                <div className='max-w-[400px] mx-auto gap-2 flex flex-row justify-center'>
+                <div className='max-w-[375px] mx-auto gap-2 flex justify-center'>
                   {item.birthday && (
                     <>
                       <DDayIcon type='born' dDay={item.birthday} />
@@ -104,14 +102,14 @@ const Profile = () => {
             );
           })}
         </Swiper>
-        {!petData?.length && <Skeleton />}
+        {isLoading && <Skeleton />}
       </div>
     </Fragment>
   );
 };
 
 const Skeleton = () => (
-  <div className='flex flex-col items-center gap-3 mb-4'>
+  <div className='flex flex-col items-center gap-3 pt-6 pb-4'>
     <div className='w-20 h-20 bg-grayColor-100 rounded-full animate-pulse' />
     <div className='w-[60%] h-[22px] bg-grayColor-100 animate-pulse' />
     <div className='w-full gap-2 flex justify-center'>

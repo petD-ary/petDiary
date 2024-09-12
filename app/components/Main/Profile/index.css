@@ -4,9 +4,7 @@
 }
 
 .swiper-pagination {
-  position: relative;
-  padding: 0.5em;
-  @apply mt-5;
+  @apply py-5 relative;
 }
 
 .swiper-pagination-bullet-active {

@@ -29,11 +29,11 @@ const DDayIcon = ({
   };
 
   return (
-    <div className='text-center py-2 px-4'>
+    <div className='text-center py-[6px] w-20 flex flex-col items-center'>
       <Image src={iconType.icon} alt='profile' width={44} height={44} />
-      <span className={`${Caption.caption2}  text-gray-500`}>
+      <p className={`${Caption.caption2} text-gray-500 pt-2 pb-[2px]`}>
         {iconType.desc}
-      </span>
+      </p>
       <div className={`${Body.body2}`}>{dDayCalc(dDay)}</div>
     </div>
   );
