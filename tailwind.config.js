@@ -17,9 +17,9 @@ module.exports = {
         'checkbox-checked': "url('../assets/images/icon-checkbox-checked.png')",
       },
       boxShadow: {
-        level1: '0, 4px, 4px, 0, rgba(0, 0, 0, 0.04)',
-        level2: '0, -4px, 12px, 0, rgba(0, 0, 0, 0.04)',
-        level3: '0, 4px, 8px, 0, rgba(0, 0, 0, 0.16)',
+        level1: '0 4px 4px 0 rgba(0, 0, 0, 0.04)',
+        level2: '0 -4px 12px 0 rgba(0, 0, 0, 0.04)',
+        level3: '0 4px 8px 0 rgba(0, 0, 0, 0.16)',
       },
       fontSize: {
         title1: ['28px', '1.1'],
@@ -106,6 +106,9 @@ module.exports = {
       },
       dropShadow: {
         floatBtn: '0px 8px 16px 0px rgba(0, 0, 0, 0.16)',
+        level1: '0 4px 4px 0 rgba(0, 0, 0, 0.04)',
+        level2: '0 -4px 12px 0 rgba(0, 0, 0, 0.04)',
+        level3: '0 4px 8px 0 rgba(0, 0, 0, 0.16)',
       },
     },
   },
