@@ -3,7 +3,7 @@
 import Container from '@/components/Container';
 
 const CommunityPage = () => {
-  return <Container>ssssssssss</Container>;
+  return <Container>커뮤니티</Container>;
 };
 
 export default CommunityPage;
