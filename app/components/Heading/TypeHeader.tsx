@@ -113,23 +113,22 @@ export const LogoHeader = () => {
 };
 
 //main
-export const MainAnimalHeader = (props: { petCount: number }) => {
-  const { addModal } = useModal();
+export const MainAnimalHeader = (props: { petCount?: number }) => {
   return (
     <div className='flex items-center justify-between py-4'>
       <div className='flex gap-2 '>
         <div className={`${Title.title2} text-text-title`}>내 반려동물</div>
         <div className={`text-primary-500 ${Title.title2}`}>
-          {props.petCount}
+          {props.petCount ?? 0}
         </div>
       </div>
-      <div
+      <Link
         className={`py-2 pl-2 pr-3 flex items-center gap-2 border border-secondary-100 rounded ${Caption.caption1} text-secondary-500 cursor-pointer`}
-        onClick={() => addModal(MODAL_TYPE.PET_EDIT_LIST)}
+        href='/pet-info'
       >
         <IconEdit />
         수정
-      </div>
+      </Link>
     </div>
   );
 };

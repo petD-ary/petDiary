@@ -1,15 +1,19 @@
+import React from 'react';
+
 import { deletePet } from '@/apis/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
+import { usePetInfo } from '@/hooks/queries/usePetInfo';
 import { useModal } from '@/hooks/view/useModal';
-import React from 'react';
 
 const PetDeleteModal = ({ petId }: { petId: number }) => {
   const { removeModal } = useModal();
+  const { refetch } = usePetInfo();
 
   const handleDeletePet = async () => {
     const response = await deletePet(petId);
     if (response?.status === 200) {
+      refetch();
       // 삭제 확인 모달 종료
       removeModal();
       // 반려동물 수정 모달 종료
