@@ -1,13 +1,16 @@
-import weatherDescKo from '@/components/Main/Weather/weatherDescKo';
 import axios from 'axios';
-import { DataState } from './index';
 
-const getWeatherData = async (position: any) => {
+import weatherDescKo from '@/components/Main/Weather/weatherDescKo';
+import { DataState } from './index';
+import { Coordinates } from '@/hooks/util/useGeolocation';
+
+const getWeatherData = async (position: Coordinates | null) => {
+  if (position === null) return undefined;
   let result: null | DataState = null;
 
   const { lat, lng } = position;
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat ?? 37.541}&lon=${lng ?? 126.986}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
 
   try {
     const response = await axios.get(url);
