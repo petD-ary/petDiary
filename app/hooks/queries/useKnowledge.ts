@@ -7,7 +7,14 @@ import {
   getKnowledgeSignal,
   getKnowledgeSignalDetail,
 } from '@/apis/info';
-import { queryDiseaseKey } from '@/constants/queryKey';
+import {
+  queryDiseaseDetailKey,
+  queryDiseaseKey,
+  queryFoodDetailKey,
+  queryFoodKey,
+  querySignalDetailKey,
+  querySignalKey,
+} from '@/constants/queryKey';
 import { PetType, RiskType } from '@/recoil/Info/atoms';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
@@ -33,19 +40,23 @@ export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
 };
 
 export const useDiseaseDetail = (id: number) => {
-  return useQuery([queryDiseaseKey], () => getKnowledgeDiseaseDetail(id), {
-    staleTime: 0,
-    cacheTime: 5 * 60 * 1000,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: true,
-    refetchInterval: 5 * 60 * 1000,
-  });
+  return useQuery(
+    [queryDiseaseDetailKey, id],
+    () => getKnowledgeDiseaseDetail(id),
+    {
+      staleTime: 0,
+      cacheTime: 5 * 60 * 1000,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 5 * 60 * 1000,
+    },
+  );
 };
 
 export const useSignal = (query: { type: SignalType }) => {
   return useQuery(
-    [queryDiseaseKey, query.type],
+    [querySignalKey, query.type],
     () => getKnowledgeSignal(query.type),
     {
       staleTime: 0,
@@ -59,21 +70,25 @@ export const useSignal = (query: { type: SignalType }) => {
 };
 
 export const useSignalDetail = (id: number) => {
-  return useQuery([queryDiseaseKey], () => getKnowledgeSignalDetail(id), {
-    staleTime: 0,
-    cacheTime: 5 * 60 * 1000,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: true,
-    refetchInterval: 5 * 60 * 1000,
-  });
+  return useQuery(
+    [querySignalDetailKey, id],
+    () => getKnowledgeSignalDetail(id),
+    {
+      staleTime: 0,
+      cacheTime: 5 * 60 * 1000,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 5 * 60 * 1000,
+    },
+  );
 };
 
 export type FoodType = 'dangerousFood' | 'safeFood';
 
 export const useFood = (query: { type: FoodType; sort?: 'high' | 'low' }) => {
   return useQuery(
-    [queryDiseaseKey, query.type, query.sort],
+    [queryFoodKey, query.type, query.sort],
     () => getKnowledgeFood(query.type, query.sort ?? 'high'),
     {
       staleTime: 0,
@@ -87,7 +102,7 @@ export const useFood = (query: { type: FoodType; sort?: 'high' | 'low' }) => {
 };
 
 export const useFoodDetail = (id: number) => {
-  return useQuery([queryDiseaseKey], () => getKnowledgeFoodDetail(id), {
+  return useQuery([queryFoodDetailKey, id], () => getKnowledgeFoodDetail(id), {
     staleTime: 0,
     cacheTime: 5 * 60 * 1000,
     refetchOnMount: true,

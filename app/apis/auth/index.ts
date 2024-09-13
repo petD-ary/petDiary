@@ -1,5 +1,5 @@
 import fetchApi from '../fetchApi';
 
 export const reissueAccessToken = async () => {
-  return await fetchApi('/auth/token', 'POST');
+  return fetchApi('/auth/token', 'POST');
 };

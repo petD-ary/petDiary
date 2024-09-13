@@ -7,6 +7,7 @@ import Label from '@/components/Info/Label';
 
 const SignalDetailPage = ({ params: { id } }: { params: { id: number } }) => {
   const { data: signal, isLoading } = useSignalDetail(id);
+
   if (isLoading && !signal)
     return (
       <div className='bg-extra-device-bg h-full flex justify-center items-center'>

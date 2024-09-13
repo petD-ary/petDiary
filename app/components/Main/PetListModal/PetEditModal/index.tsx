@@ -1,18 +1,23 @@
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
 import { useModal } from '@/hooks/view/useModal';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
 import { PetData } from '@/types/petData';
-import Image from 'next/image';
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import IconAddImg from '@/assets/images/icon-addImg.svg';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
 import PetDeleteModal from '../PetDeleteModal';
 import { updatePet } from '@/apis/petData';
+import { usePetInfo } from '@/hooks/queries/usePetInfo';
 
-const PetEditModal = ({ data }: { data: PetData }) => {
+const PetEditModal = ({ data }: { data?: PetData }) => {
+  const { refetch } = usePetInfo();
+  if (!data) return;
+
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
   const setUnknownBirthday = useSetRecoilState(unknownBirthdayState);
   const [image, setImage] = useState<File | null>(null);
@@ -48,7 +53,10 @@ const PetEditModal = ({ data }: { data: PetData }) => {
     }
 
     const res = await updatePet(formData);
-    if (res?.status === 200) removeModal();
+    if (res?.status === 200) {
+      refetch();
+      return removeModal();
+    }
   };
 
   const imageSource = useMemo(() => {
@@ -110,7 +118,7 @@ const PetEditModal = ({ data }: { data: PetData }) => {
           deleteBtn={() => addModal(MODAL_TYPE.PET_DELETE)}
         />
       </div>
-      <PetDeleteModal petId={data.id} />
+      <PetDeleteModal petId={data.id} refetch={refetch} />
     </Modal>
   );
 };
