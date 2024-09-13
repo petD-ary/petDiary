@@ -1,4 +1,3 @@
-import { SubTitle } from '@/constants/Typography/TypographyList';
 import { ReactNode } from 'react';
 
 interface DateProps {
@@ -35,7 +34,7 @@ const DateComponent = ({
       relative after:pb-[100%] after:block cursor-pointer
       ${isSelected && 'bg-primary-600 !text-grayColor-10'}
       ${isToday && '!bg-primary-50 border border-primary-100 [&]:!text-gray-800 font-medium'}
-      ${(isToday && isSelected) && 'border border-primary-600'}
+      ${isToday && isSelected && 'border border-primary-600'}
       ${!isCurrentMonth && '!text-opacity-20'}
       ${isSaturDay ? '!text-secondary-400' : 'text-gray-800'}
       ${isSunDay ? '!text-error' : 'text-gray-800'} 
@@ -46,12 +45,13 @@ const DateComponent = ({
         <div className='absolute top-2 right-2 bg-accent h-2 w-2 rounded-full' />
       ) : null}
       {isToday ? (
-          <div className='flex flex-col items-center'>
-            <div>{children}</div>
-            <div className={`text-primary-600 text-today`}>오늘</div>
-          </div>
-        )
-        : children}
+        <div className='flex flex-col items-center'>
+          <div>{children}</div>
+          <div className={`text-primary-600 text-today`}>오늘</div>
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 };

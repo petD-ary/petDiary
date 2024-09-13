@@ -1,4 +1,8 @@
-import { AddScheduleData, EditScheduleData } from '@/components/Schedule/type';
+import {
+  AddScheduleData,
+  EditScheduleData,
+  ScheduleData,
+} from '@/components/Schedule/type';
 import fetchApi from '../fetchApi';
 import {
   applyTimeZone,
@@ -28,7 +32,7 @@ export const getSchedules = async (from: Date, to: Date) => {
       return { ...schedule, startTime, endTime };
     },
   );
-  return returnSchedule;
+  return returnSchedule as ScheduleData[];
 };
 
 /**

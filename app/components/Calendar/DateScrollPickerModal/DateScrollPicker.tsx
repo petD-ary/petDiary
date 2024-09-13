@@ -33,7 +33,7 @@ const DateScrollPicker = () => {
 
   // 선택된 년도랑 월을 업데이트
   const handleYearChange = (updateYear: any) => {
-    const updateDate = new Date(updateYear, month, date);
+    const updateDate = new Date(updateYear, month - 1, date);
     setSelectedDate(updateDate);
   };
 
@@ -120,7 +120,7 @@ const DateScrollPicker = () => {
               <div
                 className={`flex items-center justify-between ${Title.title1} ${
                   index === activeYearIndex ? 'text-black' : 'text-text-disable'
-                } border-r-2 border-extra-dividers pr-7`}
+                } border-r-2 border-extra-dividers pr-7 cursor-pointer`}
                 onClick={() => handleYearClick(year, index)}
               >
                 {year}
@@ -145,7 +145,7 @@ const DateScrollPicker = () => {
           {months.map((month, index) => (
             <SwiperSlide key={month}>
               <div
-                className={`flex items-center justify-between ${Title.title1} ${
+                className={`flex items-center justify-between cursor-pointer ${Title.title1} ${
                   index === activeMonthIndex
                     ? 'text-black'
                     : 'text-text-disable'
