@@ -1,14 +1,30 @@
 .swiper-wrapper {
   display: flex !important;
-  width: 200% !important;
+  width: 100% !important;
 }
 
 .swiper-pagination {
-  position: relative;
-  padding: 0.5em;
-  @apply mt-5;
+  @apply py-5 relative;
 }
 
 .swiper-pagination-bullet-active {
   @apply bg-primary-500;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply absolute !top-[66px] text-grayColor-500 rounded-md border border-extra-deviders bg-grayColor-10 w-8 h-8;
+}
+
+.swiper-button-prev {
+  @apply -translate-x-[150px] left-1/2;
+}
+
+.swiper-button-next {
+  @apply translate-x-[150px] right-1/2;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  @apply scale-[25%];
 }

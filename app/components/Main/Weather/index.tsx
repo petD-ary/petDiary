@@ -1,7 +1,8 @@
 'use client';
+import { Fragment, useEffect, useState } from 'react';
+
 import WeatherCard from './WeatherCard';
 import useGeolocation from '@/hooks/util/useGeolocation';
-import { Fragment, useEffect, useState } from 'react';
 import getWeatherData from './getWeatherData';
 import WeatherModal from './WeatherModal';
 
@@ -13,19 +14,16 @@ export interface DataState {
 
 const Weather = () => {
   const geolocation = useGeolocation();
-  const [data, setData] = useState<DataState | null>(null);
-
-  const conditions = !geolocation.position || !data;
+  const [data, setData] = useState<DataState | null | undefined>(null);
 
   useEffect(() => {
-    if (geolocation.position !== null && geolocation.error === null) {
-      getWeatherData(geolocation.position).then((res) =>
-        setData(res !== null ? res : null),
-      );
-    }
+    (async () => {
+      const weatherData = await getWeatherData(geolocation.position);
+      setData(weatherData);
+    })();
   }, [geolocation]);
 
-  if (conditions) return <WeatherCard isLoading={conditions} />;
+  if (data === null) return <WeatherCard isLoading={data === null} />;
 
   return (
     <Fragment>

@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import React, { Fragment } from 'react';
+import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Mousewheel } from 'swiper/modules';
+import { Pagination, Mousewheel, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import { Extra, Title } from '@/constants/Typography/TypographyList';
 import dog from '@/assets/images/profile/dog/dog1x.webp';
@@ -17,26 +19,38 @@ import './index.css';
 import { MainAnimalHeader } from '@/components/Heading/TypeHeader';
 import DDayIcon from './DDayIcon';
 import { usePetInfo } from '@/hooks/queries/usePetInfo';
+import NoContent from '@/components/common/NoContent';
 
 const Profile = () => {
-  const { data: petData } = usePetInfo();
+  const { data: petData, isLoading, isSuccess } = usePetInfo();
+  const router = useRouter();
 
   return (
     <Fragment>
-      <MainAnimalHeader petCount={petData?.length} />
-      <div className='py-6 overflow-hidden bg-white rounded-xl drop-shadow-[0_-4px_12px_rgba(0,0,0,0.04)]'>
+      <MainAnimalHeader petCount={petData?.length ?? 0} />
+      <div className='overflow-hidden h-[300px] bg-white rounded-xl shadow-level2'>
+        {isSuccess && !petData && (
+          <NoContent className=''>
+            <NoContent.Desc>등록된 반려동물이 없어요</NoContent.Desc>
+            <NoContent.Button onClick={() => router.push('/pet-info/add-pet')}>
+              반려동물 추가하기
+            </NoContent.Button>
+          </NoContent>
+        )}
         <Swiper
           pagination={{
             clickable: true,
           }}
+          navigation={true}
           mousewheel={true}
-          modules={[Pagination, Mousewheel]}
+          modules={[Pagination, Mousewheel, Navigation]}
+          className='max-w-[375px]'
         >
           {petData?.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <div className='flex flex-col items-center gap-3 mb-4'>
-                  <div className='rounded-full overflow-hidden w-20 h-20 shadow-level1'>
+                <div className='flex flex-col items-center gap-3 pt-6 pb-4'>
+                  <div className='rounded-full border border-white overflow-hidden w-20 h-20 shadow-level1'>
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -44,6 +58,7 @@ const Profile = () => {
                         width={80}
                         height={80}
                         priority
+                        className='object-cover'
                       />
                     ) : (
                       <picture>
@@ -66,7 +81,7 @@ const Profile = () => {
                   <div className='flex flex-row items-center gap-2'>
                     {item.birthday && (
                       <div
-                        className={`px-2 py-1 ${Extra} text-primary-500 bg-primary-50`}
+                        className={`px-2 py-[6px] ${Extra} text-primary-500 bg-primary-50`}
                       >
                         {calculateAge(item.birthday)}살
                       </div>
@@ -74,7 +89,7 @@ const Profile = () => {
                     <div className={`${Title.title3}`}>{item.name}</div>
                   </div>
                 </div>
-                <div className='max-w-[400px] mx-auto gap-2 flex flex-row justify-center'>
+                <div className='max-w-[375px] mx-auto gap-2 flex justify-center'>
                   {item.birthday && (
                     <>
                       <DDayIcon type='born' dDay={item.birthday} />
@@ -87,14 +102,14 @@ const Profile = () => {
             );
           })}
         </Swiper>
-        {!petData?.length && <Skeleton />}
+        {isLoading && <Skeleton />}
       </div>
     </Fragment>
   );
 };
 
 const Skeleton = () => (
-  <div className='flex flex-col items-center gap-3 mb-4'>
+  <div className='flex flex-col items-center gap-3 pt-6 pb-4'>
     <div className='w-20 h-20 bg-grayColor-100 rounded-full animate-pulse' />
     <div className='flex justify-center gap-2 w-full'>
       <div className='w-10 h-[20px] rounded-md bg-grayColor-100 animate-pulse' />

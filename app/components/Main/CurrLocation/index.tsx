@@ -1,6 +1,7 @@
 'use client';
-import useGeolocation from '@/hooks/util/useGeolocation';
 import { useEffect, useState } from 'react';
+
+import useGeolocation from '@/hooks/util/useGeolocation';
 import getAddress from './getAddress';
 import IconLocation from '@/assets/images/icon-location.svg';
 import { Body, Caption } from '@/constants/Typography/TypographyList';
@@ -12,14 +13,14 @@ export interface RegionState {
 
 const CurrLocation = () => {
   const location = useGeolocation();
-  const [region, setRegion] = useState<null | RegionState>();
+  const [region, setRegion] = useState<null | RegionState | undefined>(null);
 
   useEffect(() => {
-    if (location.position) {
-      getAddress(location.position).then((address) => {
-        setRegion(address);
-      });
-    }
+    (async () => {
+      const address = await getAddress(location.position);
+
+      setRegion(address);
+    })();
   }, [location]);
 
   return (
@@ -30,12 +31,16 @@ const CurrLocation = () => {
         <IconLocation />
         <span>내 위치</span>
       </div>
-      {!region ? (
-        <div className={`w-32 h-[22px] bg-grayColor-100 animate-pulse`}></div>
-      ) : (
+      {region === null ? (
+        <div className={`w-32 h-[22px] bg-grayColor-100 animate-pulse`} />
+      ) : region ? (
         <p
           className={`text-secondary-900 ${Body.body3}`}
         >{`${region?.city} ${region?.district}`}</p>
+      ) : (
+        <p className={`text-secondary-500 ${Body.body3}`}>
+          위치 설정을 해주세요
+        </p>
       )}
     </div>
   );

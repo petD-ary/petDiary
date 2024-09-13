@@ -3,7 +3,8 @@ import { DataState } from '../index';
 import Image from 'next/image';
 import { SubTitle, Title } from '@/constants/Typography/TypographyList';
 
-const WeatherModal = ({ data }: { data: DataState }) => {
+const WeatherModal = ({ data }: { data?: DataState }) => {
+  if (!data) return;
   return (
     <Modal type={MODAL_TYPE.WEATHER} variant={MODAL_VARIANT.CARD}>
       <Modal.Header title='오늘의 날씨' titleType='left-X' />

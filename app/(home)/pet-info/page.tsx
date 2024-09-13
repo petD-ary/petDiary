@@ -16,7 +16,6 @@ const PetInfoPage = () => {
   const { data: petData, isSuccess } = usePetInfo();
 
   if (!isSuccess) return <Loading />;
-  if (!petData) return <div>등록된 반려동물이 없어요</div>;
 
   return (
     <Fragment>
@@ -54,9 +53,9 @@ const PetInfoPage = () => {
           className='border-purple-600 mt-3'
           variant={'outlined'}
           onClick={() => router.push('/pet-info/add-pet')}
-          isDisabled={petData?.length >= 5}
+          isDisabled={petData && petData?.length >= 5}
         >
-          {petData?.length < 5
+          {petData && petData?.length < 5
             ? '반려동물 추가'
             : '더 이상 반려동물을 추가할 수 없어요.'}
         </Button>
