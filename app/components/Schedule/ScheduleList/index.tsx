@@ -1,18 +1,14 @@
 'use client';
-import { useRecoilValue } from 'recoil';
-
-import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { scheduleDataState } from '@/recoil/Schedule/atom';
 import { useModal } from '@/hooks/view/useModal';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
-import { getDate, getDay, getHours } from '@/utils/calculateDay';
-import { transformSchedules } from '@/utils/transformSchedule';
 import { MODAL_TYPE } from '@/components/Modal';
 import ScheduleModal from '@/components/Schedule/ScheduleModal';
+import { Caption, Title } from '@/constants/Typography/TypographyList';
+import { getDate, getDay, getHours } from '@/utils/calculateDay';
+import { transformSchedules } from '@/utils/transformSchedule';
 import { TransformedScheduleData } from '../type';
 
-const ScheduleList = () => {
-  const { data, isSuccess } = useRecoilValue(scheduleDataState);
+const ScheduleList = ({ schedule }: { schedule?: any[] }) => {
   const { addModal } = useModal();
   const {
     selectedDate: { year, month, date },
@@ -22,8 +18,8 @@ const ScheduleList = () => {
     <div className='border-b border-extra-deviders'>
       <ScheduleModal />
 
-      {isSuccess &&
-        transformSchedules(data)
+      {schedule &&
+        transformSchedules(schedule)
           ?.filter(
             (schedule) =>
               Number(getDate(schedule.startTime)) ===

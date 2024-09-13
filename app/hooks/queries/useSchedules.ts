@@ -1,6 +1,6 @@
+import { useQuery } from 'react-query';
 import { getSchedules } from '@/apis/schedules';
 import { querySchedulesKey } from '@/constants/queryKey';
-import { useQuery } from 'react-query';
 
 export const useGetSchedules = (from: Date, to: Date) => {
   return useQuery([querySchedulesKey, from, to], () => getSchedules(from, to), {

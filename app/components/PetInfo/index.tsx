@@ -9,7 +9,7 @@ import Button from '../Button';
 import { MODAL_TYPE } from '../Modal';
 import { CalendarInput } from '../Input/calendar/CalendarInput';
 import { handleformattedDate } from '../Account/PetInfoForm';
-import Calendar from '../Calendar/CalendarPicker';
+import Calendar from '../Calendar';
 import { useRecoilState } from 'recoil';
 import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
 import IconDown from '@/assets/images/icon-down.svg';
