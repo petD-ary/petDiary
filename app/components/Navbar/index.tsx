@@ -45,14 +45,14 @@ const NAVBAR: NavItem[] = [
     icon: IconInfo,
     selectedIcon: IconSelectedInfo,
   },
-  {
-    type: 'community',
-    pathname: '/community',
-    push: '/community',
-    content: '커뮤니티',
-    icon: IconCommunity,
-    selectedIcon: IconSelectedCommunity,
-  },
+  // {
+  //   type: 'community',
+  //   pathname: '/community',
+  //   push: '/community',
+  //   content: '커뮤니티',
+  //   icon: IconCommunity,
+  //   selectedIcon: IconSelectedCommunity,
+  // },
   {
     type: 'mypage',
     pathname: '/mypage',

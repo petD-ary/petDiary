@@ -1,7 +1,7 @@
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import DateScrollPicker from './DateScrollPicker';
 
-const CalendarModal = () => {
+const DateScrollPickerModal = () => {
   return (
     <Modal type={MODAL_TYPE.WHEEL_CALENDAR} variant={MODAL_VARIANT.HALF_SLIDE}>
       <Modal.Header title='' titleType='left-X' />
@@ -13,4 +13,4 @@ const CalendarModal = () => {
   );
 };
 
-export default CalendarModal;
+export default DateScrollPickerModal;

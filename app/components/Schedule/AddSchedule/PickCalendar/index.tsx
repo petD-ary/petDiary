@@ -2,7 +2,7 @@ import React from 'react';
 
 import Input from '@/components/Input';
 import { SCHEDULE_TYPE } from '../../constants';
-import Calendar from '../../../Calendar/CalendarPicker';
+import Calendar from '../../../Calendar';
 import './style.css';
 import convertObjToDate from '../convertObjToDate';
 

@@ -1,17 +1,15 @@
 'use client';
-import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { useGetSchedules } from '@/hooks/queries/useSchedules';
-import { formatDateToYYYYMMDDTHHMMSSZ } from '@/utils/dateFormat';
 import { getDate, getDay } from '@/utils/calculateDay';
 import { transformSchedules } from '@/utils/transformSchedule';
-import Calendar from '@/components/Calendar/CalendarPicker';
+import Calendar from '@/components/Calendar';
 import { Caption, Title } from '@/constants/Typography/TypographyList';
-import { EditScheduleData, TransformedScheduleData } from '../type';
+import { ScheduleData, TransformedScheduleData } from '../type';
 import useCalendarContext from '@/hooks/context/useCalendarContext';
 import ScheduleDetail from './ScheduleDetail';
 import EditScheduleModal from '../EditSchedule';
-import { useSetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 import scheduleDateFormat from '@/utils/scheduleDateFormat';
 
@@ -19,23 +17,15 @@ const MonthSchedules = () => {
   const {
     selectedDate: { year: yyyy, month: mm },
   } = useCalendarContext();
-  const { data, isSuccess } = useGetSchedules(
+  const { data, isSuccess, refetch } = useGetSchedules(
     new Date(yyyy, mm - 1, 1),
     new Date(yyyy, mm, 0),
   );
   const setSchedule = useSetRecoilState(scheduleFormState);
 
-  const handleEditData = (schedule: TransformedScheduleData) => {
+  const handleEditData = (schedule: ScheduleData) => {
     const start = scheduleDateFormat(schedule.startTime);
     const end = scheduleDateFormat(schedule.endTime);
-    delete schedule.id;
-    delete schedule.repeatIndex;
-    delete schedule.scheduleId;
-    delete schedule.userId;
-    delete schedule.isAllDay;
-    delete schedule.isEndDay;
-    delete schedule.isFirst;
-    delete schedule.isStartDay;
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
 
@@ -43,9 +33,11 @@ const MonthSchedules = () => {
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
 
-      <EditScheduleModal />
+      <EditScheduleModal refetch={refetch} />
+      {isSuccess && data.length === 0 && <div></div>}
 
       {isSuccess &&
+        data.length > 0 &&
         transformSchedules(data).map(
           (schedule: TransformedScheduleData, index: number) => {
             return (

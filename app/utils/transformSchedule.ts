@@ -1,6 +1,8 @@
-
-import { TransformedScheduleData } from '@/components/Schedule/type';
-import { convertUTC, getOffsetByTimeZone } from './calculateDay';
+import {
+  ScheduleData,
+  TransformedScheduleData,
+} from '@/components/Schedule/type';
+import { getOffsetByTimeZone } from './calculateDay';
 
 /**
  * 일정 데이터 변환
@@ -12,7 +14,7 @@ import { convertUTC, getOffsetByTimeZone } from './calculateDay';
  * @param schedules
  * @returns
  */
-export function transformSchedules(schedules: TransformedScheduleData[] = []) {
+export function transformSchedules(schedules: ScheduleData[] = []) {
   const returnSchedules: TransformedScheduleData[] = [];
 
   schedules.forEach(
@@ -31,7 +33,7 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
           endTime.getDate() - startTime.getDate() === 1)
       ) {
         returnSchedules.push({
-          ...(schedule as TransformedScheduleData),
+          ...(schedule as ScheduleData),
           isStartDay: true,
           isAllDay: false,
           isEndDay: true,
@@ -39,7 +41,7 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
       } else {
         // 첫째 날 처리
         returnSchedules.push({
-          ...(schedule as TransformedScheduleData),
+          ...(schedule as ScheduleData),
           startTime: formatDate(startTime),
           endTime: formatDate(startMidnight),
           isStartDay: true,
@@ -51,7 +53,7 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
         let currentMidnight = startMidnight;
         while (getNextDate(currentMidnight).getTime() < endMidnight.getTime()) {
           returnSchedules.push({
-            ...(schedule as TransformedScheduleData),
+            ...(schedule as ScheduleData),
             startTime: formatDate(currentMidnight),
             endTime: formatDate(getNextDate(currentMidnight)),
             isStartDay: false,
@@ -63,7 +65,7 @@ export function transformSchedules(schedules: TransformedScheduleData[] = []) {
 
         // 마지막 날 처리
         returnSchedules.push({
-          ...(schedule as TransformedScheduleData),
+          ...(schedule as ScheduleData),
           startTime: formatDate(currentMidnight),
           endTime: formatDate(endTime),
           isStartDay: false,

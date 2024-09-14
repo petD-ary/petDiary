@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { ScheduleData } from '../Schedule/type';
 
 export interface CalendarProps {
   children?: React.ReactNode;
   initDate?: string | Date;
-  setUpdateDate?: (date: Date | string) => void;
+  setUpdateDate?: Dispatch<SetStateAction<Date>>;
   className?: string;
-  viewSchedule?: boolean;
 }
 
 export interface CalendarContextProps {
-  viewSchedule?: boolean;
   selectedDate: {
     year: number;
     month: number;
@@ -20,10 +19,12 @@ export interface CalendarContextProps {
 
 export interface YYYYMMPickerProps {
   type?: 'left' | 'center';
+  goToToday?: boolean;
   className?: string;
 }
 
 export interface DateContainerProps {
   className?: string;
   handleClickDay?: (value: Date) => void;
+  schedule?: ScheduleData[];
 }

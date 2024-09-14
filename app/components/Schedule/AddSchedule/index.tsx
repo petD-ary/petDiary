@@ -1,13 +1,19 @@
 'use client';
 import React, { FormEvent } from 'react';
+import { QueryObserverResult } from 'react-query';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+
 import { useModal } from '@/hooks/view/useModal';
 import convertObjToDate from './convertObjToDate';
 import { addSchedules } from '@/apis/schedules';
 import ScheduleForm from '../ScheduleFormModal';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
 
-const AddScheduleModal = () => {
+const AddScheduleModal = ({
+  refetch,
+}: {
+  refetch: () => Promise<QueryObserverResult<any, any>>;
+}) => {
   const { removeModal } = useModal();
   const schedule = useRecoilValue(scheduleFormState);
   const resetSchedule = useResetRecoilState(scheduleFormState);
@@ -24,6 +30,7 @@ const AddScheduleModal = () => {
 
     await addSchedules(postData).finally(() => {
       resetSchedule();
+      refetch();
       removeModal();
     });
   };

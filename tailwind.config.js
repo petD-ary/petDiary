@@ -34,6 +34,7 @@ module.exports = {
         text: ['13px', '1.1'],
         caption1: ['13px', '1.2'],
         caption2: ['12px', '1.5'],
+        today: ['10px', '1.1'],
         'text-extra': ['11px', '1.1'],
       },
       colors: {

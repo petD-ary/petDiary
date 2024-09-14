@@ -34,16 +34,30 @@ export interface EditScheduleData extends AddScheduleData {
   scheduleId?: number;
 }
 
-export interface TransformedScheduleData extends AddScheduleData {
-  id?: number;
+export interface ScheduleData {
+  id: number;
+  address: string;
+  alarm: AlarmType;
+  lat: number;
+  lng: number;
+  memo: string;
+  place: string;
+  repeat: RepeatType;
+  repeatCount: number;
+  repeatIndex: number;
+  scheduleId: number;
+  startTime: string;
+  endTime: string;
+  timeZone: string;
+  title: string;
+  userId: number;
+}
+
+export interface TransformedScheduleData extends ScheduleData {
   isFirst?: boolean;
   isAllDay?: boolean;
   isStartDay?: boolean;
   isEndDay?: boolean;
-  userId?: number;
-  repeatIndex?: number;
-  scheduleId?: number;
-  timeZone: string;
 }
 
 export type AlarmType = 'none' | '24h' | '10m' | '30m' | '1h';
