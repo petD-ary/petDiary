@@ -201,23 +201,11 @@ const DateContainer = ({
 }: DateContainerProps) => {
   const {
     selectedDate: { year, month, date },
-    setSelectedDate,
   } = useCalendarContext();
 
   const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
   const { weeks } = useCalendar(year, month);
-
-  const thisDateInfo = (day: Date) => {
-    const dateInfo = {
-      isToday: isToday(day),
-      isSelected: isSelectDay(year, month, date, day),
-      isSunDay: isSunDay(day),
-      isCurrentMonth: isCurrentMonth(year, month, day),
-    };
-
-    return dateInfo;
-  };
 
   return (
     <div className={`${className}`}>
@@ -241,9 +229,7 @@ const DateContainer = ({
               <DateComponent
                 key={String(day)}
                 day={day}
-                dateInfo={thisDateInfo(day)}
-                hasSchedule={schedule && hasSchedule(schedule, day)}
-                setSelectedDate={(day: Date) => setSelectedDate(day)}
+                schedule={schedule}
                 handleClickDay={handleClickDay}
               >
                 {day.getDate()}

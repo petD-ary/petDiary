@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { ScheduleData } from '../Schedule/type';
 
 export interface CalendarProps {
   children?: React.ReactNode;
@@ -25,5 +26,5 @@ export interface YYYYMMPickerProps {
 export interface DateContainerProps {
   className?: string;
   handleClickDay?: (value: Date) => void;
-  schedule?: any[];
+  schedule?: ScheduleData[];
 }

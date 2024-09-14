@@ -1,5 +1,7 @@
 import { isSameDay } from 'date-fns';
 
+import { ScheduleData } from '@/components/Schedule/type';
+
 // 해당 날짜가 오늘인지 확인하는 함수
 /**
  * 해당 날짜가 오늘인지 확인하는 함수
@@ -69,11 +71,11 @@ export const isCurrentMonth = (
 /**
  * 일정 표시 함수
  *
- * @param {any[]} schedule
+ * @param {ScheduleData[]} schedule
  * @param {Date} day
  * @returns {boolean}
  */
-export const hasSchedule = (schedule: any[], day: Date): boolean => {
+export const hasSchedule = (schedule: ScheduleData[], day: Date): boolean => {
   if (!schedule) return false;
   return schedule.some((schedule: { startTime: string; endTime: string }) => {
     const startTime = new Date(schedule.startTime);
