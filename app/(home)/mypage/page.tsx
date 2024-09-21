@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import Container from '@/components/Container';
 import MyPageBtn from '@/components/MyPage/MyPageBtn';
+import { logout } from '@/apis/users';
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import NicknameChangeModal from '@/components/MyPage/NicknameChangeModal';
@@ -14,6 +15,11 @@ const MyPage = () => {
   const router = useRouter();
   const { addModal } = useModal();
   const { data } = useUser();
+
+  const onClick = async () => {
+    await logout();
+    router.push('/login');
+  };
 
   return (
     <Container className='bg-extra-device-bg h-full px-5 flex flex-col justify-between pt-10 pb-5'>
@@ -28,7 +34,10 @@ const MyPage = () => {
           </p>
           <p className='text-text-secondary text-body2'>환영합니다</p>
         </div>
-        <span className='cursor-pointer text-caption1 font-semibold py-[6px] px-3 border border-accent/50 text-accent bg-white rounded-full'>
+        <span
+          onClick={onClick}
+          className='cursor-pointer text-caption1 font-semibold py-[6px] px-3 border border-accent/50 text-accent bg-white rounded-full'
+        >
           로그아웃
         </span>
       </div>

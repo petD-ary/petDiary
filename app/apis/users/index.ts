@@ -31,3 +31,7 @@ export const updatedUserData = async (data: UpdatedUserDataProps) => {
 export const putNickname = async (nickname: string) => {
   return await fetchApi(`/users/nickname`, 'PUT', { nickname });
 };
+
+export const logout = async () => {
+  return fetchApi('/users/logout', 'POST');
+};
