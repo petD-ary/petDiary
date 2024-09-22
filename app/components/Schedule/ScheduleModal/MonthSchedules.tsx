@@ -11,7 +11,11 @@ import useCalendarContext from '@/hooks/context/useCalendarContext';
 import ScheduleDetail from './ScheduleDetail';
 import EditScheduleModal from '../EditSchedule';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import scheduleDateFormat from '@/utils/scheduleDateFormat';
+import scheduleDateFormat, { setTimes } from '@/utils/scheduleDateFormat';
+import NoContent from '@/components/common/NoContent';
+import AddScheduleModal from '../AddSchedule';
+import { useModal } from '@/hooks/view/useModal';
+import { MODAL_TYPE } from '@/components/Modal';
 
 const MonthSchedules = () => {
   const {
@@ -22,6 +26,7 @@ const MonthSchedules = () => {
     new Date(yyyy, mm, 0),
   );
   const setSchedule = useSetRecoilState(scheduleFormState);
+  const { addModal } = useModal();
 
   const handleEditData = (schedule: ScheduleData) => {
     const start = scheduleDateFormat(schedule.startTime);
@@ -29,12 +34,38 @@ const MonthSchedules = () => {
     setSchedule({ ...schedule, startTime: start, endTime: end });
   };
 
+  const handleAddData = () => {
+    const now = new Date();
+    const dd = now.getDate();
+    const hh = now.getHours();
+    const minutes = now.getMinutes();
+    const seletedDate = `${yyyy}-${mm}-${dd} ${hh}:${minutes}`;
+
+    const setTime = setTimes(seletedDate);
+
+    setSchedule((prev) => ({
+      ...prev,
+      startTime: setTime.startTime,
+      endTime: setTime.endTime,
+    }));
+
+    addModal(MODAL_TYPE.SCHEDULE_ADD);
+  };
+
   return (
     <div className='bg-extra-device-bg h-[calc(100dvh-105px)] overflow-y-scroll scrollbar-none'>
       <Calendar.YYYYMMPicker className='!bg-extra-device-bg !mb-0' />
 
       <EditScheduleModal refetch={refetch} />
-      {isSuccess && data.length === 0 && <div></div>}
+      <AddScheduleModal refetch={refetch} />
+      {isSuccess && data.length === 0 && (
+        <NoContent className='h-[218px] px-5 py-[30px]'>
+          <NoContent.Desc>일일 일정이 없어요</NoContent.Desc>
+          <NoContent.Button onClick={handleAddData}>
+            일정 추가하기
+          </NoContent.Button>
+        </NoContent>
+      )}
 
       {isSuccess &&
         data.length > 0 &&

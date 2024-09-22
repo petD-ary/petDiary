@@ -1,7 +1,7 @@
-import convertObjToDate from '@/components/Schedule/AddSchedule/convertObjToDate';
-import { EditScheduleData, ScheduleState } from '@/components/Schedule/type';
-import scheduleDateFormat from '@/utils/scheduleDateFormat';
 import { atom } from 'recoil';
+
+import { ScheduleState } from '@/components/Schedule/type';
+import { setTimes } from '@/utils/scheduleDateFormat';
 
 export const scheduleDataState = atom({
   key: 'scheduleData',
@@ -20,9 +20,7 @@ export const scheduleListState = atom({
 });
 
 const today = new Date();
-const setStartTime = scheduleDateFormat(today);
-const endTime = new Date().setMinutes(today.getMinutes() + 30);
-const setEndTime = scheduleDateFormat(new Date(endTime));
+const setTime = setTimes(today);
 
 export const scheduleFormState = atom<ScheduleState>({
   key: 'scheduleFormState',
@@ -35,8 +33,8 @@ export const scheduleFormState = atom<ScheduleState>({
     alarm: 'none',
     repeat: 'none',
     repeatCount: 0,
-    startTime: setStartTime,
-    endTime: setEndTime,
+    startTime: setTime.startTime,
+    endTime: setTime.endTime,
     memo: '',
   },
 });

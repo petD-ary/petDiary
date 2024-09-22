@@ -52,6 +52,7 @@ const Button = ({
       className={`
       py-[10px] px-4 rounded-full
       border border-extra-border hover:border-extra-active
+      bg-white
       text-secondary-400
       text-button font-semibold shadow-level1
       transition-colors

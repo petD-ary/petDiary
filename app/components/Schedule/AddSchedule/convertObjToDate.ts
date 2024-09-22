@@ -1,4 +1,4 @@
-interface ConvertObjToDateProps {
+export interface ConvertObjToDateProps {
   date: string;
   time: { hh: string; mm: string };
 }
