@@ -180,7 +180,7 @@ const DaySchedules = () => {
       )}
 
       {isSuccess &&
-        data.length &&
+        data.length > 0 &&
         transformSchedules(data)?.map((schedule: TransformedScheduleData) => {
           if (
             new Date(date.getFullYear(), date.getMonth(), date.getDate()) <=
