@@ -1,15 +1,15 @@
 import { InfoTab } from '@/(home)/info/page';
 import { MODAL_TYPE } from '@/components/Modal';
 import {
-  ImportanceType,
   PetType,
   RiskType,
   SignalType,
   signalDepthType,
+  FoodCookType,
 } from '@/recoil/Info/atoms';
 
-type FilterType = 'petType' | 'signal' | 'signalDepth';
-type AlignType = 'importance' | 'risk';
+export type FilterType = 'petType' | 'signal' | 'signalDepth' | 'food';
+export type AlignType = 'risk';
 
 interface FilterByTabType {
   tab: InfoTab;
@@ -41,20 +41,12 @@ export const filterByTab: FilterByTabType[] = [
   },
   {
     tab: 'dangerousFood',
-    filterDetail: [
-      { modalType: MODAL_TYPE.INFO_FILTER_PET_TYPE, filterType: 'petType' },
-    ],
+    filterDetail: [],
   },
   {
     tab: 'safeFood',
     filterDetail: [
-      { modalType: MODAL_TYPE.INFO_FILTER_PET_TYPE, filterType: 'petType' },
-    ],
-    align: [
-      {
-        modalType: MODAL_TYPE.INFO_FILTER_IMPORTANCE,
-        filterType: 'importance',
-      },
+      { modalType: MODAL_TYPE.INFO_FILTER_PET_TYPE, filterType: 'food' },
     ],
   },
 ];
@@ -62,7 +54,7 @@ export const filterByTab: FilterByTabType[] = [
 export const filterList: {
   title: string;
   modalType: MODAL_TYPE;
-  option: { desc: string; value: PetType | SignalType }[];
+  option: { desc: string; value: PetType | SignalType | FoodCookType }[];
 }[] = [
   {
     title: '반려동물 구분',
@@ -73,7 +65,6 @@ export const filterList: {
       { desc: '고양이', value: 'cat' },
     ],
   },
-
   {
     title: '신호',
     modalType: MODAL_TYPE.INFO_FILTER_SIGNAL,
@@ -86,27 +77,27 @@ export const filterList: {
       { desc: '수면 시 호흡 수', value: 'breathingDuringSleep' },
     ],
   },
+  {
+    title: '필터',
+    modalType: MODAL_TYPE.INFO_FILTER_FOOD_TYPE,
+    option: [
+      { desc: '조리 필수', value: 'cooking' },
+      { desc: '손질 필수', value: 'preparation' },
+    ],
+  },
 ];
 
 export const alignList: {
   title: string;
   modalType: MODAL_TYPE;
-  option: { desc: string; value: RiskType | ImportanceType }[];
+  option: { desc: string; value: RiskType | FoodCookType }[];
 }[] = [
   {
-    title: '필터',
+    title: '정렬',
     modalType: MODAL_TYPE.INFO_FILTER_RISK,
     option: [
       { desc: '위험도 높은 순', value: 'high' },
       { desc: '위험도 낮은 순', value: 'low' },
-    ],
-  },
-  {
-    title: '필터',
-    modalType: MODAL_TYPE.INFO_FILTER_IMPORTANCE,
-    option: [
-      { desc: '필수', value: 'high' },
-      { desc: '권장', value: 'low' },
     ],
   },
 ];

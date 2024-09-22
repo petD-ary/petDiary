@@ -2,25 +2,23 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { alignList } from '../Filter/filterModalList';
+import { filterList } from '../Filter/filterModalList';
 import AlignOption from '../Align/AlignOption';
 import { useModal } from '@/hooks/view/useModal';
 import Button from '@/components/Button';
-import { ImportanceType, alignState } from '@/recoil/Info/atoms';
+import { FoodCookType, filterState } from '@/recoil/Info/atoms';
 
-const ImportanceModal = () => {
+const FoodTypeModal = () => {
   const { removeModal } = useModal();
-  const modalData = alignList.filter(
-    (item) => item.modalType === MODAL_TYPE.INFO_FILTER_IMPORTANCE,
+  const modalData = filterList.filter(
+    (item) => item.modalType === MODAL_TYPE.INFO_FILTER_FOOD_TYPE,
   )[0];
-  const [filter, setFilter] = useRecoilState(alignState);
-  const [isSelected, setIsSelected] = useState<ImportanceType>(
-    filter.importance,
-  );
+  const [filter, setFilter] = useRecoilState(filterState);
+  const [isSelected, setIsSelected] = useState<FoodCookType>(filter.food);
 
   return (
     <Modal
-      type={MODAL_TYPE.INFO_FILTER_IMPORTANCE}
+      type={MODAL_TYPE.INFO_FILTER_FOOD_TYPE}
       variant={MODAL_VARIANT.HALF_SLIDE}
     >
       <Modal.Header title={modalData.title} titleType='left' />
@@ -29,7 +27,7 @@ const ImportanceModal = () => {
           <AlignOption
             key={option.value}
             isSelected={isSelected === option.value}
-            onClick={(value) => setIsSelected(value as ImportanceType)}
+            onClick={(value) => setIsSelected(value as FoodCookType)}
             option={option}
           />
         ))}
@@ -38,7 +36,7 @@ const ImportanceModal = () => {
         <Button
           variant='contained'
           onClick={() => {
-            setFilter((prev) => ({ ...prev, importance: isSelected }));
+            setFilter((prev) => ({ ...prev, food: isSelected }));
             removeModal();
           }}
         >
@@ -49,4 +47,4 @@ const ImportanceModal = () => {
   );
 };
 
-export default ImportanceModal;
+export default FoodTypeModal;

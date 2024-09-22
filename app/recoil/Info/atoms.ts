@@ -9,17 +9,17 @@ export type SignalType =
   | 'drinkAmount'
   | 'breathingDuringSleep';
 export type signalDepthType = 'Color' | 'Shape';
-export type ImportanceType = 'high' | 'low';
+export type FoodCookType = 'cooking' | 'preparation';
 export type RiskType = 'high' | 'low';
 
 export interface FilterState {
   petType: PetType;
   signal: SignalType;
   signalDepth: signalDepthType;
+  food: FoodCookType;
 }
 
 export interface AlignState {
-  importance: ImportanceType;
   risk: RiskType;
 }
 
@@ -29,13 +29,13 @@ export const filterState = atom<FilterState>({
     petType: 'all',
     signal: 'poop',
     signalDepth: 'Color',
+    food: 'cooking',
   },
 });
 
 export const alignState = atom<AlignState>({
   key: 'alignState',
   default: {
-    importance: 'high',
     risk: 'high',
   },
 });
