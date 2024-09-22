@@ -106,7 +106,7 @@ const DateScrollPicker = () => {
     <div className='flex mb-7'>
       <div className='px-4 h-[150px] overflow-hidden '>
         <Swiper
-          ref={(ref: null) => (swiperRefYear.current = ref)}
+          ref={swiperRefYear}
           direction='vertical'
           slidesPerView={3}
           spaceBetween={20}
@@ -133,7 +133,7 @@ const DateScrollPicker = () => {
       {/* Month Swiper */}
       <div className='px-4 h-[150px] overflow-hidden'>
         <Swiper
-          ref={(ref: null) => (swiperRefMonth.current = ref)}
+          ref={swiperRefMonth}
           direction='vertical'
           slidesPerView={3}
           spaceBetween={20}

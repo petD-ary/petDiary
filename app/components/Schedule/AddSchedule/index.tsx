@@ -28,11 +28,14 @@ const AddScheduleModal = ({
       endTime: convertObjToDate(schedule.endTime).toISOString(),
     };
 
-    await addSchedules(postData).finally(() => {
+    try {
+      await addSchedules(postData);
       resetSchedule();
       refetch();
       removeModal();
-    });
+    } catch (error) {
+      // console.log('🚀 ~ handleSubmit ~ error:', error);
+    }
   };
 
   return <ScheduleForm type='add' handleSubmit={(e) => handleSubmit(e)} />;

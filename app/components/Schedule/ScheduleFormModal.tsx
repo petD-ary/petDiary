@@ -9,21 +9,22 @@ import {
 } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { scheduleFormState } from '@/recoil/Schedule/atom';
-import { useModal } from '@/hooks/view/useModal';
+
+import { SCHEDULE_TYPE, alarmList, repeatList } from './constants';
 import { handleformattedDate } from '@/components/Account/PetInfoForm';
 import convertObjToDate from './AddSchedule/convertObjToDate';
-import { SCHEDULE_TYPE, alarmList, repeatList } from './constants';
+import { Body } from '@/constants/Typography/TypographyList';
+import TimeFormatter from './AddSchedule/TimeFormatter';
+import PickCalendar from './AddSchedule/PickCalendar';
+import { useModal } from '@/hooks/view/useModal';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import ScheduleLocationModal from './ScheduleLocationModal';
 import ScheduleAlarmModal from './ScheduleAlarmModal';
 import ScheduleRepeatModal from './ScheduleRepeatModal';
+import Button from '@/components/Button';
 import Input from '@/components/Input';
 import IconDown from '@/assets/images/icon-down.svg';
 import IconLocation from '@/assets/images/schedule/icon_location.svg';
-import { Body } from '@/constants/Typography/TypographyList';
-import TimeFormatter from './AddSchedule/TimeFormatter';
-import PickCalendar from './AddSchedule/PickCalendar';
-import Button from '@/components/Button';
 
 interface ScheduleFormProps {
   type: 'add' | 'update';
@@ -218,8 +219,7 @@ const ScheduleForm = ({
                 }));
               }}
               className={`flex justify-between items-center px-3 py-2 border rounded-t-lg 
-                ${isSetTimeOpen.start ? 'bg-primary-50 border-primary-500' : 'border-b-0 border-extra-border'}`
-              }
+                ${isSetTimeOpen.start ? 'bg-primary-50 border-primary-500' : 'border-b-0 border-extra-border'}`}
             >
               <span>시작</span>
               <TimeFormatter
@@ -245,8 +245,7 @@ const ScheduleForm = ({
                 }));
               }}
               className={`flex justify-between items-center px-3 py-2 border
-                ${isSetTimeOpen.end ? 'bg-primary-50 border-primary-500' : 'border-extra-border rounded-b-lg'}`
-              }
+                ${isSetTimeOpen.end ? 'bg-primary-50 border-primary-500' : 'border-extra-border rounded-b-lg'}`}
             >
               <span>종료</span>
               <TimeFormatter
