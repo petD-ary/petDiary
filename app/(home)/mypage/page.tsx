@@ -10,6 +10,7 @@ import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
 import NicknameChangeModal from '@/components/MyPage/NicknameChangeModal';
 import { useUser } from '@/hooks/queries/useUser';
+import WithdrawModal from '@/components/MyPage/WithdrawModal';
 
 const MyPage = () => {
   const router = useRouter();
@@ -26,6 +27,7 @@ const MyPage = () => {
       {data?.nickname && (
         <NicknameChangeModal initialNickname={data.nickname} />
       )}
+      <WithdrawModal />
 
       <div className='flex justify-between items-center'>
         <div>
@@ -50,7 +52,10 @@ const MyPage = () => {
           반려동물 수정
         </MyPageBtn>
         {/* <MyPageBtn>내가 쓴 글</MyPageBtn> */}
-        <div className='cursor-pointer w-full text-body2 text-text-tertiary px-3 py-4 text-center'>
+        <div
+          onClick={() => addModal(MODAL_TYPE.WITHDRAW)}
+          className='cursor-pointer w-full text-body2 text-text-tertiary px-3 py-4 text-center'
+        >
           회원 탈퇴
         </div>
       </div>

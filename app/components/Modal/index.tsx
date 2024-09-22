@@ -37,6 +37,7 @@ export const MODAL_TYPE = {
   INFO_SEARCH_DANGEROUS: 'infoSearchDangerous',
   INFO_SEARCH_SAFE: 'infoSearchSafe',
   NICKNAME_CHANGE: 'nicknameChange',
+  WITHDRAW: 'withdraw',
 };
 
 export type MODAL_TYPE = (typeof MODAL_TYPE)[keyof typeof MODAL_TYPE];

@@ -1,7 +1,4 @@
-'use client';
-
-import axios from 'axios';
-
+// redirect 를 위한 url 명시
 const origin =
   process.env.NODE_ENV === 'production'
     ? `?origin=${process.env.NEXT_PUBLIC_ORIGIN_URL}`
@@ -10,7 +7,10 @@ const origin =
 // 카카오톡
 const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
 const KAKAO_CALLBACK_URL = process.env.NEXT_PUBLIC_KAKAO_CALLBACK_URL + origin;
+const KAKAO_WITHDRAW_CALLBACK_URL =
+  process.env.NEXT_PUBLIC_KAKAO_WITHDRAW_CALLBACK_URL + origin;
 export const kakaolink = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_CALLBACK_URL}&response_type=code`;
+export const kakaoWithdrawlink = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_WITHDRAW_CALLBACK_URL}&response_type=code`;
 
 // 구글
 const GOOGLE_REST_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
