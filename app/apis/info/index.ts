@@ -2,6 +2,7 @@ import { SignalProps } from '@/components/Info/Signal';
 import fetchApi from '../fetchApi';
 import { FoodType } from '@/hooks/queries/useKnowledge';
 import { FoodProps } from '@/components/Info/DangerousFood';
+import { FoodCookType } from '@/recoil/Info/atoms';
 
 export const getKnowledgeDisease = async (
   sort: 'high' | 'low',
@@ -41,10 +42,7 @@ export const getKnowledgeSignalDetail = async (id: number) => {
   return res?.data as SignalProps;
 };
 
-export const getKnowledgeFood = async (
-  type: FoodType,
-  sort: 'high' | 'low',
-) => {
+export const getKnowledgeFood = async (type: FoodType, sort: FoodCookType) => {
   const url = `/knowledges/food?type=${type}&sort=cookedOrNot,${sort}`;
   const res = await fetchApi(url, 'GET');
   return res?.data as FoodProps[];

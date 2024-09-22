@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { MODAL_TYPE } from '../../Modal';
 import { useModal } from '@/hooks/view/useModal';
 import { filterState } from '@/recoil/Info/atoms';
-import { filterList, signalDepth } from './filterModalList';
+import { filterList, FilterType, signalDepth } from './filterModalList';
 import IconArrowDown from '@/assets/images/info/icon-arrowDown.svg';
 
 const Filter = ({
@@ -12,7 +12,7 @@ const Filter = ({
   filter,
 }: {
   modalType: MODAL_TYPE;
-  filter: 'petType' | 'signal' | 'signalDepth';
+  filter: FilterType;
 }) => {
   const { addModal } = useModal();
   const isSelected = useRecoilValue(filterState);
