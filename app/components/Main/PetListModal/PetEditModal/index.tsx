@@ -118,7 +118,7 @@ const PetEditModal = ({ data }: { data?: PetData }) => {
           deleteBtn={() => addModal(MODAL_TYPE.PET_DELETE)}
         />
       </div>
-      <PetDeleteModal petId={data.id} refetch={refetch} />
+      <PetDeleteModal petId={data.id} />
     </Modal>
   );
 };
