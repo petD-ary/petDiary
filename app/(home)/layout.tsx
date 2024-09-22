@@ -1,6 +1,5 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { ConfigProvider } from 'antd';
 import Script from 'next/script';
 
 import Navbar from '@/components/Navbar';
@@ -23,18 +22,16 @@ export default async function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
-        <ConfigProvider theme={{ hashed: false }}>
-          <QueryWrapper>
-            <RecoilRootWrapper>
-              <ToastProvider />
-              <div className='w-screen h-screen m-0 relative'>
-                <HeadingComponent />
-                <div className='h-[calc(100%-116px)]'>{children}</div>
-                <Navbar />
-              </div>
-            </RecoilRootWrapper>
-          </QueryWrapper>
-        </ConfigProvider>
+        <QueryWrapper>
+          <RecoilRootWrapper>
+            <ToastProvider />
+            <div className='w-screen h-screen m-0 relative'>
+              <HeadingComponent />
+              <div className='h-[calc(100%-116px)]'>{children}</div>
+              <Navbar />
+            </div>
+          </RecoilRootWrapper>
+        </QueryWrapper>
         <Script
           type='text/javascript'
           strategy='beforeInteractive'
