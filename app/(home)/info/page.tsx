@@ -46,7 +46,7 @@ const Knowledge = () => {
     <Fragment>
       <BreadCrumbs isSelected={tab} setTab={(tab) => setTab(tab)} />
       <div
-        className='w-full h-[calc(100%-104px)] overflow-y-scroll scrollbar-none'
+        className='w-full h-[calc(100%-112px)] overflow-y-scroll layout'
         ref={ref}
       >
         {tab === 'disease' && <Disease />}
