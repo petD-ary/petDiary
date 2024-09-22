@@ -59,7 +59,7 @@ const MonthSchedules = () => {
       <EditScheduleModal refetch={refetch} />
       <AddScheduleModal refetch={refetch} />
       {isSuccess && data.length === 0 && (
-        <NoContent className='h-[218px] px-5 py-[30px]'>
+        <NoContent className='!h-[218px] px-5 py-[30px]'>
           <NoContent.Desc>일일 일정이 없어요</NoContent.Desc>
           <NoContent.Button onClick={handleAddData}>
             일정 추가하기
