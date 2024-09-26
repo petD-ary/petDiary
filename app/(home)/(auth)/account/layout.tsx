@@ -6,7 +6,7 @@ const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Fragment>
       <AccountHeader />
-      <Container>{children}</Container>
+      <Container className='px-5'>{children}</Container>
     </Fragment>
   );
 };

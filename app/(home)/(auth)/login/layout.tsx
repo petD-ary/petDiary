@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Fragment>
-      <Container>{children}</Container>
+      <Container className='px-5'>{children}</Container>
     </Fragment>
   );
 };
