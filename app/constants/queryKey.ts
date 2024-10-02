@@ -6,3 +6,4 @@ export const querySignalDetailKey = ['signalDetail'];
 export const queryFoodKey = ['food'];
 export const queryFoodDetailKey = ['foodDetail'];
 export const queryPetInfoKey = ['petInfo'];
+export const queryUserKey = ['user'];

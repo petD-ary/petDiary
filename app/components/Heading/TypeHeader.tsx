@@ -65,9 +65,9 @@ export const AlertHeader = () => {
           height={logo.height}
         />
       </Link>
-      <IconBtnWrapper onClick={() => {}}>
+      {/* <IconBtnWrapper onClick={() => {}}>
         <IconBell />
-      </IconBtnWrapper>
+      </IconBtnWrapper> */}
     </div>
   );
 };

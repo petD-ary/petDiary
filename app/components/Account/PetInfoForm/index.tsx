@@ -3,10 +3,10 @@
 import { FormEvent, Fragment, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import updatedUserData from '@/components/Account/PetInfoForm/UpdatedUserData';
 import { nicknameState, petInfoState, stepState } from '@/recoil/Account/atoms';
-import Heading from '../Heading';
+import { updatedUserData } from '@/apis/users';
 import PetInfo from '@/components/PetInfo';
+import Heading from '../Heading';
 
 export interface PetObjProps {
   petType: string;
