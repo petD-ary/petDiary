@@ -86,10 +86,13 @@ export const useSignalDetail = (id: number) => {
 
 export type FoodType = 'dangerousFood' | 'safeFood';
 
-export const useFood = (query: { type: FoodType; sort?: FoodCookType }) => {
+export const useFood = (query: {
+  type: FoodType;
+  foodCookType?: FoodCookType;
+}) => {
   return useQuery(
-    [queryFoodKey, query.type, query.sort],
-    () => getKnowledgeFood(query.type, query.sort ?? 'cooking'),
+    [queryFoodKey, query.type, query.foodCookType],
+    () => getKnowledgeFood(query.type, query.foodCookType),
     {
       staleTime: 0,
       cacheTime: 5 * 60 * 1000,

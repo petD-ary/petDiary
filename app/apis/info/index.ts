@@ -42,8 +42,12 @@ export const getKnowledgeSignalDetail = async (id: number) => {
   return res?.data as SignalProps;
 };
 
-export const getKnowledgeFood = async (type: FoodType, sort: FoodCookType) => {
-  const url = `/knowledges/food?type=${type}&sort=cookedOrNot,${sort}`;
+export const getKnowledgeFood = async (
+  type: FoodType,
+  foodCookType?: FoodCookType,
+) => {
+  const cookTypeParam = foodCookType ? '&foodCookType=' + foodCookType : '';
+  const url = `/knowledges/food?type=${type}${cookTypeParam}`;
   const res = await fetchApi(url, 'GET');
   return res?.data as FoodProps[];
 };

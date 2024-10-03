@@ -4,8 +4,8 @@ import {
   PetType,
   RiskType,
   SignalType,
-  signalDepthType,
   FoodCookType,
+  SignalDepthType,
 } from '@/recoil/Info/atoms';
 
 export type FilterType = 'petType' | 'signal' | 'signalDepth' | 'food';
@@ -54,7 +54,7 @@ export const filterByTab: FilterByTabType[] = [
 export const filterList: {
   title: string;
   modalType: MODAL_TYPE;
-  option: { desc: string; value: PetType | SignalType | FoodCookType }[];
+  option: { desc: string; value?: PetType | SignalType | FoodCookType }[];
 }[] = [
   {
     title: '반려동물 구분',
@@ -81,6 +81,7 @@ export const filterList: {
     title: '필터',
     modalType: MODAL_TYPE.INFO_FILTER_FOOD_TYPE,
     option: [
+      { desc: '전체', value: undefined },
       { desc: '조리 필수', value: 'cooking' },
       { desc: '손질 필수', value: 'preparation' },
     ],
@@ -102,7 +103,7 @@ export const alignList: {
   },
 ];
 
-export const signalDepth: { desc: string; value: signalDepthType }[] = [
+export const signalDepth: { desc: string; value: SignalDepthType }[] = [
   { desc: '색상', value: 'Color' },
   { desc: '형태', value: 'Shape' },
 ];

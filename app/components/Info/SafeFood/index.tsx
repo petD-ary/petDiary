@@ -15,7 +15,7 @@ import Filter from '../Filter';
 
 const SafeFood = () => {
   const { food } = useRecoilValue(filterState);
-  const { data, isLoading } = useFood({ type: 'safeFood', sort: food });
+  const { data, isLoading } = useFood({ type: 'safeFood', foodCookType: food });
 
   return (
     <Fragment>
