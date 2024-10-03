@@ -58,7 +58,7 @@ const Disease = () => {
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
         <div className='flex justify-between items-center pb-4'>
           <div className='flex gap-3 items-center'>
-            <DocumentAmount amount={diseaseData?.length} />
+            <DocumentAmount amount={data?.pages[0].totalCount} />
             <Filter
               modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE}
               filter='petType'
