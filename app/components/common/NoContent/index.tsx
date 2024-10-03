@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
-import IconNoContent from '@/assets/images/icon-noContent.svg';
+import IconNoContent from '@/assets/images/icon-noContent.webp';
+import Image from 'next/image';
 
 /**
  * NoContent 컴포넌트
@@ -34,7 +35,12 @@ const NoContent = ({
     <div
       className={`w-full h-full flex flex-col justify-center items-center ${className}`}
     >
-      <IconNoContent />
+      <Image
+        src={IconNoContent.src}
+        alt='컨텐츠가 없어요.'
+        width={80}
+        height={80}
+      />
       {children}
     </div>
   );
