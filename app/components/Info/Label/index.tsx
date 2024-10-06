@@ -4,9 +4,9 @@ import React, { ReactNode } from 'react';
 const Label = ({ children }: { children?: ReactNode }) => {
   const variantOptions = [
     { red: ['3', '높음', '마른 상태', '부족', '비만', '초과', '위험', '빠름'] },
-    { green: ['1', '양호', '이상적', '적정', '권장'] },
+    { green: ['1', '양호', '이상적', '적정', '권장', '손질 필수'] },
     { yellow: ['저체중', '느림'] },
-    { blue: ['2', '주의', '필수'] },
+    { blue: ['2', '주의', '필수', '조리 필수'] },
     { magenta: ['과체중', '다소 과다'] },
   ];
 

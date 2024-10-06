@@ -13,7 +13,7 @@ export interface FoodProps {
   title: { [key: string]: string };
   summary: { [key: string]: string };
   petType: '강아지·고양이' | '강아지' | '고양이';
-  tag: { [key: string]: string } | null;
+  tag: { [key: string]: string[] } | null;
   createdAt: string;
   updatedAt: string;
 }
