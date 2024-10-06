@@ -21,7 +21,7 @@ const LoginPage = () => {
         </div>
       </div>
       <Container className='fixed left-1/2 bottom-0 -translate-x-1/2'>
-        <div className='flex flex-col gap-2 py-5'>
+        <div className='flex flex-col gap-2 py-5 max-w-[640px] mx-auto'>
           {socialLoginList.map(({ content, Icon, href, className }) => (
             <BtnSocialLogin
               className={`border ${className}`}
