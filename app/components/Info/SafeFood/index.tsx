@@ -3,29 +3,27 @@ import { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { MODAL_TYPE } from '@/components/Modal';
-import Align from '../Align';
-import { alignState } from '@/recoil/Info/atoms';
+import { filterState } from '@/recoil/Info/atoms';
 import { useFood } from '@/hooks/queries/useKnowledge';
-import ImportanceModal from '../Modal/ImportanceModal';
 import GoToSearch from '../Modal/SearchModal/GoToSearch';
 import { FoodProps } from '../DangerousFood';
 import Link from 'next/link';
 import Label from '../Label';
+import DocumentAmount from '../DocumentAmount';
+import FoodTypeModal from '../Modal/FoodTypeModal';
+import Filter from '../Filter';
 
 const SafeFood = () => {
-  const { importance } = useRecoilValue(alignState);
-  const { data, isLoading } = useFood({ type: 'safeFood', sort: importance });
+  const { food } = useRecoilValue(filterState);
+  const { data, isLoading } = useFood({ type: 'safeFood', foodCookType: food });
 
   return (
     <Fragment>
-      <ImportanceModal />
+      <FoodTypeModal />
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
-        <div className='flex gap-3 justify-end items-center pb-4'>
-          <div className='min-h-8 min-w-8' />
-          <Align
-            modalType={MODAL_TYPE.INFO_FILTER_IMPORTANCE}
-            align='importance'
-          />
+        <div className='flex gap-3 items-center pb-4 min-h-12'>
+          <DocumentAmount amount={data?.length} />
+          <Filter modalType={MODAL_TYPE.INFO_FILTER_FOOD_TYPE} filter='food' />
         </div>
         <GoToSearch tab='safeFood' />
       </div>

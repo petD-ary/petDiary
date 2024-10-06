@@ -5,14 +5,14 @@ import { signalDepth } from '../Filter/filterModalList';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import FilterList from '../Filter/FilterOption';
 import { useModal } from '@/hooks/view/useModal';
-import { filterState, signalDepthType } from '@/recoil/Info/atoms';
+import { filterState, SignalDepthType } from '@/recoil/Info/atoms';
 import Button from '@/components/Button';
 
 const SignalDepthModal = () => {
   const { removeModal } = useModal();
 
   const [filter, setFilter] = useRecoilState(filterState);
-  const [isSelected, setIsSelected] = useState<signalDepthType>(
+  const [isSelected, setIsSelected] = useState<SignalDepthType>(
     filter.signalDepth,
   );
 
@@ -27,7 +27,7 @@ const SignalDepthModal = () => {
           <FilterList
             key={option.value}
             isSelected={isSelected === option.value}
-            onClick={(value) => setIsSelected(value as signalDepthType)}
+            onClick={(value) => setIsSelected(value as SignalDepthType)}
             option={option}
           />
         ))}

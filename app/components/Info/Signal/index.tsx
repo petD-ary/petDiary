@@ -12,6 +12,7 @@ import { useSignal } from '@/hooks/queries/useKnowledge';
 import { SignalType } from '@/apis/info';
 import Loading from '@/components/Loading';
 import GoToSearch from '../Modal/SearchModal/GoToSearch';
+import DocumentAmount from '../DocumentAmount';
 
 export interface SignalProps {
   id: number;
@@ -51,6 +52,7 @@ const Signal = () => {
       <SignalDepthModal />
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
         <div className='flex gap-3 items-center pb-4'>
+          <DocumentAmount amount={data?.length} />
           <Filter modalType={MODAL_TYPE.INFO_FILTER_SIGNAL} filter='signal' />
           {signal === 'poop' && (
             <Filter

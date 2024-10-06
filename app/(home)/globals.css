@@ -6,6 +6,26 @@
   body {
     @apply relative;
   }
+
+  .layout::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .layout::-webkit-scrollbar-track {
+    /* background-color: rgba(0, 0, 0, 0); */
+    display: none;
+  }
+
+  .layout::-webkit-scrollbar-thumb {
+    background-color: #cfcfcf;
+    border-radius: 4px;
+    margin: 2px 0;
+  }
+
+  .layout::-webkit-scrollbar-button {
+    display: none;
+  }
+
   input {
     outline: none;
   }
@@ -68,20 +88,17 @@
     height: 40px;
   }
 
-  input[type=range] { 
+  input[type='range'] {
     @apply w-full h-2 mt-4 mb-4 appearance-none rounded-full;
-}
+  }
 
-input[type=range]::-webkit-slider-thumb { 
-  -webkit-appearance: none;
-  background: #ffffff;
-  cursor: pointer;
-  border: 1px solid rgba(0,0,0,0.15); 
-  height: 20px; 
-  width: 20px;   
-border-radius:20px;
-}
-
-
-
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+  }
 }

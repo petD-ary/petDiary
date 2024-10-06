@@ -28,7 +28,7 @@ export const MODAL_TYPE = {
   SCHEDULE_DETAIL: 'scheduleDetail',
   WALKING_INFO: 'workingInfo',
   INFO_FILTER_PET_TYPE: 'infoFilterPetType',
-  INFO_FILTER_IMPORTANCE: 'infoFilterImportance',
+  INFO_FILTER_FOOD_TYPE: 'infoFilterImportance',
   INFO_FILTER_SIGNAL: 'infoFilterSignal',
   INFO_FILTER_SIGNAL_DEPTH: 'infoFilterSignalDepth',
   INFO_FILTER_RISK: 'infoFilterRisk',

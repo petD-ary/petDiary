@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useFood } from '@/hooks/queries/useKnowledge';
 import GoToSearch from '../Modal/SearchModal/GoToSearch';
 import Label from '../Label';
+import DocumentAmount from '../DocumentAmount';
 
 export interface FoodProps {
   id: number;
@@ -23,8 +24,8 @@ const DangerousFood = () => {
   return (
     <Fragment>
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
-        <div className='flex gap-3 justify-end items-center pb-4'>
-          <div className='min-h-8 min-w-8' />
+        <div className='flex gap-3 items-center pb-4 min-h-12'>
+          <DocumentAmount amount={data?.length} />
         </div>
         <GoToSearch tab='dangerousFood' />
       </div>

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Label from '@/components/Info/Label';
 import useIntersectionObserver from '@/hooks/util/useIntersectionObserver';
 import GoToSearch from '../Modal/SearchModal/GoToSearch';
+import DocumentAmount from '../DocumentAmount';
 
 export interface DiseaseProps {
   id: number;
@@ -56,10 +57,13 @@ const Disease = () => {
       <ModalRisk />
       <div className='pt-3 px-5 md:pt-5 md:pb-2'>
         <div className='flex justify-between items-center pb-4'>
-          <Filter
-            modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE}
-            filter='petType'
-          />
+          <div className='flex gap-3 items-center'>
+            <DocumentAmount amount={data?.pages[0].totalCount} />
+            <Filter
+              modalType={MODAL_TYPE.INFO_FILTER_PET_TYPE}
+              filter='petType'
+            />
+          </div>
           <Align modalType={MODAL_TYPE.INFO_FILTER_RISK} align='risk' />
         </div>
         <GoToSearch tab='disease' />

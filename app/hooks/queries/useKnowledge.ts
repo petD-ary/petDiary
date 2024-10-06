@@ -15,7 +15,7 @@ import {
   querySignalDetailKey,
   querySignalKey,
 } from '@/constants/queryKey';
-import { PetType, RiskType } from '@/recoil/Info/atoms';
+import { FoodCookType, PetType, RiskType } from '@/recoil/Info/atoms';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useDisease = (query: { petType: PetType; risk: RiskType }) => {
@@ -86,10 +86,13 @@ export const useSignalDetail = (id: number) => {
 
 export type FoodType = 'dangerousFood' | 'safeFood';
 
-export const useFood = (query: { type: FoodType; sort?: 'high' | 'low' }) => {
+export const useFood = (query: {
+  type: FoodType;
+  foodCookType?: FoodCookType;
+}) => {
   return useQuery(
-    [queryFoodKey, query.type, query.sort],
-    () => getKnowledgeFood(query.type, query.sort ?? 'high'),
+    [queryFoodKey, query.type, query.foodCookType],
+    () => getKnowledgeFood(query.type, query.foodCookType),
     {
       staleTime: 0,
       cacheTime: 5 * 60 * 1000,

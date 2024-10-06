@@ -5,14 +5,14 @@ import { alignState } from '@/recoil/Info/atoms';
 import { useRecoilValue } from 'recoil';
 import { MODAL_TYPE } from '@/components/Modal';
 import { useModal } from '@/hooks/view/useModal';
-import { alignList } from '../Filter/filterModalList';
+import { alignList, AlignType } from '../Filter/filterModalList';
 
 const Align = ({
   modalType,
   align,
 }: {
   modalType: MODAL_TYPE;
-  align: 'importance' | 'risk';
+  align: AlignType;
 }) => {
   const { addModal } = useModal();
   const isSelected = useRecoilValue(alignState);
