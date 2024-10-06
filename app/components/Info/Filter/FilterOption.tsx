@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { PetType, SignalType, SignalDepthType } from '@/recoil/Info/atoms';
+import {
+  PetType,
+  SignalType,
+  SignalDepthType,
+  FoodCookType,
+} from '@/recoil/Info/atoms';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
@@ -10,8 +15,13 @@ const FilterOption = ({
   option,
 }: {
   isSelected: boolean;
-  onClick: (value: SignalType | PetType | SignalDepthType) => void;
-  option: { desc: string; value: SignalType | PetType | SignalDepthType };
+  onClick: (
+    value?: SignalType | PetType | SignalDepthType | FoodCookType,
+  ) => void;
+  option: {
+    desc: string;
+    value?: SignalType | PetType | SignalDepthType | FoodCookType;
+  };
 }) => {
   return (
     <div

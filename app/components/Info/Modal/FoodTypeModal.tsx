@@ -3,10 +3,10 @@ import { useRecoilState } from 'recoil';
 
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import { filterList } from '../Filter/filterModalList';
-import AlignOption from '../Align/AlignOption';
 import { useModal } from '@/hooks/view/useModal';
 import Button from '@/components/Button';
 import { FoodCookType, filterState } from '@/recoil/Info/atoms';
+import FilterOption from '../Filter/FilterOption';
 
 const FoodTypeModal = () => {
   const { removeModal } = useModal();
@@ -24,7 +24,7 @@ const FoodTypeModal = () => {
       <Modal.Header title={modalData.title} titleType='left' />
       <div className='px-5 pt-1 pb-5'>
         {modalData.option.map((option) => (
-          <AlignOption
+          <FilterOption
             key={option.value}
             isSelected={isSelected === option.value}
             onClick={(value) => setIsSelected(value as FoodCookType)}

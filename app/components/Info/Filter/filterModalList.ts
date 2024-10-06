@@ -91,7 +91,7 @@ export const filterList: {
 export const alignList: {
   title: string;
   modalType: MODAL_TYPE;
-  option: { desc: string; value: RiskType | FoodCookType }[];
+  option: { desc: string; value: RiskType }[];
 }[] = [
   {
     title: '정렬',
