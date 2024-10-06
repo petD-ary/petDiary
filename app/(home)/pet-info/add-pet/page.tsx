@@ -1,22 +1,33 @@
 'use client';
-import { FormEvent, Fragment } from 'react';
-import { useRecoilValue } from 'recoil';
+import { FormEvent, Fragment, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { addPet } from '@/apis/petData';
 import PetInfo from '@/components/PetInfo';
-import { petInfoState } from '@/recoil/Account/atoms';
+import { petInfoState, unknownBirthdayState } from '@/recoil/Account/atoms';
 import { Title } from '@/constants/Typography/TypographyList';
 import IconClose from '@/assets/images/icon-x.svg';
+import { usePetInfo } from '@/hooks/queries/usePetInfo';
 
 const AddPetPage = () => {
   const router = useRouter();
   const petInfo = useRecoilValue(petInfoState);
+  const resetPetInfo = useResetRecoilState(petInfoState);
+  const setUnknownBirthday = useResetRecoilState(unknownBirthdayState);
+  const { refetch } = usePetInfo();
+
+  useEffect(() => {
+    resetPetInfo();
+    setUnknownBirthday();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await addPet(petInfo);
     if (response?.status === 201) {
+      resetPetInfo();
+      refetch();
       router.back();
     }
   };

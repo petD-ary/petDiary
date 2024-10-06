@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { QueryObserverResult } from 'react-query';
 
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
 import PetInfo from '@/components/PetInfo';
@@ -12,16 +13,19 @@ import dog from '@/assets/images/profile/dog/dog1x.webp';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
 import PetDeleteModal from '../PetDeleteModal';
 import { updatePet } from '@/apis/petData';
-import { usePetInfo } from '@/hooks/queries/usePetInfo';
 
-const PetEditModal = ({ data }: { data?: PetData }) => {
-  const { refetch } = usePetInfo();
-  if (!data) return;
-
+const PetEditModal = ({
+  data,
+  refetch,
+}: {
+  data: PetData;
+  refetch: () => Promise<QueryObserverResult<any, any>>;
+}) => {
   const [petInfo, setPetInfo] = useRecoilState(petInfoState);
   const setUnknownBirthday = useSetRecoilState(unknownBirthdayState);
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const resetPetInfo = useResetRecoilState(petInfoState);
   const { addModal, removeModal } = useModal();
 
   const handleChangeImage = (event: ChangeEvent) => {
@@ -55,7 +59,8 @@ const PetEditModal = ({ data }: { data?: PetData }) => {
     const res = await updatePet(formData);
     if (res?.status === 200) {
       refetch();
-      return removeModal();
+      resetPetInfo();
+      removeModal();
     }
   };
 
@@ -64,26 +69,30 @@ const PetEditModal = ({ data }: { data?: PetData }) => {
 
     if (preview !== null) return preview;
 
-    return data.imageUrl ? data.imageUrl : defaultImage;
-  }, [preview, data.imageUrl, petInfo.petType]);
+    return data?.imageUrl ? data.imageUrl : defaultImage;
+  }, [preview, data?.imageUrl, petInfo.petType]);
 
   useEffect(() => {
-    const petInfo = {
-      petType: data.petType,
-      breed: data.breed,
-      name: data.name,
-      gender: data.gender,
-      neutered: data.neutered,
-      birthday: data.birthday,
-      adoptionDate: data.adoptionDate,
-      weight: data.weight,
-    };
+    if (data) {
+      const petInfo = {
+        petType: data.petType,
+        breed: data.breed,
+        name: data.name,
+        gender: data.gender,
+        neutered: data.neutered,
+        birthday: data.birthday,
+        adoptionDate: data.adoptionDate,
+        weight: data.weight,
+      };
 
-    if (data.birthday === '') {
-      setUnknownBirthday(true);
+      if (data.birthday === '') {
+        setUnknownBirthday(true);
+      } else {
+        setUnknownBirthday(false);
+      }
+
+      setPetInfo(petInfo);
     }
-
-    setPetInfo(petInfo);
   }, [data]);
 
   return (
@@ -118,7 +127,7 @@ const PetEditModal = ({ data }: { data?: PetData }) => {
           deleteBtn={() => addModal(MODAL_TYPE.PET_DELETE)}
         />
       </div>
-      <PetDeleteModal petId={data.id} />
+      {data && <PetDeleteModal id={data.id} refetch={refetch} />}
     </Modal>
   );
 };

@@ -1,11 +1,11 @@
 'use client';
+import { useMemo } from 'react';
+import Image from 'next/image';
 
 import { PetData } from '@/types/petData';
-import Image from 'next/image';
+
 import dog from '@/assets/images/profile/dog/dog1x.webp';
-import dogPng from '@/assets/images/profile/dog/dog.png';
 import cat from '@/assets/images/profile/cat/cat1x.webp';
-import catPng from '@/assets/images/profile/cat/cat.png';
 import { calculateAge, convertKoreanDateFormat } from '@/utils/calculateDay';
 import {
   Caption,
@@ -14,7 +14,6 @@ import {
 } from '@/constants/Typography/TypographyList';
 import { useModal } from '@/hooks/view/useModal';
 import { MODAL_TYPE } from '@/components/Modal';
-import { useMemo } from 'react';
 
 const EditBtn = ({ onClick }: { onClick?: () => void }) => {
   return (
@@ -53,15 +52,18 @@ const PetListCard = ({
         />
       </div>
       <div className='flex-grow'>
-        <p
-          className={`px-2 py-[6px] ${Extra} text-primary-500 bg-primary-50 rounded-md inline-block`}
-        >
-          {convertKoreanDateFormat(data.birthday)}생
-        </p>
+        {data.birthday && (
+          <p
+            className={`px-2 py-[6px] ${Extra} text-primary-500 bg-primary-50 rounded-md inline-block`}
+          >
+            {convertKoreanDateFormat(data.birthday)}생
+          </p>
+        )}
         <p className={`${SubTitle.subTitle2} text-text-title truncate`}>
           {data.name}
           <span className='text-text-secondary pl-2'>
-            {data.breed} / {calculateAge(data.birthday)}살
+            {data.breed}
+            {data.birthday && <span> / {calculateAge(data.birthday)}살</span>}
           </span>
         </p>
       </div>
