@@ -13,7 +13,7 @@ import Loading from '@/components/Loading';
 const PetInfoPage = () => {
   const router = useRouter();
   const [selectedData, setSelectedData] = useState<number | null>(null);
-  const { data: petData, isSuccess } = usePetInfo();
+  const { data: petData, isSuccess, refetch } = usePetInfo();
 
   if (!isSuccess) return <Loading />;
 
@@ -42,9 +42,10 @@ const PetInfoPage = () => {
             />
           ))}
 
-          {selectedData ? (
+          {selectedData && petData ? (
             <PetEditModal
-              data={petData?.filter((item) => item.id === selectedData)[0]}
+              data={petData.filter((item) => item.id === selectedData)[0]}
+              refetch={refetch}
             />
           ) : null}
         </div>

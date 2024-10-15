@@ -1,25 +1,41 @@
 import React from 'react';
+import { QueryObserverResult } from 'react-query';
+import { useResetRecoilState } from 'recoil';
 
 import { deletePet } from '@/apis/petData';
 import Button from '@/components/Button';
 import Modal, { MODAL_TYPE, MODAL_VARIANT } from '@/components/Modal';
-import { usePetInfo } from '@/hooks/queries/usePetInfo';
 import { useModal } from '@/hooks/view/useModal';
+import { petInfoState } from '@/recoil/Account/atoms';
 
-const PetDeleteModal = ({ petId }: { petId: number }) => {
+const PetDeleteModal = ({
+  id,
+  refetch,
+}: {
+  id?: number;
+  refetch: () => Promise<QueryObserverResult<any, any>>;
+}) => {
   const { removeModal } = useModal();
-  const { refetch } = usePetInfo();
+  const resetPetInfo = useResetRecoilState(petInfoState);
 
   const handleDeletePet = async () => {
-    const response = await deletePet(petId);
+    if (!id) return;
+    const response = await deletePet(id);
     if (response?.status === 200) {
-      refetch();
+      resetPetInfo();
       // 삭제 확인 모달 종료
       removeModal();
       // 반려동물 수정 모달 종료
       removeModal();
+      refetch();
     }
   };
+
+  const handleReset = () => {
+    resetPetInfo();
+    removeModal();
+  };
+
   return (
     <Modal type={MODAL_TYPE.PET_DELETE} variant={MODAL_VARIANT.CARD}>
       <p className='text-center pt-10 pb-6'>
@@ -28,14 +44,10 @@ const PetDeleteModal = ({ petId }: { petId: number }) => {
         삭제된 정보는 복구 불가합니다
       </p>
       <div className='flex w-full justify-between gap-3 p-4'>
-        <Button variant='reset' type='reset' onClick={() => removeModal()}>
+        <Button variant='reset' type='reset' onClick={handleReset}>
           아니요
         </Button>
-        <Button
-          variant='outlined'
-          type='button'
-          onClick={() => handleDeletePet()}
-        >
+        <Button variant='outlined' type='button' onClick={handleDeletePet}>
           네
         </Button>
       </div>
