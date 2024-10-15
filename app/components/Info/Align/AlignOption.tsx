@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ImportanceType, RiskType } from '@/recoil/Info/atoms';
+import { RiskType } from '@/recoil/Info/atoms';
 import Radio from '@/assets/images/buttons-radio-m.svg';
 import RadioDisabled from '@/assets/images/buttons-radio-m-disable.svg';
 
@@ -10,8 +10,8 @@ const AlignOption = ({
   option,
 }: {
   isSelected: boolean;
-  onClick: (value: ImportanceType | RiskType) => void;
-  option: { desc: string; value: ImportanceType | RiskType };
+  onClick: (value: RiskType) => void;
+  option: { desc: string; value: RiskType };
 }) => {
   return (
     <div

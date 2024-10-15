@@ -45,9 +45,13 @@ const SafeFood = () => {
                 </p>
                 <div className='flex items-center gap-2 text-caption2 font-medium text-text-primary'>
                   {data.petType && <span>{data.petType}</span>}
-                  {data.tag ? (
-                    <Label>{data.tag[Object.keys(data.tag)[0]]}</Label>
-                  ) : null}
+                  {data.tag
+                    ? data.tag[Object.keys(data.tag)[0]].map((tag) => (
+                        <Label>
+                          {tag === 'cooking' ? '조리 필수' : '손질 필수'}
+                        </Label>
+                      ))
+                    : null}
                 </div>
               </Link>
             );
