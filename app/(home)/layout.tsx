@@ -40,6 +40,22 @@ export default async function RootLayout({
 }) {
   return (
     <html lang='ko'>
+      <head>
+        {/* Google Analytics or Google Tag Manager */}
+        <Script
+          async
+          src='https://www.googletagmanager.com/gtag/js?id=G-THLG446S6C'
+          strategy='afterInteractive'
+        />
+        <Script id='gtag-init' strategy='afterInteractive'>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-THLG446S6C');
+          `}
+        </Script>
+      </head>
       <body className={`${pretendard.className} scrollbar-none min-h-screen`}>
         <QueryWrapper>
           <RecoilRootWrapper>
